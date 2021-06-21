@@ -7,6 +7,17 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Proyecto BFX
+
+### Instalación
+
+- **composer install**
+- **npm install**
+- **php artisan key:generate**
+
+Descargar e importar en bd valdusof_hdlr.sql
+Colocar datos de MySQL en .env
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
@@ -60,13 +71,3 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## Proyecto BFX
-
-### Instalación
-
-- **composer install**
-- **npm install**
-- **php artisan key:generate**
-
-Descargar e importar en bd valdusof_hdlr.sql
-Colocar datos de MySQL en .env
