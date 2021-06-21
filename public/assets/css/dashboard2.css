@@ -1,0 +1,40 @@
+.headerBalance{
+    background: #46B0FE;
+    color: #ffffff;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.bg-purple-alt{
+    background: #188EFF !important;
+}
+
+.bg-purple-alt2{
+    background: #188EFF !important;
+}
+
+.bg-red-alt{
+    background: #46B0FE !important;
+}
+
+.pagination .page-item.active .page-link{
+    background: #46B0FE !important;
+}
+
+.text-red-alt{
+    color: #46B0FE !important;
+}
+
+.padding-button-short{
+    padding: 0.6rem 2rem !important;
+}
+
+.divide-dashboard-title{
+    padding: 20px;
+    text-align: center;
+    background: #eeeeee;
+}
+
+.main-menu.bg-purple-alt.menu-light .navigation > li.open > a{
+    background: #188EFF !important;
+}
