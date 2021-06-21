@@ -61,10 +61,12 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 #Proyecto BFX
+
 ##Instalación
-** composer install **
-** npm install **
-** php artisan key:generate **
+
+- **composer install**
+- **npm install**
+- **php artisan key:generate**
 
 Descargar e importar en bd valdusof_hdlr.sql
 Colocar datos de MySQL en .env
