@@ -79,12 +79,7 @@ $referred = DB::table('users')
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        {{-- campo referido --}}
-                        @if ( request()->referred_id != null )
-                        <input type="hidden" name="referred_id" value="{{request()->referred_id}}">
-                        @else
-                        <input type="hidden" name="referred_id" value="1">
-                        @endif
+
 
                         <div class="form-group row">
 
@@ -138,6 +133,24 @@ $referred = DB::table('users')
                                     placeholder="confirme su contraseña">
                             </div>
                         </div>
+
+                        {{-- campo referido --}}
+                        @if ( request()->referred_id != null )
+                        <label for="referred_id">Auspiciante</label>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                {{-- El campo disabled es read-only, no emite el value --}}
+                                <input type="text" name="referred_id" id="referred_id" value="{{request()->referred_id}}" 
+                                class="form-control" disabled>
+
+                                {{-- Por ello esta el campo tipo "hidden" para agregar el valor al registro --}}
+                                <input type="hidden" name="referred_id" id="referred_id" value="{{request()->referred_id}}" 
+                                class="form-control">
+                            </div>
+                        </div>
+                        @else
+                        <input type="hidden" name="referred_id" value="1">
+                        @endif
 
                         <div class="form-group row mb-0">
                             <div class="col-12">
