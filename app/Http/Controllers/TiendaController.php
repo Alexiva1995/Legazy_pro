@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Groups;
 use App\Models\OrdenPurchases;
 use App\Models\Packages;
+use App\Models\User;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 
 
 class TiendaController extends Controller
@@ -69,40 +72,50 @@ class TiendaController extends Controller
      */
     public function procesarOrden(Request $request)
     {
-        $validate = $request->validate([
-            'idproduct' => 'required'
-        ]);
 
-        try {
-            if ($validate) {
-                $paquete = Packages::find($request->idproduct);
+        //Obtener el valor de la direccion de billetera del usuario logueado
+        $check_wallet = DB::table('users')
+            ->where('id', '=', Auth::user()->id)->value('wallet_address');
 
-                $porcentaje = ($paquete->price * 0.03);
-                $total = ($paquete->price + $porcentaje);
-                
-                $data = [
-                    'iduser' => Auth::id(),
-                    'group_id' => $paquete->getGroup->id,
-                    'package_id' => $paquete->id,
-                    'cantidad' => 1,
-                    'total' => $total
-                ];
+        if($check_wallet != null || $check_wallet != ''){//Validar si usuario tiene la wallet registrada.
+            
+            $validate = $request->validate([
+                'idproduct' => 'required'
+            ]);
 
-                $data['idorden'] = $this->saveOrden($data);
-                $data['descripcion'] = $paquete->description;
-                $url = $this->generalUrlOrden($data);
-                if (!empty($url)) {
-                    return redirect($url);
+            try {
+                if ($validate) {
+                    $paquete = Packages::find($request->idproduct);
 
-                }else{
-                    OrdenPurchases::where('id', $data['idorden'])->delete();
-                    return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
+                    $porcentaje = ($paquete->price * 0.03);
+                    $total = ($paquete->price + $porcentaje);
+                    
+                    $data = [
+                        'iduser' => Auth::id(),
+                        'group_id' => $paquete->getGroup->id,
+                        'package_id' => $paquete->id,
+                        'cantidad' => 1,
+                        'total' => $total
+                    ];
+
+                    $data['idorden'] = $this->saveOrden($data);
+                    $data['descripcion'] = $paquete->description;
+                    $url = $this->generalUrlOrden($data);
+                    if (!empty($url)) {
+                        return redirect($url);
+
+                    }else{
+                        OrdenPurchases::where('id', $data['idorden'])->delete();
+                        return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
+                    }
                 }
+            } catch (\Throwable $th) {
+                Log::error('Tienda - procesarOrden -> Error: '.$th);
+                abort(403, "Ocurrio un error, contacte con el administrador");
             }
-        } catch (\Throwable $th) {
-            Log::error('Tienda - procesarOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+        } 
+        return redirect()->back()->with('msj-warning', 'Necesita registrar su billetera para poder continuar con la operación.');
+        
     }
 
     /**
