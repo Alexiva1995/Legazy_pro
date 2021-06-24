@@ -61,7 +61,7 @@ class Menu
             // Negocio
             'Negocio' => [
                 'submenu' => 1,
-                'ruta' => route('shop'),
+                'ruta' => route('group.index'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-briefcase',
                 'complementoruta' => '',

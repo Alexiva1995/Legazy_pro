@@ -62,9 +62,14 @@ class UserController extends Controller
 
         $user = User::find(Auth::user()->id);
 
-        $fields = [      ];
+        $fields = [   
+            "wallet_address" => ['string', 'min:21', 'max:35'],
+        ];
 
-        $msj = [    ];
+        $msj = [  
+            "wallet_address.min" => 'La dirección de la billetera debe tener un minimo de 21 caracteres',
+            "wallet_address.max" => 'La dirección de la billetera no puede tener mas de 35 caracteres',
+        ];
 
         $this->validate($request, $fields, $msj);
 
