@@ -13,12 +13,10 @@
                                 <tr class="text-center text-white bg-purple-alt2">                                
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Grupo</th>
                                     <th>Paquete</th>
-                                    <th>ID de Transación</th>
-                                    <th>Monto</th>
-                                    <th>Estado</th>
                                     <th>Fecha de Creación</th>
+                                    <th>Monto</th>
+                                    <th>Estado</th>      
                                 </tr>
 
                             </thead>
@@ -28,9 +26,10 @@
                                 <tr class="text-center">
                                     <td>{{$orden->id}}</td>
                                     <td>{{$orden->name}}</td>
-                                    <td>{{$orden->grupo}}</td>
-                                    <td>{{$orden->paquete}}</td>
-                                    <td>{{$orden->idtransacion}}</td>
+                                    {{-- <td>{{$orden->grupo}}</td> --}}
+                                    <td>{{$orden->paquete}}
+                                    <td>{{date('Y-m-d', strtotime($orden->created_at))}}</td>
+                                    {{-- <td>{{$orden->idtransacion}}</td> --}}
                                     <td>{{$orden->total}}</td>
 
                                     @if ($orden->status == '0')
@@ -41,7 +40,7 @@
                                     <td> <a class=" btn btn-danger text-white text-bold-600">Cancelado</a></td>
                                     @endif
 
-                                    <td>{{date('Y-m-d', strtotime($orden->created_at))}}</td>
+                                    
                                 </tr>
                                 @endforeach
                                
