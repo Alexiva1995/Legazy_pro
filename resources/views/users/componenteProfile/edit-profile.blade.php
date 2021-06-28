@@ -105,6 +105,40 @@
         </div>
     </div>
     <hr>
+
+        <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <div class="controls">
+                    <h2 class="font-weight-bold">Dirección de Billetera </h2>
+                </div>
+            </div>
+        </div>
+  
+        <div class="col-12">
+            <div class="form-group">
+                <div class="controls">
+                    <label class="required" for="wallet_address">Billetera USDT</label>
+                    <input type="text"
+                        class="form-control @error('wallet_address') is-invalid @enderror"
+                        id="wallet_address" name="wallet_address" placeholder="Dirección de Billetera"
+                        value="{{ $user->wallet_address }}">
+                    @error('wallet_address')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mb-2">
+            <a href="https://accounts.binance.com/es/register" target="_blank"
+            class="waves-effect waves-light"> <b>¿No tiene billetera? Abre una cuenta en binance</b></a>
+        </div>
+
+    </div>
+
     <div class="row">
         <div class="col-12">
             <div class="form-group">

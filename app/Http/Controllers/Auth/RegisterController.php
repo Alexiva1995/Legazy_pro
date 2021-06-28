@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::KYC;
+    protected $redirectTo = RouteServiceProvider::USER_PROFILE;
 
     public $treeController;
 

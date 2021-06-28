@@ -81,13 +81,13 @@ $(document).ready(function() {
                                 Cambiar la contraseña
                             </a>
                         </li>
-                        <li class="nav-item">
+  {{--                         <li class="nav-item">
                             <a class="nav-link d-flex py-75"
                                 href="{{ route('kyc') }}">
                                 <i class="feather icon-file-text mr-50 font-medium-3"></i>
                                 Verificar KYC
                             </a>
-                        </li>
+                        </li> --}}
 
                         {{-- <li class="nav-item">
                             <a class="nav-link d-flex py-75"
