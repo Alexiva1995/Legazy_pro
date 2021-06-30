@@ -194,7 +194,7 @@ class Menu
                     [
                         'name' => 'Paquetes',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('package.index'),
+                        'ruta' => route('products.package-list'),
                         'complementoruta' => ''
                     ],
                     [

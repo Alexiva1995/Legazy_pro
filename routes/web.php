@@ -100,6 +100,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
             Route::resource('group', 'GroupsController');
             //Rutas para los paquetes
             Route::resource('package', 'PackagesController');
+            Route::get('package-list', 'PackagesController@package')->name('products.package-list');
         }); 
 
          //Ruta de liquidacion 
