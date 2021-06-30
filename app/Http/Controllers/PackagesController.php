@@ -172,4 +172,18 @@ class PackagesController extends Controller
         }
     }
 
+
+
+
+
+
+
+    public function package()
+    {
+
+        $package = Packages::all();
+
+        return view('shop.products')->with('package', $package);
+    }
+
 }

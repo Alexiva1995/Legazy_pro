@@ -156,7 +156,7 @@ class Menu
             // Paquetes
             'Paquetes' => [
                 'submenu' => 0,
-                'ruta' => route('package.index'),
+                'ruta' => route('products.package-list'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-archive',
                 'complementoruta' => '',

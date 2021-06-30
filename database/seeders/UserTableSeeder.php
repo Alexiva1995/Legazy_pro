@@ -13,20 +13,37 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        try {
-            User::create([
+
+
+        $arrayUsers = [
+            
+            [
+                'id' => '1',
                 'name' => 'Admin',
-                'last_name' => 'HDLR',
-                'fullname' => 'Admin HDLR',
-                'email' => 'admin@hdlr.com',
-                'admin' => 1,
-                'password' => Hash::make('12345678'),
-                'whatsapp' => '23423423423432',
+                'last_name' => 'BFX',
+                'fullname' => 'Admin BFX',
+                'email' => 'admin@bfx.com',
+                'password' => Hash::make('123456789'),
+                'whatsapp' => '123456789',
+                'admin' => '1',
                 'referred_id' => 0,
-            ]);
-        } catch (\Throwable $th) {
-            dd($th);
-            //throw $th;
-        }
+            ],
+            [
+                'id' => '2',
+                'name' => 'Test',
+                'last_name' => 'BFX',
+                'fullname' => 'Test BFX',
+                'email' => 'test@bfx.com',
+                'password' => Hash::make('123456789'),
+                'whatsapp' => '123456789',
+                'referred_id' => 1,
+            ],
+
+          
+    ];
+    foreach ($arrayUsers as $users ) {
+        User::create($users);
+    }
+
     }
 }
