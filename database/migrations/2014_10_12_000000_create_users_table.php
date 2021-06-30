@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->double('wallet')->default(0);
             $table->enum('admin', [0, 1])->default(0)->comment('permite saber si un usuario es admin o no');
             $table->enum('status', [0, 1, 2])->default(0)->comment('0 - inactivo, 1 - activo, 2 - eliminado');
-            $table->enum('verify', [0, 1])->default(0)->comment('permite saber si un usuario esta verificado o no');
+            // $table->enum('verify', [0, 1])->default(0)->comment('permite saber si un usuario esta verificado o no');
             $table->bigInteger('referred_id')->default(1)->comment('ID del usuario patrocinador');
             $table->bigInteger('binary_id')->default(1)->comment('ID del usuario binario');
             $table->enum('binary_side', ['I', 'D'])->nullable()->comment('Permite saber si esta en la derecha o izquierda en el binario');

@@ -74,7 +74,7 @@ class User extends Authenticatable
      */
     public function getUserOrden()
     {
-        return $this->hasMany('App\Models\OrdenPurchases', 'iduser');
+        return $this->belongsTo('App\Models\OrdenPurchases', 'id', 'iduser');
     }
 
     public function sendPasswordResetNotification($token)

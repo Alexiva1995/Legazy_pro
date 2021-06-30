@@ -28,6 +28,7 @@ class UserTableSeeder extends Seeder
                 'admin' => '1',
                 'referred_id' => 0,
             ],
+            
             [
                 'id' => '2',
                 'name' => 'Test',

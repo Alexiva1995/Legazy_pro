@@ -174,7 +174,7 @@ class Menu
                     [
                         'name' => 'Usuarios',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_list_network', 'network'),
+                        'ruta' => route('users.list-user'),
                         'complementoruta' => ''
                     ],
                     [
