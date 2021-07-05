@@ -9,28 +9,6 @@
 @section('content')
 
 <div class="padre">
-    <div class="card d-none shadow-lg" style="margin-bottom: 0px;" id="tarjeta">
-        <div class="card-body p-1">
-            <div class="row no-gutters">
-                <div class="col-4">
-                    <img class="float-left rounded-circle shadow-lg" id="imagen" width="96" height="96">
-                </div>
-                <div class="col-8">
-                    <div class="ml-1"><span class="font-weight-bold">Nombre:</span> <span id="nombre"></span></div>
-
-                    <div class="ml-1"><span class="font-weight-bold">Inversion:</span> <span id="inversion"></span>
-                    </div>
-
-                    <div class="ml-1 mb-1"><span class="font-weight-bold">Estado:</span> <span id="estado"></span></div>
-
-                    <div class="ml-1"><a id="ver_arbol" class="btn btn-primary btn-sm btn-block" href=>Ver arbol</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
     @if (Auth::user()->admin == 1)
     <div class="card">
@@ -58,6 +36,31 @@
         <span class="text-dark rounded border-primary p-1 float-right">Puntos Derechos:
             <strong>{{$base->puntosder}}</strong></span>
     </div>
+
+
+
+    <div class="card d-none shadow-lg" style="margin-bottom: 0px;" id="tarjeta">
+        <div class="card-body p-1">
+            <div class="row no-gutters">
+                <div class="col-4">
+                    <img class="float-left rounded-circle shadow-lg" id="imagen" width="96" height="96">
+                </div>
+                <div class="col-8">
+                    <div class="ml-1"><span class="font-weight-bold">Nombre:</span> <span id="nombre"></span></div>
+
+                    <div class="ml-1"><span class="font-weight-bold">Inversion:</span> <span id="inversion"></span>
+                    </div>
+
+                    <div class="ml-1 mb-1"><span class="font-weight-bold">Estado:</span> <span id="estado"></span></div>
+
+                    <div class="ml-1"><a id="ver_arbol" class="btn btn-primary btn-sm btn-block" href=>Ver arbol</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <ul>
         <li class="baseli px-0" style="width:100%;">
