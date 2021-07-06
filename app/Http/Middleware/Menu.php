@@ -118,7 +118,7 @@ class Menu
                         'name' => 'Wallet',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('home.user'),
-                        'complementoruta' => '' 
+                        'complementoruta' => ''
                     ],
                     [
                         'name' => 'Retiros',
@@ -150,7 +150,7 @@ class Menu
             ],
             // Fin Soporte
         ];
-        
+
     }
 
     /**
@@ -260,13 +260,13 @@ class Menu
                     [
                         'name' => 'Por confirmar',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_list_network', 'direct'),
+                        'ruta' => route('settlement.pending'),
                         'complementoruta' => ''
                     ],
                     [
                         'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_list_network', 'direct'),
+                        'ruta' => route('settlement.history.status', 'Pagadas'),
                         'complementoruta' => ''
                     ],
                 ],
