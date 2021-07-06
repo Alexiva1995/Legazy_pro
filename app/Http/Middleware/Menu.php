@@ -19,7 +19,7 @@ class Menu
     {
         $menu = null;
         if (Auth::check()) {
-            $menu = $this->menuUsuario(); 
+            $menu = $this->menuUsuario();
             if (Auth::user()->admin == 1) {
                 $menu = $this->menuAdmin();
             }
@@ -79,7 +79,25 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Inversiones',
+                        'name' => 'Referidos en Red',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('genealogy_list_network', 'network'),
+                        'complementoruta' => ''
+                    ],
+                ],
+            ],
+            // Fin Organización
+
+            //Inverisones
+            'Inverisones' => [
+                'submenu' => 1,
+                'ruta' => 'javascript:;',
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-activity',
+                'complementoruta' => '',
+                'submenus' => [
+                    [
+                        'name' => 'Activas',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('home.user'),
                         'complementoruta' => ''
@@ -115,7 +133,17 @@ class Menu
             // Soporte
             'Soporte' => [
                 'submenu' => 0,
-                'ruta' => route('home'),
+                'ruta' => route('reports.pedidos'),
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-clipboard',
+                'complementoruta' => '',
+            ],
+            // Fin historial de ordenes
+
+            // tickets
+              'Tickets' => [
+                'submenu' => 0,
+                'ruta' => '',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',
@@ -124,7 +152,7 @@ class Menu
         ];
         
     }
-    
+
     /**
      * Permite Obtener el menu del admin
      *
@@ -133,6 +161,19 @@ class Menu
     public function menuAdmin()
     {
         return [
+
+            // tickets
+            'Tickets' => [
+                'submenu' => 0,
+                'ruta' => '',
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-tag',
+                'complementoruta' => '',
+            ],
+            // Fin tickets
+
+
+
             // Inicio
             'Dashboard' => [
                 'submenu' => 0,
@@ -201,10 +242,9 @@ class Menu
                 'icon' => 'feather icon-dollar-sign',
                 'complementoruta' => '',
             ],
-            // Fin Inversiones
-
-            // Retiros
-            'Retiros' => [
+            // Fin Cierre Comisiones
+            // Liquidaciones
+            'Pagos' => [
                 'submenu' => 1,
                 'ruta' => route('home'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -212,13 +252,19 @@ class Menu
                 'complementoruta' => '',
                 'submenus' => [
                     [
-                        'name' => 'Confirmados',
+                        'name' => 'Retiros',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('settlement'),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Por confirmar',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('genealogy_list_network', 'direct'),
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Por confirmar',
+                        'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('genealogy_list_network', 'direct'),
                         'complementoruta' => ''

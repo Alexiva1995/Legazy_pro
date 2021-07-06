@@ -33,21 +33,27 @@
                         <h1>Lista de Paquetes</h1>
                         <p>Para ver mas información dar click -> <img src="{{asset('assets/img/sistema/btn-plus.png')}}" alt=""></p>
                         <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
-                            
+
                             <thead class="">
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>#</th>
                                     <th>Nombre</th>
                                     <th>Precio</th>
+                                    <th></th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                 @foreach ($package as $item)
+                                 @foreach ($services as $item)
                                 <tr class="text-center">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->name}}</td>
                                     <td>{{ $item->price}}</td>
+                                   {{--    <td class="btn btn-relief-success">
+
+                                 <a href="{{route('shop.procces',$item->id)}}">buy</a>
+
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                             </tbody>

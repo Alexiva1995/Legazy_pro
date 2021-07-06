@@ -4,6 +4,7 @@
 @section('content')
 <div class="col-12">
     <div class="card">
+        <h1>hola</h1>
         <div class="card-content">
             <div class="card-body card-dashboard">
                 <div class="table-responsive">

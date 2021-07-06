@@ -21,14 +21,14 @@ class TiendaController extends Controller
 
     public function __construct()
     {
-        $this->apis_key_nowpayments = 'DV2D091-26V48MG-NDRX33X-7F5EJT7';
+        $this->apis_key_nowpayments = 'YH0WTN1-5T64QQC-MRVZZPE-0DSX41R';
     }
-    
+
     /**
      * Lleva a la vista de la tienda
      *
      * @return void
-     */ 
+     */
     public function index()
     {
         try {
@@ -56,7 +56,6 @@ class TiendaController extends Controller
             View::share('titleg', 'Tienda - Productos');
             $category = Groups::find($idgroup);
             $services = $category->getPackage->where('status', 1);
-
             return view('shop.products', compact('services'));
         } catch (\Throwable $th) {
             Log::error('Tienda - products -> Error: '.$th);
@@ -119,7 +118,7 @@ class TiendaController extends Controller
     }
 
     /**
-     * Guarda la informacion de las ordenes nuevas 
+     * Guarda la informacion de las ordenes nuevas
      *
      * @param array $data
      * @return integer
@@ -144,13 +143,13 @@ class TiendaController extends Controller
     }
 
     /**
-     * Permite recibir el estado de las ordenes 
+     * Permite recibir el estado de las ordenes
      *
      * @param Request $resquet
      * @return void
      */
     public function ipn(Request $resquet)
-    { 
+    {
         Log::info('ipn prueba ->', $resquet);
     }
 
@@ -168,7 +167,7 @@ class TiendaController extends Controller
                 'Content-Type:application/json'
             ];
 
-            $resul = ''; 
+            $resul = '';
             $curl = curl_init();
 
             $dataRaw = collect([
@@ -181,7 +180,7 @@ class TiendaController extends Controller
                 "success_url" => route('shop.proceso.status', 'Completada'),
                 "cancel_url" => route('shop.proceso.status', 'Cancelada')
             ]);
-            
+
 
             curl_setopt_array($curl, array(
                 CURLOPT_URL => "https://api.nowpayments.io/v1/invoice",
@@ -194,18 +193,18 @@ class TiendaController extends Controller
                 CURLOPT_POSTFIELDS => $dataRaw->toJson(),
                 CURLOPT_HTTPHEADER => $headers
             ));+-
-                
+dd($curl);
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
                 curl_close($curl);
                 if ($err) {
-                    Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);        
+                    Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
                 } else {
                     $response = json_decode($response);
                     OrdenPurchases::where('id', $data['idorden'])->update(['idtransacion' => $response->id]);
                     $resul = $response->invoice_url;
                 }
-                  
+
             return $resul;
         } catch (\Throwable $th) {
             Log::error('Tienda - generalUrlOrden -> Error: '.$th);
