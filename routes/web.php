@@ -62,10 +62,10 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('/update/{side}/binary', 'HomeController@updateSideBinary')->name('ajax.update.side.binary');
     });
 
-    
+
     //Ruta para los usuarios
     Route::prefix('user')->group(function(){
-    
+
         Route::get('kyc', 'UserController@kyc')->name('kyc');
 
         Route::get('profile', 'UserController@editProfile')->name('profile');
@@ -92,19 +92,19 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
      */
     Route::prefix('admin')->middleware('checkrole')->group(function ()
     {
-   
+
         //Agregar servicios
         Route::prefix('products')->group(function ()
         {
-            //Rutas para los grupos 
+            //Rutas para los grupos
             Route::resource('group', 'GroupsController');
             //Rutas para los paquetes
             Route::resource('package', 'PackagesController');
             Route::get('package-list', 'PackagesController@package')->name('products.package-list');
-        }); 
+        });
 
-         //Ruta de liquidacion 
-        Route::prefix('settlement')->group(function() 
+         //Ruta de liquidacion
+        Route::prefix('settlement')->group(function()
         {
             //Ruta liquidaciones realizadas
             Route::get('/', 'LiquidactionController@index')->name('settlement');
@@ -125,7 +125,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
             Route::get('commission', 'ReporteController@indexComision')->name('reports.comision');
         });
 
-        
+
     });
 
 });

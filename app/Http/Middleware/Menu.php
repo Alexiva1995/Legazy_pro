@@ -19,7 +19,7 @@ class Menu
     {
         $menu = null;
         if (Auth::check()) {
-            $menu = $this->menuUsuario(); 
+            $menu = $this->menuUsuario();
             if (Auth::user()->admin == 1) {
                 $menu = $this->menuAdmin();
             }
@@ -88,7 +88,7 @@ class Menu
                 ],
             ],
             // Fin Organización
-       
+
             //Inverisones
             'Inverisones' => [
                 'submenu' => 1,
@@ -140,7 +140,7 @@ class Menu
             // Historial de Ordenes
             'Historial de Ordenes' => [
                 'submenu' => 0,
-                'ruta' => '',
+                'ruta' => route('reports.pedidos'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-clipboard',
                 'complementoruta' => '',
@@ -158,7 +158,7 @@ class Menu
             // Fin tickets
         ];
     }
-    
+
     /**
      * Permite Obtener el menu del admin
      *
@@ -167,6 +167,19 @@ class Menu
     public function menuAdmin()
     {
         return [
+
+            // tickets
+            'Tickets' => [
+                'submenu' => 0,
+                'ruta' => '',
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-tag',
+                'complementoruta' => '',
+            ],
+            // Fin tickets
+
+
+
             // Inicio
             'Dashboard' => [
                 'submenu' => 0,
@@ -270,7 +283,7 @@ class Menu
             ],
             // Fin Cierre Comisiones
             // Liquidaciones
-            'Liquidaciones' => [
+            'Pagos' => [
                 'submenu' => 1,
                 'ruta' => 'javascript:;',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -278,19 +291,19 @@ class Menu
                 'complementoruta' => '',
                 'submenus' => [
                     [
-                        'name' => 'General Liquidaciones',
+                        'name' => 'Retiros',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('settlement'),
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Liquidaciones Pendientes',
+                        'name' => 'Por confirmar',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('settlement.pending'),
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Liquidaciones Pagadas',
+                        'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('settlement.history.status', 'Pagadas'),
                         'complementoruta' => ''
