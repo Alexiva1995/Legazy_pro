@@ -16,7 +16,6 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('iduser')->unsigned();
-            $table->foreign('iduser')->references('id')->on('users');
             $table->string('whatsapp');
             $table->string('email');
             $table->string('issue');

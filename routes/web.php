@@ -46,6 +46,18 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('/', 'WalletController@index')->name('wallet.index');
     });
 
+    // Ruta para la pagos
+    Route::prefix('payments')->group(function ()
+    {
+        Route::get('/', 'WalletController@payments')->name('payments.index');
+    });
+
+    Route::prefix('inversiones')->group(function ()
+    {
+        Route::get('/{tipo?}/lists', 'InversionController@index')->name('inversiones.index');
+        Route::get('/cambiarStatus', 'InversionController@checkStatus')->name('inversiones.checkStatus');
+    });
+
     // Ruta para la tienda
     Route::prefix('shop')->group(function ()
     {

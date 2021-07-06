@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 
 
 class TicketsController extends Controller
@@ -44,11 +39,14 @@ class TicketsController extends Controller
         ];
 
         $this->validate($request, $fields, $msj);
-
-        $ticket = Ticket::create($request->all());
-        $ticket->iduser = Auth::user()->id;
-        $ticket->save();
         
+        Ticket::create([
+            'iduser' => Auth::id(),
+            'whatsapp' => request('whatsapp'),
+            'email' => request('email'),
+            'issue' => request('issue'),
+            'description' => request('description'),
+        ]);
 
         return redirect()->route('ticket.list-user')->with('msj-success', 'El Ticket se creo Exitosamente');
     }
