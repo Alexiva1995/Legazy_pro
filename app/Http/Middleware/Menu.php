@@ -79,29 +79,17 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Referidos en Red',
+                        'name' => 'Inversiones Activas',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_list_network', 'network'),
+                        'ruta' => route('inversiones.index', 1),
                         'complementoruta' => ''
                     ],
-                ],
-            ],
-            // Fin Organización
-
-            //Inverisones
-            'Inverisones' => [
-                'submenu' => 1,
-                'ruta' => 'javascript:;',
-                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-activity',
-                'complementoruta' => '',
-                'submenus' => [
                     [
-                        'name' => 'Activas',
+                        'name' => 'Inversiones Activas',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('home.user'),
+                        'ruta' => route('inversiones.index', 1),
                         'complementoruta' => ''
-                    ],
+                    ]
                 ],
             ],
             // Fin añadir Negocio
@@ -117,13 +105,13 @@ class Menu
                     [
                         'name' => 'Wallet',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('home.user'),
+                        'ruta' => route('wallet.index'),
                         'complementoruta' => '' 
                     ],
                     [
                         'name' => 'Retiros',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('home.user'),
+                        'ruta' => route('payments.index'),
                         'complementoruta' => ''
                     ],
                 ],
@@ -133,17 +121,7 @@ class Menu
             // Soporte
             'Soporte' => [
                 'submenu' => 0,
-                'ruta' => route('reports.pedidos'),
-                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-clipboard',
-                'complementoruta' => '',
-            ],
-            // Fin historial de ordenes
-
-            // tickets
-              'Tickets' => [
-                'submenu' => 0,
-                'ruta' => '',
+                'ruta' => route('ticket.list-user'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',
@@ -276,7 +254,7 @@ class Menu
             // Soporte
             'Soporte' => [
                 'submenu' => 0,
-                'ruta' => route('home'),
+                'ruta' => route('ticket.list-admin'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',

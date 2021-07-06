@@ -11,10 +11,10 @@
                             <thead class="">
 
                                 <tr class="text-center text-white bg-purple-alt2">                                
-                                    <th>ID</th>
+                                    <th>#</th>
                                     <th>Fecha</th>                          
                                     <th>Billetera</th>
-                                    <th>Hash</th>
+                                    {{-- <th>Hash</th> --}}
                                     <th>Monto</th>
                                     <th>Estado</th>
                                 </tr>
@@ -28,7 +28,7 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$item->getWalletUser->wallet_address}}</td>
-                                    <td>@isset($item->getLiquidation->hash){{$item->getLiquidation->hash}} @endisset</td>
+                                    {{-- <td>@isset($item->getLiquidation->hash){{$item->getLiquidation->hash}} @endisset</td> --}}
                                     <td>{{$item->monto}}</td>
                                     @if ($item->status == '0')
                                     <td>En espera</td>
