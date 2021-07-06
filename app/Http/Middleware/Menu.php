@@ -85,9 +85,9 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Inversiones Activas',
+                        'name' => 'Inversiones Culminadas',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('inversiones.index', 1),
+                        'ruta' => route('inversiones.index', 2),
                         'complementoruta' => ''
                     ]
                 ],
@@ -201,11 +201,25 @@ class Menu
 
             // Inversiones
             'Inversiones' => [
-                'submenu' => 0,
+                'submenu' => 1,
                 'ruta' => route('home'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-dollar-sign',
                 'complementoruta' => '',
+                'submenus' => [
+                    [
+                        'name' => 'Activas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 1),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Culminadas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 2),
+                        'complementoruta' => ''
+                    ]
+                ],
             ],
             // Fin Inversiones
 
