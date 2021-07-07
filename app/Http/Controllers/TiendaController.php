@@ -187,7 +187,7 @@ class TiendaController extends Controller
 
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
-                dd($err);
+
                 curl_close($curl);
                 if ($err) {
                     Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
