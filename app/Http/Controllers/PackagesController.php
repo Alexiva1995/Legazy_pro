@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 
 class PackagesController extends Controller
-{ 
+{
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +43,7 @@ class PackagesController extends Controller
 
             $categories = Groups::all()->where('status', 1);
             if (!empty(request()->category)) {
-                
+
                 $category = Groups::find(request()->category);
                 $services = $category->getPackage;
                 $name_category = $category->name;
@@ -183,7 +183,7 @@ class PackagesController extends Controller
 
         $package = Packages::all();
 
-        return view('shop.products')->with('package', $package);
+        return view('shop.package', compact('package'));
     }
 
 }

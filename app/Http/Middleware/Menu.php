@@ -131,19 +131,19 @@ class Menu
             // Fin Financiero
 
             // Soporte
-            'Soporte' => [
-                'submenu' => 0,
-                'ruta' => route('reports.pedidos'),
-                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-clipboard',
-                'complementoruta' => '',
-            ],
+        //    'Soporte' => [
+          //      'submenu' => 0,
+            //    'ruta' => '',
+              //  'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                //'icon' => 'feather icon-clipboard',
+                  //'complementoruta' => '',
+           // ],
             // Fin historial de ordenes
 
             // tickets
               'Tickets' => [
                 'submenu' => 0,
-                'ruta' => '',
+                'ruta' =>  route('ticket.create'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',
@@ -276,7 +276,7 @@ class Menu
             // Soporte
             'Soporte' => [
                 'submenu' => 0,
-                'ruta' => route('home'),
+                'ruta' => '',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-help-circle',
                 'complementoruta' => '',
