@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Asunto del Ticket</label>
+                                            <label>titulo del Ticket</label>
                                             <input type="text" id="issue" class="form-control"
                                                 value="{{ $ticket->issue }}" name="issue">
                                         </div>
@@ -42,6 +42,21 @@
                                             <label>Especificación del Ticket</label>
                                             <textarea type="text" rows="5" id="description" class="form-control"
                                                 name="description">{{ $ticket->description }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="controls">
+                                                <label for="priority">prioridad del ticket</label>
+                                                <span class="text-danger text-bold-600">OBLIGATORIO</span>
+                                                <select name="priority" id="priority"
+                                                    class="custom-select priority @error('priority') is-invalid @enderror"
+                                                    required data-toggle="select">
+                                                    <option value="0" @if($ticket->priority == '0') selected  @endif>Alto</option>
+                                                    <option value="1" @if($ticket->priority == '1') selected  @endif>Medio</option>
+                                                    <option value="2" @if($ticket->priority == '2') selected  @endif>Bajo</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">

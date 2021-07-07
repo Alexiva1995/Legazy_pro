@@ -40,6 +40,7 @@
                                                 name="description"></textarea>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Nota del Administrador</label>
