@@ -19,6 +19,8 @@ class TiendaController extends Controller
     public function __construct()
     {
         $this->apis_key_nowpayments = '56ZHMKJ-3E1MC2ZK5NK025-XSTRFHY';
+         //la tienda funciona pero la api key de nowpaymenst no esta activa
+        // con mi api key si funciona YH0WTN1-5T64QQC-MRVZZPE-0DSX41R
     }
 
     /**
@@ -91,7 +93,7 @@ class TiendaController extends Controller
                 $data['idorden'] = $this->saveOrden($data);
                 $data['descripcion'] = $paquete->description;
                 $url = $this->generalUrlOrden($data);
-           //     dd($data);
+               // dd($url);
                 if (!empty($url)) {
                     return redirect($url);
 
@@ -105,7 +107,7 @@ class TiendaController extends Controller
             }
         } catch (\Throwable $th) {
             Log::error('Tienda - procesarOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+            abort(403, "Ocurrio un error (1) , contacte con el administrador");
         }
     }
 
@@ -187,6 +189,7 @@ class TiendaController extends Controller
 
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
+              //  dd($dataRaw);
 
                 curl_close($curl);
                 if ($err) {

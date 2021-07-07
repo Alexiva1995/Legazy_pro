@@ -196,11 +196,33 @@ class Menu
 
             // Paquetes
             'Paquetes' => [
-                'submenu' => 0,
-                'ruta' => route('products.package-list'),
+                'submenu' => 1,
+                'ruta' =>'',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-archive',
                 'complementoruta' => '',
+                'submenus' => [
+                    [
+                        'name' => 'Lista de paquetes',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('products.package-list'),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Grupos',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('products.package-grupos'),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Administra Tienda',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('products.package-index'),
+                        'complementoruta' => ''
+                    ],
+
+
+                ],
             ],
             // Fin Paquetes
 
