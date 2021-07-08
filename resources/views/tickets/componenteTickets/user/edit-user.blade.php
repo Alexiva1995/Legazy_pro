@@ -48,7 +48,6 @@
                                         <div class="form-group">
                                             <div class="controls">
                                                 <label for="priority">prioridad del ticket</label>
-                                                <span class="text-danger text-bold-600">OBLIGATORIO</span>
                                                 <select name="priority" id="priority"
                                                     class="custom-select priority @error('priority') is-invalid @enderror"
                                                     required data-toggle="select">
