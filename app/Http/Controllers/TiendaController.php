@@ -18,7 +18,7 @@ class TiendaController extends Controller
 
     public function __construct()
     {
-        $this->apis_key_nowpayments = '56ZHMKJ-3E1MC2ZK5NK025-XSTRFHY';
+        $this->apis_key_nowpayments = 'YH0WTN1-5T64QQC-MRVZZPE-0DSX41R';
          //la tienda funciona pero la api key de nowpaymenst no esta activa
         // con mi api key si funciona YH0WTN1-5T64QQC-MRVZZPE-0DSX41R
     }
@@ -185,7 +185,7 @@ class TiendaController extends Controller
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => $dataRaw->toJson(),
                 CURLOPT_HTTPHEADER => $headers
-            ));+-
+            ));
 
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
