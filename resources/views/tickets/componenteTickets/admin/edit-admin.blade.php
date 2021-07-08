@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Asunto del Ticket</label>
+                                            <label>titulo del Ticket</label>
                                             <input type="text" id="issue" readonly class="form-control"
                                                 value="{{ $ticket->issue }}" name="issue">
                                         </div>
@@ -66,10 +66,23 @@
                                                 <select name="status" id="status"
                                                     class="custom-select status @error('status') is-invalid @enderror"
                                                     required data-toggle="select">
-                                                    <option value="0" @if($ticket->status == '0') selected  @endif>En Espera</option>
-                                                    <option value="1" @if($ticket->status == '1') selected  @endif>Solucionado</option>
-                                                    <option value="2" @if($ticket->status == '2') selected  @endif>Procesando</option>
-                                                    <option value="3" @if($ticket->status == '3') selected  @endif>Cancelada</option>
+                                                    <option value="0" @if($ticket->status == '0') selected  @endif>Abierto</option>
+                                                    <option value="1" @if($ticket->status == '1') selected  @endif>Cerrado</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="controls">
+                                                <label for="priority">prioridad del ticket</label>
+                                                <span class="text-danger text-bold-600">OBLIGATORIO</span>
+                                                <select name="priority" id="priority"
+                                                    class="custom-select priority @error('priority') is-invalid @enderror"
+                                                    required data-toggle="select">
+                                                    <option value="0" @if($ticket->priority == '0') selected  @endif>Alto</option>
+                                                    <option value="1" @if($ticket->priority == '1') selected  @endif>Medio</option>
+                                                    <option value="2" @if($ticket->priority == '2') selected  @endif>Bajo</option>
                                                 </select>
                                             </div>
                                         </div>

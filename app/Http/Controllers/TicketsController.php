@@ -21,7 +21,7 @@ class TicketsController extends Controller
     // permite ver la vista de creacion del ticket
 
     public function create(){
-
+     
         return view('tickets.create');
     }
 
@@ -79,6 +79,7 @@ class TicketsController extends Controller
             "issue" => ['required'],
             "description" => ['required'],
             'status' => ['0'],
+            
         ];
 
         $msj = [
@@ -86,6 +87,7 @@ class TicketsController extends Controller
             'whatsapp.required' => 'El whatsapp es Requerido',
             'issue.required' => 'El asunto es Requerido',
             'description.required' => 'La descripción es Requerido',
+
         ];
 
         $this->validate($request, $fields, $msj);
