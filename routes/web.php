@@ -129,9 +129,16 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         {
             //Rutas para los grupos
             Route::resource('group', 'GroupsController');
+
+
+
             //Rutas para los paquetes
             Route::resource('package', 'PackagesController');
             Route::get('package-list', 'PackagesController@package')->name('products.package-list');
+            Route::get('package-update', 'PackagesController@update')->name('products.package-update');
+            Route::get('package-grupos', 'GroupsController@index')->name('products.package-grupos');
+            Route::get('package-index', 'PackagesController@index')->name('products.package-index');
+            Route::get('package-create', 'PackagesController@create')->name('products.package-create');
         });
 
          //Ruta de liquidacion

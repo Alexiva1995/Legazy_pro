@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 
 class TicketsController extends Controller
@@ -81,13 +87,13 @@ class TicketsController extends Controller
             'issue.required' => 'El asunto es Requerido',
             'description.required' => 'La descripción es Requerido',
         ];
-        
+
         $this->validate($request, $fields, $msj);
 
         $ticket->update($request->all());
         $ticket->note_admin = $request->note_admin;
         $ticket->save();
-        
+
         $route = route('ticket.list-user');
         return redirect($route)->with('msj-success', 'Ticket '.$id.' Actualizado ');
     }
@@ -137,18 +143,18 @@ class TicketsController extends Controller
             'status' => ['required'],
             'note_admin' => ['required']
         ];
-        
+
         $msj = [
             'status.required' => 'Es requerido el Estatus de la ticket',
             'note_admin.required' => 'Es requerido Nota del admin',
         ];
-        
+
         $this->validate($request, $fields, $msj);
 
         $ticket->update($request->all());
         $ticket->note_admin = $request->note_admin;
         $ticket->save();
-        
+
         $route = route('ticket.list-admin');
         return redirect($route)->with('msj-success', 'Ticket '.$id.' Actualizado ');
     }
@@ -156,11 +162,11 @@ class TicketsController extends Controller
     // permite ver la lista de tickets
 
     public function listAdmin(){
-        
+
         $ticket = Ticket::all();
 
         View::share('titleg', 'Historial de Tickets');
-        
+
         return view('tickets.componenteTickets.admin.list-admin')
         ->with('ticket', $ticket);
     }

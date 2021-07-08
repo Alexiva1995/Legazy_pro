@@ -19,7 +19,7 @@
                     <div class="m-2">
                         <a href="{{route('shop')}}" class="btn btn-primary"> Volver a los Grupos</a>
                     </div>
-                    @foreach ($services->chunk(3) as $items)
+                    @foreach ($package->chunk(3) as $items)
                         <div class="row">
                             @foreach ($items as $product)
                             <div class="col-12 col-md-4">
@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach                            
+                            @endforeach
                         </div>
                     @endforeach
                 </div>
