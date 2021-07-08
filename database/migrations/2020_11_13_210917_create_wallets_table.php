@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 class CreateWalletsTable extends Migration
 {
     /**
@@ -16,13 +16,13 @@ class CreateWalletsTable extends Migration
         Schema::create('wallets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('iduser')->unsigned();
-            $table->foreign('iduser')->references('id')->on('users');
+            // $table->foreign('iduser')->references('id')->on('users');
             $table->bigInteger('referred_id')->unsigned()->nullable();
-            $table->foreign('referred_id')->references('id')->on('users');
+            // $table->foreign('referred_id')->references('id')->on('users');
             $table->bigInteger('cierre_comision_id')->unsigned()->nullable();;
-            $table->foreign('cierre_comision_id')->references('id')->on('cierre_comisions');
+            // $table->foreign('cierre_comision_id')->references('id')->on('cierre_comisions');
             $table->bigInteger('liquidation_id')->unsigned()->nullable();
-            $table->foreign('liquidation_id')->references('id')->on('liquidactions');
+            // $table->foreign('liquidation_id')->references('id')->on('liquidactions');
             $table->decimal('monto')->default(0)->comment('entrada de cash');
             //$table->decimal('debito')->default(0)->comment('entrada de cash');
             //$table->decimal('credito')->default(0)->comment('salida de cash');
@@ -37,7 +37,7 @@ class CreateWalletsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     *              
      * @return void
      */
     public function down()
