@@ -55,11 +55,11 @@ class TiendaController extends Controller
             View::share('titleg', 'Tienda - Productos');
             $category = Groups::find($idgroup);
             $services = $category->getPackage->where('status', 1);
-
+dd($idgroup);
             return view('shop.products', compact('services'));
         } catch (\Throwable $th) {
             Log::error('Tienda - products -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+            abort(403, "Ocurrio un error en products funcion , contacte con el administrador");
         }
     }
 
@@ -89,11 +89,14 @@ class TiendaController extends Controller
                     'cantidad' => 1,
                     'total' => $total
                 ];
+                dd($data);
 
                 $data['idorden'] = $this->saveOrden($data);
+
                 $data['descripcion'] = $paquete->description;
+
                 $url = $this->generalUrlOrden($data);
-               // dd($url);
+
                 if (!empty($url)) {
                     return redirect($url);
 

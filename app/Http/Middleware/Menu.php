@@ -95,7 +95,7 @@ class Menu
                         'name' => 'Wallet',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('wallet.index'),
-                        'complementoruta' => '' 
+                        'complementoruta' => ''
                     ],
                     [
                         'name' => 'Retiros',
@@ -140,19 +140,6 @@ class Menu
     public function menuAdmin()
     {
         return [
-
-            // tickets
-            'Tickets' => [
-                'submenu' => 0,
-                'ruta' => '',
-                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-tag',
-                'complementoruta' => '',
-            ],
-            // Fin tickets
-
-
-
             // Inicio
             'Dashboard' => [
                 'submenu' => 0,
@@ -283,7 +270,7 @@ class Menu
             // Fin Retiros
 
             // Soporte
-            'Soporte' => [
+            'Soporte a usuarios' => [
                 'submenu' => 0,
                 'ruta' => route('ticket.list-admin'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank

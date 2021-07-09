@@ -42,10 +42,12 @@ class PackagesController extends Controller
             View::share('titleg', 'Paquetes - Agregar');
 
             $categories = Groups::all()->where('status', 1);
+
             if (!empty(request()->category)) {
 
                 $category = Groups::find(request()->category);
                 $services = $category->getPackage;
+                dd($services);
                 $name_category = $category->name;
                 $idgrupo = $category->id;
             }
@@ -53,7 +55,7 @@ class PackagesController extends Controller
            return view('manager_services.services.create', compact('categories', 'services','name_category', 'idgrupo'));
         } catch (\Throwable $th) {
             Log::error('Packages - create -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+            abort(403, "Ocurrio un error 3, contacte con el administrador");
         }
     }
 
