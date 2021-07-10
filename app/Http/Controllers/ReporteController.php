@@ -44,7 +44,7 @@ class ReporteController extends Controller
         foreach ($wallets as $wallet) {
             $wallet->name = $wallet->getWalletUser->fullname;
             $wallet->referido = $wallet->getWalletReferred->fullname;
-        }                                                                                                                                                                                                                                                                                               
+        }
 
         return view('reports.comision', compact('wallets'));
     }

@@ -14,11 +14,11 @@ class CreatePackagesTable extends Migration
     public function up()
     {
         Schema::create('packages', function (Blueprint $table) {
-            $table->bigIncrements('id')->unsigned();
-            $table->string('name');
-            // $table->bigInteger('group_id')->unsigned();
-            // $table->foreign('group_id')->references('id')->on('groups');
-            $table->double('price')->default(0);
+             $table->bigIncrements('id')->unsigned();
+             $table->string('name');
+             $table->bigInteger('group_id')->unsigned();
+             $table->foreign('group_id')->references('id')->on('groups');
+             $table->double('price')->default(0);
             // $table->double('minimum_deposit')->default(0)->comment('deposito minimo');
             $table->date('expired')->nullable()->comment('Fecha de vencimiento del paquete');
             $table->text('description')->nullable();

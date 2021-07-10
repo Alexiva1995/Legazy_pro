@@ -42,7 +42,7 @@ $referred = null;
 @php
 $referred = DB::table('users')
 ->select('fullname')
-->where('id', '=', request()->referred_id)
+->where('ID', '=', request()->referred_id)
 ->first();
 @endphp
 @endif
@@ -61,7 +61,7 @@ $referred = DB::table('users')
                 <div class="card-header">
                     <h5 class="card-title text-center col-12 text-input-holder">{{ __('Registrar') }}</h5>
                     @if (!empty($referred))
-                    <h6 class="text-center col-12">Registro Referido por <b>{{$referred->fullname}}</b></h6>
+                    <h6 class="text-center col-12">Registro Referido por {{$referred->fullname}}</h6>
                     @endif
                 </div>
 

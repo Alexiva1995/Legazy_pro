@@ -1,11 +1,12 @@
-<table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
+<table class="table nowrap scroll-horizontal-vertical myTable table-striped">
     <thead class="">
         <tr class="text-center text-white bg-purple-alt2">
-            <th>#</th>
+            <th>ID</th>
+            <th>Concepto</th>
             <th>Fecha</th>
-            <th>Usuario</th>
-            <th>Descripcion</th>
-            <th>Monto</th>
+            <th>Debito</th>
+            <th>Credito</th>
+            <th>Balance</th>
             <th>Estado</th>
         </tr>
     </thead>
@@ -13,17 +14,11 @@
         @foreach ($wallets as $wallet)
         <tr class="text-center">
             <td>{{$wallet->id}}</td>
-            <td>{{date('d-m-Y', strtotime($wallet->created_at))}}</td>
-            <td>{{$wallet->getWalletReferred->fullname}}</td>
             <td>{{$wallet->descripcion}}</td>
-            {{--
-            @php
-                $monto = $wallet->monto;
-                if($wallet->tipo_transaction == 1){
-                    $monto = $monto * (-1);
-                }
-            @endphp--}}
-            <td>$ {{number_format($wallet->monto,2)}}</td>
+            <td>{{date('d-m-Y', strtotime($wallet->created_at))}}</td>
+            <td>$ {{$wallet->debito}}</td>
+            <td>$ {{$wallet->credito}}</td>
+            <td>$ {{$wallet->balance}}</td>
             <td>
                 @if ($wallet->status == 1)
                     Pagado
