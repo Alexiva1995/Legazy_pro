@@ -97,7 +97,8 @@ class TiendaController extends Controller
                         'cantidad' => 1,
                         'total' => $total
                     ];
-                    $data['idorden'] = $this->saveOrden($data);
+                    //dd($data);
+                    $data['idorden'] = 1;//$this->saveOrden($data);
 
                     $data['descripcion'] = $paquete->description;
                     $url = $this->generalUrlOrden($data);
