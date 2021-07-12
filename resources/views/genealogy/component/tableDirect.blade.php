@@ -14,7 +14,11 @@
             <td>{{$item->id}}</td>
             <td>{{$item->name}}</td>
 
+            @if ($item->getUserOrden == '')
+            <td>Sin paquete</td>
+            @else
             <td>{{$item->getUserOrden->getPackageOrden->name}}</td>
+            @endif
 
             @if ($item->status == '0')
             <td> <a class=" btn btn-info text-white text-bold-600">Inactivo</a></td>

@@ -20,13 +20,13 @@
                         <div class="row">
                             @foreach ($items as $grupo)
                             <div class="col-12 col-md-4">
-                                <h1>hola</h1>
-                                <a href="{{route('products.package-create').'/?category='.$grupo->id}}">
+                                <a href="{{route('package.create').'/?category='.$grupo->id}}">
                                     <div class="card">
                                         <div class="card-content">
                                             <img class="card-img-top img-fluid" src="{{asset('media/'.$grupo->img)}}" alt="{{$grupo->name}}">
                                             <div class="card-body">
                                                 <h4 class="card-title">{{$grupo->name}}</h4>
+                                                <h5>Crea nuevo <br> Paquete Aqui</h5>
                                             </div>
                                         </div>
                                     </div>

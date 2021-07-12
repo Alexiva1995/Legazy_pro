@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" class="form form-vertical" action="{{route('products.package-store')}}">
+                <form method="POST" class="form form-vertical" action="{{route('package.store')}}">
                     <div class="form-body">
                         @csrf
                         <div class="row">

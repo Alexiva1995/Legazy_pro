@@ -93,7 +93,7 @@ right connector from last child*/
     position: absolute;
     top: 0;
     left: 50%;
-    border-left: 2px solid #46B0FE;
+    border-left: 2px solid #e3e9ff;
     width: 0;
     height: 20px;
 }
@@ -132,4 +132,13 @@ right connector from last child*/
 .padre li a:hover+ul::before,
 .padre li a:hover+ul ul::before {
     border-color: #94a0b4;
+}
+
+@media (min-width: 768px) {
+    #tarjeta{
+        width: 33%;
+        position: absolute;
+        right: 50px;
+        z-index: 1;
+    }
 }
