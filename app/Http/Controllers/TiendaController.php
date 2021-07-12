@@ -92,13 +92,15 @@ class TiendaController extends Controller
 
                     $data = [
                         'iduser' => Auth::id(),
-                        'group_id' => $paquete->getGroup->id,
+                     //'group_id' => $paquete->getGroup->id,
                         'package_id' => $paquete->id,
                         'cantidad' => 1,
                         'total' => $total
                     ];
+
+                    $data['idorden'] = $this->saveOrden($data);
+
                     //dd($data);
-                    $data['idorden'] = 1;//$this->saveOrden($data);
 
                     $data['descripcion'] = $paquete->description;
                     $url = $this->generalUrlOrden($data);
@@ -112,7 +114,7 @@ class TiendaController extends Controller
                 }
             } catch (\Throwable $th) {
                Log::error('Tienda - procesarOrden -> Error: '.$th);
-                abort(403, "Ocurrio un error en procesa rorden function , contacte con el administrador");
+                abort(403, "Ocurrio un error en la funcion  procesar orden  , contacte con el administrador");
             }
         }
         return redirect()->back()->with('msj-warning', 'Necesita registrar su billetera para poder continuar con la operación.');
