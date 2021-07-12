@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->longtext('photoDB')->nullable();
             $table->rememberToken();
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

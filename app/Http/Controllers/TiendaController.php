@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Groups;
 use App\Models\OrdenPurchases;
 use App\Models\Packages;
+use App\Models\User;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 
 
 class TiendaController extends Controller
@@ -18,9 +21,7 @@ class TiendaController extends Controller
 
     public function __construct()
     {
-        $this->apis_key_nowpayments = '56ZHMKJ-3E1MC2ZK5NK025-XSTRFHY';
-         //la tienda funciona pero la api key de nowpaymenst no esta activa
-        // con mi api key si funciona YH0WTN1-5T64QQC-MRVZZPE-0DSX41R
+        $this->apis_key_nowpayments = 'YH0WTN1-5T64QQC-MRVZZPE-0DSX41R';
     }
 
     /**
@@ -59,7 +60,7 @@ class TiendaController extends Controller
             return view('shop.products', compact('services'));
         } catch (\Throwable $th) {
             Log::error('Tienda - products -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+            abort(403, "Ocurrio un error en shop, contacte con el administrador");
         }
     }
 
@@ -71,44 +72,53 @@ class TiendaController extends Controller
      */
     public function procesarOrden(Request $request)
     {
-        $validate = $request->validate([
-            'idproduct' => 'required'
-        ]);
 
-        try {
-            if ($validate) {
-                $paquete = Packages::find($request->idproduct);
+        //Obtener el valor de la direccion de billetera del usuario logueado
+        $check_wallet = DB::table('users')
+            ->where('id', '=', Auth::user()->id)->value('wallet_address');
 
-                $porcentaje = ($paquete->price * 0.03);
-                $total = ($paquete->price + $porcentaje);
+        if($check_wallet != null || $check_wallet != ''){//Validar si usuario tiene la wallet registrada.
 
-                $data = [
-                    'iduser' => Auth::id(),
-                    'group_id' => $paquete->getGroup->id,
-                    'package_id' => $paquete->id,
-                    'cantidad' => 1,
-                    'total' => $total
-                ];
+            $validate = $request->validate([
+                'idproduct' => 'required'
+            ]);
 
-                $data['idorden'] = $this->saveOrden($data);
-                $data['descripcion'] = $paquete->description;
-                $url = $this->generalUrlOrden($data);
-               // dd($url);
-                if (!empty($url)) {
-                    return redirect($url);
+            try {
+                if ($validate) {
+                    $paquete = Packages::find($request->idproduct);
 
-                }else{
+                    $porcentaje = ($paquete->price * 0.03);
+                    $total = ($paquete->price + $porcentaje);
 
-                   OrdenPurchases::where('id', $data['idorden'])->delete();
-                   return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
+                    $data = [
+                        'iduser' => Auth::id(),
+                     //'group_id' => $paquete->getGroup->id,
+                        'package_id' => $paquete->id,
+                        'cantidad' => 1,
+                        'total' => $total
+                    ];
+
+                    $data['idorden'] = $this->saveOrden($data);
+
+                    //dd($data);
+
+                    $data['descripcion'] = $paquete->description;
+                    $url = $this->generalUrlOrden($data);
+                    if (!empty($url)) {
+                        return redirect($url);
+
+                    }else{
+                        OrdenPurchases::where('id', $data['idorden'])->delete();
+                        return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
+                    }
                 }
-
-
+            } catch (\Throwable $th) {
+               Log::error('Tienda - procesarOrden -> Error: '.$th);
+                abort(403, "Ocurrio un error en la funcion  procesar orden  , contacte con el administrador");
             }
-        } catch (\Throwable $th) {
-            Log::error('Tienda - procesarOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error (1) , contacte con el administrador");
         }
+        return redirect()->back()->with('msj-warning', 'Necesita registrar su billetera para poder continuar con la operación.');
+
     }
 
     /**
@@ -119,7 +129,10 @@ class TiendaController extends Controller
      */
     public function saveOrden($data): int
     {
+       // dd($data);
+
         return OrdenPurchases::insertGetId($data);
+
     }
 
     /**
@@ -160,6 +173,7 @@ class TiendaController extends Controller
                 'x-api-key: '.$this->apis_key_nowpayments,
                 'Content-Type:application/json'
             ];
+           // dd($headers);
             $resul = '';
             $curl = curl_init();
 
@@ -185,12 +199,10 @@ class TiendaController extends Controller
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => $dataRaw->toJson(),
                 CURLOPT_HTTPHEADER => $headers
-            ));+-
+            ));
 
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
-              //  dd($dataRaw);
-
                 curl_close($curl);
                 if ($err) {
                     Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
@@ -203,7 +215,7 @@ class TiendaController extends Controller
             return $resul;
         } catch (\Throwable $th) {
             Log::error('Tienda - generalUrlOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+            abort(403, "Ocurrio un error2, contacte con el administrador");
         }
     }
 }

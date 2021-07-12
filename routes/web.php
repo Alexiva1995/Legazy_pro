@@ -46,18 +46,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('/', 'WalletController@index')->name('wallet.index');
     });
 
-    // Ruta para la pagos
-    Route::prefix('payments')->group(function ()
-    {
-        Route::get('/', 'WalletController@payments')->name('payments.index');
-    });
-
-    Route::prefix('inversiones')->group(function ()
-    {
-        Route::get('/{tipo?}/lists', 'InversionController@index')->name('inversiones.index');
-        Route::get('/cambiarStatus', 'InversionController@checkStatus')->name('inversiones.checkStatus');
-    });
-
     // Ruta para la tienda
     Route::prefix('shop')->group(function ()
     {
@@ -99,23 +87,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
     });
 
-     //Ruta de los Tickets
-     Route::prefix('tickets')->group(function(){
-        Route::get('ticket-create','TicketsController@create')->name('ticket.create');
-        Route::post('ticket-store','TicketsController@store')->name('ticket.store');
-
-        // Para el usuario
-        Route::get('ticket-edit-user/{id}','TicketsController@editUser')->name('ticket.edit-user');
-        Route::patch('ticket-update-user/{id}','TicketsController@updateUser')->name('ticket.update-user');
-        Route::get('ticket-list-user','TicketsController@listUser')->name('ticket.list-user');
-        Route::get('ticket-show-user/{id}','TicketsController@showUser')->name('ticket.show-user');
-
-        // Para el Admin
-        Route::get('ticket-edit-admin/{id}','TicketsController@editAdmin')->name('ticket.edit-admin');
-        Route::patch('ticket-update-admin/{id}','TicketsController@updateAdmin')->name('ticket.update-admin');
-        Route::get('ticket-list-admin','TicketsController@listAdmin')->name('ticket.list-admin');
-        Route::get('ticket-show-admin/{id}','TicketsController@showAdmin')->name('ticket.show-admin');
-    });
 
 
     /**
@@ -129,16 +100,15 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         {
             //Rutas para los grupos
             Route::resource('group', 'GroupsController');
-
-
-
+            Route::get('group-index', 'GroupsController@index')->name('grupos.index');
             //Rutas para los paquetes
             Route::resource('package', 'PackagesController');
             Route::get('package-list', 'PackagesController@package')->name('products.package-list');
-            Route::get('package-update', 'PackagesController@update')->name('products.package-update');
-            Route::get('package-grupos', 'GroupsController@index')->name('products.package-grupos');
-            Route::get('package-index', 'PackagesController@index')->name('products.package-index');
             Route::get('package-create', 'PackagesController@create')->name('products.package-create');
+            Route::post('package-store', 'PackagesController@store')->name('products.package-store');
+
+            Route::get('package-index', 'PackagesController@index')->name('products.package-index');
+
         });
 
          //Ruta de liquidacion

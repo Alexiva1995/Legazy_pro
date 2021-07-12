@@ -19,6 +19,7 @@
                     <div class="m-2">
                         <a href="{{route('shop')}}" class="btn btn-primary"> Volver a los Grupos</a>
                     </div>
+                    <h1>vista de poroducts.blade</h1>
                     @foreach ($services->chunk(3) as $items)
                         <div class="row">
                             @foreach ($items as $product)
@@ -32,7 +33,7 @@
                                             <form action="{{route('shop.procces')}}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="idproduct" value="{{$product->id}}">
-                                                <button type="submit" class="btn btn-success waves-effect waves-light">Comprar{{$product->id}}</button>
+                                                <button type="submit" class="btn btn-success waves-effect waves-light">Comprar</button>
                                             </form>
                                         </div>
                                     </div>

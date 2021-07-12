@@ -50,7 +50,7 @@ $new = \App\Models\News::where('status', '1')->get();
             this.getDataService();
         },
     })
-
+    
     </script> --}}
 @endpush
 
