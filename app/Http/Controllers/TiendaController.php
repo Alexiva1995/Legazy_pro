@@ -35,10 +35,10 @@ class TiendaController extends Controller
     {
         try {
             // title
-            View::share('titleg', 'Tienda - Grupos');
-            $categories = Groups::all()->where('status', 1);
+            View::share('titleg', 'Tienda');
+            $packages = Packages::orderBy('id', 'desc')->paginate();
 
-            return view('shop.index', compact('categories'));
+            return view('shop.index', compact('packages'));
         } catch (\Throwable $th) {
             Log::error('Tienda - Index -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
