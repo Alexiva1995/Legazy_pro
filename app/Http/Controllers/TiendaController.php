@@ -62,7 +62,7 @@ class TiendaController extends Controller
             return view('shop.products', compact('services'));
         } catch (\Throwable $th) {
             Log::error('Tienda - products -> Error: '.$th);
-            abort(403, "Ocurrio un error en shop, contacte con el administrador");
+            abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
 
@@ -74,6 +74,9 @@ class TiendaController extends Controller
      */
     public function procesarOrden(Request $request)
     {
+        $validate = $request->validate([
+            'idproduct' => 'required'
+        ]);
 
         try {
             if ($validate) {
@@ -109,8 +112,6 @@ class TiendaController extends Controller
             Log::error('Tienda - procesarOrden -> Error: '.$th);
             abort(403, "Ocurrio un error (1) , contacte con el administrador");
         }
-        return redirect()->back()->with('msj-warning', 'Necesita registrar su billetera para poder continuar con la operación.');
-
     }
 
     /**
@@ -121,10 +122,7 @@ class TiendaController extends Controller
      */
     public function saveOrden($data): int
     {
-       // dd($data);
-
         return OrdenPurchases::insertGetId($data);
-
     }
 
     /**
@@ -208,7 +206,7 @@ class TiendaController extends Controller
             return $resul;
         } catch (\Throwable $th) {
             Log::error('Tienda - generalUrlOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error2, contacte con el administrador");
+            abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
 }

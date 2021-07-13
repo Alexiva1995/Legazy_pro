@@ -14,7 +14,11 @@
                                     <th>#</th>
                                     <th>Fecha</th>                          
                                     <th>Billetera</th>
+<<<<<<< HEAD
                                     {{-- <th>Hash</th> --}}
+=======
+                                    <th>Hash</th>
+>>>>>>> origin/william
                                     <th>Monto</th>
                                     <th>Estado</th>
                                 </tr>
@@ -28,7 +32,11 @@
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$item->getWalletUser->wallet_address}}</td>
+<<<<<<< HEAD
                                     {{-- <td>@isset($item->getLiquidation->hash){{$item->getLiquidation->hash}} @endisset</td> --}}
+=======
+                                    <td>@isset($item->getLiquidation->hash){{$item->getLiquidation->hash}} @endisset</td>
+>>>>>>> origin/william
                                     <td>{{$item->monto}}</td>
                                     @if ($item->status == '0')
                                     <td>En espera</td>

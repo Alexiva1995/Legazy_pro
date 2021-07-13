@@ -45,7 +45,7 @@ class UserController extends Controller
     public function kyc()
     {
 
-         View::share('titleg', 'Verificacion KYC');
+         View::share('titleg', 'Verificacion');
 
          return view('users.componenteProfile.kyc');
 

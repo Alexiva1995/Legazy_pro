@@ -195,13 +195,26 @@ class Menu
                     [
                         'name' => 'Lista de paquetes',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+<<<<<<< HEAD
+=======
+                        'ruta' => route('products.package-list'),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Grupos',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+>>>>>>> origin/william
                         'ruta' => route('products.package-grupos'),
                         'complementoruta' => ''
                     [
+<<<<<<< HEAD
 
                         'name' => 'shop',
                         'name' => 'Administra Tienda',
 
+=======
+                        'name' => 'Administra Tienda',
+>>>>>>> origin/william
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('products.package-index'),
                         'complementoruta' => ''
@@ -238,6 +251,7 @@ class Menu
                         'ruta' => route('genealogy_list_network', 'direct'),
                         'complementoruta' => ''
                     ],
+                ],
             ],
             // Fin Red
 
@@ -281,13 +295,13 @@ class Menu
                     [
                         'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_list_network', 'direct'),
+                        'ruta' => route('settlement.pending'),
                         'complementoruta' => ''
                     ],
                     [
                         'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_list_network', 'direct'),
+                        'ruta' => route('settlement.history.status', 'Pagadas'),
                         'complementoruta' => ''
                     ],
                 ],

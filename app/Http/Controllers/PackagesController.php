@@ -53,7 +53,7 @@ class PackagesController extends Controller
            return view('manager_services.services.create', compact('categories', 'services','name_category', 'idgrupo'));
         } catch (\Throwable $th) {
             Log::error('Packages - create -> Error: '.$th);
-            abort(403, "Ocurrio un error en create, contacte con el administrador");
+            abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
 
@@ -81,7 +81,7 @@ class PackagesController extends Controller
             }
         } catch (\Throwable $th) {
             Log::error('Packages - store -> Error: '.$th);
-            abort(403, "Ocurrio un error en store, contacte con el administrador");
+            abort(403, "Ocurrio un error, contacte con el administrador");
         }
 
     }
