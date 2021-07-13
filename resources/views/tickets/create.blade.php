@@ -33,8 +33,6 @@
                                             <input type="text" id="issue" class="form-control" name="issue">
                                         </div>
                                     </div>
-
-                                    
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Especifique la situacion</label>
@@ -42,6 +40,7 @@
                                                 name="description"></textarea>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Nota del Administrador</label>

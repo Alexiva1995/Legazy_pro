@@ -20,6 +20,14 @@
                                     <th>Prioridad</th>
                                     <th></th>
                                     <th>Accion</th>
+                                 {{--    <th>ID</th>
+                                    <th>Whatsapp</th>
+                                    <th>Email</th>
+                                    <th>Asunto</th>
+                                    <th>Descripción</th>
+                                    <th>Estado</th>
+                                    <th>Fecha de Creacion</th>
+                                    <th>Accion</th> --}}
                                 </tr>
 
                             </thead>
@@ -30,6 +38,11 @@
                                 <tr class="text-center">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->getUser->fullname}}</td>
+                                    {{-- <td>{{ $item->estado}}</td> --}}
+                                    {{-- <td>{{ $item->prioridad}}</td> --}}
+                                 {{--    <td>{{ $item->issue}}</td> --}}
+                                    {{-- <td>{{ $item->Descripcion}}</td> --}}
+                                    
                                  
                                     
 

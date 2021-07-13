@@ -79,11 +79,17 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Inversiones',
+                        'name' => 'Inversiones Activas',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('home.user'),
+                        'ruta' => route('inversiones.index', 1),
                         'complementoruta' => ''
                     ],
+                    [
+                        'name' => 'Inversiones Culminadas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 2),
+                        'complementoruta' => ''
+                    ]
                 ],
             ],
             // Fin añadir Negocio
@@ -99,15 +105,27 @@ class Menu
                     [
                         'name' => 'Wallet',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('home.user'),
-                        'complementoruta' => ''
+                        'ruta' => route('wallet.index'),
+                        'complementoruta' => '' 
                     ],
                     [
                         'name' => 'Retiros',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('home.user'),
+                        'ruta' => route('payments.index'),
                         'complementoruta' => ''
                     ],
+                    [
+                        'name' => 'Inversiones Activas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 1),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Inversiones Culminadas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 2),
+                        'complementoruta' => ''
+                    ]
                 ],
             ],
             // Fin Financiero
@@ -133,6 +151,19 @@ class Menu
     public function menuAdmin()
     {
         return [
+
+            // tickets
+            'Tickets' => [
+                'submenu' => 0,
+                'ruta' => '',
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-tag',
+                'complementoruta' => '',
+            ],
+            // Fin tickets
+
+
+
             // Inicio
             'Dashboard' => [
                 'submenu' => 0,
@@ -156,37 +187,29 @@ class Menu
             // Paquetes
             'Paquetes' => [
                 'submenu' => 1,
-                'ruta' => '',
+                'ruta' =>'',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-archive',
                 'complementoruta' => '',
                 'submenus' => [
                     [
-                        'name' => 'package lis',
+                        'name' => 'Lista de paquetes',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('products.package-list'),
+                        'ruta' => route('products.package-grupos'),
                         'complementoruta' => ''
-                    ],
                     [
+
                         'name' => 'shop',
-                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('shop'),
-                        'complementoruta' => ''
-                    ],
-                    [
-                        'name' => 'crear grupo',
-                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('grupos.index'),
-                        'complementoruta' => ''
-                    ],
-                    [
-                        'name' => 'pakage index',
+                        'name' => 'Administra Tienda',
+
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('products.package-index'),
                         'complementoruta' => ''
                     ],
+
+
+                ],
             ],
-        ],
             // Fin Paquetes
 
             // Red
@@ -215,22 +238,34 @@ class Menu
                         'ruta' => route('genealogy_list_network', 'direct'),
                         'complementoruta' => ''
                     ],
-                ],
             ],
             // Fin Red
 
             // Inversiones
             'Inversiones' => [
-                'submenu' => 0,
+                'submenu' => 1,
                 'ruta' => route('home'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-dollar-sign',
                 'complementoruta' => '',
+                'submenus' => [
+                    [
+                        'name' => 'Activas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 1),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Culminadas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 2),
+                        'complementoruta' => ''
+                    ]
+                ],
             ],
-            // Fin Inversiones
-
-            // Retiros
-            'Retiros' => [
+            // Fin Cierre Comisiones
+            // Liquidaciones
+            'Pagos' => [
                 'submenu' => 1,
                 'ruta' => route('home'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -238,13 +273,19 @@ class Menu
                 'complementoruta' => '',
                 'submenus' => [
                     [
+                        'name' => 'Retiros',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('settlement'),
+                        'complementoruta' => ''
+                    ],
+                    [
                         'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('genealogy_list_network', 'direct'),
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Por confirmar',
+                        'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('genealogy_list_network', 'direct'),
                         'complementoruta' => ''

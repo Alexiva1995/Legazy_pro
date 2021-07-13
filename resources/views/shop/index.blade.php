@@ -16,24 +16,18 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-body card-dashboard">
-                    @foreach ($categories->chunk(3) as $items)
-                        <div class="row">
-                            @foreach ($items as $grupo)
-                            <div class="col-12 col-md-4">
-                                <a href="{{route('shop.products', $grupo->id)}}">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <img class="card-img-top img-fluid" src="{{asset('media/'.$grupo->img)}}" alt="{{$grupo->name}}">
-                                            <div class="card-body">
-                                                <h4 class="card-title">{{$grupo->name}}</h4>
-                                            </div>
-                                        </div>
+                    <div class="row">
+                        @foreach ($packages as $items)
+                            <div class="col col-md-4">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div>{{$items->name}}</div>
+                                        <button class="btn btn-primary">Comprar</button>
                                     </div>
-                                </a>
-                            </div>
-                            @endforeach                            
-                        </div>
-                    @endforeach
+                                </div>
+                            </div>  
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

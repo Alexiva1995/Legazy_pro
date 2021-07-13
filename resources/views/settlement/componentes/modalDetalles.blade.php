@@ -17,7 +17,7 @@
                         <thead>
                             <tr class="text-center">
                                 @if ($all)
-                                <th> 
+                                <th>
                                     <button type="button" class="btn" :class="(seleAllComision) ? 'btn-danger' : 'btn-info'" v-on:click="seleAllComision = !seleAllComision">
                                         <i class="fa" :class="(seleAllComision) ? 'fa-square-o' : 'fa-check-square'"></i>
                                     </button>
@@ -55,7 +55,7 @@
                     </table>
                     @if ($all)
                     <div class="form-group text-center">
-                        <button class="btn btn-primary">Generar Liquidacion</button>
+                        <button class="btn btn-primary">Pagar</button>
                     </div>
                     @endif
                 </form>
