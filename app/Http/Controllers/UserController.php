@@ -62,9 +62,14 @@ class UserController extends Controller
 
         $user = User::find(Auth::user()->id);
 
-        $fields = [      ];
+        $fields = [   
+            "wallet_address" => ['string', 'min:21', 'max:35'],
+        ];
 
-        $msj = [    ];
+        $msj = [  
+            "wallet_address.min" => 'La dirección de la billetera debe tener un minimo de 21 caracteres',
+            "wallet_address.max" => 'La dirección de la billetera no puede tener mas de 35 caracteres',
+        ];
 
         $this->validate($request, $fields, $msj);
 
@@ -133,20 +138,23 @@ class UserController extends Controller
      * @param [type] $id
      * @return void
      */
+
+    // ¿Este metodo se usa? Parece que no, la que funciona es "updateProfile"
     public function updateUser(Request $request, $id)
     {
         $user = User::find($id);
 
         $fields = [
 
-         "name" => ['required'],
-         "last_name" => ['required'],
-         "email" => [
-            'required',
-            'string',
-            'email',
-            'max:255',
-        ],
+             "name" => ['required'],
+             "last_name" => ['required'],
+             "email" => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+            ],
+            
 
         ];
 
@@ -154,11 +162,13 @@ class UserController extends Controller
 
             'name.required' => 'El nombre es requerido',
             'last_name.required' => 'El telefono es requerido',
-            'email.unique' => 'El correo debe ser unico'
-
+            'email.unique' => 'El correo debe ser unico',
+           
         ];
 
+
         $this->validate($request, $fields, $msj);
+  
 
         $fullname = $request->name .' '. $request->last_name;
 
@@ -181,6 +191,7 @@ class UserController extends Controller
         // $user->website = $request->website;
         $user->whatsapp = $request->whatsapp;
         $user->address = $request->address;
+        //$user->wallet_address = $request->wallet_address;
 
         $user->save();
 
@@ -227,14 +238,17 @@ class UserController extends Controller
             'email',
             'max:255',
         ],
+        "wallet_address" => ['string', 'min:21', 'max:35'],
 
         ];
 
         $msj = [
 
-            'name.required' => 'El nombre es requerido',
-            'last_name.required' => 'El apellido es requerido',
-            'email.unique' => 'El correo debe ser unico'
+            'name.required' => 'El nombre es requerido.',
+            'last_name.required' => 'El apellido es requerido.',
+            'email.unique' => 'El correo debe ser unico.',
+            "wallet_address.min" => 'La dirección de la billetera debe tener un minimo de 21 caracteres.',
+            "wallet_address.max" => 'La dirección de la billetera no puede tener mas de 35 caracteres.',
 
         ];
 

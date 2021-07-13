@@ -2,7 +2,6 @@
 
 @push('vendor_css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/vendors/css/extensions/sweetalert2.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/css/librerias/emojionearea.min.css')}}">
 @endpush
 
 @push('page_vendor_js')
@@ -10,57 +9,41 @@
 <script src="{{asset('assets/app-assets/vendors/js/extensions/polyfill.min.js')}}"></script>
 @endpush
 
-{{-- permite llamar las librerias montadas --}}
-@push('page_js')
-<script src="{{asset('assets/js/librerias/vue.js')}}"></script>
-<script src="{{asset('assets/js/librerias/axios.min.js')}}"></script>
-<script src="{{asset('assets/js/librerias/emojionearea.min.js')}}"></script>
-@endpush
-
-@push('custom_js')
-
-{{-- <script src="{{asset('assets/js/ordenFollowers.js')}}"></script> --}}
-@endpush
 
 @section('content')
-
-<div id="record">
+<div id="adminServices">
     <div class="col-12">
         <div class="card">
             <div class="card-content">
                 <div class="card-body card-dashboard">
-                    <div class="table-responsive">
-                        <h1>Lista de Paquetes</h1>
-                        <p>Para ver mas información dar click -> <img src="{{asset('assets/img/sistema/btn-plus.png')}}" alt=""></p>
-                        <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
-                            
-                            <thead class="">
-                                <tr class="text-center text-white bg-purple-alt2">
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                 @foreach ($package as $item)
-                                <tr class="text-center">
-                                    <td>{{ $item->id}}</td>
-                                    <td>{{ $item->name}}</td>
-                                    <td>{{ $item->price}}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="m-2">
+                        <a href="{{route('shop')}}" class="btn btn-primary"> Volver a los Grupos</a>
                     </div>
+                    @foreach ($services->chunk(3) as $items)
+                        <div class="row">
+                            @foreach ($items as $product)
+                            <div class="col-12 col-md-4">
+                                <div class="card border-success text-center bg-transparent">
+                                    <div class="card-content d-flex">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{$product->name}}</h4>
+                                            <p class="card-text">{{$product->description}}</p>
+                                            <p class="card-text">Fecha Vencimiento: <br> {{date('d-m-Y', strtotime($product->expired))}}</p>
+                                            <form action="{{route('shop.procces')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="idproduct" value="{{$product->id}}">
+                                                <button type="submit" class="btn btn-success waves-effect waves-light">Comprar{{$product->id}}</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
-{{-- permite llamar a las opciones de las tablas --}}
-@include('layouts.componenteDashboard.optionDatatable')
-
-

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Groups;
 use App\Models\OrdenPurchases;
 use App\Models\Packages;
+use App\Models\User;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 
 
 class TiendaController extends Controller
@@ -18,22 +21,24 @@ class TiendaController extends Controller
 
     public function __construct()
     {
-        $this->apis_key_nowpayments = 'DV2D091-26V48MG-NDRX33X-7F5EJT7';
+        $this->apis_key_nowpayments = '56ZHMKJ-3E1MC2ZK5NK025-XSTRFHY';
+         //la tienda funciona pero la api key de nowpaymenst no esta activa
+        // con mi api key si funciona YH0WTN1-5T64QQC-MRVZZPE-0DSX41R
     }
-    
+
     /**
      * Lleva a la vista de la tienda
      *
      * @return void
-     */ 
+     */
     public function index()
     {
         try {
             // title
-            View::share('titleg', 'Tienda - Grupos');
-            $categories = Groups::all()->where('status', 1);
+            View::share('titleg', 'Tienda');
+            $packages = Packages::orderBy('id', 'desc')->paginate();
 
-            return view('shop.index', compact('categories'));
+            return view('shop.index', compact('packages'));
         } catch (\Throwable $th) {
             Log::error('Tienda - Index -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -79,7 +84,7 @@ class TiendaController extends Controller
 
                 $porcentaje = ($paquete->price * 0.03);
                 $total = ($paquete->price + $porcentaje);
-                
+
                 $data = [
                     'iduser' => Auth::id(),
                     'group_id' => $paquete->getGroup->id,
@@ -91,22 +96,26 @@ class TiendaController extends Controller
                 $data['idorden'] = $this->saveOrden($data);
                 $data['descripcion'] = $paquete->description;
                 $url = $this->generalUrlOrden($data);
+               // dd($url);
                 if (!empty($url)) {
                     return redirect($url);
 
                 }else{
-                    OrdenPurchases::where('id', $data['idorden'])->delete();
-                    return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
+
+                   OrdenPurchases::where('id', $data['idorden'])->delete();
+                   return redirect()->back()->with('msj-info', 'Problemas al general la orden, intente mas tarde');
                 }
+
+
             }
         } catch (\Throwable $th) {
             Log::error('Tienda - procesarOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+            abort(403, "Ocurrio un error (1) , contacte con el administrador");
         }
     }
 
     /**
-     * Guarda la informacion de las ordenes nuevas 
+     * Guarda la informacion de las ordenes nuevas
      *
      * @param array $data
      * @return integer
@@ -131,13 +140,13 @@ class TiendaController extends Controller
     }
 
     /**
-     * Permite recibir el estado de las ordenes 
+     * Permite recibir el estado de las ordenes
      *
      * @param Request $resquet
      * @return void
      */
     public function ipn(Request $resquet)
-    { 
+    {
         Log::info('ipn prueba ->', $resquet);
     }
 
@@ -154,8 +163,7 @@ class TiendaController extends Controller
                 'x-api-key: '.$this->apis_key_nowpayments,
                 'Content-Type:application/json'
             ];
-
-            $resul = ''; 
+            $resul = '';
             $curl = curl_init();
 
             $dataRaw = collect([
@@ -168,7 +176,7 @@ class TiendaController extends Controller
                 "success_url" => route('shop.proceso.status', 'Completada'),
                 "cancel_url" => route('shop.proceso.status', 'Cancelada')
             ]);
-            
+
 
             curl_setopt_array($curl, array(
                 CURLOPT_URL => "https://api.nowpayments.io/v1/invoice",
@@ -181,18 +189,20 @@ class TiendaController extends Controller
                 CURLOPT_POSTFIELDS => $dataRaw->toJson(),
                 CURLOPT_HTTPHEADER => $headers
             ));+-
-                
+
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
+              //  dd($dataRaw);
+
                 curl_close($curl);
                 if ($err) {
-                    Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);        
+                    Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
                 } else {
                     $response = json_decode($response);
                     OrdenPurchases::where('id', $data['idorden'])->update(['idtransacion' => $response->id]);
                     $resul = $response->invoice_url;
                 }
-                  
+
             return $resul;
         } catch (\Throwable $th) {
             Log::error('Tienda - generalUrlOrden -> Error: '.$th);

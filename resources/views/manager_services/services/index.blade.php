@@ -26,12 +26,13 @@
                                             <img class="card-img-top img-fluid" src="{{asset('media/'.$grupo->img)}}" alt="{{$grupo->name}}">
                                             <div class="card-body">
                                                 <h4 class="card-title">{{$grupo->name}}</h4>
+                                                <h5>Crea nuevo <br> Paquete Aqui</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            @endforeach                            
+                            @endforeach
                         </div>
                     @endforeach
                 </div>

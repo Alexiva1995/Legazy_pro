@@ -1,17 +1,25 @@
 <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
     <thead class="">
         <tr class="text-center text-white bg-purple-alt2">
-            <th>Nombre</th>
-            <th>Correo</th>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Paquete</th>
             <th>Estado</th>
-            <th>Ingreso</th>
+            <th>Fecha</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($data as $item)
         <tr class="text-center">
+            <td>{{$item->id}}</td>
             <td>{{$item->name}}</td>
-            <td>{{$item->email}}</td>
+
+            @if ($item->getUserOrden == '')
+            <td>Sin paquete</td>
+            @else
+            <td>{{$item->getUserOrden->getPackageOrden->name}}</td>
+            @endif
+
             @if ($item->status == '0')
             <td> <a class=" btn btn-info text-white text-bold-600">Inactivo</a></td>
             @elseif($item->status == '1')

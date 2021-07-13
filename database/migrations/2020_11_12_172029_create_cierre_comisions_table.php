@@ -15,8 +15,8 @@ class CreateCierreComisionsTable extends Migration
     {
         Schema::create('cierre_comisions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('group_id')->unsigned();
-            $table->foreign('group_id')->references('id')->on('groups');
+            // $table->bigInteger('group_id')->unsigned();
+            // $table->foreign('group_id')->references('id')->on('groups');
             $table->bigInteger('package_id')->unsigned();
             $table->foreign('package_id')->references('id')->on('packages');
             $table->double('s_inicial')->comment('saldo inicial');

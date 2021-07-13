@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Notifications\MailResetPasswordNotification as ResetPasswordNotification;
+
 
 class User extends Authenticatable
 
@@ -72,7 +74,13 @@ class User extends Authenticatable
      */
     public function getUserOrden()
     {
-        return $this->hasMany('App\Models\OrdenPurchases', 'iduser');
+        return $this->belongsTo('App\Models\OrdenPurchases', 'id', 'iduser');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        // Your your own implementation.
+        $this->notify(new ResetPasswordNotification($token));
     }
 
 }
