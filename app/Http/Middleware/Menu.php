@@ -114,6 +114,18 @@ class Menu
                         'ruta' => route('payments.index'),
                         'complementoruta' => ''
                     ],
+                    [
+                        'name' => 'Inversiones Activas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 1),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Inversiones Culminadas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 2),
+                        'complementoruta' => ''
+                    ]
                 ],
             ],
             // Fin Financiero
@@ -272,7 +284,7 @@ class Menu
                         'complementoruta' => ''
                     ],
                     [
-                        'name' => 'Por confirmar',
+                        'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('settlement.pending'),
                         'complementoruta' => ''
