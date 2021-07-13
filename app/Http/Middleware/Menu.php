@@ -78,7 +78,18 @@ class Menu
                         'ruta' => route('genealogy_list_network', 'direct'),
                         'complementoruta' => ''
                     ],
-
+                    [
+                        'name' => 'Inversiones Activas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 1),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Inversiones Culminadas',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('inversiones.index', 2),
+                        'complementoruta' => ''
+                    ]
                 ],
             ],
             // Fin añadir Negocio
@@ -235,8 +246,8 @@ class Menu
             ],
             // Fin Red
 
-            // Financiero
-            'Financiero' => [
+            // Inversiones
+            'Inversiones' => [
                 'submenu' => 1,
                 'ruta' => route('home'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -257,9 +268,9 @@ class Menu
                     ]
                 ],
             ],
-            // Fin Financiero
+            // Fin Cierre Comisiones
             // Liquidaciones
-            'Retiros' => [
+            'Pagos' => [
                 'submenu' => 1,
                 'ruta' => route('home'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
@@ -267,7 +278,13 @@ class Menu
                 'complementoruta' => '',
                 'submenus' => [
                     [
-                        'name' => 'Por confirmar',
+                        'name' => 'Retiros',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('settlement'),
+                        'complementoruta' => ''
+                    ],
+                    [
+                        'name' => 'Confirmados',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('settlement.pending'),
                         'complementoruta' => ''
