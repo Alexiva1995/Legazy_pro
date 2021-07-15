@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="{{ asset('assets/img/sistema/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/img/legazy_pro/user.png') }}" type="image/x-icon">
     
     <title>HDLRS</title>
     {{-- Styles --}}
@@ -21,7 +21,7 @@
     }
     
     body::-webkit-scrollbar-thumb {
-        background: #46B0FE;
+        background: #D6A83E;
         border-radius: 7px;
     }
     </style>

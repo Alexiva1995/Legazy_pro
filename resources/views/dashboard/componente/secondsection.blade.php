@@ -1,16 +1,7 @@
 @push('script')
 <script>
-var progreso = 0;
-var idIterval = setInterval(function(){
-  // Aumento en 10 el progeso
-  progreso +=10;
-  $('#bar').css('width', progreso + '%');
-     
-  //Si llegó a 100 elimino el interval
-  if(progreso == 100){
-    clearInterval(idIterval);
-  }
-},1000);
+
+
 <script>
 @endpush
 <body style="background:#141414">
@@ -46,6 +37,7 @@ var idIterval = setInterval(function(){
      {{-- dos primeras tarjetas --}}
     <div class="col-12">
         <div class="row">
+
             <div class="col-sm-6 col-12 mt-1">
                 <div class="card h-100" style="background: #cb9b32;">
                     <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
@@ -60,6 +52,7 @@ var idIterval = setInterval(function(){
                     </div>
                 </div>
             </div>
+
             <div class="col-sm-6 col-12 mt-1">
                 <div class="card h-100" style="background: #1b1b1b;">
                     <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
@@ -84,7 +77,8 @@ var idIterval = setInterval(function(){
                     
                 </div>
             </div>
-            {{--                                --}}
+
+
 
             <div class="col-sm-6 col-md-5 col-12 mt-1">
                 <div class="card h-90" style="background: #1b1b1b;">

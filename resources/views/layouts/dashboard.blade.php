@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="{{ asset('assets/img/sistema/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/img/legazy_pro/logo.svg') }}" type="image/x-icon">
     
-    <title>HDLRS</title>
+    <title>Legazy Pro</title>
     {{-- Styles --}}
     @include('layouts.componenteDashboard.styles')
     {{-- Fin Styles --}}
@@ -21,12 +21,12 @@
     }
     
     body::-webkit-scrollbar-thumb {
-        background: #46B0FE;
+        background: #D6A83E;
         border-radius: 7px;
     }
     </style>
     
-<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click"
+<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  text-white" style="background:#141414" data-open="click"
     data-menu="vertical-menu-modern" data-col="2-columns">
     {{-- Notificaciones del sistema --}}
     @include('layouts.componenteDashboard.messageSystem')
