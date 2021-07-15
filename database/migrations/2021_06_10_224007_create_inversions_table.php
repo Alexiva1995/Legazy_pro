@@ -26,11 +26,14 @@ class CreateInversionsTable extends Migration
             $table->double('retiro');
             $table->double('capital');
             $table->double('progreso');
-            $table->date('fecha_vencimiento');
+            $table->date('fecha_vencimiento')->nullable();
             $table->decimal('porcentaje_fondo')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1 - activo , 2 - culminada');
             $table->tinyInteger('status_por_pagar')->default(1)->comment('1 - por Pagar , 0 - Pagado');
-            $table->double('ganancia_acumulada');
+            $table->double('ganancia_acumulada')->default(0);
+            $table->decimal('porcentaje_utilidad')->nullable();
+            $table->double('max_ganancia')->nullable();
+            $table->double('restante')->nullable();
             $table->timestamps();
         });
     }

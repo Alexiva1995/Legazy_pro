@@ -3,11 +3,46 @@
 @section('title', $type)
 
 @push('custom_css')
-<link rel="stylesheet" href="{{asset('assets/css/tree2.css')}}">
+{{-- <link rel="stylesheet" href="{{asset('assets/css/tree2.css')}}"> --}}
+<link rel="stylesheet" href="{{asset('assets/css/customer/joeldesing.css')}}">
 @endpush
 
 @section('content')
+<body style="background: #141414;">
 <div class="col-12 text-center">
+
+<div class="container">
+
+    <div class="col-3">
+   <div class=" d-flex  align-items-center white mt-2">
+        <button class="btn-tree" style="boder-color=#D6A83E">LINK DE REFERIDO</button>
+    </div>
+</div>
+
+<div class="col-3">
+    <div class="d-flex  align-items-center white mt-2">
+        <button class="btn-tree" style="boder-color=#D6A83E">LINK DE REFERIDO</button>
+    </div>
+</div>
+</div>
+
+
+<div class="container">
+
+    <div class="col-3">
+   <div class=" d-flex  align-items-center white mt-2">
+        <button class="btn-tree" style="boder-color=#D6A83E">LINK DE REFERIDO</button>
+    </div>
+</div>
+
+<div class="col-3">
+    <div class="d-flex  align-items-center white mt-2">
+        <button class="btn-tree" style="boder-color=#D6A83E">LINK DE REFERIDO</button>
+    </div>
+</div>
+</div>
+
+
     <div class="padre">
         <ul>
             <li class="baseli">
@@ -76,4 +111,6 @@
     </div>
     @endif
 </div>
+</body>
+
 @endsection

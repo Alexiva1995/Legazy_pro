@@ -22,7 +22,11 @@
                                 <div class="card text-center">
                                     <div class="card-body">
                                         <div>{{$items->name}}</div>
-                                        <button class="btn btn-primary">Comprar</button>
+                                        <form action="{{route('shop.procces')}}" method="POST" target="_blank" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="idproduct" value="{{$items->id}}">
+                                        <button class="btn btn-primary" type="submit">Comprar</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>  
