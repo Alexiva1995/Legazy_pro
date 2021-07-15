@@ -55,14 +55,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-
         try {
             return Validator::make($data, [
-                'fullname' => ['required', 'string', 'max:255'],
-                'username' => ['required', 'string', 'max:255', 'unique:users'],
+                'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8'],
-                // 'term' => ['required']
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'term' => ['required']
             ]);
         } catch (\Throwable $th) {
             dd($th);
@@ -78,8 +76,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-         try {
+        try {
+            $fullname = explode(' ', $data['name']);
             $whatsapp = '-----';
             $binary_side = '';
             $binary_id = 0;
@@ -89,10 +87,9 @@ class RegisterController extends Controller
                 $binary_side = $userR->binary_side_register;
             }
             return User::create([
-                // 'name' => $fullname[0],
-                // 'last_name' => (!empty($fullname[1])) ? $fullname[1] : '',
-                'fullname' => $data['fullname'],
-                'username' => $data['username'],
+                'name' => $fullname[0],
+                'last_name' => (!empty($fullname[1])) ? $fullname[1] : '',
+                'fullname' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'whatsapp' => $whatsapp,

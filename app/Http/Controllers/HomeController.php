@@ -30,6 +30,20 @@ class HomeController extends Controller
         $this->walletController = new WalletController;
     }
 
+        /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function home()
+    {
+        if (Auth::user()->admin == 1) {
+        return redirect()->route('home');
+        } else {
+        return redirect()->route('home.user');
+        }
+    }
+
     /**
      * Show the application dashboard.
      *
