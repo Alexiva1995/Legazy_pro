@@ -13,14 +13,12 @@ $new = \App\Models\News::where('status', '1')->get();
 
 {{-- page css --}}
 @push('page_css')
-{{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/dashboard-analytics.css')}}"> --}}
-<link rel="stylesheet" type="text/css" href="{{asset('assets/css/customer/joeldesing.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/dashboard-analytics.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/card-analytics.css')}}">
 @endpush
 
 {{-- page vendor js --}}
 @push('page_vendor_js')
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="{{asset('assets/app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
 <script src="{{asset('assets/app-assets/vendors/js/extensions/tether.min.js')}}"></script>
 <script src="{{asset('assets/app-assets/vendors/js/extensions/shepherd.min.js')}}"></script>
@@ -66,13 +64,13 @@ $new = \App\Models\News::where('status', '1')->get();
 
 <section id="dashboard-analytics">
     {{-- Primera Seccion --}}
-    {{-- @include('dashboard.componente.firstsection') --}}
+    @include('dashboard.componente.firstsection')
     {{-- Fin Primera Seccion --}}
     {{-- Segundo Seccion --}}
     @include('dashboard.componente.secondsection')
     {{-- Fin Segundo Seccion --}}
     {{-- Tercera Seccion --}}
-    {{-- @include('dashboard.componente.thirdsection') --}}
+    @include('dashboard.componente.thirdsection')
     {{-- Fin Tercera Seccion --}}
 </section>
 

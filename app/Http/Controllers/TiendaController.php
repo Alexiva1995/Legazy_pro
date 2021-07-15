@@ -188,7 +188,7 @@ class TiendaController extends Controller
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => $dataRaw->toJson(),
                 CURLOPT_HTTPHEADER => $headers
-            ));+-
+            ));
 
                 $response = curl_exec($curl);
                 $err = curl_error($curl);

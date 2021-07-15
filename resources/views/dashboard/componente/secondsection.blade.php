@@ -1,208 +1,207 @@
+@push('script')
+<script>
+var progreso = 0;
+var idIterval = setInterval(function(){
+  // Aumento en 10 el progeso
+  progreso +=10;
+  $('#bar').css('width', progreso + '%');
+     
+  //Si llegó a 100 elimino el interval
+  if(progreso == 100){
+    clearInterval(idIterval);
+  }
+},1000);
+<script>
+@endpush
+<body style="background:#141414">
 <div class="row mt-1">
-    {{-- Seccion ayuda --}}
 
-    <div class="col-6">
-
-        <div class="card h-100 d-flex justify-content-center align-items-center">
-            <h1><b> Ahorro Circular </b></h1>
-            <div class="row">
-                <div class="card-content col-6">
-                    <div class="card-body">
-                        <div class="card-body text-center">
-                        <img src="{{asset('assets/img/sistema/24-7-support.png')}}" alt="card-img-left">
-                            <h4 class="card-title mt-2">
-                                <strong>
-                                    Reinversion de Comissiones
-                                </strong>
-                                <h4>
-                                    <a class="btn text-white padding-button-short btn-block bg-purple-alt2 mt-1 waves-effect waves-light" data-toggle="modal" data-target="#exampleModalCenter"><b>REINVERTIR</b></a href="javascript:;">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-content col-6">
-                    <div class="card-body">
-                        <div class="card-body text-center">
-                        <img src="{{asset('assets/img/sistema/24-7-support.png')}}" alt="card-img-left">
-                            <h4 class="card-title mt-2">
-                                <strong>
-                                    Reinversion del Capital
-                                </strong>
-                                <h4>
-                                    <a class="btn text-white padding-button-short btn-block bg-purple-alt2 mt-1 waves-effect waves-light" data-toggle="modal" data-target="#exampleModalCenter"><b>REINVERTIR</b></a href="javascript:;">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-          <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Planes
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
+{{--carosel---}}
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel"style="width: 100%;">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        
+      <img class="col-3 w-5" src="{{asset('assets/img/btc.png')}}" alt="First slide">
+      <img class="w-5 col-3" src="{{asset('assets/img/etc.png')}}" alt="First slide">
+      <img class="w-5 col-3" src="{{asset('assets/img/Vector.png')}}" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="..." alt="Third slide">
     </div>
   </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 
 
+    
+     {{-- Seccion Grafico --}}
 
-
-
-
-    </div>
-
-    <div class="col-6">
-        <div class="card h-100 d-flex justify-content-center align-items-center">
-            <div class="card-content">
-                <div class="card-body">
-                    <div class="card-body text-center">
-                        <img src="{{asset('assets/img/sistema/24-7-support.png')}}" alt="card-img-left">
-                        <h4 class="card-title mt-2">
-                            <strong>
-                                ¿Necesitas Ayuda?
-                            </strong>
-                            <h4>
-                                <p class="card-text">
-                                    Contacta con nosotros, estaremos <br>
-                                    encantado de ayudarte
-                                </p>
-                                <a href=""
-                                    class="btn text-white padding-button-short btn-block bg-purple-alt2 mt-1 waves-effect waves-light">CONTACTANOS</a
-                                    href="javascript:;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-     
-    <div class="col-12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-body card-dashboard">
-                <h1>Inversiones</h1>
-                    <div class="table-responsive">
-                        <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
-                            <thead class="">
-                                <tr class="text-center text-white bg-purple-alt2">
-                                    <th>ID</th>
-                                    <th>Inicio</th>
-                                    <th>Vence</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr class="text-center">
-
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    {{-- Seccion Grafico --}}
+     {{-- dos primeras tarjetas --}}
     <div class="col-12">
         <div class="row">
             <div class="col-sm-6 col-12 mt-1">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0">
-                        <div class="avatar bg-rgba-primary p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="fa fa-usd text-primary font-medium-5"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="text-bold-700 mt-1">$ {{number_format($data['wallet'], '2', ',', '.')}}
-                            </h2>
-                            <p class="mb-0">Tu dinero</p>
-                        </div>
+                <div class="card h-100" style="background: #cb9b32;">
+                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0">Saldo disponible</p>
                     </div>
-                    <div class="card-content">
-                        <div id="line-area-chart-1"></div>
+                    
+                        <div class="card-sub d-flex align-items-center">
+                            <h2 class="text-bold-700 mb-0 white">$78.20 </h2>
+                        </div>
+                    <div class=" card-header d-flex align-items-center mt-3">
+                        <button class="btn btn-dark">RETIRAR</button>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6 col-12 mt-1">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0">
-                        <div class="avatar bg-rgba-success p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="fa fa-money text-success font-medium-5"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="text-bold-700 mt-1">$ {{number_format($data['comisiones'], '2', ',', '.')}}</h2>
-                            <p class="mb-0">Comisiones totales</p>
-                        </div>
+                <div class="card h-100" style="background: #1b1b1b;">
+                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0">Ganacia Actual</p>
                     </div>
-                    <div class="card-content">
-                        <div id="line-area-chart-2"></div>
+                    
+                        <div class="card-sub d-flex align-items-center ">
+                            <h2 class="gold text-bold-700 mb-0">$215.89 </h2>
+                        </div>
+                        
+                        <div class="d-flex align-items-center">
+                        <div class="progress ml-2 mt-5" style="height: 25px;width: 80%;">
+                            <div id="bar" class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                              <span class="sr-only">0% Complete</span>
+                            </div>
+                          </div>
+                          <div class="card-sub d-flex align-items-center ">
+                            <p class="white text-bold-700 mb-0">215.89% </p>
+                        </div>
+                          </div>
+                       
+                    
+                </div>
+            </div>
+            {{--                                --}}
+
+            <div class="col-sm-6 col-md-5 col-12 mt-1">
+                <div class="card h-90" style="background: #1b1b1b;">
+                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0">Link de referido</p>
+                    </div>
+                    
+                        <div class="card-sub d-flex align-items-center ">
+                            <h2 class="gold text-bold-700 mb-0">INVITA A <br> PERSONAS</br> </h2>
+                        </div>
+                    <div class=" card-header d-flex align-items-center white mt-2">
+                        <button class="btn-darks" style="boder-color=#D6A83E">LINK DE REFERIDO</button>
                     </div>
                 </div>
             </div>
+
+            <div class="col-sm-6 col-md-4 col-12 mt-1">
+                <div class="card h-90" style="background: #1b1b1b;">
+                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0">Lado Binario</p>
+                    </div>
+                    
+                        <div class="card-sub d-flex align-items-center ">
+                            <h2 class="gold text-bold-700 mb-0">IZQUIERDO </h2>
+                        </div>
+                    <div class=" card-dl d-flex align-items-center mt-5">
+                        <input type="checkbox" name="vehicle1" value="Bike">IZQUIERDO</input>
+                        <input type="checkbox" name="vehicle1" value="Bike">DERECHO</input>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3 col-12 mt-1">
+                <div class="card h-90" style="background: #1b1b1b;">
+                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0">Paquete de inversion</p>
+                    </div>
+                    
+                    <div class="card-header d-flex align-items-center mb-2 ">
+                            <img src="{{asset('assets/img/Recurso31.png')}}" alt="" style="width: 90%; heigh:100%;margin-top: -15px;">
+                        </div>
+
+                </div>
+            </div>
+
+
+            {{----}}
+
+            
             <div class="col-sm-6 col-12 mt-1">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0">
-                        <div class="avatar bg-rgba-warning p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="feather icon-shopping-cart text-warning font-medium-5"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="text-bold-700 mt-1">{{$data['ordenes']}}</h2>
-                            <p class="mb-0">Todas las ordenes</p>
-                        </div>
+                <div class="card h-100" style="background: #1b1b1b;">
+                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0 white">Total de ventas</p>
                     </div>
-                    <div class="card-content">
-                        <div id="line-area-chart-4"></div>
-                    </div>
+                    
+                        <div class="card-header d-flex align-items-center ">
+                            <h2 class="text-bold-700 mb-0">grafico </h2>
+                        </div>
+                    
                 </div>
             </div>
+
             <div class="col-sm-6 col-12 mt-1">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0">
-                        <div class="avatar bg-rgba-danger p-50 m-0">
-                            <div class="avatar-content">
-                                <i class="fa fa-ticket text-danger font-medium-5"></i>
+                <div class="card h-100" style="background: #1b1b1b;">
+                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0">Proximo rango</p>
+                    </div>
+                    
+                        <div class="card-header d-flex align-items-center mb-2 ">
+                            <img src="{{asset('assets/img/Group86.png')}}" alt="" style="width: 100%;" height="200">
+                        </div>
+
+                        <div class="card-header d-flex align-items-center mb-2 ">
+                            <img src="{{asset('assets/img/Line28.png')}}" alt="" style="width: 100%;" height="1">
+                        </div>
+                        
+                        <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0">total de puntos:</p>
+                        </div>
+
+                        <div class="card-sub d-flex align-items-center ">
+                            <h2 class="gold text-bold-700 mb-0">3,960</h2>
+                        </div>
+                        
+                        <div class="d-flex align-items-center">
+                        <div class="progress ml-2" style="height: 25px;width: 80%;">
+                            <div id="bar" class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 87%">
+                              <span class="sr-only">0% Complete</span>
                             </div>
+                          </div>
+                          <div class="card-sub d-flex align-items-center ">
+                            <p class="white text-bold-700" style="margin-top: -30px;">87% </p>
                         </div>
-                        <div>
-                            <h2 class="text-bold-700 mt-1">{{$data['tickets']}}</h2>
-                            <p class="mb-0">Total de tickets</p>
+                          </div>
+                          <div class="card-sub">
+                            <p class="white text-bold-700"style="margin-top: -50px;">proximo rango = 5,000 </p>
                         </div>
-                    </div>
-                    <div class="card-content">
-                        <div id="line-area-chart-3"></div>
-                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+            {{----}}
+
+            <div class="col-12 mt-1 mb-3">
+                <div class="card h-100" style="background: #1b1b1b;">
+                    <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
+                         <p class="mt-1 mb-0">Precio de las acciones</p>
+                    </div>
+                    
+                        <div class="card-header d-flex align-items-center ">
+                            <h2 class="text-bold-700 mb-0">$7,104.32</h2>
+                        </div>
+
+                        <div class="card-header d-flex align-items-center ">
+                            <h2 class="text-bold-700 mb-0">grafico</h2>
+                        </div>
+                    
+                </div>
+            </div>
 </div>
+</body>
