@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Database\Seeders\OrdenPurchaseTableSeeder;
 use Database\Seeders\RanksTableSeeder;
 use Database\Seeders\PackagesTableSeeder;
 
@@ -16,6 +19,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(UserSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(PackagesTableSeeder::class);
+        $this->call(OrdenPurchaseTableSeeder::class);
         $this->call(RanksTableSeeder::class);
         // $this->call(CountryTableSeeder::class);
         // $this->call(CategoriesTableSeeder::class);
