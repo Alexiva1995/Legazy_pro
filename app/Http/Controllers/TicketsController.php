@@ -35,15 +35,14 @@ class TicketsController extends Controller
 
         $fields = [
             "issue" => ['required'],
-            "description" => ['required'],
             'status' => ['0'],
-            
+            "note" => ['required'],
         ];
 
         $msj = [
              
             'issue.required' => 'El asunto es Requerido',
-            'description.required' => 'La descripción es Requerido',
+            'note.required' => 'El mensaje es Requerido',
 
         ];
 
@@ -51,9 +50,8 @@ class TicketsController extends Controller
         
         Ticket::create([
             'iduser' => Auth::id(),
-
             'issue' => request('issue'),
-            'description' => request('description'),
+            'note' => request('note'),
 
         ]);
 
@@ -79,22 +77,24 @@ class TicketsController extends Controller
         $fields = [
          
 
-            "description" => ['required'],
             'status' => ['0'],
+            "note" => ['required'],
+            "issue" => ['required'],
+
             
         ];
 
         $msj = [
           
-
-            'description.required' => 'La descripción es Requerido',
+             'issue.required' => 'el asunto es Requerido',
+             'note.required' => 'La mensaje es Requerido',
 
         ];
 
         $this->validate($request, $fields, $msj);
 
         $ticket->update($request->all());
-        $ticket->note_admin = $request->note_admin;
+        // $ticket->note_admin = $request->note_admin;
         $ticket->save();
 
         $route = route('ticket.list-user');
@@ -144,18 +144,20 @@ class TicketsController extends Controller
 
         $fields = [
             'status' => ['required'],
-            'note_admin' => ['required']
+            // 'note_admin' => ['required'],
+            'note' => ['required'],
         ];
 
         $msj = [
             'status.required' => 'Es requerido el Estatus de la ticket',
-            'note_admin.required' => 'Es requerido Nota del admin',
+            // 'note_admin.required' => 'Es requerido Nota del admin',
+            'note.required' => 'Es requerido mensaje del admin',
         ];
 
         $this->validate($request, $fields, $msj);
 
         $ticket->update($request->all());
-        $ticket->note_admin = $request->note_admin;
+        // $ticket->note_admin = $request->note_admin;
         $ticket->save();
 
         $route = route('ticket.list-admin');

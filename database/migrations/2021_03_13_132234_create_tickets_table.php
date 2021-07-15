@@ -18,9 +18,9 @@ class CreateTicketsTable extends Migration
             $table->bigInteger('iduser')->unsigned();
             $table->boolean('status', [0, 1])->default(0)->comment('0 - Abierto, 1 - Cerrado, 2');
             $table->boolean('priority', [0, 1, 2])->default(0)->comment('0 - Alto, 1 - Medio, 2 - bajo');
-            // $table->longtext('description');
             $table->longtext('issue');
-            $table->longtext('note_admin')->nullable();
+            // $table->longtext('note_admin')->nullable();
+            $table->longtext('note');
             $table->timestamps();
         });
     }
