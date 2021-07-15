@@ -15,29 +15,35 @@
                             @csrf
                             <div class="form-body">
                                 <div class="row">
+                                 
+                                
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Email de contacto</label>
-                                            <input type="email" id="email" class="form-control" name="email">
+                                            <label>asunto del ticket</label>
+                                            <textarea type="text" rows="1" id="issue" class="form-control"
+                                                name="issue"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Whatsapp de contacto</label>
-                                            <input type="text" id="whatsapp" class="form-control" name="whatsapp">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Asunto del Ticket</label>
-                                            <input type="text" id="issue" class="form-control" name="issue">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Especifique la situacion</label>
+                                            <label>Descripcion del ticket</label>
                                             <textarea type="text" rows="5" id="description" class="form-control"
                                                 name="description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="controls">
+                                                <label for="priority">prioridad del ticket</label>
+                                                <span class="text-danger text-bold-600">OBLIGATORIO</span>
+                                                <select name="priority" id="priority"
+                                                    class="custom-select priority @error('priority') is-invalid @enderror"
+                                                    required data-toggle="select">
+                                                    <option value="0">Alto</option>
+                                                    <option value="1">Medio</option>
+                                                    <option value="2">Bajo</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     

@@ -20,9 +20,13 @@ class TicketsController extends Controller
 
     // permite ver la vista de creacion del ticket
 
+   
     public function create(){
-     
-        return view('tickets.create');
+  
+      return view('tickets.create');
+
+        
+
     }
 
     // permite la creacion del ticket
@@ -30,28 +34,27 @@ class TicketsController extends Controller
     public function store(Request $request){
 
         $fields = [
-            "email" => ['required'],
-            "whatsapp" => ['required'],
             "issue" => ['required'],
             "description" => ['required'],
             'status' => ['0'],
+            
         ];
 
         $msj = [
-            'email.required' => 'El email es Requerido',
-            'whatsapp.required' => 'El whatsapp es Requerido',
+             
             'issue.required' => 'El asunto es Requerido',
             'description.required' => 'La descripción es Requerido',
+
         ];
 
         $this->validate($request, $fields, $msj);
         
         Ticket::create([
             'iduser' => Auth::id(),
-            'whatsapp' => request('whatsapp'),
-            'email' => request('email'),
+
             'issue' => request('issue'),
             'description' => request('description'),
+
         ]);
 
         return redirect()->route('ticket.list-user')->with('msj-success', 'El Ticket se creo Exitosamente');
@@ -74,18 +77,16 @@ class TicketsController extends Controller
         $ticket = Ticket::find($id);
 
         $fields = [
-            "email" => ['required'],
-            "whatsapp" => ['required'],
-            "issue" => ['required'],
+         
+
             "description" => ['required'],
             'status' => ['0'],
             
         ];
 
         $msj = [
-            'email.required' => 'El email es Requerido',
-            'whatsapp.required' => 'El whatsapp es Requerido',
-            'issue.required' => 'El asunto es Requerido',
+          
+
             'description.required' => 'La descripción es Requerido',
 
         ];

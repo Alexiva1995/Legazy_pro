@@ -16,30 +16,10 @@
                             @method('PATCH')
                             <div class="form-body">
                                 <div class="row">
+                              
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Email de contacto</label>
-                                            <input type="email" id="email" class="form-control"
-                                                value="{{ $ticket->email }}" name="email">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Whatsapp de contacto</label>
-                                            <input type="text" id="whatsapp" class="form-control"
-                                                value="{{ $ticket->whatsapp }}" name="whatsapp">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>titulo del Ticket</label>
-                                            <input type="text" id="issue" class="form-control"
-                                                value="{{ $ticket->issue }}" name="issue">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Especificación del Ticket</label>
+                                            <label>Asunto del Ticket</label>
                                             <textarea type="text" rows="5" id="description" class="form-control"
                                                 name="description">{{ $ticket->description }}</textarea>
                                         </div>

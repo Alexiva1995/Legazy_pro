@@ -15,27 +15,8 @@
                     <div class="card-body">
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Email de contacto</label>
-                                        <input type="email" readonly id="email" class="form-control"
-                                            value="{{ $ticket->email }}" name="email">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Whatsapp de contacto</label>
-                                        <input type="text" readonly id="whatsapp" class="form-control"
-                                            value="{{ $ticket->whatsapp }}" name="whatsapp">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Asunto del Ticket</label>
-                                        <input type="text" id="issue" readonly class="form-control"
-                                            value="{{ $ticket->issue }}" name="issue">
-                                    </div>
-                                </div>
+                              
+                             
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Especificación del Ticket</label>

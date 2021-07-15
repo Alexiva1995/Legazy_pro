@@ -35,17 +35,17 @@
                                     <td>{{ $item->issue}}</td>
  --}}
                                     @if ($item->status == '0')
-                                    <td> <a class=" btn btn-info text-white text-bold-600">Abierto</a></td>
+                                    <td> <a class=" btn btn-success text-white text-bold-600">Abierto</a></td>
                                     @elseif($item->status == '1')
-                                    <td> <a class=" btn btn-success text-white text-bold-600">Cerrado</a></td>
+                                    <td> <a class=" btn btn-danger text-white text-bold-600">Cerrado</a></td>
                                     @endif
                                     
                                     @if ($item->priority == '0')
-                                    <td> <a class=" btn btn-info text-white text-bold-600">Alto</a></td>
+                                    <td> <a class="text-uppercase">Alto</a></td>
                                     @elseif($item->priority == '1')
-                                    <td> <a class=" btn btn-success text-white text-bold-600">Medio</a></td>
+                                    <td> <a class="text-uppercase">Medio</a></td>
                                     @elseif($item->priority == '2')
-                                    <td> <a class=" btn btn-success text-white text-bold-600">Bajo</a></td>
+                                    <td> <a class="text-uppercase">Bajo</a></td>
                                     @endif
                                     
                                     <td>{{ $item->created_at}}</td>

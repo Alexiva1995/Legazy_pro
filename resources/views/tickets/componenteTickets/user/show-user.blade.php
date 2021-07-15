@@ -13,20 +13,7 @@
                     <div class="card-body">
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Email de contacto</label>
-                                        <input type="email" readonly id="email" class="form-control"
-                                            value="{{ $ticket->email }}" name="email">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Whatsapp de contacto</label>
-                                        <input type="text" readonly id="whatsapp" class="form-control"
-                                            value="{{ $ticket->whatsapp }}" name="whatsapp">
-                                    </div>
-                                </div>
+                               
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Asunto del Ticket</label>
@@ -46,7 +33,6 @@
                                         <div class="form-group">
                                             <div class="controls">
                                                 <label for="priority">prioridad del ticket</label>
-                                                <span class="text-danger text-bold-600">OBLIGATORIO</span>
                                                 <select name="priority" id="priority"
                                                     class="custom-select priority @error('priority') is-invalid @enderror"
                                                     required data-toggle="select">
