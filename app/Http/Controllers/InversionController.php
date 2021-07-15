@@ -28,7 +28,12 @@ class InversionController extends Controller
        try {
            $this->checkStatus();
            
-             $inversiones = Inversion::all();
+           if (Auth::user()->admin == 1) {
+                $inversiones = Inversion::all();
+            
+            }else{
+                $inversiones = Inversion::where('iduser', '=',Auth::id())->get();
+            }
 
             foreach ($inversiones as $inversion) {
                 $inversion->correo = $inversion->getInversionesUser->email;

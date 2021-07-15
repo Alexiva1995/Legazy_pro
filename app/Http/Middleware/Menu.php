@@ -87,7 +87,28 @@ class Menu
                 ],
             ],
             // Fin añadir Negocio
-
+            //INVERSIONES
+            'Inversiones' => [
+                'submenu' => 0,
+                'ruta' => route('inversiones.index'),
+                'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                'icon' => 'feather icon-dollar-sign',
+                'complementoruta' => '',
+                // 'submenus' => [
+                //     [
+                //         'name' => 'Activas',
+                //         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                //         'ruta' => route('inversiones.index', 1),
+                //         'complementoruta' => ''
+                //     ],
+                //     [
+                //         'name' => 'Culminadas',
+                //         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                //         'ruta' => route('inversiones.index', 2),
+                //         'complementoruta' => ''
+                //     ]
+                // ],
+            ],
             // Financiero
             'Financiero' => [
                 'submenu' => 1,
