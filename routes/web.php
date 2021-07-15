@@ -15,12 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('welcome');})->name('mantenimiento');
+// Route::get('/', function () {return view('welcome');})->middleware('auth');
+
 
 Auth::routes();
 
+Route::get('/', 'HomeController@home')->middleware('auth');
+
 Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 {
+
 
     // Inicio
     Route::get('/home', 'HomeController@index')->name('home');
@@ -54,7 +58,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
     Route::prefix('inversiones')->group(function ()
     {
-        Route::get('/{tipo?}/lists', 'InversionController@index')->name('inversiones.index');
+        Route::get('/lists', 'InversionController@index')->name('inversiones.index');
+        // Route::get('/{tipo?}/lists', 'InversionController@index')->name('inversiones.index');
         Route::get('/cambiarStatus', 'InversionController@checkStatus')->name('inversiones.checkStatus');
     });
 
@@ -66,6 +71,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::post('/procces', 'TiendaController@procesarOrden')->name('shop.procces');
         Route::post('/ipn', 'TiendaController@ipn')->name('shop.ipn');
         Route::get('/{status}/estado', 'TiendaController@statusProcess')->name('shop.proceso.status');
+        Route::post('cambiarStatus', 'TiendaController@cambiar_status')->name('cambiarStatus');
     });
 
     // Ruta para las funciones por alla que no correspondan a otra seccion

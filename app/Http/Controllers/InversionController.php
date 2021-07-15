@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\PorcentajeUtilidad;
+
 
 class InversionController extends Controller
 {
@@ -21,19 +23,12 @@ class InversionController extends Controller
         // $this->middleware('kyc')->only('index');
     }
 
-    public function index($tipo)
+    public function index()
     {
        try {
            $this->checkStatus();
-            if ($tipo == '') {
-                $inversiones = Inversion::all();
-            } else {
-                if (Auth::id() == 1) {
-                    $inversiones = Inversion::where('status', '=', $tipo)->get();
-                }else{
-                    $inversiones = Inversion::where([['status', '=', $tipo], ['iduser', '=',Auth::id()]])->get();
-                }
-            }
+           
+             $inversiones = Inversion::all();
 
             foreach ($inversiones as $inversion) {
                 $inversion->correo = $inversion->getInversionesUser->email;
@@ -46,6 +41,31 @@ class InversionController extends Controller
         }
     }
 
+    // public function index($tipo)
+    // {
+    //    try {
+    //        $this->checkStatus();
+    //         if ($tipo == '') {
+    //             $inversiones = Inversion::all();
+    //         } else {
+    //             if (Auth::id() == 1) {
+    //                 $inversiones = Inversion::where('status', '=', $tipo)->get();
+    //             }else{
+    //                 $inversiones = Inversion::where([['status', '=', $tipo], ['iduser', '=',Auth::id()]])->get();
+    //             }
+    //         }
+
+    //         foreach ($inversiones as $inversion) {
+    //             $inversion->correo = $inversion->getInversionesUser->email;
+    //         }
+            
+    //         return view('inversiones.index', compact('inversiones'));
+    //     } catch (\Throwable $th) {
+    //         Log::error('InversionController - index -> Error: '.$th);
+    //         abort(403, "Ocurrio un error, contacte con el administrador");
+    //     }
+    // }
+
     /**
      * Permite guardar las nuevas inversiones generadas
      *
@@ -56,7 +76,7 @@ class InversionController extends Controller
      * @param integer $iduser - ID del usuario 
      * @return void
      */
-    public function saveInversion(int $paquete, int $orden, float $invertido, string $vencimiento, int $iduser)
+    public function saveInversion(int $paquete, int $orden, float $invertido, $vencimiento, int $iduser)
     {
         try {
             $check = Inversion::where([
@@ -75,6 +95,7 @@ class InversionController extends Controller
                     'capital' => $invertido,
                     'progreso' => 0,
                     'fecha_vencimiento' => $vencimiento,
+                    'ganancia_acumulada' => 0,
                 ];
                 Inversion::create($data);
             }

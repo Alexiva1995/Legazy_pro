@@ -20,8 +20,10 @@
 
 <!-- BEGIN: Custom CSS-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard2.css')}}">
+{{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard2.css')}}"> --}}
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/customer/joeldesing.css')}}">
 
 @stack('custom_css')
 	
 <!-- END: Custom CSS-->
+ 

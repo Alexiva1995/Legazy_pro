@@ -30,6 +30,20 @@ class HomeController extends Controller
         $this->walletController = new WalletController;
     }
 
+        /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function home()
+    {
+        if (Auth::user()->admin == 1) {
+        return redirect()->route('home');
+        } else {
+        return redirect()->route('home.user');
+        }
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -40,6 +54,7 @@ class HomeController extends Controller
         try {
             View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
+            $this->walletController->bonoDirecto();
             return view('dashboard.index', compact('data'));
         } catch (\Throwable $th) {
             Log::error('Home - index -> Error: '.$th);

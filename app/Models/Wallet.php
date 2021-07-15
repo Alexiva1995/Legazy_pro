@@ -10,7 +10,7 @@ class Wallet extends Model
     protected $table = 'wallets';
 
     protected $fillable = [
-        'iduser', 'referred_id', 'cierre_comision_id', 'liquidation_id', 'monto',
+        'iduser', 'referred_id', 'orden_purchases_id', 'liquidation_id', 'monto',
         'descripcion', 'status', 'tipo_transaction',
         'liquidado'
     ];
@@ -22,7 +22,7 @@ class Wallet extends Model
      */
     public function getWalletComisiones()
     {
-        return $this->belongsTo('App\Models\CierreComision', 'cierre_comision_id', 'id');
+        return $this->belongsTo('App\Models\OrdenPurchases', 'orden_purchases_id', 'id');
     }
 
     /**

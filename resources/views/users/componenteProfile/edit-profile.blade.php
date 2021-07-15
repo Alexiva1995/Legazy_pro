@@ -137,6 +137,43 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-6">
+            <div class="form-group">
+                <div class="controls">
+                    <label class="required" for="password">Contraseña Actual</label>
+            
+                    <input id="password" type="password" class="form-control" name="current_password"
+                    autocomplete="current-password">
+            
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+        <div class="form-group">
+            <div class="controls">
+            <label for="password">Nueva Contraseña</label>
+            
+                <input id="new_password" type="password" class="form-control" name="new_password"
+                    autocomplete="current-password">
+            </div>
+        </div>
+        </div>
+
+        <div class="col-6">
+        <div class="form-group">
+            <div class="controls">
+            <label for="password">Confirme la Contraseña</label>
+            
+                <input id="new_confirm_password" type="password" class="form-control"
+                    name="new_confirm_password" autocomplete="current-password">
+            </div>
+        </div>
+        </div>
+
+        
+
     </div>
     <hr>
 
