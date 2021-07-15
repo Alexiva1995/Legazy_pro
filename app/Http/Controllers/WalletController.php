@@ -213,11 +213,8 @@ class WalletController extends Controller
         }
     }
 
-    /**
-     * Permite pagar las utilidades
-     *
-     * @return void
-     */
+
+
     public function pagarUtilidad()
     {
         $inversiones = Inversion::where('status', 1)->get();
@@ -318,5 +315,33 @@ class WalletController extends Controller
         }
     }
 
+     /**
+     * Permite pagar el bono binario
+     *
+     * @return void
+     */
+    public function bonoBinario()
+    {
+        $binarios = WalletBinary::where([
+            ['status', '=', 0],
+            ['puntos_d', '>', 0],
+            ['puntos_i', '>', 0],
+        ])->selectRaw('iduser, SUM(puntos_d) as totald, SUM(puntos_i) as totali')->group('iduser')->get();
 
+        foreach ($binarios as $binario) {
+            $puntos = 0;
+            if ($binario->totald >= $binario->totali) {
+                $puntos = $binario->totali;
+            }else{
+                $puntos = $binario->totald;
+            }
+            if ($puntos > 0) {
+                $comision = ($puntos * 0.1);
+                $sponsor = User::find($binario->iduser);
+                $concepto = 'Bono Binario - '.$puntos;
+                $idcomision = $binario->iduser.Carbon::now()->format('Ymd');
+                $this->preSaveWallet($sponsor->id, $sponsor->id, null, $comision, $concepto);
+            }
+        }
+    }
 }
