@@ -1,5 +1,5 @@
 <!-- BEGIN: Header-->
-<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
+<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow" style="background: #1b1b1b;">
     <div class="navbar-wrapper">
         <div class="navbar-container content">
             <div class="navbar-collapse" id="navbar-mobile">
@@ -34,8 +34,8 @@
                                 <span class="user-name headerBalance">Saldo Disponible: {{Auth::user()->wallet}} $</span>
 
                                 @else
-                                <span class="user-name text-bold-600">{{Auth::user()->fullname}}</span>
-                                <span class="user-name headerBalance">Saldo Disponible: {{Auth::user()->wallet}} $</span>
+                                <span class="user-name text-bold-600 text-white">{{Auth::user()->fullname}}</span>
+                                <span class="user-name text-white">Saldo Disponible: {{Auth::user()->wallet}} $</span>
                                 @endif
                             </div>
 
