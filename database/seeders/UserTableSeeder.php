@@ -18,10 +18,10 @@ class UserTableSeeder extends Seeder
         $arrayUsers = [
             
             [
-                'id' => '1',
                 'name' => 'Admin',
                 'last_name' => 'BFX',
                 'fullname' => 'Admin BFX',
+                'username' => 'AdminBFX',
                 'email' => 'admin@bfx.com',
                 'password' => Hash::make('123456789'),
                 'whatsapp' => '123456789',
@@ -30,17 +30,30 @@ class UserTableSeeder extends Seeder
             ],
             
             [
-                'id' => '2',
                 'name' => 'Test',
                 'last_name' => 'BFX',
                 'fullname' => 'Test BFX',
+                'username' => 'TestBFX',
                 'email' => 'test@bfx.com',
                 'password' => Hash::make('123456789'),
                 'whatsapp' => '123456789',
                 'referred_id' => 1,
+                'binary_id' => 1,
+                'binary_side' => 'I',
             ],
 
-          
+            [
+                'name' => 'Test',
+                'last_name' => 'BFX 2',
+                'fullname' => 'Test BFX 2',
+                'email' => 'test@bfx2.com',
+                'password' => Hash::make('123456789'),
+                'whatsapp' => '123456789',
+                'referred_id' => 2,
+                'binary_id' => 2,
+                'binary_side' => 'I',
+            ],
+
     ];
     foreach ($arrayUsers as $users ) {
         User::create($users);
