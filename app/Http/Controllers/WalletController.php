@@ -303,5 +303,5 @@ class WalletController extends Controller
                 $this->preSaveWallet($sponsor->id, $sponsor->id, null, $comision, $concepto);
             }
         }
-    }
+    } 
 }
