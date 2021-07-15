@@ -1,19 +1,8 @@
-<!-- BEGIN: Vendor JS-->
-<script src="{{asset('assets/app-assets/vendors/js/vendors.min.js')}}"></script>
-@stack('vendor_js')
-<!-- BEGIN Vendor JS-->
+<script src="{{asset('assets/js/auth/vendors.min.js')}}"></script>
 
-<!-- BEGIN: Page Vendor JS-->
-@stack('page_vendor_js')
-<!-- END: Page Vendor JS-->
+<script src="{{asset('assets/js/auth/jquery.validate.min.js')}}"></script>
+<script src="{{asset('assets/js/auth/app-menu.min.js')}}"></script>
+<script src="{{asset('assets/js/auth/app.min.js')}}"></script>
+<script src="{{asset('assets/js/auth/page-auth-login.js')}}"></script>
 
-<!-- BEGIN: Theme JS-->
-<script src="{{asset('assets/app-assets/js/core/app-menu.js')}}"></script>
-<script src="{{asset('assets/app-assets/js/core/app.js')}}"></script>
-<script src="{{asset('assets/app-assets/js/scripts/components.js')}}"></script>
-@stack('theme_js')
-<!-- END: Theme JS-->
-
-<!-- BEGIN: Page JS-->
 @stack('page_js')
-<!-- END: Page JS-->

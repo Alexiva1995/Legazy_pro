@@ -183,7 +183,7 @@ class PackagesController extends Controller
 
         $package = Packages::all();
 
-        return view('shop.package', compact('package'));
+        return view('shop.package-list', compact('package'));
     }
 
 }
