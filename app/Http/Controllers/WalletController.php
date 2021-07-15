@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\PorcentajeUtilidad;
+use App\Models\Inversion;
 
 class WalletController extends Controller
 {
@@ -117,7 +118,7 @@ class WalletController extends Controller
      */    
     public function saveWallet($data)
     {
-        try {
+        //try {
             if ($data['iduser'] != 1) {
                 if ($data['tipo_transaction'] == 1) {
                     $wallet = Wallet::create($data);
@@ -128,6 +129,8 @@ class WalletController extends Controller
                     if ($data['orden_purchases_id'] != null) {
                         if ($data['iduser'] == 2) {
                             $wallet = Wallet::create($data);
+                            $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
+                        $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
                         }elseif($data['iduser'] > 2){
                             $check = Wallet::where([
                                 ['iduser', '=', $data['iduser']],
@@ -135,20 +138,23 @@ class WalletController extends Controller
                             ])->first();
                             if ($check == null) {
                                 $wallet = Wallet::create($data);
+                                $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
+                                $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
                             }
                         }
                     }else{
                         $wallet = Wallet::create($data);
+                        $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
+                        $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
                     }
-                    $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
-                    $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+                    
                     // $wallet->update(['balance' => $saldoAcumulado]);
                 }
             }
-        } catch (\Throwable $th) {
+        /*} catch (\Throwable $th) {
             Log::error('Wallet - saveWallet -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+        }*/
     }
 
     /**
@@ -246,10 +252,15 @@ class WalletController extends Controller
                 'descripcion' => 'Profit de '.$porcentaje->porcentaje_utilidad. ' %',
                 'status' => 0,
                 'tipo_transaction' => 0,
+                'orden_purchases_id' => $inversion->orden_id
             ];
 
-            $this->saveWallet($data);
-            //ACTUALIZAMOS INVERSION
+            if($data['monto'] > 0){
+                $wallet = Wallet::create($data);
+                $saldoAcumulado = ($wallet->getWalletUser->wallet - $data['monto']);
+                $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+            }
+                
             $inversion->save();
         }
 
