@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\PorcentajeUtilidad;
+
 
 class InversionController extends Controller
 {
@@ -56,7 +58,7 @@ class InversionController extends Controller
      * @param integer $iduser - ID del usuario 
      * @return void
      */
-    public function saveInversion(int $paquete, int $orden, float $invertido, string $vencimiento, int $iduser)
+    public function saveInversion(int $paquete, int $orden, float $invertido, $vencimiento, int $iduser)
     {
         try {
             $check = Inversion::where([
@@ -75,6 +77,7 @@ class InversionController extends Controller
                     'capital' => $invertido,
                     'progreso' => 0,
                     'fecha_vencimiento' => $vencimiento,
+                    'ganancia_acumulada' => 0,
                 ];
                 Inversion::create($data);
             }
