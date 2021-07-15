@@ -314,7 +314,7 @@ class WalletController extends Controller
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
-
+ 
      /**
      * Permite pagar el bono binario
      *
