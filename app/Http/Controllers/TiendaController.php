@@ -11,17 +11,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Controllers\InversionController;
 
 
 class TiendaController extends Controller
 {
 
     public $apis_key_nowpayments;
+    public $inversionController;
 
     public function __construct()
     {
-        $this->apis_key_nowpayments = '56ZHMKJ-3E1MC2ZK5NK025-XSTRFHY';
+        $this->inversionController = new InversionController();
+        //$this->apis_key_nowpayments = '56ZHMKJ-3E1MC2ZK5NK025-XSTRFHY';
+        $this->apis_key_nowpayments = 'DFR7W73-93J4GW1-M1XE745-M8RPDVD';
          //la tienda funciona pero la api key de nowpaymenst no esta activa
         // con mi api key si funciona YH0WTN1-5T64QQC-MRVZZPE-0DSX41R
     }
@@ -55,6 +58,7 @@ class TiendaController extends Controller
     {
         try {
             // title
+            //YA NO VA ERA DE HDLR
             View::share('titleg', 'Tienda - Productos');
             $category = Groups::find($idgroup);
             $services = $category->getPackage->where('status', 1);
@@ -65,7 +69,7 @@ class TiendaController extends Controller
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
-
+    
     /**
      * Permiete procesar la orden de compra
      *
@@ -87,7 +91,6 @@ class TiendaController extends Controller
 
                 $data = [
                     'iduser' => Auth::id(),
-                    'group_id' => $paquete->getGroup->id,
                     'package_id' => $paquete->id,
                     'cantidad' => 1,
                     'total' => $total
@@ -158,7 +161,7 @@ class TiendaController extends Controller
      */
     private function generalUrlOrden($data): string
     {
-       try {
+        try {
             $headers = [
                 'x-api-key: '.$this->apis_key_nowpayments,
                 'Content-Type:application/json'
@@ -167,7 +170,7 @@ class TiendaController extends Controller
             $curl = curl_init();
 
             $dataRaw = collect([
-                'price_amount' => $data['total'],
+                'price_amount' => floatval($data['total'])  ,
                 "price_currency" => "usd",
                 "order_id" => $data['idorden'],
                 'pay_currency' => 'USDTTRC20',
@@ -199,6 +202,7 @@ class TiendaController extends Controller
                     Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
                 } else {
                     $response = json_decode($response);
+                   
                     OrdenPurchases::where('id', $data['idorden'])->update(['idtransacion' => $response->id]);
                     $resul = $response->invoice_url;
                 }
@@ -208,5 +212,30 @@ class TiendaController extends Controller
             Log::error('Tienda - generalUrlOrden -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
+    }
+
+    public function cambiar_status(Request $request)
+    {
+        $orden = OrdenPurchases::findOrFail($request->id);
+        $orden->status = $request->status;
+        $orden->save();
+
+        $this->registeInversion($request->id);
+
+        $user = User::findOrFail($orden->iduser);
+        $user->status = '1';
+        $user->save();
+
+        return redirect()->back()->with('msj-success', 'Orden actualizada exitosamente');
+    }
+
+    private function registeInversion($idorden)
+    {
+        $orden = OrdenPurchases::find($idorden);
+        $paquete = $orden->getPackageOrden;
+        $total = $orden->cantidad * $paquete->price;
+   
+        //dd([$paquete->id, $orden->id, $orden->cantidad, $paquete->expired, $orden->iduser]);
+        $this->inversionController->saveInversion($paquete->id, $orden->id, $total, $paquete->expired, $orden->iduser);
     }
 }
