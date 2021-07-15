@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWalletsTable extends Migration
+class CreateWalletBinariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,24 @@ class CreateWalletsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wallets', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('wallet_binaries', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('iduser')->unsigned();
             $table->foreign('iduser')->references('id')->on('users');
             $table->bigInteger('referred_id')->unsigned()->nullable();
             $table->foreign('referred_id')->references('id')->on('users');
-            $table->bigInteger('orden_purchases_id')->unsigned()->nullable();;
-            $table->foreign('orden_purchases_id')->references('id')->on('orden_purchases');
-            $table->bigInteger('liquidation_id')->unsigned()->nullable();
-            $table->foreign('liquidation_id')->references('id')->on('liquidactions');
-            $table->decimal('monto')->default(0)->comment('entrada de cash');
+            $table->bigInteger('orden_purchase_id')->unsigned()->nullable();;
+            $table->foreign('orden_purchase_id')->references('id')->on('orden_purchases');
+            // $table->bigInteger('liquidation_id')->unsigned()->nullable();
+            // $table->foreign('liquidation_id')->references('id')->on('liquidactions');
+            $table->decimal('puntos_d')->default(0)->comment('puntos del lado derecho');
+            $table->decimal('puntos_i')->default(0)->comment('puntos del lado izquierdo');
             //$table->decimal('debito')->default(0)->comment('entrada de cash');
             //$table->decimal('credito')->default(0)->comment('salida de cash');
             //$table->decimal('balance')->nullable()->comment('balance del cash');
+            $table->string('side', 1);
             $table->string('descripcion');
             $table->tinyInteger('status')->default(0)->comment('0 - En espera, 1 - Pagado (liquidado), 2 - Cancelado');
-            $table->tinyInteger('tipo_transaction')->default(0)->comment('0 - comision, 1 - retiro');
-            $table->tinyInteger('liquidado')->default(0)->comment('0 - sin liquidar, 1 - liquidado');
             $table->timestamps();
         });
     }
@@ -42,6 +42,6 @@ class CreateWalletsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wallets');
+        Schema::dropIfExists('wallet_binaries');
     }
 }
