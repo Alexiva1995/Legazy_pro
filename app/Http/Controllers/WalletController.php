@@ -356,15 +356,18 @@ class WalletController extends Controller
                 $inversion->max_ganancia = $inversion->invertido * 2;
                 $inversion->restante = $inversion->max_ganancia;
             }
-            $porcentaje == PorcentajeUtilidad::orderBy('id', 'desc')->first();
+            $porcentaje = PorcentajeUtilidad::orderBy('id', 'desc')->first();
             $cantidad = $inversion->invertido * $porcentaje->porcentaje_utilidad;
-            //lo restamos a lo restante
             $resta = $inversion->restante - $cantidad;
-            $inversion->restante = $resta;
+            
             if($resta < 0){//comparamos si se pasa de lo que puede ganar
-                $cantidad = $cantidad - $resta;
+                $cantidad = $inversion->restante;
                 $inversion->restante = 0;
+                $inversion->ganacia = $inversion->max_ganancia;
                 $inversion->status = 2;
+            }else{
+                $inversion->restante = $resta;
+                $inversion->ganacia += $cantidad;
             }
             $data = [
                 'iduser' => $inversion->iduser,
@@ -378,8 +381,8 @@ class WalletController extends Controller
 
             $this->saveWallet($data);
             //ACTUALIZAMOS INVERSION
-
-            
+            $inversion->save();
         }
+
     }
 }

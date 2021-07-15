@@ -22,6 +22,13 @@
                                 class="btn btn-flat-primary padding-button-short bg-white mt-1 waves-effect waves-light">
                                 Agregar Paquete
                             </a>
+
+                            @if (Auth()->user()->admin == '1')
+                            <div class="mt-3">
+                                <button class="btn btn-flat-primary bg-white mt-1 waves-effect waves-light" data-toggle="modal" data-target="#modalPorcentajeGanancia">Cambiar porcentaje ganancia</button>
+                            </div>
+                            
+                        @endif
                         </p>
                     </div>
                 </div>
@@ -41,6 +48,32 @@
                     </p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA ACTUALIZAR PORCENTAJE DE GANANCIA -->
+    <div class="modal fade" id="modalPorcentajeGanancia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Porcentaje de ganancia</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <form action="{{route('updatePorcentajeGanancia')}}" method="POST">
+                @csrf 
+                @method('PUT')
+                <div class="modal-body">
+                    <label for="porcentaje_ganancia">Ingrese el nuevo porcentaje de ganancia</label>
+                    <input type="number" name="porcentaje_ganancia" class="form-control" required>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
         </div>
     </div>
 </div>

@@ -156,4 +156,19 @@ class InversionController extends Controller
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
+
+    public function updatePorcentajeGanancia(Request $request)
+    {
+        $porcentaje = $request->porcentaje_ganancia / 100;
+
+        $porcentajeUtilidad = PorcentajeUtilidad::orderBy('id', 'desc')->first();
+
+        if($porcentajeUtilidad == null){
+            PorcentajeUtilidad::create(['porcentaje_utilidad' => $porcentaje]);
+        }else{
+            $porcentajeUtilidad->update(['porcentaje_utilidad' => $porcentaje]);
+        }
+
+        return redirect()->back()->with('msj-success', 'Porcentaje actualizado correctamente');
+    }
 }

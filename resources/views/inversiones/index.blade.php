@@ -45,7 +45,13 @@
                                     {{-- <td>$ {{number_format($inversion->ganancia_acumulada,2, ',', '.')}}</td> --}}
                                     {{-- <td>{{number_format($inversion->porcentaje_fondo,2, ',', '.')}} %</td> --}}
                                     <td>{{date('Y-M-d', strtotime($inversion->fecha_vencimiento))}}</td>
-                                    <td>{{$inversion->status}}</td>
+                                    <td>
+                                        @if($inversion->status == 1)
+                                            Activo
+                                        @elseif($inversion->status == 2)
+                                            Inactivo
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
