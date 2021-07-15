@@ -213,6 +213,48 @@ class WalletController extends Controller
     }
 
     /**
+     * Permite pagar las utilidades
+     *
+     * @return void
+     */
+    public function pagarUtilidad()
+    {
+        $inversiones = Inversion::where('status', 1)->get();
+
+        foreach($inversiones as $inversion){
+            //establecemos maxima ganancia
+            if($inversion->max_ganancia == null){
+                $inversion->max_ganancia = $inversion->invertido * 2;
+                $inversion->restante = $inversion->max_ganancia;
+            }
+            $porcentaje == PorcentajeUtilidad::orderBy('id', 'desc')->first();
+            $cantidad = $inversion->invertido * $porcentaje->porcentaje_utilidad;
+            //lo restamos a lo restante
+            $resta = $inversion->restante - $cantidad;
+            $inversion->restante = $resta;
+            if($resta < 0){//comparamos si se pasa de lo que puede ganar
+                $cantidad = $cantidad - $resta;
+                $inversion->restante = 0;
+                $inversion->status = 2;
+            }
+            $data = [
+                'iduser' => $inversion->iduser,
+                'referred_id' => null,
+                'cierre_comision_id' => null,
+                'monto' => $cantidad,
+                'descripcion' => 'Profit de '.$porcentaje->porcentaje_utilidad. ' %',
+                'status' => 0,
+                'tipo_transaction' => 0,
+            ];
+
+            $this->saveWallet($data);
+            //ACTUALIZAMOS INVERSION
+
+            
+        }
+    }
+
+    /**
      * Permite pagar el bono directo
      *
      * @return void
