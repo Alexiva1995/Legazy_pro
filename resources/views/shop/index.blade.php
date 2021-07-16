@@ -28,7 +28,13 @@
                                         <form action="{{route('shop.procces')}}" method="POST" target="_blank" class="d-inline">
                                         @csrf
                                         <input type="hidden" name="idproduct" value="{{$items->id}}">
-                                        <button class="btn btn-block text-white" type="submit" style="background: #cb9b32;">Comprar</button>
+                                        <button class="btn btn-block text-white" type="submit" style="background: #cb9b32;" @if($invertido >= $items->price) disabled @endif>
+                                            @if($invertido == null)
+                                                Comprar
+                                            @else
+                                                Upgrade
+                                            @endif
+                                        </button>
                                         </form>
                                     </div>
                                 </div>
