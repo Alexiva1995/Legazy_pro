@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <h2 class="font-weight-bold">Dirección de Billetera </h2>
+                    <h2 class="font-weight-bold white">Dirección de Billetera </h2>
                 </div>
             </div>
         </div>
@@ -15,9 +15,9 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required" for="wallet_address">Billetera USDT</label>
+                    <label class="required white" for="wallet_address">Billetera USDT</label>
                     <input type="text"
-                        class="form-control @error('wallet_address') is-invalid @enderror"
+                        class="form-control border border-warning rounded-0 @error('wallet_address') is-invalid @enderror"
                         id="wallet_address" name="wallet_address" placeholder="Dirección de Billetera"
                         value="{{ $user->wallet_address }}">
                     @error('wallet_address')
@@ -31,14 +31,14 @@
 
         <div class="col-12 mb-2">
             <a href="https://accounts.binance.com/es/register" target="_blank"
-            class="waves-effect waves-light"> <b>¿No tiene billetera? Abre una cuenta en binance</b></a>
+            class="gold waves-effect waves-light"> <b>¿No tiene billetera? Abre una cuenta en binance</b></a>
         </div>
 
     </div>
     <hr>
     <div class="media">
         <div class="custom-file">
-            <label class="custom-file-label" for="photoDB">Seleccione su
+            <label class="custom-file-label  border border-warning rounded-0" for="photoDB">Seleccione su
                 Foto <b>(Se permiten JPG o PNG.
                 Tamaño máximo de 800kB)</b></label>
             <input type="file" id="photoDB"
@@ -67,16 +67,16 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <h2 class="font-weight-bold">Datos Personales</h2>
+                    <h2 class="font-weight-bold white">Datos Personales</h2>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required" for="">Nombre</label>
+                    <label class="required white" for="">Nombre</label>
                     <input type="text"
-                        class="form-control @error('name') is-invalid @enderror"
+                        class="form-control border border-warning rounded-0 @error('name') is-invalid @enderror"
                         id="name" name="name" placeholder="Nombre"
                         value="{{ $user->name }}">
                     @error('name')
@@ -91,9 +91,9 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required" for="last_name">Apellido</label>
+                    <label class="required white" for="last_name">Apellido</label>
                     <input type="text"
-                        class="form-control @error('last_name') is-invalid @enderror"
+                        class="form-control border border-warning rounded-0 @error('last_name') is-invalid @enderror"
                         id="last_name" name="last_name" placeholder="Apellido"
                         value="{{ $user->last_name }}">
                     @error('last_name')
@@ -108,9 +108,9 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required" for="email">Email</label>
+                    <label class="required white" for="email">Email</label>
                     <input type="email"
-                        class="form-control @error('email') is-invalid @enderror"
+                        class="form-control border border-warning rounded-0 @error('email') is-invalid @enderror"
                         id="email" name="email" placeholder="Email"
                         value="{{ $user->email }}">
                     @error('email')
@@ -124,9 +124,9 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required" for="whatsapp">Telefono</label>
+                    <label class="required white" for="whatsapp">Telefono</label>
                     <input type="text"
-                        class="form-control @error('whatsapp') is-invalid @enderror"
+                        class="form-control border border-warning rounded-0 @error('whatsapp') is-invalid @enderror"
                         name="whatsapp" value="{{ $user->whatsapp }}"
                         placeholder="whatsapp">
                     @error('whatsapp')
@@ -141,9 +141,9 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required" for="password">Contraseña Actual</label>
+                    <label class="required white" for="password">Contraseña Actual</label>
             
-                    <input id="password" type="password" class="form-control" name="current_password"
+                    <input id="password" type="password" class="form-control border border-warning rounded-0" name="current_password"
                     autocomplete="current-password">
             
                 </div>
@@ -153,9 +153,9 @@
         <div class="col-6">
         <div class="form-group">
             <div class="controls">
-            <label for="password">Nueva Contraseña</label>
+            <label for="password" class="white">Nueva Contraseña</label>
             
-                <input id="new_password" type="password" class="form-control" name="new_password"
+                <input id="new_password" type="password" class="form-control border border-warning rounded-0" name="new_password"
                     autocomplete="current-password">
             </div>
         </div>
@@ -164,9 +164,9 @@
         <div class="col-6">
         <div class="form-group">
             <div class="controls">
-            <label for="password">Confirme la Contraseña</label>
+            <label for="password" class="white">Confirme la Contraseña</label>
             
-                <input id="new_confirm_password" type="password" class="form-control"
+                <input id="new_confirm_password" type="password" class="form-control border border-warning rounded-0"
                     name="new_confirm_password" autocomplete="current-password">
             </div>
         </div>
@@ -181,7 +181,7 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <h2 class="font-weight-bold">Más Información</h2>
+                    <h2 class="font-weight-bold white">Más Información</h2>
                 </div>
             </div>
         </div>
@@ -189,9 +189,9 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required" for="address">Dirección</label>
+                    <label class="required white" for="address">Dirección</label>
                     <textarea type="text"
-                        class="form-control @error('address') is-invalid @enderror"
+                        class="form-control border border-warning rounded-0 @error('address') is-invalid @enderror"
                         id="address"
                         name="address">{{ $user->address}}</textarea>
                     @error('address')
@@ -205,7 +205,7 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <h6 class="font-weight-bold"><span class="text-danger">Nota:
+                    <h6 class="font-weight-bold white"><span class="text-danger">Nota:
                         </span> Si no quieres añadir <span
                             class="text-danger">Más Información</span> deja
                         estos
@@ -215,7 +215,7 @@
         </div>
         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
             <button type="submit"
-                class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">GUARDAR</button>
+                class="btn-dark mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light gold"  style="boder-color=#D6A83E">GUARDAR</button>
         </div>
     </div>
 </form>
