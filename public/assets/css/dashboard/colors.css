@@ -1,5 +1,5 @@
 .white {
-  color : #000!important;
+  color : #fff!important;
 }
 
 .bg-white {
@@ -11,7 +11,7 @@
 
 .alert-white {
   background : rgba(255, 255, 255, 0.2) !important;
-  color : #000!important;
+  color : #fff!important;
 }
 .alert-white .alert-heading {
   box-shadow : rgba(255, 255, 255, 0.4) 0 6px 15px -7px;
