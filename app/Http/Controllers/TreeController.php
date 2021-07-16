@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
+// use Illuminate\Support\Facades\Mail;
+// use App\Mail\shopmail;
+// use App\Mail\PaymentMail;
 
 class TreeController extends Controller
 {
@@ -27,9 +30,11 @@ class TreeController extends Controller
             $type = ucfirst($type);
             $base = Auth::user();
             $base->logoarbol = asset('assets/img/sistema/favicon.png');
+            //$shopmail = ['name' => 'joelgoyo'];
+            // Mail::to(Auth::user('email'))->send(new PaymentMail($shopmail));
             return view('genealogy.tree', compact('trees', 'type', 'base'));
         } catch (\Throwable $th) {
-            Log::error('Tree - index -> Error: '.$th);
+            Log::error('Tree - indexNewtwork -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }

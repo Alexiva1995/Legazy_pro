@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
@@ -47,6 +49,7 @@ class UserTableSeeder extends Seeder
                 'name' => 'Test',
                 'last_name' => 'BFX 2',
                 'fullname' => 'Test BFX 2',
+                'username' => 'TestBFX2',
                 'email' => 'test@bfx2.com',
                 'password' => Hash::make('123456789'),
                 'whatsapp' => '123456789',
