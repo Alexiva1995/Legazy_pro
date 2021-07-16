@@ -63,35 +63,35 @@
 }
 
 .slider-primary .noUi-connect {
-  background : #188EFF !important;
+  background : linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
 }
 
 .slider-primary.noUi-connect {
-  background : #188EFF !important;
+  background : linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
 }
 
 .slider-primary .noUi-handle {
-  border-color : #188EFF !important;
+  border-color : linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
 }
 
 .slider-primary.circle-filled .noUi-handle, .slider-primary.square .noUi-handle {
-  background : #188EFF !important;
+  background : linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
 }
 
 .slider-secondary .noUi-connect {
-  background : #B8C2CC !important;
+  background : #1B1B1B !important;
 }
 
 .slider-secondary.noUi-connect {
-  background : #B8C2CC !important;
+  background : #1B1B1B !important;
 }
 
 .slider-secondary .noUi-handle {
-  border-color : #B8C2CC !important;
+  border-color : #1B1B1B !important;
 }
 
 .slider-secondary.circle-filled .noUi-handle, .slider-secondary.square .noUi-handle {
-  background : #B8C2CC !important;
+  background : #1B1B1B !important;
 }
 
 .slider-success .noUi-connect {

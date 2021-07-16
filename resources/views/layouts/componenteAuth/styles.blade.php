@@ -1,5 +1,7 @@
+<!-- Vendor CSS-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/vendors.min.css')}}">
 
+<!-- CSS-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/bootstrap.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/bootstrap-extended.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/colors.min.css')}}">
@@ -11,7 +13,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/form-validation.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/page-auth.min.css')}}">
 
+<!-- CUSTOM CSS-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/style.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
 
 @stack('custom_css')
