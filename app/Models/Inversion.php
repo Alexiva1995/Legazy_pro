@@ -12,7 +12,8 @@ class Inversion extends Model
     protected $fillable = [
         'package_id', 'orden_id', 'invertido',
         'ganacia', 'retiro', 'capital', 'progreso',
-        'fecha_vencimiento', 'iduser', 'ganancia_acumulada'
+        'fecha_vencimiento', 'iduser', 'ganancia_acumulada',
+        'restante', 'max_ganancia'
     ];
 
     
@@ -46,4 +47,12 @@ class Inversion extends Model
         return $this->belongsTo('App\Models\OrdenPurchases', 'orden_id', 'id');
     }
 
+    public function progreso()
+    {
+        $total = $this->max_ganancia - $this->restante;
+
+        $operacion = ($total * 100) / $this->max_ganancia;
+
+        return $operacion;
+    }
 }

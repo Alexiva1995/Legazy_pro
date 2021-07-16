@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PorcentajeUtilidad extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'porcentaje_utilidad'
+    ];
 }

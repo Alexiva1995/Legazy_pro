@@ -27,7 +27,7 @@
     </style>
     
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click"
-    data-menu="vertical-menu-modern" data-col="2-columns">
+    data-menu="vertical-menu-modern" data-col="2-columns" style="background:#141414">
     {{-- Notificaciones del sistema --}}
     @include('layouts.componenteDashboard.messageSystem')
     {{-- Notificaciones del sistema --}}

@@ -10,11 +10,12 @@
                                     class="ficon feather icon-menu"></i></a></li>
                     </ul>
                 </div>
+               
                 <ul class="nav navbar-nav float-right">
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link nav-link-expand">
+                    <li class="nav-item mr-auto">
+                        
                             {{-- <i class="ficon feather icon-maximize"></i> --}}
-                        </a>
+                            
                     </li>
                     {{-- Notificaciones --}}
                     {{-- @include('layouts.componenteDashboard.notificaciones') --}}
