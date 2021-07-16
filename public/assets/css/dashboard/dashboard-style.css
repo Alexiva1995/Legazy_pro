@@ -17,8 +17,8 @@
   }
   
   #dashboard-analytics .bg-analytics {
-    background : -webkit-linear-gradient(332deg, #188EFF, rgba(115, 103, 240, 0.7));
-    background :         linear-gradient(118deg, #188EFF, rgba(115, 103, 240, 0.7));
+    background : -webkit-linear-gradient(332deg, linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%), #FF9F43);
+    background :         linear-gradient(118deg, linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%), #FF9F43);
   }
   #dashboard-analytics .bg-analytics .avatar {
     margin-bottom : 2rem;
@@ -237,7 +237,7 @@
   position: absolute;
   top: 0;
   right: 50%;
-  border-top: 2px solid #ad7714;
+  border-top: 2px solid #D6A83E;
   width: 50%;
   height: 20px;
 }
@@ -245,7 +245,7 @@
 .padre li::after {
   right: auto;
   left: 50%;
-  border-left: 2px solid #ad7714;
+  border-left: 2px solid #D6A83E;
 }
 
 /*We need to remove left-right connectors from elements without 
@@ -269,7 +269,7 @@ right connector from last child*/
 
 /*Adding back the vertical connector to the last nodes*/
 .padre li:last-child::before {
-  border-right: 2px solid #ad7714;
+  border-right: 2px solid #D6A83E;
   border-radius: 0 5px 0 0;
   -webkit-border-radius: 0 5px 0 0;
   -moz-border-radius: 0 5px 0 0;
@@ -302,7 +302,7 @@ right connector from last child*/
 }
 
 .padre li a {
-  border: 2px solid #ad7714;
+  border: 2px solid #D6A83E;
   /* padding: 8px 5px; */
   text-decoration: none;
   color: #666;
@@ -347,7 +347,7 @@ right connector from last child*/
 }
 
 .headerBalance{
-  background: #46B0FE;
+  background: #D6A83E;
   color: #ffffff;
   padding: 4px;
   border-radius: 6px;
@@ -358,19 +358,19 @@ right connector from last child*/
 }
 
 .bg-purple-alt2{
-  background: #188EFF !important;
+  background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
 }
 
 .bg-red-alt{
-  background: #46B0FE !important;
+  background: #D6A83E !important;
 }
 
 .pagination .page-item.active .page-link{
-  background: #46B0FE !important;
+  background: #D6A83E !important;
 }
 
 .text-red-alt{
-  color: #46B0FE !important;
+  color: #D6A83E !important;
 }
 
 .padding-button-short{
@@ -391,4 +391,5 @@ right connector from last child*/
   background: rgb(131,104,44);
   background: radial-gradient(circle, rgba(131,104,44,1) 0%, rgba(96,74,29,1) 100%);
   border-radius: 10px;
+  background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
 }

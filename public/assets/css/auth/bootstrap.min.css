@@ -74,7 +74,7 @@ sup {
     --bs-teal: #20C997;
     --bs-cyan: #0DCAF0;
     --bs-white: #FFFFFF;
-    --bs-gray: #B8C2CC;
+    --bs-gray: #1B1B1B;
     --bs-gray-dark: #1E1E1E;
     --bs-primary: #D6A83E;
     --bs-secondary: #82868B;
@@ -688,7 +688,7 @@ summary {
 
 .figure-caption {
     font-size: .857rem;
-    color: #B8C2CC
+    color: #1B1B1B
 }
 
 .container,
@@ -3879,8 +3879,8 @@ fieldset:disabled .btn {
 .btn-check:focus+.btn-primary,
 .btn-primary:focus,
 .btn-primary:hover {
-    background-color: #6258CC;
-    border-color: #5C52C0;
+    background-color: #000;
+    border-color: #000;
     color: #FFF
 }
 
@@ -3890,8 +3890,8 @@ fieldset:disabled .btn {
 .btn-primary:active,
 .show>.btn-primary.dropdown-toggle {
     color: #FFF;
-    background-color: #5C52C0;
-    border-color: #564DB4
+    background-color: #000;
+    border-color: #000
 }
 
 .btn-check:active+.btn-secondary:focus,
@@ -4469,7 +4469,7 @@ fieldset:disabled .btn {
 
 .btn-link.disabled,
 .btn-link:disabled {
-    color: #B8C2CC
+    color: #1B1B1B
 }
 
 .btn-group-lg>.btn,
