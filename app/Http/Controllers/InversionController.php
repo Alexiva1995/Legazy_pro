@@ -23,18 +23,16 @@ class InversionController extends Controller
         // $this->middleware('kyc')->only('index');
     }
 
-    public function index($tipo)
+    public function index()
     {
        try {
            $this->checkStatus();
-            if ($tipo == '') {
+           
+           if (Auth::user()->admin == 1) {
                 $inversiones = Inversion::all();
-            } else {
-                if (Auth::id() == 1) {
-                    $inversiones = Inversion::where('status', '=', $tipo)->get();
-                }else{
-                    $inversiones = Inversion::where([['status', '=', $tipo], ['iduser', '=',Auth::id()]])->get();
-                }
+            
+            }else{
+                $inversiones = Inversion::where('iduser', '=',Auth::id())->get();
             }
 
             foreach ($inversiones as $inversion) {
@@ -47,6 +45,31 @@ class InversionController extends Controller
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
+
+    // public function index($tipo)
+    // {
+    //    try {
+    //        $this->checkStatus();
+    //         if ($tipo == '') {
+    //             $inversiones = Inversion::all();
+    //         } else {
+    //             if (Auth::id() == 1) {
+    //                 $inversiones = Inversion::where('status', '=', $tipo)->get();
+    //             }else{
+    //                 $inversiones = Inversion::where([['status', '=', $tipo], ['iduser', '=',Auth::id()]])->get();
+    //             }
+    //         }
+
+    //         foreach ($inversiones as $inversion) {
+    //             $inversion->correo = $inversion->getInversionesUser->email;
+    //         }
+            
+    //         return view('inversiones.index', compact('inversiones'));
+    //     } catch (\Throwable $th) {
+    //         Log::error('InversionController - index -> Error: '.$th);
+    //         abort(403, "Ocurrio un error, contacte con el administrador");
+    //     }
+    // }
 
     /**
      * Permite guardar las nuevas inversiones generadas
@@ -155,5 +178,20 @@ class InversionController extends Controller
             Log::error('InversionController - updateGanancia -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
+    }
+
+    public function updatePorcentajeGanancia(Request $request)
+    {
+        $porcentaje = $request->porcentaje_ganancia / 100;
+
+        $porcentajeUtilidad = PorcentajeUtilidad::orderBy('id', 'desc')->first();
+
+        if($porcentajeUtilidad == null){
+            PorcentajeUtilidad::create(['porcentaje_utilidad' => $porcentaje]);
+        }else{
+            $porcentajeUtilidad->update(['porcentaje_utilidad' => $porcentaje]);
+        }
+
+        return redirect()->back()->with('msj-success', 'Porcentaje actualizado correctamente');
     }
 }

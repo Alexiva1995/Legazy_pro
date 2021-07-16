@@ -53,7 +53,7 @@
     -ms-user-select: none;
     user-select: none;
     background-color: transparent;
-    border: 1px;
+    border-color: #D6A83E;
     padding: 0.9rem 5rem;
     font-size: 1rem;
     line-height: 1;
@@ -82,9 +82,10 @@
   }
 
   .btn-tree{
-    display: inline-block;
+    border: 2px #7D5814 solid;
     font-weight: 400;
-    border-color: #D6A83E;
+    border-color: #7D5814;
+    border-radius: 5px;
     color: #ffffff;
     text-align: center;
     vertical-align: middle;
@@ -97,8 +98,6 @@
     font-size: 1rem;
     line-height: 1;
     width: 95%;
-    -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
 
   .card-sub {
@@ -209,12 +208,13 @@
 }
 
 .padre .base{
-  height: 100px;
-  width: 100px;
+  height: 95px;
+  width: 95px;
+  border: #141414;
 }
 
 .padre .baseli{
-  width: 50%;
+  width: 100%;
 }
 
 .padre li {
@@ -222,7 +222,7 @@
   text-align: center;
   list-style-type: none;
   position: relative;
-  padding: 20px 40px 0;
+  padding: 8px 60px 0;
 
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
@@ -237,7 +237,7 @@
   position: absolute;
   top: 0;
   right: 50%;
-  border-top: 2px solid #46B0FE;
+  border-top: 2px solid #ad7714;
   width: 50%;
   height: 20px;
 }
@@ -245,7 +245,7 @@
 .padre li::after {
   right: auto;
   left: 50%;
-  border-left: 2px solid #46B0FE;
+  border-left: 2px solid #ad7714;
 }
 
 /*We need to remove left-right connectors from elements without 
@@ -269,31 +269,40 @@ right connector from last child*/
 
 /*Adding back the vertical connector to the last nodes*/
 .padre li:last-child::before {
-  border-right: 2px solid #46B0FE;
+  border-right: 2px solid #ad7714;
   border-radius: 0 5px 0 0;
   -webkit-border-radius: 0 5px 0 0;
   -moz-border-radius: 0 5px 0 0;
+  width: 265px
 }
 
 .padre li:first-child::after {
   border-radius: 5px 0 0 0;
   -webkit-border-radius: 5px 0 0 0;
   -moz-border-radius: 5px 0 0 0;
+  width: -webkit-fill-available;
 }
+.esca{
+  margin-left: 112px;
+  margin-right: 80px;
 
+}
+.met{
+  margin-top: 10px;
+}
 /*Time to add downward connectors from parents*/
 .padre ul ul::before {
   content: '';
   position: absolute;
   top: 0;
   left: 50%;
-  border-left: 2px solid #e3e9ff;
+  border-left: 2px solid #ad7714;
   width: 0;
   height: 20px;
 }
 
 .padre li a {
-  border: 2px solid #46B0FE;
+  border: 2px solid #ad7714;
   /* padding: 8px 5px; */
   text-decoration: none;
   color: #666;
@@ -376,4 +385,10 @@ right connector from last child*/
 
 .main-menu.bg-purple-alt.menu-light .navigation > li.open > a{
   background: #188EFF !important;
+}
+
+.art{
+  background: rgb(131,104,44);
+  background: radial-gradient(circle, rgba(131,104,44,1) 0%, rgba(96,74,29,1) 100%);
+  border-radius: 10px;
 }

@@ -58,7 +58,7 @@ $(document).ready(function() {
 
 <div class="app-content">
     <div class="content-overlay"></div>
-    <div class="header-navbar-shadow"></div>
+    <div class="header-navbar-shadow" style="background: #1b1b1b;"></div>
 
     <div class="content-body">
         <!-- account setting page start -->
@@ -110,7 +110,7 @@ $(document).ready(function() {
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
-                            <div class="card-body">
+                            <div class="card-body" style="background: #141414;">
                                 <div class="tab-content">
                                     
                                     <div role="tabpanel" class="tab-pane active" id="account-vertical-general"

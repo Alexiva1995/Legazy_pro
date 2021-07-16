@@ -64,6 +64,19 @@
             </div>
         </div>
     </div>
+
+    <div class="col-lg-6 col-md-12 col-12 mt-1">
+        <div class="card bg-analytics bg-purple-alt2 text-white h-100">
+            <div class="card-content">
+                <div class="card-body text-center">
+                    <div class="text-center">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-lg-6 col-md-12 col-12 mt-1">
         <div class="card text-white bg-gradient-danger bg-red-alt h-100">
             <div class="card-content d-flex justify-contents-start align-items-center">

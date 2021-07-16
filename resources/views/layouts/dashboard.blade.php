@@ -27,7 +27,7 @@
     </style>
     
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click"
-    data-menu="vertical-menu-modern" data-col="2-columns">
+    data-menu="vertical-menu-modern" data-col="2-columns" style="background:#141414">
     {{-- Notificaciones del sistema --}}
     @include('layouts.componenteDashboard.messageSystem')
     {{-- Notificaciones del sistema --}}
@@ -39,12 +39,10 @@
     {{-- Fin Sidebar --}}
     {{-- Cuerpo --}}
     <!-- BEGIN: Content-->
-    <div class="app-content content">
+    <div class="app-content content" style="background: #141414;">
         <div class="content-overlay"></div>
-        <div class="header-navbar-shadow" style="
-        background: #141414;
-    "></div>
-        <div class="content-wrapper">
+        <div class="header-navbar-shadow" style="background: #141414;"></div>
+        <div class="content-wrapper" style="background: #141414;">
             <div class="content-header row">
                 {{-- Migaja de pan --}}
                 @if (!empty($titleg))
