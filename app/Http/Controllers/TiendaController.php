@@ -41,7 +41,12 @@ class TiendaController extends Controller
             View::share('titleg', 'Tienda');
             $packages = Packages::orderBy('id', 'desc')->paginate();
 
-            return view('shop.index', compact('packages'));
+            $invertido = Auth::user()->inversionMasAlta()->first();
+            if(isset($invertido)){
+                $invertido = $invertido->invertido;
+            }
+        
+            return view('shop.index', compact('packages', 'invertido'));
         } catch (\Throwable $th) {
             Log::error('Tienda - Index -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -86,9 +91,19 @@ class TiendaController extends Controller
             if ($validate) {
                 $paquete = Packages::find($request->idproduct);
 
-                $porcentaje = ($paquete->price * 0.03);
-                $total = ($paquete->price + $porcentaje);
+                if(Auth::user()->inversionMasAlta() != null){
 
+                    $pagado = Auth::user()->inversionMasAlta()->first()->invertido;
+
+                    $porcentaje = (($paquete->price - $pagado) * 0.03);
+
+                    $total = (($paquete->price - $pagado) + $porcentaje);
+                }else{
+                    $porcentaje = ($paquete->price * 0.03);
+
+                    $total = ($paquete->price + $porcentaje);
+                }
+ 
                 $data = [
                     'iduser' => Auth::id(),
                     'package_id' => $paquete->id,
