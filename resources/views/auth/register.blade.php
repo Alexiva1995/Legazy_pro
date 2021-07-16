@@ -47,7 +47,8 @@ $referred = DB::table('users')
             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2">
                 <h2 class="card-title fw-bold mb-2 text-white">Crear Cuenta</h2>
                 <p class="card-text mb-2 text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-                @if ($errors->any())
+                
+                {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -55,33 +56,34 @@ $referred = DB::table('users')
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif --}}
+
                 <form class="auth-login-form mt-2" action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="mb-2">
                         <label class="form-label text-white mb-1" for="fullname"><b>Nombre y Apellido</b></label>
-                        <input class="form-control border border-warning rounded-0" id="fullname" type="text"
+                        <input class="form-control border border-warning rounded-0" id="fullname" type="text" required
                             name="fullname" placeholder="john example" />
                     </div>
                     <div class="mb-2">
                         <label class="form-label text-white mb-1" for="username"><b>Nombre de usuario</b></label>
-                        <input class="form-control border border-warning rounded-0" id="username" type="text"
+                        <input class="form-control border border-warning rounded-0" id="username" type="text" required
                             name="username" placeholder="john example" />
                     </div>
                     <div class="mb-2">
                         <label class="form-label text-white mb-1" for="email"><b>Correo Electronico</b></label>
-                        <input class="form-control border border-warning rounded-0" id="email" type="email" name="email"
+                        <input class="form-control border border-warning rounded-0" id="email" type="email" required name="email"
                             placeholder="john@example.com" />
                     </div>
                     <div class="mb-2">
                         <label class="form-label text-white mb-1" for="referred_id"><b>Auspiciador</b></label>
                         @if (!empty($referred))
                         <input class="form-control border border-warning rounded-0" id="referred_id" type="text"
-                            name="referred_id" placeholder="" aria-describedby="referred_id" autofocus="" value="11" />
+                            name="referred_id" placeholder="" aria-describedby="referred_id" autofocus="" readonly value="{{request()->referred_id}}" />
                         @else
                         <input class="form-control border border-warning rounded-0" id="referred_id" type="text"
-                            name="referred_id" placeholder="Sin Auspiciador" aria-describedby="referred_id" autofocus=""
-                            value="" />
+                            name="referred_id" placeholder="Sin Auspiciador" aria-describedby="referred_id" autofocus="" readonly
+                            value="1" />
                         @endif
                     </div>
 
@@ -93,41 +95,9 @@ $referred = DB::table('users')
                             <input class="form-control form-control-merge border border-warning rounded-0" id="password"
                                 type="password" required name="password" placeholder="························"
                                 aria-describedby="password" tabindex="2" /><span
-                                class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                class="input-group-text cursor-pointer rounded-0"><i data-feather="eye"></i></span>
                         </div>
                     </div>
-
-                    {{-- <div class="mb-2 d-none">
-                        <div class="d-flex justify-content-between">
-                            <label class="form-label text-white mb-1" for="password_confirmation"><b>Contraseña</b>
-                        </div>
-                        <div class="input-group input-group-merge form-password-toggle">
-                            <input class="form-control form-control-merge border border-warning rounded-0"
-                                id="password_confirmation" type="password" required name="password_confirmation"
-                                placeholder="························" aria-describedby="password_confirmation"
-                                tabindex="2" /><span class="input-group-text cursor-pointer"><i
-                                    data-feather="eye"></i></span>
-                        </div>
-                    </div> --}}
-
-                    {{-- <fieldset class="checkbox mt-1 ml-2">
-                        <div class="vs-checkbox-con vs-checkbox-primary float-left justify-content-center">
-                            <input type="checkbox" name="term" id="term" {{ old('term') ? 'checked' : '' }}>
-                    <span class="vs-checkbox">
-                        <span class="vs-checkbox--check">
-                            <i class="vs-icon feather icon-check"></i>
-                        </span>
-                    </span>
-                    @error('term')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
-            </div>
-            <span class="">Acepto los <a href="{{ route('term') }}">Terminos y
-                    Condiciones</a></span>
-            </fieldset> --}}
 
             <button class="btn btn-primary w-100 rounded-0 mt-2" type="submit" tabindex="4">Crear cuenta</button>
             </form>
@@ -144,24 +114,14 @@ $referred = DB::table('users')
 @push('page_js')
 
 <script>
-    // login script
-    const eyeBtn = document.getElementById("eye-btn");
-    const passwordField = document.getElementById("password");
-
-    eyeBtn.addEventListener("click", (e) => {
-        if (passwordField.type === "password") {
-            // set button class atribute to eye-slash icon
-            e.target.setAttribute("class", "feather icon-eye-off float-right");
-            // change the input type to text
-            passwordField.type = "text";
-        } else {
-            // set button class atribute to eye icon
-            e.target.setAttribute("class", "feather icon-eye float-right");
-            // change the input type to password
-            passwordField.type = "password";
+    $(window).on('load', function () {
+        if (feather) {
+            feather.replace({
+                width: 14,
+                height: 14
+            });
         }
-    });
-
+    })
 </script>
 
 @endpush

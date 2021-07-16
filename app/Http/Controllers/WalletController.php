@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\PorcentajeUtilidad;
+use App\Models\Inversion;
 
 class WalletController extends Controller
 {
@@ -117,7 +118,7 @@ class WalletController extends Controller
      */    
     public function saveWallet($data)
     {
-        try {
+        //try {
             if ($data['iduser'] != 1) {
                 if ($data['tipo_transaction'] == 1) {
                     $wallet = Wallet::create($data);
@@ -128,6 +129,8 @@ class WalletController extends Controller
                     if ($data['orden_purchases_id'] != null) {
                         if ($data['iduser'] == 2) {
                             $wallet = Wallet::create($data);
+                            $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
+                        $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
                         }elseif($data['iduser'] > 2){
                             $check = Wallet::where([
                                 ['iduser', '=', $data['iduser']],
@@ -135,20 +138,23 @@ class WalletController extends Controller
                             ])->first();
                             if ($check == null) {
                                 $wallet = Wallet::create($data);
+                                $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
+                                $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
                             }
                         }
                     }else{
                         $wallet = Wallet::create($data);
+                        $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
+                        $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
                     }
-                    $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
-                    $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+                    
                     // $wallet->update(['balance' => $saldoAcumulado]);
                 }
             }
-        } catch (\Throwable $th) {
+        /*} catch (\Throwable $th) {
             Log::error('Wallet - saveWallet -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+        }*/
     }
 
     /**
@@ -225,15 +231,18 @@ class WalletController extends Controller
                 $inversion->max_ganancia = $inversion->invertido * 2;
                 $inversion->restante = $inversion->max_ganancia;
             }
-            $porcentaje == PorcentajeUtilidad::orderBy('id', 'desc')->first();
+            $porcentaje = PorcentajeUtilidad::orderBy('id', 'desc')->first();
             $cantidad = $inversion->invertido * $porcentaje->porcentaje_utilidad;
-            //lo restamos a lo restante
             $resta = $inversion->restante - $cantidad;
-            $inversion->restante = $resta;
+            
             if($resta < 0){//comparamos si se pasa de lo que puede ganar
-                $cantidad = $cantidad - $resta;
+                $cantidad = $inversion->restante;
                 $inversion->restante = 0;
+                $inversion->ganacia = $inversion->max_ganancia;
                 $inversion->status = 2;
+            }else{
+                $inversion->restante = $resta;
+                $inversion->ganacia += $cantidad;
             }
             $data = [
                 'iduser' => $inversion->iduser,
@@ -243,13 +252,18 @@ class WalletController extends Controller
                 'descripcion' => 'Profit de '.$porcentaje->porcentaje_utilidad. ' %',
                 'status' => 0,
                 'tipo_transaction' => 0,
+                'orden_purchases_id' => $inversion->orden_id
             ];
 
-            $this->saveWallet($data);
-            //ACTUALIZAMOS INVERSION
-
-            
+            if($data['monto'] > 0){
+                $wallet = Wallet::create($data);
+                $saldoAcumulado = ($wallet->getWalletUser->wallet - $data['monto']);
+                $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+            }
+                
+            $inversion->save();
         }
+
     }
 
     /**
@@ -284,33 +298,47 @@ class WalletController extends Controller
         try {
             $ordenes = $this->getOrdens(null);
         
+            $contador = 1;
             foreach ($ordenes as $orden) {
                 $sponsors = $this->treeController->getSponsor($orden->iduser, [], 0, 'id', 'binary_id');
                 $side = $orden->getOrdenUser->binary_side;
                 foreach ($sponsors as $sponsor) {
-                    $concepto = 'Puntos binarios del Usuario '.$orden->getOrdenUser->fullname;
-                    $puntosD = $puntosI = 0;
-                    if ($side == 'I') {
-                        $puntosI = $orden->total;
-                    }elseif($side == 'D'){
-                        $puntosD = $orden->total;
+                    if ($sponsor->id != $orden->iduser) {
+                        $check = WalletBinary::where([
+                            ['iduser', '=', $sponsor->id],
+                            ['referred_id', '=', $orden->iduser],
+                            ['orden_purchase_id', '=', $orden->id]
+                        ])->first();
+                        if (empty($check)) {
+                            if ($contador >= 10) {
+                                $side = 'D';   
+                            }
+                            $concepto = 'Puntos binarios del Usuario '.$orden->getOrdenUser->fullname;
+                            $puntosD = $puntosI = 0;
+                            if ($side == 'I') {
+                                $puntosI = $orden->total;
+                            }elseif($side == 'D'){
+                                $puntosD = $orden->total;
+                            }
+                            $dataWalletPoints = [
+                                'iduser' => $sponsor->id,
+                                'referred_id' => $orden->iduser,
+                                'orden_purchase_id' => $orden->id,
+                                'puntos_d' => $puntosD,
+                                'puntos_i' => $puntosI,
+                                'side' => $side,
+                                'status' => 0,
+                                'descripcion' => $concepto
+                            ];
+
+                            WalletBinary::create($dataWalletPoints);
+                        }                    
                     }
-                    $dataWalletPoints = collect([
-                        'iduser' => $sponsor->id,
-                        'referred_id' => $orden->iduser,
-                        'orden_purchase_id' => $orden->iduser,
-                        'puntos_d' => $puntosD,
-                        'puntos_i' => $puntosI,
-                        'side' => $side,
-                        'status' => 0,
-                        'descripcion' => $concepto
-                    ]);
-                    WalletBinary::create($dataWalletPoints);
-                    $side = $sponsor->binary_side;
                 }
+                $contador++;
             }
         } catch (\Throwable $th) {
-            Log::error('Wallet - bonoDirecto -> Error: '.$th);
+            Log::error('Wallet - payPointsBinary -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
     }
@@ -325,23 +353,68 @@ class WalletController extends Controller
         $binarios = WalletBinary::where([
             ['status', '=', 0],
             ['puntos_d', '>', 0],
+        ])->orWhere([
+            ['status', '=', 0],
             ['puntos_i', '>', 0],
-        ])->selectRaw('iduser, SUM(puntos_d) as totald, SUM(puntos_i) as totali')->group('iduser')->get();
+        ])->selectRaw('iduser, SUM(puntos_d) as totald, SUM(puntos_i) as totali')->groupBy('iduser')->get();
 
         foreach ($binarios as $binario) {
             $puntos = 0;
+            $side_mayor = $side_menor = '';
             if ($binario->totald >= $binario->totali) {
                 $puntos = $binario->totali;
+                $side_mayor = 'D';
+                $side_menor = 'I';
             }else{
                 $puntos = $binario->totald;
+                $side_mayor = 'I';
+                $side_menor = 'D';
             }
             if ($puntos > 0) {
                 $comision = ($puntos * 0.1);
                 $sponsor = User::find($binario->iduser);
                 $concepto = 'Bono Binario - '.$puntos;
                 $idcomision = $binario->iduser.Carbon::now()->format('Ymd');
+                $this->setPointBinaryPaid($puntos, $side_menor, $binario->iduser, $side_mayor);
                 $this->preSaveWallet($sponsor->id, $sponsor->id, null, $comision, $concepto);
             }
         }
+    }
+
+    /**
+     * Permite descontar los puntos ya pagados
+     *
+     * @param float $pagar
+     * @param string $ladomenor
+     * @param integer $iduser
+     * @param string $ladomayor
+     * @return void
+     */
+    private function setPointBinaryPaid(float $pagar, string $ladomenor, int $iduser, string $ladomayor)
+    {
+        $lisComision = [];
+        $binarios = WalletBinary::where([
+            ['side', '=', $ladomayor],
+            ['iduser', '=', $iduser],
+            ['status', '=', 0]
+        ])->get();
+        $field_side = ($ladomayor == 'D') ? 'puntos_d' : 'puntos_i';
+        $sum = 0;
+        foreach ($binarios as $binario) {
+            $sum += $binario->$field_side;
+            if ($sum <= $pagar) {
+                $lisComision[] = $binario->id;
+            }elseif($sum > $pagar){
+                $sum -= $binario->$field_side;
+            }
+        }
+
+        WalletBinary::where([
+            ['side', '=', $ladomenor],
+            ['iduser', '=', $iduser],
+            ['status', '=', 0]
+        ])->update(['status' => '1']);
+
+        WalletBinary::whereIn('id', $lisComision)->update(['status' => '1']);
     }
 }

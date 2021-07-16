@@ -203,7 +203,7 @@ input:focus~.bg-black {
 }
 
 .btn-relief-dark:hover:not(.disabled):not(:disabled) {
-    background-color: #626262
+    background-color: #FFFFFF
 }
 
 .btn-relief-dark.active,
@@ -382,7 +382,7 @@ input:focus~.bg-light {
 }
 
 .alert-primary .alert-link {
-    color: #5E50EE !important
+    color: #000 !important
 }
 
 .alert-primary .btn-close {
@@ -468,11 +468,11 @@ input:focus~.bg-light {
 .btn-primary:active,
 .btn-primary:focus {
     color: #FFF;
-    background-color: #5E50EE !important
+    background-color: #000 !important
 }
 
 .btn-primary:hover:not(.disabled):not(:disabled) {
-    box-shadow: 0 8px 25px -8px #D6A83E
+    box-shadow: 0 8px 25px -8px #000
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus {
@@ -514,7 +514,7 @@ input:focus~.bg-light {
 .btn-relief-primary.active,
 .btn-relief-primary:active,
 .btn-relief-primary:focus {
-    background-color: #5E50EE
+    background-color: #000
 }
 
 .btn-relief-primary:hover {

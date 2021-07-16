@@ -13,7 +13,7 @@
 }
 
 .toast {
-  background-color : #188EFF;
+  background-color : linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%);
 }
 
 .toast-success {

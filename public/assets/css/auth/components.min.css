@@ -598,7 +598,7 @@ footer.footer-border {
 }
 
 .footer-fixed footer.footer-dark {
-    background: #B8C2CC;
+    background: #1B1B1B;
     color: #FFF
 }
 
@@ -3922,6 +3922,6 @@ tr.group {
 .dark-layout .bootstrap-touchspin.disabled-touchspin .bootstrap-touchspin-injected .bootstrap-touchspin-down,
 .dark-layout .bootstrap-touchspin.disabled-touchspin .bootstrap-touchspin-injected .bootstrap-touchspin-up,
 .dark-layout .bootstrap-touchspin.disabled-touchspin .bootstrap-touchspin-injected .disabled-max-min {
-    background-color: #B8C2CC !important;
+    background-color: #1B1B1B !important;
     opacity: 1
 }

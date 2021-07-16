@@ -11,9 +11,9 @@
 
 
 @section('content')
-<div id="adminServices">
+<div id="adminServices" >
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background: #1b1b1b;">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="row">
@@ -21,6 +21,9 @@
                             <div class="col col-md-4">
                                 <div class="card text-center">
                                     <div class="card-body">
+                                        <div class="card-header d-flex align-items-center mb-2 ">
+                                            <img src="{{asset('assets/img/Recurso31.png')}}" alt="" style="width: 100%; heigh:100%;">
+                                        </div>
                                         <div>{{$items->name}}</div>
                                         <form action="{{route('shop.procces')}}" method="POST" target="_blank" class="d-inline">
                                         @csrf

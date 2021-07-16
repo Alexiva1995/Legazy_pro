@@ -28,7 +28,12 @@ class InversionController extends Controller
        try {
            $this->checkStatus();
            
-             $inversiones = Inversion::all();
+           if (Auth::user()->admin == 1) {
+                $inversiones = Inversion::all();
+            
+            }else{
+                $inversiones = Inversion::where('iduser', '=',Auth::id())->get();
+            }
 
             foreach ($inversiones as $inversion) {
                 $inversion->correo = $inversion->getInversionesUser->email;
@@ -173,5 +178,20 @@ class InversionController extends Controller
             Log::error('InversionController - updateGanancia -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
+    }
+
+    public function updatePorcentajeGanancia(Request $request)
+    {
+        $porcentaje = $request->porcentaje_ganancia / 100;
+
+        $porcentajeUtilidad = PorcentajeUtilidad::orderBy('id', 'desc')->first();
+
+        if($porcentajeUtilidad == null){
+            PorcentajeUtilidad::create(['porcentaje_utilidad' => $porcentaje]);
+        }else{
+            $porcentajeUtilidad->update(['porcentaje_utilidad' => $porcentaje]);
+        }
+
+        return redirect()->back()->with('msj-success', 'Porcentaje actualizado correctamente');
     }
 }
