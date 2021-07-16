@@ -16,7 +16,7 @@ class CreateLogLiquidationsTable extends Migration
         Schema::create('log_liquidations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('idliquidation')->unsigned();
-            $table->foreign('idliquidation')->references('id')->on('liquidactions');
+            $table->foreign('idliquidation')->references('id')->on('liquidactions')->onUpdate('cascade')->onDelete('cascade');
             $table->string('comentario')->nullable();
             $table->string('accion');
             $table->timestamps();

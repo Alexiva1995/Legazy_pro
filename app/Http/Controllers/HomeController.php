@@ -54,7 +54,6 @@ class HomeController extends Controller
         //try {/*
             View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
-            $this->walletController->bonoBinario();
             return view('dashboard.index', compact('data'));
         /*} catch (\Throwable $th) {
             Log::error('Home - index -> Error: '.$th);
