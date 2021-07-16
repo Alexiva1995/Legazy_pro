@@ -342,7 +342,7 @@ class WalletController extends Controller
         ])->orWhere([
             ['status', '=', 0],
             ['puntos_i', '>', 0],
-        ])->selectRaw('iduser, SUM(puntos_d) as totald, SUM(puntos_i) as totali')->groupBy('iduser')->get()->dd();
+        ])->selectRaw('iduser, SUM(puntos_d) as totald, SUM(puntos_i) as totali')->groupBy('iduser')->get();
 
         foreach ($binarios as $binario) {
             $puntos = 0;
