@@ -1,5 +1,6 @@
 <!-- BEGIN: Header-->
-<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
+<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-dark navbar-shadow text-white">
+
     <div class="navbar-wrapper">
         <div class="navbar-container content">
             <div class="navbar-collapse" id="navbar-mobile">
@@ -29,13 +30,13 @@
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <div class="user-nav d-sm-flex d-none">
                                 @if (Auth()->user()->admin == '1')
-                                <span class="user-name text-bold-600">{{Auth::user()->fullname}} <span class="text-primary">ADMIN</span></span>
+                                <span class="user-name text-bold-600 text-white">{{Auth::user()->fullname}} <span class="text-primary">ADMIN</span></span>
                                 {{-- <span class="user-name text-bold-600 text-primary p">Administrador</span> --}}
                                 <span class="user-name headerBalance">Saldo Disponible: {{Auth::user()->wallet}} $</span>
 
                                 @else
-                                <span class="user-name text-bold-600">{{Auth::user()->fullname}}</span>
-                                <span class="user-name headerBalance">Saldo Disponible: {{Auth::user()->wallet}} $</span>
+                                <span class="user-name text-bold-600 text-white">{{Auth::user()->fullname}}</span>
+                                <span class="user-name text-white">Saldo Disponible: {{Auth::user()->wallet}} $</span>
                                 @endif
                             </div>
 
@@ -46,14 +47,14 @@
                             </span>
                             @else
                             <span>
-                                <img class="round" src="{{asset('assets/img/sistema/favicon.png')}}"
+                                <img class="round" src="{{asset('assets/img/legazy_pro/user.png')}}"
                                     alt="{{ Auth::user()->fullname }}" height="50" width="50">
                             </span>
                             @endif
                     
 
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right text-dark">
                             <a class="dropdown-item" href="{{ route('profile') }}" >
                                 <i class="feather icon-user"></i> Editar Perfil
                             </a>
