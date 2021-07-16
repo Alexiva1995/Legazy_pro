@@ -27,6 +27,7 @@ class UserTableSeeder extends Seeder
                 'whatsapp' => '123456789',
                 'admin' => '1',
                 'referred_id' => 0,
+                'binary_id' => '0'
             ],
             
             [
