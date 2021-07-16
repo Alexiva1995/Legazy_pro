@@ -1,28 +1,28 @@
 .headerBalance{
-    background: #46B0FE;
+    background: #D6A83E;
     color: #ffffff;
     padding: 4px;
     border-radius: 6px;
 }
 
 .bg-purple-alt{
-    background: #188EFF !important;
+    background: linear-gradient(90deg, rgba(214,168,62,1) 0%, rgba(172,118,19,1) 63%) !important;
 }
 
 .bg-purple-alt2{
-    background: #188EFF !important;
+    background: linear-gradient(90deg, rgba(214,168,62,1) 0%, rgba(172,118,19,1) 63%) !important;
 }
 
 .bg-red-alt{
-    background: #46B0FE !important;
+    background: #D6A83E !important;
 }
 
 .pagination .page-item.active .page-link{
-    background: #46B0FE !important;
+    background: #D6A83E !important;
 }
 
 .text-red-alt{
-    color: #46B0FE !important;
+    color: #D6A83E !important;
 }
 
 .padding-button-short{
@@ -36,5 +36,5 @@
 }
 
 .main-menu.bg-purple-alt.menu-light .navigation > li.open > a{
-    background: #188EFF !important;
+    background: linear-gradient(90deg, rgba(214,168,62,1) 0%, rgba(172,118,19,1) 63%) !important;
 }

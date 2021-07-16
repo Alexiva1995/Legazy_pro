@@ -20,7 +20,7 @@ class CreateWalletsTable extends Migration
             $table->bigInteger('referred_id')->unsigned()->nullable();
             $table->foreign('referred_id')->references('id')->on('users');
             $table->bigInteger('orden_purchases_id')->unsigned()->nullable();;
-            $table->foreign('orden_purchases_id')->references('id')->on('orden_purchases');
+            // $table->foreign('orden_purchases_id')->references('id')->on('orden_purchases');
             $table->bigInteger('liquidation_id')->unsigned()->nullable();
             $table->foreign('liquidation_id')->references('id')->on('liquidactions');
             $table->decimal('monto')->default(0)->comment('entrada de cash');

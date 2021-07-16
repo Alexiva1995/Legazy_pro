@@ -39,7 +39,7 @@ background-repeat:no-repeat;
                     @csrf
                     <div class="mb-1">
                         <label class="form-label text-white" for="username">Usuario</label>
-                        <input class="form-control border border-warning rounded-0" id="username" type="text" name="username"
+                        <input class="form-control border border-warning rounded-0" id="username" type="text" required name="username"
                             placeholder="john example" aria-describedby="username" autofocus="" tabindex="1" />
                     </div>
                     <div class="mb-1">
@@ -48,7 +48,7 @@ background-repeat:no-repeat;
                                 href="page-auth-forgot-password-v2.html"><small>Olvide mi contraseña</small></a>
                         </div>
                         <div class="input-group input-group-merge form-password-toggle">
-                            <input class="form-control form-control-merge border border-warning rounded-0" id="password" type="password"
+                            <input class="form-control form-control-merge border border-warning rounded-0" required id="password" type="password"
                                 name="password" placeholder="························" aria-describedby="password"
                                 tabindex="2" /><span class="input-group-text cursor-pointer"><i
                                     data-feather="eye"></i></span>

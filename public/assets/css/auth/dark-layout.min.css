@@ -71,7 +71,7 @@ body.dark-layout {
 }
 
 .dark-layout .text-dark {
-    color: #B8C2CC !important
+    color: #1B1B1B !important
 }
 
 .dark-layout .text-muted {
@@ -374,7 +374,7 @@ body.dark-layout {
 .dark-layout .alert.alert-dark .alert-body,
 .dark-layout .alert.alert-dark .alert-heading,
 .dark-layout .alert.alert-dark p {
-    color: #B8C2CC
+    color: #1B1B1B
 }
 
 .dark-layout .content-header-left .breadcrumbs-top .content-header-title {
@@ -396,7 +396,7 @@ body.dark-layout {
 .dark-layout .btn.btn-dark,
 .dark-layout .btn.btn-flat-dark,
 .dark-layout .btn.btn-outline-dark {
-    color: #B8C2CC
+    color: #1B1B1B
 }
 
 .dark-layout .btn.btn-dark {
@@ -405,11 +405,11 @@ body.dark-layout {
 
 .dark-layout .btn.btn-outline-dark {
     border-color: #4B4B4B;
-    color: #B8C2CC
+    color: #1B1B1B
 }
 
 .dark-layout .btn.btn-outline-dark:hover:not(.disabled):not(:disabled) {
-    color: #B8C2CC
+    color: #1B1B1B
 }
 
 .dark-layout .btn.btn-flat-dark:active,

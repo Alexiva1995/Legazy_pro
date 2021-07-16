@@ -1317,7 +1317,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .navbar-dark {
-    background: #B8C2CC
+    background: #1B1B1B
 }
 
 .navbar-dark .navbar-brand {
@@ -1325,13 +1325,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .navbar-dark.navbar-horizontal {
-    background: #B8C2CC
+    background: #1B1B1B
 }
 
 .navbar-dark .nav-search .btn-secondary,
 .navbar-dark .nav-search .form-control {
     color: #FFF;
-    background: #B8C2CC
+    background: #1B1B1B
 }
 
 .navbar-dark .navbar-nav .active.nav-link {
@@ -1376,7 +1376,7 @@ input[type=number]::-webkit-outer-spin-button {
     .navbar-dark .navbar-container .navbar-nav .nav-link,
     .navbar-light .navbar-container .navbar-nav .nav-link,
     .navbar-light .navbar-header .navbar-nav .nav-link {
-        color: #B8C2CC
+        color: #1B1B1B
     }
 }
 
