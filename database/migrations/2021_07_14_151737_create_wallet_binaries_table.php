@@ -16,11 +16,11 @@ class CreateWalletBinariesTable extends Migration
         Schema::create('wallet_binaries', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('iduser')->unsigned();
-            $table->foreign('iduser')->references('id')->on('users');
+            $table->foreign('iduser')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('referred_id')->unsigned()->nullable();
-            $table->foreign('referred_id')->references('id')->on('users');
-            $table->bigInteger('orden_purchase_id')->unsigned()->nullable();;
-            $table->foreign('orden_purchase_id')->references('id')->on('orden_purchases');
+            $table->foreign('referred_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->bigInteger('orden_purchase_id')->unsigned()->nullable();
+            $table->foreign('orden_purchase_id')->references('id')->on('orden_purchases')->onUpdate('cascade')->onDelete('cascade');
             // $table->bigInteger('liquidation_id')->unsigned()->nullable();
             // $table->foreign('liquidation_id')->references('id')->on('liquidactions');
             $table->decimal('puntos_d')->default(0)->comment('puntos del lado derecho');

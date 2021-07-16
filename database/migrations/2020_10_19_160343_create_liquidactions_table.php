@@ -16,7 +16,7 @@ class CreateLiquidactionsTable extends Migration
         Schema::create('liquidactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('iduser')->unsigned();
-            $table->foreign('iduser')->references('id')->on('users');
+            $table->foreign('iduser')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->double('total');
             $table->double('monto_bruto');
             $table->double('feed');
