@@ -39,12 +39,10 @@
     {{-- Fin Sidebar --}}
     {{-- Cuerpo --}}
     <!-- BEGIN: Content-->
-    <div class="app-content content">
+    <div class="app-content content" style="background: #141414;">
         <div class="content-overlay"></div>
-        <div class="header-navbar-shadow" style="
-        background: #141414;
-    "></div>
-        <div class="content-wrapper">
+        <div class="header-navbar-shadow" style="background: #141414;"></div>
+        <div class="content-wrapper" style="background: #141414;">
             <div class="content-header row">
                 {{-- Migaja de pan --}}
                 @if (!empty($titleg))
