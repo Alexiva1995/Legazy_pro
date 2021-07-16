@@ -85,4 +85,14 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     }
 
+    public function getInversiones()
+    {
+        return $this->hasMany('App\Models\Inversion', 'iduser');
+    }
+
+    public function inversionMasAlta()
+    {
+        return $this->getInversiones()->where('status', 1)->orderBy('invertido', 'desc');
+        //->sortByDesc('invertido')
+    }
 }

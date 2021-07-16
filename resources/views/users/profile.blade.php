@@ -58,7 +58,7 @@ $(document).ready(function() {
 
 <div class="app-content">
     <div class="content-overlay"></div>
-    <div class="header-navbar-shadow" style="background: #1b1b1b;"></div>
+    <div class="header-navbar-shadow" style="background: #141414;"></div>
 
     <div class="content-body">
         <!-- account setting page start -->
