@@ -139,7 +139,7 @@
   width : 10px;
   height : 10px;
   border-radius : 100%;
-  border : 1px solid #B8C2CC;
+  border : 1px solid #1B1B1B;
 }
 .ball-triangle-path > div:nth-of-type(1) {
   top : 50px;

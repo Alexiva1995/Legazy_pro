@@ -51,29 +51,29 @@ class HomeController extends Controller
      */
     public function index()
     {
-        try {
+        //try {/*
             View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
             $this->walletController->bonoDirecto();
             $this->walletController->payPointsBinary();
             $this->walletController->bonoBinario();
             return view('dashboard.index', compact('data'));
-        } catch (\Throwable $th) {
+        /*} catch (\Throwable $th) {
             Log::error('Home - index -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+        }*/
     }
 
     public function indexUser()
     {
-        try {
+        //try {
             View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
             return view('dashboard.indexUser', compact('data'));
-        } catch (\Throwable $th) {
+        /*} catch (\Throwable $th) {
             Log::error('Home - indexUser -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+        }*/
     }
 
     /**

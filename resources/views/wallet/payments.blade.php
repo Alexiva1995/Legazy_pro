@@ -3,7 +3,7 @@
 @section('content')
 <div id="logs-list">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background: #1b1b1b;">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
@@ -11,7 +11,7 @@
                             <thead class="">
 
                                 <tr class="text-center text-white bg-purple-alt2">                                
-                                    <th>#</th>
+                                    <th>ID</th>
                                     <th>Fecha</th>                          
                                     <th>Billetera</th>
                                     <th>Hash</th>
@@ -27,9 +27,9 @@
                                 <tr class="text-center">
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->created_at}}</td>
-                                    <td>{{$item->getWalletUser->wallet_address}}</td>
-                                    <td>@isset($item->getLiquidation->hash){{$item->getLiquidation->hash}} @endisset</td>
-                                    <td>{{$item->monto}}</td>
+                                    <td>{{$item->wallet_used}}</td>
+                                    <td>{{$item->hash}}</td>
+                                    <td>{{$item->monto_bruto}}</td>
                                     @if ($item->status == '0')
                                     <td>En espera</td>
                                     @elseif($item->status == '1')
