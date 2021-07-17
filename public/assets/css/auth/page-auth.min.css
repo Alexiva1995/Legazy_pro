@@ -70,7 +70,7 @@
 
 .auth-wrapper.auth-v2 .auth-inner {
     overflow-y: auto;
-    height: calc(var(--vh, 1vh) * 100)
+    /* height: calc(var(--vh, 1vh) * 100) */
 }
 
 .auth-wrapper.auth-v2 .brand-logo {
@@ -139,7 +139,7 @@
 
     .auth-wrapper .auth-inner {
         background-color: #141414;
-        padding-bottom: 1rem
+        /* padding-bottom: 1rem */
     }
 
     .auth-wrapper.auth-v2 .brand-logo {

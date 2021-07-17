@@ -4,12 +4,12 @@
 
 <div id="record">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background-color: #1E1E1E">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
-                        <h1>Historial de Tickets</h1>
-                        <p>Para ver mas información dar click -> <img src="{{asset('assets/img/sistema/btn-plus.png')}}" alt=""></p>
+                        <h1 class="text-white">Historial de Tickets</h1>
+                        
                         <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
                             <thead class="">
 
@@ -27,7 +27,7 @@
                             <tbody>
 
                                  @foreach ($ticket as $item)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->getUser->fullname}}</td>
                                     {{-- <td>{{ $item->estado}}</td>
@@ -35,17 +35,17 @@
                                     <td>{{ $item->issue}}</td>
  --}}
                                     @if ($item->status == '0')
-                                    <td> <a class=" btn btn-info text-white text-bold-600">Abierto</a></td>
+                                    <td> <a class=" btn btn-success text-white text-bold-600">Abierto</a></td>
                                     @elseif($item->status == '1')
-                                    <td> <a class=" btn btn-success text-white text-bold-600">Cerrado</a></td>
+                                    <td> <a class=" btn btn-danger text-white text-bold-600">Cerrado</a></td>
                                     @endif
                                     
                                     @if ($item->priority == '0')
-                                    <td> <a class=" btn btn-info text-white text-bold-600">Alto</a></td>
+                                    <td> <a class="text-uppercase">Alto</a></td>
                                     @elseif($item->priority == '1')
-                                    <td> <a class=" btn btn-success text-white text-bold-600">Medio</a></td>
+                                    <td> <a class="text-uppercase">Medio</a></td>
                                     @elseif($item->priority == '2')
-                                    <td> <a class=" btn btn-success text-white text-bold-600">Bajo</a></td>
+                                    <td> <a class="text-uppercase">Bajo</a></td>
                                     @endif
                                     
                                     <td>{{ $item->created_at}}</td>

@@ -64,7 +64,7 @@ class RegisterController extends Controller
             ]);
         } catch (\Throwable $th) {
             dd($th);
-            //throw $th;
+            throw $th;
         }
     }
 
@@ -99,7 +99,7 @@ class RegisterController extends Controller
             ]);
         } catch (\Throwable $th) {
             dd($th);
-            //throw $th;
+            // throw $th;
         }
     }
 

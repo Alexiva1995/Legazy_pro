@@ -3528,9 +3528,9 @@ input[type='date'].form-control, input[type='time'].form-control, input[type='da
   border-color : linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
 }
 
-table.dataTable {
-  border : 2px solid #F8F8F8;
-}
+/* table.dataTable {
+  border : 2px solid #4B4B4B;
+} */
 table.dataTable th, table.dataTable td {
   border-bottom : 1px solid #F8F8F8;
   border-top : 0;
@@ -3561,10 +3561,10 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
   top : 1.3rem;
 }
 table.dataTable.table-striped tbody tr:nth-of-type(even) {
-  background-color : #F8F8F8;
+  background-color : #141414;
 }
 table.dataTable.table-striped tbody tr:nth-of-type(odd) {
-  background-color : #FFFFFF;
+  background-color : #1E1E1E;
 }
 table.dataTable.complex-headers {
   border : 1px solid #DAE1E7;

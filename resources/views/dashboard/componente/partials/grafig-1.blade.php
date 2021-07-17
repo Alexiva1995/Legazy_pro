@@ -5,13 +5,16 @@
     color: #000 !important;
   }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 <script>
                    
         var options = {
           colors: ['#BA8621'],
           series: [{
-            name: "Desktops",
-            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+            name: "Numero de ventas",
+            data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 148, 148, 148]
         }],
           chart: {
           height: 350,
@@ -21,13 +24,16 @@
           },
         },
         dataLabels: {
-          enabled: false
+          enabled: true,
         },
+        
+        colors: ['#D6A83E'],
+
         stroke: {
           curve: 'straight'
         },
         title: {
-          text: 'Product Trends by Month',
+          text: '',
           align: 'left',
           style:{
             color: '#fff'
@@ -40,7 +46,7 @@
           },
         },
         xaxis: {
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+          categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
           labels: {
             style: {
                 colors: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff' ,'#fff', '#fff', '#fff']
