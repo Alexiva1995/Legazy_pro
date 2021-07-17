@@ -86,13 +86,13 @@ class TiendaController extends Controller
         $validate = $request->validate([
             'idproduct' => 'required'
         ]);
-
+        
         //try {
             if ($validate) {
                 $paquete = Packages::find($request->idproduct);
 
-                if(Auth::user()->inversionMasAlta() != null){
-
+                if(isset(Auth::user()->inversionMasAlta()->first()->invertido)){
+                    
                     $inversion = Auth::user()->inversionMasAlta()->first();
                     $pagado = $inversion->invertido;
 
@@ -101,23 +101,25 @@ class TiendaController extends Controller
 
                     $total = ($nuevoInvertido + $porcentaje);
                     //ACTUALIZAMOS LA INVERSION
+                    /*
                     $inversion->invertido += $nuevoInvertido;
                     $inversion->capital += $nuevoInvertido;
                     $inversion->max_ganancia = $inversion->invertido * 2;
                     $inversion->restante += $nuevoInvertido * 2;
                     $inversion->save();
-
+                    */
                     $data = [
                         'iduser' => Auth::id(),
                         'package_id' => $paquete->id,
                         'cantidad' => 1,
                         'total' => $total,
                     ];
-
-                    $orden = OrdenPurchases::findOrFail($inversion->orden_id)->update($data);
-                    $data['descripcion'] = $paquete->description;
-                    $data['inversion_id'] = $inversion->id;
-                    $data['idorden'] = $inversion->orden_id;
+                
+                    //$orden = OrdenPurchases::findOrFail($inversion->orden_id)->update($data);
+                    $data['idorden'] = $this->saveOrden($data);
+                    $data['descripcion'] = "Upgrade al paquete " . $paquete->name;
+                    //$data['inversion_id'] = $inversion->id;  
+                    
                 }else{
                     $porcentaje = ($paquete->price * 0.03);
 
@@ -128,11 +130,14 @@ class TiendaController extends Controller
                         'cantidad' => 1,
                         'total' => $total
                     ];
-    
+                    
                     $data['idorden'] = $this->saveOrden($data);
-                    $data['descripcion'] = $paquete->description;
+                    $data['descripcion'] = $paquete->description;    
                 }
-             
+                
+                
+               
+
                 $url = $this->generalUrlOrden($data);
                // dd($url);
                 if (!empty($url)) {
@@ -240,15 +245,8 @@ class TiendaController extends Controller
                    
                     $orden = OrdenPurchases::where('id', $data['idorden'])->first();
             
-                    if($orden->idtransacion == null){
-                        $orden->update(['idtransacion' => json_encode(collect($response->id))]);
-                    }else{
-                        
-                        $transacciones = json_decode($orden->idtransacion);
-                        $transacciones = collect($transacciones)->push($response->id);
-                        $orden->update(['idtransacion' => json_encode($transacciones)]);
-                       
-                    }
+                    $orden->update(['idtransacion' => $response->id]);
+                  
                     $resul = $response->invoice_url;
                 }
 
@@ -264,9 +262,35 @@ class TiendaController extends Controller
         $orden = OrdenPurchases::findOrFail($request->id);
         $orden->status = $request->status;
         $orden->save();
+        $user = User::findOrFail($orden->iduser);
+  
+        if(isset($user->inversionMasAlta()->first()->invertido)){
+      
+            $inversion = $user->inversionMasAlta()->first();
+            $pagado = $inversion->invertido;
 
-        $this->registeInversion($request->id);
+            $nuevoInvertido = ($orden->getPackageOrden->price - $pagado); 
+            $porcentaje = ($nuevoInvertido * 0.03);
 
+            $total = ($nuevoInvertido + $porcentaje);
+            //ACTUALIZAMOS LA INVERSION
+            $inversion->invertido += $nuevoInvertido;
+            $inversion->capital += $nuevoInvertido;
+            if(isset($inversion->max_ganancia) && isset($inversion->invertido)){
+                $inversion->max_ganancia = $inversion->invertido * 2;
+                $inversion->restante += $nuevoInvertido * 2;
+            }
+            $inversion->save();
+            $inversion = $inversion->id;
+
+        }else{
+        
+            $inversion = $this->registeInversion($request->id);
+        }
+    
+        $orden->inversion_id = $inversion;
+        $orden->save();
+        
         $user = User::findOrFail($orden->iduser);
         $user->status = '1';
         $user->save();
@@ -279,8 +303,8 @@ class TiendaController extends Controller
         $orden = OrdenPurchases::find($idorden);
         $paquete = $orden->getPackageOrden;
         $total = $orden->cantidad * $paquete->price;
-   
+        
         //dd([$paquete->id, $orden->id, $orden->cantidad, $paquete->expired, $orden->iduser]);
-        $this->inversionController->saveInversion($paquete->id, $orden->id, $total, $paquete->expired, $orden->iduser);
+        return $this->inversionController->saveInversion($paquete->id, $orden->id, $total, $paquete->expired, $orden->iduser);
     }
 }
