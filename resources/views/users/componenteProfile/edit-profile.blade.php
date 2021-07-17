@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="wallet_address">Billetera USDT</label>
+                    <label class=" white" for="wallet_address">Billetera USDT</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('wallet_address') is-invalid @enderror"
                         id="wallet_address" name="wallet_address" placeholder="Dirección de Billetera"
@@ -74,7 +74,7 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="">Nombre</label>
+                    <label class=" white" for="">Nombre</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('name') is-invalid @enderror"
                         id="name" name="name" placeholder="Nombre"
@@ -91,7 +91,7 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="last_name">Apellido</label>
+                    <label class=" white" for="last_name">Apellido</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('last_name') is-invalid @enderror"
                         id="last_name" name="last_name" placeholder="Apellido"
@@ -108,7 +108,7 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="email">Email</label>
+                    <label class=" white" for="email">Email</label>
                     <input type="email"
                         class="form-control border border-warning rounded-0 @error('email') is-invalid @enderror"
                         id="email" name="email" placeholder="Email"
@@ -124,7 +124,7 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="whatsapp">Telefono</label>
+                    <label class=" white" for="whatsapp">Telefono</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('whatsapp') is-invalid @enderror"
                         name="whatsapp" value="{{ $user->whatsapp }}"
@@ -141,7 +141,7 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="password">Contraseña Actual</label>
+                    <label class=" white" for="password">Contraseña Actual</label>
             
                     <input id="password" type="password" class="form-control border border-warning rounded-0" name="current_password"
                     autocomplete="current-password">
@@ -189,11 +189,10 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="address">Dirección</label>
+                    <label class=" white" for="address">Dirección</label>
                     <textarea type="text"
                         class="form-control border border-warning rounded-0 @error('address') is-invalid @enderror"
-                        id="address"
-                        name="address">{{ $user->address}}</textarea>
+                        id="address"name="address" style="background: #141414;">{{ $user->address}}</textarea>
                     @error('address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
