@@ -127,20 +127,14 @@ class WalletController extends Controller
                     // $wallet->update(['balance' => $saldoAcumulado]);
                 }else{
                     if ($data['orden_purchases_id'] != null) {
-                        if ($data['iduser'] == 2) {
+                        $check = Wallet::where([
+                            ['iduser', '=', $data['iduser']],
+                            ['orden_purchases_id', '=', $data['orden_purchases_id']]
+                        ])->first();
+                        if ($check == null) {
                             $wallet = Wallet::create($data);
                             $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
-                        $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
-                        }elseif($data['iduser'] > 2){
-                            $check = Wallet::where([
-                                ['iduser', '=', $data['iduser']],
-                                ['orden_purchases_id', '=', $data['orden_purchases_id']]
-                            ])->first();
-                            if ($check == null) {
-                                $wallet = Wallet::create($data);
-                                $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
-                                $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
-                            }
+                            $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
                         }
                     }else{
                         $wallet = Wallet::create($data);
@@ -297,8 +291,6 @@ class WalletController extends Controller
     {
         try {
             $ordenes = $this->getOrdens(null);
-        
-            $contador = 1;
             foreach ($ordenes as $orden) {
                 $sponsors = $this->treeController->getSponsor($orden->iduser, [], 0, 'id', 'binary_id');
                 $side = $orden->getOrdenUser->binary_side;
@@ -310,9 +302,6 @@ class WalletController extends Controller
                             ['orden_purchase_id', '=', $orden->id]
                         ])->first();
                         if (empty($check)) {
-                            if ($contador >= 10) {
-                                $side = 'D';   
-                            }
                             $concepto = 'Puntos binarios del Usuario '.$orden->getOrdenUser->fullname;
                             $puntosD = $puntosI = 0;
                             if ($side == 'I') {
@@ -334,8 +323,8 @@ class WalletController extends Controller
                             WalletBinary::create($dataWalletPoints);
                         }                    
                     }
+                    $side = $sponsor->binary_side;
                 }
-                $contador++;
             }
         } catch (\Throwable $th) {
             Log::error('Wallet - payPointsBinary -> Error: '.$th);

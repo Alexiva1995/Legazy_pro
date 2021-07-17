@@ -99,7 +99,7 @@ class LiquidactionController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->tipo = 'detallada') {
+        if ($request->tipo == 'detallada') {
             $validate = $request->validate([
                 'listComisiones' => ['required', 'array'],
                 'iduser' => ['required']
@@ -112,7 +112,7 @@ class LiquidactionController extends Controller
 
         try {
             if ($validate) {
-                if ($request->tipo = 'detallada') {
+                if ($request->tipo == 'detallada') {
                     $this->generarLiquidation($request->iduser, $request->listComisiones);
                 }else{
                     foreach ($request->listUsers as $iduser) {
@@ -154,7 +154,7 @@ class LiquidactionController extends Controller
                 'iduser' => $id,
                 'fullname' => $user->fullname,
                 'comisiones' => $comiciones,
-                'total' => number_format($comiciones->sum('debito'), 2, ',', '.')
+                'total' => number_format($comiciones->sum('monto'), 2, ',', '.')
             ];
     
             return json_encode($detalles);  
@@ -189,7 +189,7 @@ class LiquidactionController extends Controller
                 'iduser' => $user->id,
                 'fullname' => $user->fullname,
                 'comisiones' => $comiciones,
-                'total' => number_format($comiciones->sum('debito'), 2, ',', '.')
+                'total' => number_format($comiciones->sum('monto'), 2, ',', '.')
             ];
 
             return json_encode($detalles);
@@ -240,7 +240,7 @@ class LiquidactionController extends Controller
                     ['tipo_transaction', '=', 0],
                     ['iduser', '=', $iduser]
                 ])->select(
-                    DB::raw('sum(debito) as total'), 'iduser'
+                    DB::raw('sum(monto) as total'), 'iduser'
                 )->groupBy('iduser')->get();
             }else{
                 $comisionestmp = Wallet::where([
@@ -248,7 +248,7 @@ class LiquidactionController extends Controller
                     ['liquidation_id', '=', null],
                     ['tipo_transaction', '=', 0],
                 ])->select(
-                    DB::raw('sum(debito) as total'), 'iduser'
+                    DB::raw('sum(monto) as total'), 'iduser'
                 )->groupBy('iduser')->get();
             }
 
@@ -310,7 +310,7 @@ class LiquidactionController extends Controller
                 $comisiones = Wallet::whereIn('id', $listComision)->get();
             }
 
-            $bruto = $comisiones->sum('debito');
+            $bruto = $comisiones->sum('monto');
             $feed = ($bruto * 0);
             $total = ($bruto - $feed);
 
@@ -329,7 +329,8 @@ class LiquidactionController extends Controller
             $arrayWallet =[
                 'iduser' => $user->id,
                 'referred_id' => $user->id,
-                'credito' => $bruto,
+                // 'credito' => $bruto,
+                'monto' => $bruto,
                 'descripcion' => $concepto,
                 'status' => 0,
                 'tipo_transaction' => 1,
@@ -444,9 +445,9 @@ class LiquidactionController extends Controller
         $concepto = 'Liquidacion Reservada - Motivo: '.$comentario;
         $arrayWallet =[
             'iduser' => $liquidacion->iduser,
-            'cierre_comision_id' => null,
+            'orden_purchases_id' => null,
             'referred_id' => $liquidacion->iduser,
-            'debito' => $liquidacion->monto_bruto,
+            'monto' => $liquidacion->monto_bruto,
             'descripcion' => $concepto,
             'status' => 3,
             'tipo_transaction' => 0,
