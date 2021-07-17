@@ -105,29 +105,29 @@
                                 <div class="card-dl d-flex align-items-center mt-5">
 
                                     @if (Auth::user()->binary_side_register == 'I')
-                                    <a href="#"
-                                        class="btn btn-primary padding-button-short bg-white mt-1 waves-effect waves-light text-white"
-                                        v-on:click="updateBinarySide('D')">
-                                        DERECHA
-                                    </a>
-
-                                    <a href="#"
-                                        class="btn btn-outline-warning padding-button-short bg-white mt-1 waves-effect waves-light text-white"
-                                        v-on:click="updateBinarySide('I')">
-                                        IZQUIERDA
-                                    </a>
+                                        
+                                        <a href="#"
+                                            class="btn btn-primary padding-button-short mt-1 waves-effect waves-light text-white"
+                                            v-on:click="updateBinarySide('I')">
+                                            IZQUIERDA
+                                        </a>
+                                        <a href="#"
+                                            class="btn btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
+                                            v-on:click="updateBinarySide('D')">
+                                            DERECHA
+                                        </a>
                                     @else
-                                    <a href="#"
-                                        class="btn btn-primary padding-button-short bg-white mt-1 waves-effect waves-light text-white"
-                                        v-on:click="updateBinarySide('D')">
-                                        DERECHA
-                                    </a>
 
-                                    <a href="#"
-                                        class="btn btn-primary padding-button-short bg-white mt-1 waves-effect waves-light text-white"
-                                        v-on:click="updateBinarySide('I')">
-                                        IZQUIERDA
-                                    </a>
+                                        <a href="#"
+                                            class="btn btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
+                                            v-on:click="updateBinarySide('I')">
+                                            IZQUIERDA
+                                        </a>
+                                        <a href="#"
+                                            class="btn btn-primary padding-button-short mt-1 waves-effect waves-light text-white"
+                                            v-on:click="updateBinarySide('D')">
+                                            DERECHA
+                                        </a>
                                     @endif
 
 
