@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-sm-6 col-12 mt-1">
                     <div class="card h-80 p-2"
-                        style="background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%);">
+                        style="background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%);height: 90%;">
 
                         <div class="row">
 
@@ -15,7 +15,7 @@
                                     <h2 class="mt-1 mb-0 text-white"><b>Saldo disponible</b></h2>
                                 </div>
                                 <div class="card-sub">
-                                    <h1 class="text-white mb-0"><b>$78.20</b></h1>
+                                    <h1 class="text-white mb-0"><b>$ {{Auth::user()->saldoDisponible()}}</b></h1>
                                 </div>
                             </div>
 
@@ -30,14 +30,14 @@
                         </div>
 
                         <div class="card-header d-flex align-items-center mt-3">
-                            <button class="btn btn-dark rounded-0"><b>RETIRAR</b></button>
+                            <button class="btn btn-dark rounded-0" data-toggle="modal" data-target="#modalSaldoDisponible"><b>RETIRAR</b></button>
                         </div>
 
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-12 mt-1">
-                    <div class="card h-80 p-2" style="background: #1b1b1b;">
+                    <div class="card h-80 p-2" style="background: #1b1b1b;height: 90%;">
                         <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
                             <h2 class="mt-1 mb-0 text-white"><b>Ganacia Actual</b></h2>
                         </div>

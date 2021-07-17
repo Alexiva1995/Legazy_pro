@@ -95,4 +95,9 @@ class User extends Authenticatable
         return $this->getInversiones()->where('status', 1)->orderBy('invertido', 'desc');
         //->sortByDesc('invertido')
     }
+
+    public function saldoDisponible()
+    {
+        return number_format($this->getWallet->where('status', 0)->where('tipo_transaction', 0)->sum('monto'), 2);
+    }
 }
