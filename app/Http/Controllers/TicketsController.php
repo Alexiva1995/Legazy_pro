@@ -20,9 +20,13 @@ class TicketsController extends Controller
 
     // permite ver la vista de creacion del ticket
 
+   
     public function create(){
-     
-        return view('tickets.create');
+  
+      return view('tickets.create');
+
+        
+
     }
 
     // permite la creacion del ticket
@@ -30,28 +34,25 @@ class TicketsController extends Controller
     public function store(Request $request){
 
         $fields = [
-            "email" => ['required'],
-            "whatsapp" => ['required'],
             "issue" => ['required'],
-            "description" => ['required'],
             'status' => ['0'],
+            "note" => ['required'],
         ];
 
         $msj = [
-            'email.required' => 'El email es Requerido',
-            'whatsapp.required' => 'El whatsapp es Requerido',
+             
             'issue.required' => 'El asunto es Requerido',
-            'description.required' => 'La descripción es Requerido',
+            'note.required' => 'El mensaje es Requerido',
+
         ];
 
         $this->validate($request, $fields, $msj);
         
         Ticket::create([
             'iduser' => Auth::id(),
-            'whatsapp' => request('whatsapp'),
-            'email' => request('email'),
             'issue' => request('issue'),
-            'description' => request('description'),
+            'note' => request('note'),
+
         ]);
 
         return redirect()->route('ticket.list-user')->with('msj-success', 'El Ticket se creo Exitosamente');
@@ -74,26 +75,26 @@ class TicketsController extends Controller
         $ticket = Ticket::find($id);
 
         $fields = [
-            "email" => ['required'],
-            "whatsapp" => ['required'],
-            "issue" => ['required'],
-            "description" => ['required'],
+         
+
             'status' => ['0'],
+            "note" => ['required'],
+            "issue" => ['required'],
+
             
         ];
 
         $msj = [
-            'email.required' => 'El email es Requerido',
-            'whatsapp.required' => 'El whatsapp es Requerido',
-            'issue.required' => 'El asunto es Requerido',
-            'description.required' => 'La descripción es Requerido',
+          
+             'issue.required' => 'el asunto es Requerido',
+             'note.required' => 'La mensaje es Requerido',
 
         ];
 
         $this->validate($request, $fields, $msj);
 
         $ticket->update($request->all());
-        $ticket->note_admin = $request->note_admin;
+        // $ticket->note_admin = $request->note_admin;
         $ticket->save();
 
         $route = route('ticket.list-user');
@@ -143,18 +144,20 @@ class TicketsController extends Controller
 
         $fields = [
             'status' => ['required'],
-            'note_admin' => ['required']
+            // 'note_admin' => ['required'],
+            'note' => ['required'],
         ];
 
         $msj = [
             'status.required' => 'Es requerido el Estatus de la ticket',
-            'note_admin.required' => 'Es requerido Nota del admin',
+            // 'note_admin.required' => 'Es requerido Nota del admin',
+            'note.required' => 'Es requerido mensaje del admin',
         ];
 
         $this->validate($request, $fields, $msj);
 
         $ticket->update($request->all());
-        $ticket->note_admin = $request->note_admin;
+        // $ticket->note_admin = $request->note_admin;
         $ticket->save();
 
         $route = route('ticket.list-admin');

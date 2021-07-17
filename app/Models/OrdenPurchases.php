@@ -50,6 +50,6 @@ class OrdenPurchases extends Model
 
     public function getInversionOrden()
     {
-        return $this->hasOne('App\Models\Inversion', 'orden_id');
+        return $this->belongsTo('App\Models\Inversion', 'inversion_id');
     }
 }

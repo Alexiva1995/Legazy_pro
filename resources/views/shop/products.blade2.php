@@ -31,7 +31,7 @@
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
                         <h1>Lista de Paquetes</h1>
-                        <p>Para ver mas información dar click -> <img src="{{asset('assets/img/sistema/btn-plus.png')}}" alt=""></p>
+                        
                         <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
 
                             <thead class="">

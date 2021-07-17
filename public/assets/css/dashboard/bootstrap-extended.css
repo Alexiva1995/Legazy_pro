@@ -447,7 +447,9 @@ select.form-control:not([multiple='multiple']) {
   background-size : 12px 12px, 10px 10px;
   background-repeat : no-repeat;
   -webkit-appearance : none;
-     -moz-appearance : none;
+  background-color: #141414;
+  color: #FFF;
+  -moz-appearance : none;
   padding-right : 1.5rem;
 }
 

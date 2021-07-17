@@ -1,4 +1,5 @@
-<table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
+<table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100 text-white ">
+
     <thead class="">
         <tr class="text-center text-white bg-purple-alt2">
             <th>#</th>
@@ -11,7 +12,7 @@
     </thead>
     <tbody>
         @foreach ($wallets as $wallet)
-        <tr class="text-center">
+        <tr class="text-center text-white">
             <td>{{$wallet->id}}</td>
             <td>{{date('d-m-Y', strtotime($wallet->created_at))}}</td>
             <td>{{$wallet->getWalletReferred->fullname}}</td>

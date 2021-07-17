@@ -92,7 +92,7 @@ class Menu
                 'submenu' => 0,
                 'ruta' => route('inversiones.index'),
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                'icon' => 'feather icon-dollar-sign',
+                'icon' => 'feather icon-credit-card',
                 'complementoruta' => '',
                 // 'submenus' => [
                 //     [

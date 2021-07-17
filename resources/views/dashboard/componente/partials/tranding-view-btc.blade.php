@@ -1,6 +1,6 @@
 <!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<div class="tradingview-widget-container" id="tradingview_accb2">
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js" ></script>
   <script type="text/javascript">
   new TradingView.widget(
   {

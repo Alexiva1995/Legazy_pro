@@ -1,3 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+</head>
+<body>
+
+
+
 @extends('layouts.dashboard')
 
 @section('content')
@@ -13,20 +37,7 @@
                     <div class="card-body">
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Email de contacto</label>
-                                        <input type="email" readonly id="email" class="form-control"
-                                            value="{{ $ticket->email }}" name="email">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Whatsapp de contacto</label>
-                                        <input type="text" readonly id="whatsapp" class="form-control"
-                                            value="{{ $ticket->whatsapp }}" name="whatsapp">
-                                    </div>
-                                </div>
+                               
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Asunto del Ticket</label>
@@ -34,19 +45,10 @@
                                             value="{{ $ticket->issue }}" name="issue">
                                     </div>
                                 </div>
-
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Especificación del Ticket</label>
-                                        <textarea type="text" rows="5" readonly id="description" class="form-control"
-                                            name="description">{{ $ticket->description }}</textarea>
-                                    </div>
-                                </div>
                                  <div class="col-12">
                                         <div class="form-group">
                                             <div class="controls">
                                                 <label for="priority">prioridad del ticket</label>
-                                                <span class="text-danger text-bold-600">OBLIGATORIO</span>
                                                 <select name="priority" id="priority"
                                                     class="custom-select priority @error('priority') is-invalid @enderror"
                                                     required data-toggle="select">
@@ -57,15 +59,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                 
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Nota del Administrador</label>
-                                        <textarea type="text" rows="5" readonly id="note_admin"
-                                            placeholder="En este campo estara la nota que deja el administrador que atendio su orden"
-                                            class="form-control" name="note_admin">{{$ticket->note_admin}}</textarea>
-                                    </div>
-                                </div>
+                                   <div class="col-12">
+                                            <div class="form-group">
+                                                <label> mensajes para el usuario</label>
+                                                    <textarea id="note" name="note" readonly>{{$ticket->note}}</textarea>
+                                                    <script>
+                                                      $('#note').summernote({
+                                                         placeholder: '',
+                                                         tabsize: 2,
+                                                         height: 120,
+                                                         toolbar: [
+                                                          ['style', ['style']],
+                                                          ['font', ['bold', 'underline', 'clear']],
+                                                          ['color', ['color']],
+                                                          ['para', ['ul', 'ol', 'paragraph']],
+                                                          ['table', ['table']],
+                                                          ['insert', ['link', 'picture', 'video']],
+                                                          ['view', ['fullscreen', 'codeview', 'help']]
+                                                            ]
+                                                      });
+                                                    </script>
+                                            </div>
                                 <div class="col-12">
                                     <div class="form-group d-flex justify-content-center">
                                         <div class="controls">
@@ -91,3 +105,6 @@
 </section>
 
 @endsection
+
+</body>
+</html>

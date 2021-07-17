@@ -3,7 +3,7 @@
 @section('content')
 <div id="logs-list">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background-color: #1E1E1E">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
@@ -23,7 +23,7 @@
                             <tbody>
 
                                 @foreach ($ordenes as $orden)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{$orden->id}}</td>
                                     <td>{{$orden->name}}</td>
                                     {{-- <td>{{$orden->grupo}}</td> --}}

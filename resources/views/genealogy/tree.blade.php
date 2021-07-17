@@ -11,7 +11,7 @@
 <body style="background: #141414;">
     <div class="container">
         <div class="row">
-<div class="col-6 text-center">
+<div class="col-md-6 col-sm-12 text-center">
 <div class="row">
 <div class="container">
 <div class="row">
@@ -37,7 +37,7 @@
 
 </div>
 </div>
-<div class="col-md-4 art" style="margin-left: 150px;margin-top: -25px;" id="tarjeta">
+<div class="col-md-4 col-sm-12 art"  id="tarjeta">
     <div class="container">
         <div class="row">
         <div class="col-4">
@@ -58,7 +58,7 @@
 </div>
 
     <div class="d-flex white mb-2" style="margin-left: 66px;margin-right: 63px;">
-        <button class="btn-tree text-center" style="width: 175px;background: #1b1b1b;margin-left: 72px;" id="ver_arbol">Ver Arbol</button>
+        <a class="white btn-tree text-center" style="width: 175px;background: #1b1b1b;margin-left: 72px;" id="ver_arbol" href=> Ver Arbol</a>
     </div>
 
 </div>
@@ -70,12 +70,12 @@
         <ul>
             <li class="baseli">
                 <a class="base" href="#">
-                    <img src="{{asset('storage/photo/'.Auth::user()->photoDB)}}" alt="{{$base->name}}" title="{{$base->name}}" class="pt-1 rounded-circle" style="width: 95%;height: 107%;margin-left: 0px;margin-top: -8px;">
+                    <img src="{{asset('storage/photo/'.$base->photoDB)}}" alt="{{$base->name}}" title="{{$base->name}}" class="pt-1 rounded-circle" style="width: 95%;height: 107%;margin-left: 0px;margin-top: -8px;">
                 </a>
                 {{-- Nivel 1 --}}
                 <ul>
                     @foreach ($trees as $child)
-                    <li class="esca" href="#prestamo" data-toggle="modal">
+                    <li href="#prestamo" data-toggle="modal">
                        
                         @include('genealogy.component.subniveles', ['data' => $child])
                         @if (!empty($child->children))
@@ -86,18 +86,18 @@
                                 @include('genealogy.component.subniveles', ['data' => $child])
                                 @if (!empty($child->children))
                                 {{-- nivel 3 --}}
-                                <ul>
+                                {{-- <ul>
                                     @foreach ($child->children as $child)
                                     <li>
                                         @include('genealogy.component.subniveles', ['data' => $child])
                                         @if (!empty($child->children))
-                                        {{-- nivel 4 --}}
+                                         nivel 4 
                                         <ul>
                                             @foreach ($child->children as $child)
                                             <li>
                                                 @include('genealogy.component.subniveles', ['data' => $child])
                                                 @if (!empty($child->children))
-                                                {{-- nivel 5 --}}
+                                                 nivel 5 
                                                 <ul>
                                                     @foreach ($child->children as $child)
                                                     <li>
@@ -105,16 +105,16 @@
                                                     </li>
                                                     @endforeach
                                                 </ul>
-                                                {{-- fin nivel 5 --}}
+                                                fin nivel 5
                                                 @endif
                                             </li>
                                             @endforeach
                                         </ul>
-                                        {{-- fin nivel 4 --}}
+                                         fin nivel 4 
                                         @endif
                                     </li>
-                                    @endforeach
-                                </ul>
+                                    @endforeach 
+                                </ul>--}}
                                 {{-- fin nivel 3 --}}
                                 @endif
                             </li>
@@ -137,30 +137,26 @@
 </div>
 <script type="text/javascript">
     
-    function tarjeta(data, url,base){
+    function tarjeta(data, url){
         //console.log('assets/img/sistema/favicon.png');
-        if(data.fullname == " "){
-        $('#nombre').text(base.name)
-        }else{
         $('#nombre').text(data.fullname);
-        }
         if(data.photoDB == null){
             $('#imagen').attr('src', "{{ asset('/assets/img/sistema/favicon.png') }}" );   
         }else{
-            $('#imagen').attr('src', '/storage/'+data.photoDB);    
+            $('#imagen').attr('src', '/storage/photo/'+data.photoDB);    
         }
         
         $('#ver_arbol').attr('href', url);
-        $('#inversion').text(data.inversion);
-        if(data.status == 0){
-            $('#estado').html('<span class="badge badge-warning">Inactivo</span>');
-        }else if(data.status == 1){
-            $('#estado').html('<span class="badge badge-success">Activo</span>');
-        }else if(data.status == 2){
-            $('#estado').html('<span class="badge badge-danger">Eliminado</span>');
-        }
-        
-        $('#tarjeta').removeClass('d-none');
+            $('#inversion').text(data.inversion);
+            if(data.status == 0){
+                $('#estado').html('<span class="badge badge-warning">Inactivo</span>');
+            }else if(data.status == 1){
+                $('#estado').html('<span class="badge badge-success">Activo</span>');
+            }else if(data.status == 2){
+                $('#estado').html('<span class="badge badge-danger">Eliminado</span>');
+            }
+            
+            $('#tarjeta').removeClass('d-none');
     }
 </script>
 </body>
