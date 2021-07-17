@@ -16,7 +16,9 @@ class CheckRole
     public function handle($request, Closure $next)
     {
         if ($request->user()->admin == 0) {
-            abort(403, "No tienes autorización para ingresar a esta seccion.");
+            if ($request->getPathInfo() != '/dashboard/admin/settlement/liquidation') {
+                abort(403, "No tienes autorización para ingresar a esta seccion.");
+            }
         }
     return $next($request);
     }

@@ -20,6 +20,9 @@
 </head>
     
 <body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+    {{-- Notificaciones del sistema --}}
+    @include('layouts.componenteDashboard.messageSystem')
+    {{-- Notificaciones del sistema --}}
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
