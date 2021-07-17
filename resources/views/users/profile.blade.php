@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/core/colors/palette-gradient.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/plugins/forms/validation/form-validation.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/style.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard/colors.css')}}">
 @endpush
 
 @push('page_vendor_js')

@@ -214,7 +214,7 @@
         </div>
         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
             <button type="submit"
-                class="btn-dark mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light gold"  style="boder-color=#D6A83E">GUARDAR</button>
+                class="btn btn-outline-warning padding-button-short bg-white mt-1 waves-effect waves-light text-white">GUARDAR</button>
         </div>
     </div>
 </form>
