@@ -26,13 +26,13 @@
 
 <div id="record">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background-color: #1E1E1E">
             <div class="card-content">
                 <div class="card-body card-dashboard">
-                    <div class="table-responsive">
-                        <h1>Lista de Usuarios</h1>
-                        <p>Para ver mas información dar click -> <img src="{{asset('assets/img/sistema/btn-plus.png')}}" alt=""></p>
-                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100">
+                    <div class="table-responsive ">
+                        <h1 class="text-white">Lista de Usuarios</h1>
+                        
+                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100 text-white ">
                             
                             <thead class="">
                                 <tr class="text-center text-white bg-purple-alt2">
@@ -49,7 +49,7 @@
 
                             <tbody>
                                  @foreach ($user as $item)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->fullname}}</td>
                                     <td>{{ $item->email}}</td>
