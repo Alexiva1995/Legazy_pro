@@ -22,7 +22,7 @@
 @section('content')
 <div id="settlement">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background-color: #1E1E1E">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
@@ -43,7 +43,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($liquidaciones as $liqui)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{$liqui->id}}</td>
                                     <td>{{$liqui->fullname}}</td>
                                     <td>{{$liqui->total}}</td>

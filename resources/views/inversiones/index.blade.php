@@ -3,15 +3,14 @@
 @section('content')
 <div id="logs-list">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background-color: #1E1E1E">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     @if(auth()->user()->admin == 1)
                         <button class="btn btn-primary bg-white mt-1 waves-effect waves-light text-white float-right" data-toggle="modal" data-target="#modalPorcentajeGanancia">Cambiar porcentaje ganancia</button>
                     @endif
+                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100 text-white ">
 
-                    <div class="table-responsive">
-                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
                             <thead class="">
 
                                 <tr class="text-center text-white bg-purple-alt2">
@@ -37,7 +36,7 @@
 
                                 $porcentaje = ($ganancia / $inversion->invertido) * 100;
                                 @endphp
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{$inversion->id}}</td>
                                     <td>{{$inversion->correo}}</td>
                                     {{-- <td>{{$inversion->getPackageOrden->getGroup->name }} -
