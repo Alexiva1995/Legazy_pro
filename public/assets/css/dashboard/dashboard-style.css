@@ -73,12 +73,18 @@
     -ms-user-select: none;
     user-select: none;
     background-color: transparent;
-    padding: 0.9rem 5rem;
+    padding: 0.9rem 4rem;
     font-size: 1rem;
     line-height: 1;
-    width: 95%;
+    /*width: 95%;*/
     -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .btn-darks:hover {
+    border: #1b1b1b 1px solid!important;
+    background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%) !important;
+    box-shadow : 0 8px 25px -8px #1E1E1E;
   }
 
   .btn-tree{
