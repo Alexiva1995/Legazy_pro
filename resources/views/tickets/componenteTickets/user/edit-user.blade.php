@@ -1,3 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+</head>
+<body>
+
+
 @extends('layouts.dashboard')
 
 @section('content')
@@ -16,32 +39,27 @@
                             @method('PATCH')
                             <div class="form-body">
                                 <div class="row">
+                              
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Email de contacto</label>
-                                            <input type="email" id="email" class="form-control"
-                                                value="{{ $ticket->email }}" name="email">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Whatsapp de contacto</label>
-                                            <input type="text" id="whatsapp" class="form-control"
-                                                value="{{ $ticket->whatsapp }}" name="whatsapp">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>titulo del Ticket</label>
-                                            <input type="text" id="issue" class="form-control"
-                                                value="{{ $ticket->issue }}" name="issue">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Especificación del Ticket</label>
-                                            <textarea type="text" rows="5" id="description" class="form-control"
-                                                name="description">{{ $ticket->description }}</textarea>
+                                               <label> Asunto del ticket </label>
+                                               <textarea type="text" id="issue" name="issue" rows="1">{{ $ticket->issue}}</textarea>
+                                            <script>
+                                               $('#issue').summernote({
+                                               placeholder: '',
+                                               tabsize: 2,
+                                               height: 100,
+                                               toolbar: [
+                                               ['style', ['style']],
+                                               ['font', ['bold', 'underline', 'clear']],
+                                               ['color', ['color']],
+                                               ['para', ['ul', 'ol', 'paragraph']],
+                                               ['table', ['table']],
+                                               ['insert', ['link', 'picture', 'video']],
+                                               ['view', ['fullscreen', 'codeview', 'help']]
+                                                ]
+                                                });
+                                            </script>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -59,14 +77,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Nota del Administrador</label>
-                                            <textarea type="text" rows="5" id="note_admin" readonly
-                                                placeholder="En este campo estara la nota que deja el administrador que atendio su orden"
-                                                class="form-control"
-                                                name="note_admin">{{$ticket->note_admin}}</textarea>
-                                        </div>
+                                       <div class="col-12">
+                                            <div class="form-group">
+                                                <label>mesaje para el administrador</label>
+                                                    <textarea id="note" name="note">{{$ticket->note}}</textarea>
+                                                    <script>
+                                                      $('#note').summernote({
+                                                        placeholder: '',
+                                                        tabsize: 2,
+                                                        height: 100
+                                                      });
+                                                    </script>
+                                            </div>
                                     </div>
                                     <div class="col-12">
                                         <button type="submit"
@@ -83,3 +105,6 @@
 </section>
 
 @endsection
+
+</body>
+</html>

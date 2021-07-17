@@ -242,10 +242,10 @@ class UserController extends Controller
 
         $fields = [
 
-         "name" => ['required'],
-         "last_name" => ['required'],
+         "name",
+         "last_name",
          "email" => [
-            'required',
+            
             'string',
             'email',
             'max:255',

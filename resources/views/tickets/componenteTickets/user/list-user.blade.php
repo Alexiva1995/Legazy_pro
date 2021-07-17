@@ -39,7 +39,7 @@
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->getUser->fullname}}</td>
                                     {{-- <td>{{ $item->estado}}</td> --}}
-                                    {{-- <td>{{ $item->prioridad}}</td> --}}
+                                   {{--  <td>{{ $item->prioridad}}</td> --}}
                                  {{--    <td>{{ $item->issue}}</td> --}}
                                     {{-- <td>{{ $item->Descripcion}}</td> --}}
                                     
@@ -48,18 +48,18 @@
 
 
                                     @if ($item->status == '0')
-                                    <td> <a class=" btn btn-info text-white text-bold-600">Abierto</a></td>
+                                    <td> <a class=" btn btn-success text-white text-bold-600">Abierto</a></td>
                                     @elseif($item->status == '1')
-                                    <td> <a class=" btn btn-primary text-white text-bold-600">Cerrado</a></td>
+                                    <td> <a class=" btn btn-danger text-white text-bold-600">Cerrado</a></td>
                                     @endif
                                     
 
                                     @if ($item->priority == '0')
-                                    <td> <a class=" btn btn-info text-white text-bold-600">Alto</a></td>
+                                    <td> <a class="text-uppercase">Alto</a></td>
                                     @elseif($item->priority == '1')
-                                    <td> <a class=" btn btn-warning text-white text-bold-600">Medio</a></td>
+                                    <td> <a class="text-uppercase">Medio</a></td>
                                     @elseif($item->priority == '2')
-                                    <td> <a class=" btn btn-danger text-white text-bold-600">Bajo</a></td>
+                                    <td> <a class="text-uppercase">Bajo</a></td>
                                     @endif
 
                                     <td>{{ $item->created_at}}</td>
