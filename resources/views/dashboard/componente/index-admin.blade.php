@@ -59,7 +59,7 @@
 
 
                 <div class="col-sm-6 col-md-5 col-12 mt-1">
-                    <div class="card h-90 p-2" style="background: #1b1b1b;">
+                    <div class="card p-2" style="background: #1b1b1b; height: 230px;">
                         <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
                             <h5 class="mt-1 mb-0 text-white"><b>Link de referido</b></h5>
                         </div>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="col-sm-6 col-md-4 col-12 mt-1">
-                    <div class="card h-90 p-2" style="background: #1b1b1b;">
+                    <div class="card p-2" style="background: #1b1b1b; height: 230px;">
                         <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
                             <h5 class="mt-1 mb-0 text-white"><b>Lado Binario</b></h5>
                         </div>
@@ -82,9 +82,9 @@
                         <div class="card-sub d-flex align-items-center ">
                             <h1 class="gold text-bold-700 mb-0">
                                 @if (Auth::user()->binary_side_register == 'I')
-                                Izquierda
+                                IZQUIERDA
                                 @else
-                                Derecha
+                                DERECHA
                                 @endif
                             </h1>
                         </div>
@@ -92,19 +92,19 @@
 
                             @if (Auth::user()->binary_side_register == 'I')
                             <a href="#" class="btn btn-primary padding-button-short bg-white mt-1 waves-effect waves-light text-white" v-on:click="updateBinarySide('D')">
-                                Derecha
+                                DERECHA
                             </a>
 
                             <a href="#" class="btn btn-outline-warning padding-button-short bg-white mt-1 waves-effect waves-light text-white" v-on:click="updateBinarySide('I')">
-                                Izquierda
+                                IZQUIERDA
                             </a>
                             @else
                             <a href="#" class="btn btn-primary padding-button-short bg-white mt-1 waves-effect waves-light text-white" v-on:click="updateBinarySide('D')">
-                                Derecha
+                                DERECHA
                             </a>
 
                             <a href="#" class="btn btn-primary padding-button-short bg-white mt-1 waves-effect waves-light text-white" v-on:click="updateBinarySide('I')">
-                                Izquierda
+                                IZQUIERDA
                             </a>
                             @endif
 
@@ -115,14 +115,14 @@
 
                 
                 <div class="col-sm-6 col-md-3 col-12 mt-1">
-                    <div class="card h-90 p-2" style="background: #1b1b1b;">
+                    <div class="card p-2" style="background: #1b1b1b; height: 230px;">
                         <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
                             <h5 class="mt-1 mb-0 text-white"><b>Paquete de inversión</b></h5>
                         </div>
 
-                        <div class="card-header d-flex align-items-center mb-2 ">
-                            <img src="{{asset('assets/img/Recurso31.png')}}" alt=""
-                                style="width: 90%; heigh:100%;margin-top: -15px;">
+                        <div class="card-header d-flex align-items-center mb-2 justify-content-center">
+                            <img class="text-center" src="{{asset('assets/img/Recurso31.png')}}" alt=""
+                                style="width: 80%; margin-top: -15px;">
                         </div>
 
                     </div>
