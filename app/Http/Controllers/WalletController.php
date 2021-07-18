@@ -408,4 +408,20 @@ class WalletController extends Controller
 
         WalletBinary::whereIn('id', $lisComision)->update(['status' => '1']);
     }
+
+    /**
+     * Permite pagar todo los bonos y puntos 
+     *
+     * @return void
+     */
+    public function payAll()
+    {
+        $this->bonoDirecto();
+        Log::info('Bono Directo Pagado');
+        $this->payPointsBinary();
+        Log::info('Puntos Binarios Pagado');
+        if (env('APP_ENV' != 'local')) {
+            $this->bonoBinario();
+        }
+    }
 }

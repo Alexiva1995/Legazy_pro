@@ -54,9 +54,7 @@ class HomeController extends Controller
         //try {/*
             View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
-            $this->walletController->bonoDirecto();
-            $this->walletController->payPointsBinary();
-            $this->walletController->bonoBinario();
+            
             return view('dashboard.index', compact('data'));
         /*} catch (\Throwable $th) {
             Log::error('Home - index -> Error: '.$th);
@@ -84,6 +82,7 @@ class HomeController extends Controller
      */
     public function dataDashboard(int $iduser):array
     {
+        $this->walletController->payAll();
         $cantUsers = $this->treeController->getTotalUser($iduser);
         $data = [
             'directos' => $cantUsers['directos'],
