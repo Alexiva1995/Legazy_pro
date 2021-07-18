@@ -92,7 +92,47 @@ class User extends Authenticatable
 
     public function inversionMasAlta()
     {
-        return $this->getInversiones()->where('status', 1)->orderBy('invertido', 'desc');
+        return $this->getInversiones()->where('status', 1)->orderBy('invertido', 'desc')->first();
         //->sortByDesc('invertido')
+    }
+
+    public function saldoDisponible()
+    {
+        return number_format($this->getWallet->where('status', 0)->where('tipo_transaction', 0)->sum('monto'), 2);
+    }
+
+    public function gananciaActual()
+    {   
+        if(isset($this->inversionMasAlta()->ganacia) && $this->inversionMasAlta()->ganacia != null){
+            return number_format($this->inversionMasAlta()->ganacia, 2);
+        }else{
+            return number_format(0, 2);
+        }
+        
+    }
+
+    public function progreso()
+    {
+        if(isset($this->inversionMasAlta()->max_ganancia) && isset($this->inversionMasAlta()->restante)){
+            $total = $this->inversionMasAlta()->max_ganancia - $this->inversionMasAlta()->restante;
+
+            if($this->inversionMasAlta()->max_ganancia != null && $this->inversionMasAlta()->max_ganancia != 0){
+                $operacion = ($total * 100) / $this->inversionMasAlta()->max_ganancia;
+            }else{
+                $operacion = 0;
+            }
+        }else{
+            $operacion = 0;
+        }
+        return $operacion;
+    }
+
+    public function fechaActivo()
+    {
+        if($this->inversionMasAlta() != null){
+            return $this->inversionMasAlta()->created_at->format('Y-m-d');
+        }else{
+            return "";
+        }
     }
 }
