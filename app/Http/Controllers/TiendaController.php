@@ -41,7 +41,7 @@ class TiendaController extends Controller
             View::share('titleg', 'Tienda');
             $packages = Packages::orderBy('id', 'desc')->paginate();
 
-            $invertido = Auth::user()->inversionMasAlta()->first();
+            $invertido = Auth::user()->inversionMasAlta();
             if(isset($invertido)){
                 $invertido = $invertido->invertido;
             }
@@ -91,9 +91,9 @@ class TiendaController extends Controller
             if ($validate) {
                 $paquete = Packages::find($request->idproduct);
 
-                if(isset(Auth::user()->inversionMasAlta()->first()->invertido)){
+                if(isset(Auth::user()->inversionMasAlta()->invertido)){
                     
-                    $inversion = Auth::user()->inversionMasAlta()->first();
+                    $inversion = Auth::user()->inversionMasAlta();
                     $pagado = $inversion->invertido;
 
                     $nuevoInvertido = ($paquete->price - $pagado); 
@@ -264,9 +264,9 @@ class TiendaController extends Controller
         $orden->save();
         $user = User::findOrFail($orden->iduser);
   
-        if(isset($user->inversionMasAlta()->first()->invertido)){
+        if(isset($user->inversionMasAlta()->invertido)){
       
-            $inversion = $user->inversionMasAlta()->first();
+            $inversion = $user->inversionMasAlta();
             $pagado = $inversion->invertido;
 
             $nuevoInvertido = ($orden->getPackageOrden->price - $pagado); 
