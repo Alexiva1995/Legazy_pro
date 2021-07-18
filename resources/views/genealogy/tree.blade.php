@@ -82,7 +82,7 @@
                 <ul>
                     @foreach ($trees as $child)
                     {{-- genera el lado binario derecho haciendo vacio --}}
-                    @include('genealogy.component.sideEmpty', ['side' => 'D', 'cant' => count($child->children),'ladouser' => $child->binary_side])
+                    @include('genealogy.component.sideEmpty', ['side' => 'D', 'cant' => count($trees),'ladouser' => $child->binary_side])
                     <li href="#prestamo" data-toggle="modal">
                         @include('genealogy.component.subniveles', ['data' => $child])
                         @if (!empty($child->children))
@@ -139,7 +139,7 @@
                         @endif
                     </li>
                     {{-- genera el lado binario izquierdo haciendo vacio --}}
-                    @include('genealogy.component.sideEmpty', ['side' => 'I', 'cant' => count($child->children),'ladouser' => $child->binary_side])
+                    @include('genealogy.component.sideEmpty', ['side' => 'I', 'cant' => count($trees),'ladouser' => $child->binary_side])
                     @endforeach
                 </ul>
                 {{-- fin nivel 1 --}}
