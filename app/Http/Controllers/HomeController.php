@@ -82,7 +82,6 @@ class HomeController extends Controller
      */
     public function dataDashboard(int $iduser):array
     {
-        $this->walletController->payAll();
         $cantUsers = $this->treeController->getTotalUser($iduser);
         $data = [
             'directos' => $cantUsers['directos'],
