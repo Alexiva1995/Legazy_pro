@@ -152,7 +152,8 @@ class LiquidactionController extends Controller
             foreach ($comiciones as $comi) {
                 $fecha = new Carbon($comi->created_at);
                 $comi->fecha = $fecha->format('Y-m-d');
-                $comi->referido = User::find($comi->referred_id)->only('fullname');
+                $referido = User::find($comi->referred_id);
+                $comi->referido = ($referido != null) ? $referido->only('fullname') : 'Usuario no Disponible';
             }
             
             $user = User::find($id);
