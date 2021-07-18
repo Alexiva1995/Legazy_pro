@@ -112,14 +112,21 @@ class LiquidactionController extends Controller
 
         try {
             if ($validate) {
+                $mensaje = 'Liquidaciones Generada Exitoxamente';
+                $tipo = 'msj-success';
+                $msj = 0;
                 if ($request->tipo == 'detallada') {
-                    $this->generarLiquidation($request->iduser, $request->listComisiones);
+                    $msj = $this->generarLiquidation($request->iduser, $request->listComisiones);
                 }else{
                     foreach ($request->listUsers as $iduser) {
-                        $this->generarLiquidation($iduser, []);
+                        $msj = $this->generarLiquidation($iduser, []);
                     }
                 }
-                return redirect()->back()->with('msj-success', 'Liquidaciones Generada Exitoxamente');
+                if ($msj == 0) {
+                    $mensaje = 'El monto a retirar esta por debajo del limite permitido que es 50$';
+                    $tipo = 'msj-warning';
+                }
+                return redirect()->back()->with($tipo, $mensaje);
             }
         } catch (\Throwable $th) {
             Log::error('Liquidaction - store -> Error: '.$th);
@@ -145,7 +152,8 @@ class LiquidactionController extends Controller
             foreach ($comiciones as $comi) {
                 $fecha = new Carbon($comi->created_at);
                 $comi->fecha = $fecha->format('Y-m-d');
-                $comi->referido = User::find($comi->referred_id)->only('fullname');
+                $referido = User::find($comi->referred_id);
+                $comi->referido = ($referido != null) ? $referido->only('fullname') : 'Usuario no Disponible';
             }
             
             $user = User::find($id);
@@ -292,9 +300,9 @@ class LiquidactionController extends Controller
      *
      * @param integer $iduser -  id del usuario
      * @param array $listComision - comisiones a procesar si son selecionada
-     * @return void
+     * @return integer
      */
-    public function generarLiquidation(int $iduser, array $listComision)
+    public function generarLiquidation(int $iduser, array $listComision): int
     {
         try {
             $user = User::find($iduser);
@@ -311,7 +319,10 @@ class LiquidactionController extends Controller
             }
 
             $bruto = $comisiones->sum('monto');
-            $feed = ($bruto * 0);
+            if ($bruto < 50) {
+                return 0; // Esta por debajo del limite diario
+            }
+            $feed = ($bruto * 0.06);
             $total = ($bruto - $feed);
 
             $arrayLiquidation = [
@@ -345,6 +356,7 @@ class LiquidactionController extends Controller
                     'liquidation_id' => $idLiquidation
                 ]);
             }
+            return 1; // Liquidacion exitosa
         } catch (\Throwable $th) {
             Log::error('Liquidaction - generarLiquidation -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");

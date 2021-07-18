@@ -15,7 +15,7 @@
         <tr class="text-center text-white">
             <td>{{$wallet->id}}</td>
             <td>{{date('d-m-Y', strtotime($wallet->created_at))}}</td>
-            <td>{{$wallet->getWalletReferred->fullname}}</td>
+            <td>{{$wallet->getWalletUser->fullname}}</td>
             <td>{{$wallet->descripcion}}</td>
             {{--
             @php

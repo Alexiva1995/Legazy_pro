@@ -12,6 +12,7 @@
             <div class="modal-body text-justify">
                 <form action="{{route('liquidation.store')}}" method="post">
                     @csrf
+                    <input type="hidden" name="tipo" value="detallada">
                     <input type="hidden" name="iduser" :value="ComisionesDetalles.iduser">
                     <table class="table nowrap scroll-horizontal-vertical table-striped" style="width: 100%">
                         <thead>

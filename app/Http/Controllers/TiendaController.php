@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\InversionController;
+use App\Http\Controllers\WalletController;
 
 
 class TiendaController extends Controller
@@ -19,9 +20,11 @@ class TiendaController extends Controller
 
     public $apis_key_nowpayments;
     public $inversionController;
+    public $walletController;
 
     public function __construct()
     {
+        $this->walletController = new WalletController;
         $this->inversionController = new InversionController();
         //$this->apis_key_nowpayments = '56ZHMKJ-3E1MC2ZK5NK025-XSTRFHY';
         $this->apis_key_nowpayments = 'DFR7W73-93J4GW1-M1XE745-M8RPDVD';
@@ -266,6 +269,8 @@ class TiendaController extends Controller
         $orden->status = $request->status;
         $orden->save();
         $user = User::findOrFail($orden->iduser);
+
+        $this->walletController->payAll();
   
         if(isset($user->inversionMasAlta()->invertido)){
       

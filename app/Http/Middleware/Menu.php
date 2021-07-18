@@ -61,7 +61,7 @@ class Menu
             // Negocio
             'Negocio' => [
                 'submenu' => 1,
-                'ruta' => route('group.index'),
+                'ruta' => 'javascripts:;',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-briefcase',
                 'complementoruta' => '',
@@ -69,7 +69,7 @@ class Menu
                     [
                         'name' => 'Árbol binario',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_type', 'tree'),
+                        'ruta' => route('genealogy_type', 'matriz'),
                         'complementoruta' => ''
                     ],
                     [
@@ -112,7 +112,7 @@ class Menu
             // Financiero
             'Financiero' => [
                 'submenu' => 1,
-                'ruta' => route('home'),
+                'ruta' => 'javascripts:;',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-dollar-sign',
                 'complementoruta' => '',
@@ -187,7 +187,7 @@ class Menu
             // Red
             'Red' => [
                 'submenu' => 1,
-                'ruta' => route('package.index'),
+                'ruta' => 'javascripts:;',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-globe',
                 'complementoruta' => '',
@@ -201,7 +201,7 @@ class Menu
                     [
                         'name' => 'Árbol binario',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('genealogy_type', 'tree'),
+                        'ruta' => route('genealogy_type', 'matriz'),
                         'complementoruta' => ''
                     ],
                     [
@@ -240,7 +240,7 @@ class Menu
             // Liquidaciones
             'Liquidaciones' => [
                 'submenu' => 1,
-                'ruta' => route('home'),
+                'ruta' => 'javascripts:;',
                 'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                 'icon' => 'feather icon-pocket',
                 'complementoruta' => '',
