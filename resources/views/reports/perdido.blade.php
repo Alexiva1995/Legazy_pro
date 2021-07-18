@@ -27,7 +27,7 @@
                                     <td>{{$orden->id}}</td>
                                     <td>{{$orden->name}}</td>
                                     {{-- <td>{{$orden->grupo}}</td> --}}
-                                    <td>{{$orden->paquete}}
+                                    <td>{{$orden->monto}}
                                     <td>{{date('Y-m-d', strtotime($orden->created_at))}}</td>
                                     {{-- <td>{{$orden->idtransacion}}</td> --}}
                                     <td>{{$orden->total}}</td>

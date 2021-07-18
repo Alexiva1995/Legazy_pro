@@ -186,7 +186,7 @@ class InversionController extends Controller
     public function updatePorcentajeGanancia(Request $request)
     {
         $porcentaje = $request->porcentaje_ganancia / 100;
-
+        
         $porcentajeUtilidad = PorcentajeUtilidad::orderBy('id', 'desc')->first();
 
         if($porcentajeUtilidad == null){

@@ -7,8 +7,14 @@
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     @if(auth()->user()->admin == 1)
-                        <button class="btn btn-primary bg-white mt-1 waves-effect waves-light text-white float-right" data-toggle="modal" data-target="#modalPorcentajeGanancia">Cambiar porcentaje ganancia</button>
+                    <div class="">
+                        
+                        <button class="btn btn-primary bg-white mt-1 waves-effect waves-light text-white ml-auto" data-toggle="modal" data-target="#modalPorcentajeGanancia">Cambiar porcentaje ganancia</button>
+                        
+                    </div>
+                        
                     @endif
+                    <div>
                         <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100 text-white ">
 
                             <thead class="">
@@ -20,7 +26,7 @@
                                     <th>Inversion</th>
                                     <th>Ganancia</th>
                                     {{-- <th>Capital</th> --}}
-                                    <th>% Ganancia</th>
+                                    <th>Progreso</th>
                                     {{-- <th>Ganancia acumulada</th> --}}
                                     {{-- <th>Porcentaje fondo</th> --}}
                                     <th>Fecha</th>
@@ -60,6 +66,7 @@
                             </tbody>
                         </table>
                     </div>
+                   
                 </div>
             </div>
         </div>
@@ -70,19 +77,19 @@
 @if(auth()->user()->admin == 1)
     <div class="modal fade" id="modalPorcentajeGanancia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Porcentaje de ganancia</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-content" style="background-color: #1E1E1E">
+            <div class="modal-header" style="background-color: #1E1E1E">
+            <h5 class="modal-title text-white" id="exampleModalLabel">Porcentaje de ganancia</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%)">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <form action="{{route('updatePorcentajeGanancia')}}" method="POST">
                 @csrf 
                 @method('PUT')
-                <div class="modal-body">
-                    <label for="porcentaje_ganancia">Ingrese el nuevo porcentaje de ganancia</label>
-                    <input type="number" name="porcentaje_ganancia" class="form-control" required>
+                <div class="modal-body" style="background-color: #1E1E1E">
+                    <label for="porcentaje_ganancia" class="text-white">Ingrese el nuevo porcentaje de ganancia</label>
+                    <input type="number" step="any" name="porcentaje_ganancia" class="form-control" required style="background: #5f5f5f5f; color: white;">
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>

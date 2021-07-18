@@ -15,7 +15,7 @@ class OrdenPurchases extends Model
     protected $fillable = [
         'iduser', 'group_id', 'package_id', 
         'cantidad', 'total', 'idtransacion',
-        'status'
+        'status', 'monto'
     ];
 
      /**
