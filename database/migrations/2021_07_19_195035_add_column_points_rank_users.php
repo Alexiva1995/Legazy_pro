@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePorcentajeUtilidadsTable extends Migration
+class AddColumnPointsRankUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePorcentajeUtilidadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('porcentaje_utilidads', function (Blueprint $table) {
-            $table->id();
-            $table->decimal('porcentaje_utilidad', 8, 5)->nullable();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->bigInteger('point_rank')->unsigned()->nullable();
+            $table->bigInteger('rank_id')->unsigned()->default(0)->nullable();
         });
     }
 
@@ -27,6 +26,6 @@ class CreatePorcentajeUtilidadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('porcentaje_utilidads');
+        
     }
 }

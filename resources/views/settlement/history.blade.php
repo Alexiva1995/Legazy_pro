@@ -38,7 +38,7 @@
                                     <th>Billetera</th>
                                     <th>Status</th>
                                     <th>Fecha</th>
-                                    <th>Accion</th>
+                                    {{-- <th>Accion</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,13 +53,13 @@
                                     <td>{{$liqui->wallet_used}}</td>
                                     <td>{{$liqui->status}}</td>
                                     <td>{{date('Y-m-d', strtotime($liqui->created_at))}}</td>
-                                    <td>
+                                    {{-- <td>
                                         @if ($estado == 1)
                                         <button class="btn btn-primary" onclick="vm_liquidation.getDetailComisionLiquidation({{$liqui->id}})">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                             </tbody>

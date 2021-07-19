@@ -24,7 +24,15 @@
 @push('custom_js')
     <script>
         $('.myTable').DataTable({
-            responsive: true
+            responsive: true,
+            order: [[ 0, "desc" ]],
+        })
+    </script>
+
+    <script>
+        $('.myTableOrdenDesc').DataTable({
+            responsive: true,
+            order: [0, 'desc']
         })
     </script>
 @endpush

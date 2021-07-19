@@ -49,9 +49,13 @@ class Inversion extends Model
 
     public function progreso()
     {
-        $total = $this->max_ganancia - $this->restante;
+        if(isset($this->max_ganancia) && isset($this->restante)){
+            $total = $this->max_ganancia - $this->restante;
 
-        $operacion = ($total * 100) / $this->max_ganancia;
+            $operacion = ($total * 100) / $this->max_ganancia;
+        }else{
+            $operacion = 0;
+        }
 
         return $operacion;
     }

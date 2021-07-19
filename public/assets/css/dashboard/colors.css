@@ -1373,7 +1373,7 @@ input:focus ~ .bg-primary {
 .btn-primary {
   border-color : #4839EB !important;
   background-color : #d6a83e !important;
-  color : #FFF;
+  color : #fff;
 }
 .btn-primary:hover {
   border-color : #d6a83e !important;
@@ -5557,7 +5557,7 @@ input:focus ~ .bg-warning {
 }
 
 .btn-outline-warning {
-  border : 1px solid #FF9F43;
+  border : 1px solid #d6a83e;
   background-color : transparent;
   color : #FF9F43;
 }

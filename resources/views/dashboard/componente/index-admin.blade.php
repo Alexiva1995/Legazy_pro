@@ -13,10 +13,10 @@
                     </div>
 
                     <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
-                        <h2 class="mt-1 mb-0 text-white"><b>Saldo disponible</b></h2>
+                        <h2 class="mt-1 mb-0 text-white" style="text-shadow: black 0.1em 0.1em 0.2em;"><b>Saldo disponible</b></h2>
                     </div>
                     <div class="card-sub d-flex align-items-center">
-                        <h1 class="text-white mb-0"><b>$ {{Auth::user()->saldoDisponible()}}</b></h1>
+                        <h1 class="text-white mb-0"><b style="text-shadow: black 0.1em 0.1em 0.2em;">$ {{Auth::user()->saldoDisponible()}}</b></h1>
                     </div>
 
                     <div class="card-header d-flex align-items-center mt-3">
@@ -58,8 +58,8 @@
 
 
 
-            <div class="col-sm-6 col-md-5 col-12 mt-1">
-                <div class="card p-2" style="background: #1b1b1b; height: 230px;">
+            <div class="col-sm-6 col-md-4 col-12 mt-1">
+                <div class="card py-2" style="background: #1b1b1b; height: 230px;">
                     <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
                         <h5 class="mt-1 mb-0 text-white"><b>Link de referido</b></h5>
                     </div>
@@ -67,14 +67,15 @@
                     <div class="card-sub d-flex align-items-center ">
                         <h2 class="gold text-bold-700 mb-0">INVITA A<br>PERSONAS<br></h2>
                     </div>
-                    <div class=" card-header d-flex align-items-center white mt-2">
-                        <button class="btn-darks" style="boder-color=#D6A83E" onclick="getlink()"><b>LINK DE REFERIDO <i class="fa fa-copy"></i></b></button>
+                    <div class="card-header d-flex align-items-center white mt-2">
+                        <button class="btn-darks btn-block" style="boder-color=#D6A83E; position: //" onclick="getlink()"><b>LINK DE
+                                REFERIDO <i class="fa fa-copy"></i></b></button>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-6 col-md-4 col-12 mt-1">
-                <div class="card p-2" style="background: #1b1b1b; height: 230px;">
+                <div class="card pt-2 h-80" style="background: #1b1b1b; height: 230px;">
                     <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
                         <h5 class="mt-1 mb-0 text-white"><b>Lado Binario</b></h5>
                     </div>
@@ -88,32 +89,39 @@
                             @endif
                         </h1>
                     </div>
-                    <div class="card-dl d-flex align-items-center mt-5">
+                    <div class="row no-gutters card-header align-items-center h-100">
 
                         @if (Auth::user()->binary_side_register == 'I')
-                                    
-                            <a href="#"
-                                class="btn btn-primary padding-button-short mt-1 waves-effect waves-light text-white"
-                                v-on:click="updateBinarySide('I')">
-                                IZQUIERDA
-                            </a>
-                            <a href="#"
-                                class="btn btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
-                                v-on:click="updateBinarySide('D')">
-                                DERECHA
-                            </a>
+                            <div class="col">     
+                                <a href="#"
+                                    class="btn btn-primary btn-block padding-button-short mt-1 waves-effect waves-light text-white"
+                                    v-on:click="updateBinarySide('I')">
+                                    IZQUIERDA
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#"
+                                    class="btn btn-block btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
+                                    v-on:click="updateBinarySide('D')" style="height: 44.78px">
+                                    DERECHA
+                                </a>
+                            </div>
                         @else
-
-                            <a href="#"
-                                class="btn btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
-                                v-on:click="updateBinarySide('I')">
-                                IZQUIERDA
-                            </a>
-                            <a href="#"
-                                class="btn btn-primary padding-button-short mt-1 waves-effect waves-light text-white"
-                                v-on:click="updateBinarySide('D')">
-                                DERECHA
-                            </a>
+                                <div class="col">
+                                    <a href="#"
+                                        class="btn btn-block btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
+                                        v-on:click="updateBinarySide('I')">
+                                        IZQUIERDA
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="#"
+                                        class="btn btn-block btn-primary padding-button-short mt-1 waves-effect waves-light text-white"
+                                        v-on:click="updateBinarySide('D')" style="height: 44.78px">
+                                        DERECHA
+                                    </a>
+                                </div>
+                            
                         @endif
 
 
@@ -122,19 +130,21 @@
             </div>
 
             
-            <div class="col-sm-6 col-md-3 col-12 mt-1">
+            <div class="col-sm-6 col-md-4 col-12 mt-1">
                 <div class="card p-2" style="background: #1b1b1b; height: 230px;">
                     <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
                         <h5 class="mt-1 mb-0 text-white"><b>Paquete de inversión</b></h5>
                     </div>
 
                     <div class="card-header d-flex align-items-center mb-2 justify-content-center">
-                        <img class="text-center" src="{{asset('assets/img/Recurso31.png')}}" alt=""
-                            style="width: 80%; margin-top: -15px;">
+                        <img class="text-center" src="{{Auth::user()->inversionMasAlta() != null ?Auth::user()->inversionMasAlta()->getPackageOrden->img() : asset('assets/img/legazy_pro/logo.svg')}}" alt=""
+                            style="width: @if(Auth::user()->inversionMasAlta() == null)100% @else 62% @endif; margin-top: -15px;">
                     </div>
 
                 </div>
             </div>
+        </div>
+    </div>
 
             <div class="col-sm-6 col-12 mt-1">
                 <div class="card h-100 p-2" style="background: #1b1b1b;">

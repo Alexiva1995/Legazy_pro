@@ -7,39 +7,40 @@
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
+<script src="{{asset('assets/js/librerias/axios.min.js')}}"></script>
 <script>
-                   
-        var options = {
-          colors: ['#BA8621'],
-          series: [{
-            name: "Numero de ventas",
-            data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 148, 148, 148]
-        }],
-          chart: {
-          height: 350,
-          type: 'line',
-          zoom: {
-            enabled: false
+        axios.get('/dashboard/dataGrafica').then( function(response){
+         
+          var options = {
+            colors: ['#BA8621'],
+            series: [{
+              name: "Numero de ventas",
+              data: response.data.valores
+          }],
+            chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+              enabled: false
+            },
           },
-        },
-        dataLabels: {
-          enabled: true,
-        },
-        
-        colors: ['#D6A83E'],
+          dataLabels: {
+            enabled: true,
+          },
+          
+          colors: ['#D6A83E'],
 
-        stroke: {
-          curve: 'straight'
-        },
-        title: {
-          text: '',
-          align: 'left',
-          style:{
-            color: '#fff'
-          }
-        },
-        grid: {
+          stroke: {
+            curve: 'smooth'
+          },
+          title: {
+            text: '',
+            align: 'left',
+            style:{
+              color: '#fff'
+            }
+          },
+          grid: {
           row: {
             colors: [], // takes an array which will be repeated on columns
             opacity: 0.5
@@ -49,7 +50,7 @@
           categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
           labels: {
             style: {
-                colors: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff' ,'#fff', '#fff', '#fff']
+                colors: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff' ,'#fff', '#fff', '#fff', '#fff', '#fff', '#fff']
             },               
           }
         },
@@ -75,6 +76,9 @@
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
+
+        }).catch(e => console.log(e))          
+        
       
       
     </script>

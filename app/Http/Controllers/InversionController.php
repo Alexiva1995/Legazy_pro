@@ -32,7 +32,7 @@ class InversionController extends Controller
                 $inversiones = Inversion::all();
             
             }else{
-                $inversiones = Inversion::where('iduser', '=',Auth::id())->get();
+                $inversiones = Inversion::where('iduser', '=',Auth::id())->orderBy('status')->get();
             }
 
             foreach ($inversiones as $inversion) {
@@ -186,7 +186,7 @@ class InversionController extends Controller
     public function updatePorcentajeGanancia(Request $request)
     {
         $porcentaje = $request->porcentaje_ganancia / 100;
-
+        
         $porcentajeUtilidad = PorcentajeUtilidad::orderBy('id', 'desc')->first();
 
         if($porcentajeUtilidad == null){

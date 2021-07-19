@@ -1,8 +1,5 @@
 @extends('layouts.auth')
 
-@push('custom_css')
-
-@endpush
 
 @section('content')
 <!-- BEGIN: Content-->

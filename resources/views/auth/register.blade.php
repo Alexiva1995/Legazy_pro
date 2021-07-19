@@ -1,9 +1,5 @@
 @extends('layouts.auth')
 
-@push('custom_css')
-
-@endpush
-
 @php
 $referred = null;
 @endphp
