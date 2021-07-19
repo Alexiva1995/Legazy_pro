@@ -9,18 +9,35 @@
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
-        <form method="POST">
+        <form method="POST" action="{{route('retirarSaldo')}}">
             @csrf 
      
             <div class="modal-body text-center">
-                
-                <div>
-                    Monto: $ {{Auth::user()->saldoDisponible()}}
+               
+                <div class="row">
+                    <div class="col-12 mb-1">
+                        <fieldset class="form-group text-center mb-0" style="font-size: 1.5em;">
+                            <label for="" class="font-weight-bold text-white">Monto:</label>
+                            <div class="text-center">$ {{Auth::user()->saldoDisponible()}}</div>
+                        </fieldset>
+                    </div>
+                    <div class="col-12 mb-1">
+                        <fieldset class="form-group text-center mb-0" style="font-size: 1.5em;">
+                            <label for="" class="font-weight-bold text-white">Feed:</label>
+                            <div class="text-center">6%</div>
+                        </fieldset>
+                    </div>
+                    <div class="col-12 mb-1">
+                        <fieldset class="form-group text-center mb-0" style="font-size: 1.5em;">
+                            <label for="" class="font-weight-bold text-white">A recibir:</label>
+                            <div class="text-center">$ {{ number_format(floatval(Auth::user()->saldoDisponible()) - floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}</div>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">Retirar</button>
             </div>
         </form>
     </div>
