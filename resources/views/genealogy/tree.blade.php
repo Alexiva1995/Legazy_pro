@@ -5,6 +5,11 @@
 @push('custom_css')
 {{-- <link rel="stylesheet" href="{{asset('assets/css/tree2.css')}}"> --}}
 <link rel="stylesheet" href="{{asset('assets/css/customer/joeldesing.css')}}">
+<style>
+    .padre li img{
+        width: 100%;
+    }
+</style>
 @endpush
 
 @section('content')

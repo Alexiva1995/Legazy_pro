@@ -188,7 +188,8 @@ class LiquidactionController extends Controller
             foreach ($comiciones as $comi) {
                 $fecha = new Carbon($comi->created_at);
                 $comi->fecha = $fecha->format('Y-m-d');
-                $comi->referido = User::find($comi->referred_id)->only('fullname');
+                $referido = User::find($comi->referred_id);
+                $comi->referido = ($referido != null) ? $referido->only('fullname') : 'Usuario no Disponible';
             }
             $user = User::find($comiciones->pluck('iduser')[0]);
 
@@ -331,23 +332,23 @@ class LiquidactionController extends Controller
                 'monto_bruto' => $bruto,
                 'feed' => $feed,
                 'hash',
-                'wallet_used',
+                'wallet_used' => $user->wallet_address,
                 'status' => 0,
             ];
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
 
-            $concepto = 'Liquidacion del usuario '.$user->fullname.' por un monto de '.$bruto;
-            $arrayWallet =[
-                'iduser' => $user->id,
-                'referred_id' => $user->id,
-                // 'credito' => $bruto,
-                'monto' => $bruto,
-                'descripcion' => $concepto,
-                'status' => 0,
-                'tipo_transaction' => 1,
-            ];
+            // $concepto = 'Liquidacion del usuario '.$user->fullname.' por un monto de '.$bruto;
+            // $arrayWallet =[
+            //     'iduser' => $user->id,
+            //     'referred_id' => $user->id,
+            //     // 'credito' => $bruto,
+            //     'monto' => $bruto,
+            //     'descripcion' => $concepto,
+            //     'status' => 0,
+            //     'tipo_transaction' => 1,
+            // ];
 
-            $this->walletController->saveWallet($arrayWallet);
+            // $this->walletController->saveWallet($arrayWallet);
             
             if (!empty($idLiquidation)) {
                 $listComi = $comisiones->pluck('id');
@@ -454,18 +455,18 @@ class LiquidactionController extends Controller
             'liquidation_id' => null,
         ]);
 
-        $concepto = 'Liquidacion Reservada - Motivo: '.$comentario;
-        $arrayWallet =[
-            'iduser' => $liquidacion->iduser,
-            'orden_purchases_id' => null,
-            'referred_id' => $liquidacion->iduser,
-            'monto' => $liquidacion->monto_bruto,
-            'descripcion' => $concepto,
-            'status' => 3,
-            'tipo_transaction' => 0,
-        ];
+        // $concepto = 'Liquidacion Reservada - Motivo: '.$comentario;
+        // $arrayWallet =[
+        //     'iduser' => $liquidacion->iduser,
+        //     'orden_purchases_id' => null,
+        //     'referred_id' => $liquidacion->iduser,
+        //     'monto' => $liquidacion->monto_bruto,
+        //     'descripcion' => $concepto,
+        //     'status' => 3,
+        //     'tipo_transaction' => 0,
+        // ];
 
-        $this->walletController->saveWallet($arrayWallet);
+        // $this->walletController->saveWallet($arrayWallet);
 
         $liquidacion->status = 2;
         $liquidacion->save();
