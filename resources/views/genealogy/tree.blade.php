@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-4">
-                        <img id="imagen" class="rounded-circle" style="width: 118%;margin-top: 7px;padding-top: 15px;">
+                        <img id="imagen" class="p-1" style="width: 118%;margin-top: 7px;padding-top: 15px;" height="80px">
                     </div>
                     <div class="col-6 ml-1">
                         <div class="white mt-1">
@@ -76,7 +76,7 @@
             <li class="baseli">
                 <a class="base" href="#">
                     @if (empty($base->photoDB))
-                    <img src="http://localhost/bfx/public/assets/img/legazy_pro/logo.svg" alt="{{$base->name}}" title="{{$base->name}}"
+                    <img src="{{asset('assets/img/legazy_pro/logo.svg')}}" alt="{{$base->name}}" title="{{$base->name}}"
                         class="pt-1 rounded-circle" style="width: 95%;height: 107%;margin-left: 0px;margin-top: -8px;">
                     @else
                     <img src="{{asset('storage/photo/'.$base->photoDB)}}" alt="{{$base->name}}" title="{{$base->name}}"
@@ -163,7 +163,7 @@
         //console.log('assets/img/sistema/favicon.png');
         $('#nombre').text(data.fullname);
         if (data.photoDB == null) {
-            $('#imagen').attr('src', "{{ asset('/assets/img/sistema/favicon.png') }}");
+            $('#imagen').attr('src', "{{asset('assets/img/legazy_pro/logo.svg')}}");
         } else {
             $('#imagen').attr('src', '/storage/photo/' + data.photoDB);
         }

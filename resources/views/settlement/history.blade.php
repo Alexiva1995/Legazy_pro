@@ -55,7 +55,7 @@
                                     <td>{{date('Y-m-d', strtotime($liqui->created_at))}}</td>
                                     <td>
                                         @if ($estado == 1)
-                                        <button class="btn btn-info" onclick="vm_liquidation.getDetailComisionLiquidation({{$liqui->id}})">
+                                        <button class="btn btn-primary" onclick="vm_liquidation.getDetailComisionLiquidation({{$liqui->id}})">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                         @endif
