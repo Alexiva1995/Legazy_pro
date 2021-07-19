@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="card-sub d-flex align-items-center ">
-                            <p class="text-bold-700 mb-0 text-white">{{Auth::user()->progreso() * 2}}% </p>
+                            <p class="text-bold-700 mb-0 text-white">{{number_format(Auth::user()->progreso() * 2,2)}}% </p>
                         </div>
 
                     </div>

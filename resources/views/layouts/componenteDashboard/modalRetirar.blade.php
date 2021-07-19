@@ -9,18 +9,48 @@
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
-        <form method="POST">
+        <form method="POST" action="{{route('retirarSaldo')}}">
             @csrf 
      
             <div class="modal-body text-center">
-                
-                <div>
-                    Monto: $ {{Auth::user()->saldoDisponible()}}
+               
+                <div class="row">
+                    <div class="col-12 mb-1">
+                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
+                            <div class="col-2">
+                                <label for="" class="col font-weight-bold text-white mr-3">Monto:</label>
+                            </div>
+                            <div class="col-8">
+                                <input style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{Auth::user()->saldoDisponible()}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-1">
+
+                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
+                            <div class="col-2">
+                                <label for="" class="col font-weight-bold text-white mr-3">Feed:</label>
+                            </div>
+                            <div class="col-8">
+                                <input style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="6">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-1">
+                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
+                            <div class="col-2">
+                                <label for="" class="col font-weight-bold text-white mr-3">A recibir:</label>
+                            </div>
+                            <div class="col-8">
+                                <input style="backoground: #5f5f5f5f;" class="form-control w-50 d-inline" type="text" value="{{ number_format(floatval(Auth::user()->saldoDisponible()) - floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">Retirar</button>
             </div>
         </form>
     </div>
