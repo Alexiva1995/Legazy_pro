@@ -366,10 +366,12 @@ class WalletController extends Controller
             if ($puntos > 0) {
                 $comision = ($puntos * 0.1);
                 $sponsor = User::find($binario->iduser);
+                $sponsor->point_rank += $puntos;
                 $concepto = 'Bono Binario - '.$puntos;
                 $idcomision = $binario->iduser.Carbon::now()->format('Ymd');
                 $this->setPointBinaryPaid($puntos, $side_menor, $binario->iduser, $side_mayor);
                 $this->preSaveWallet($sponsor->id, $sponsor->id, null, $comision, $concepto);
+                $sponsor->save();
             }
         }
     }

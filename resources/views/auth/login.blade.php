@@ -1,17 +1,5 @@
 @extends('layouts.auth')
 
-@push('custom_css')
-<style>
-.legazy_bg{
-
-background: url('{{ asset('assets/img/legazy_pro/bg.jpg') }}');
-justify-content: center;
-text-align:center;
-background-repeat:no-repeat;
-}
-</style>
-@endpush
-
 @section('content')
 <!-- BEGIN: Content-->
 <div class="auth-wrapper auth-v2">
