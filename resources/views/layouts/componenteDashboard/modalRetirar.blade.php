@@ -16,22 +16,35 @@
                
                 <div class="row">
                     <div class="col-12 mb-1">
-                        <fieldset class="form-group text-center mb-0" style="font-size: 1.5em;">
-                            <label for="" class="font-weight-bold text-white">Monto:</label>
-                            <div class="text-center">$ {{Auth::user()->saldoDisponible()}}</div>
-                        </fieldset>
+                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
+                            <div class="col-2">
+                                <label for="" class="col font-weight-bold text-white mr-3">Monto:</label>
+                            </div>
+                            <div class="col-8">
+                                <input style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{Auth::user()->saldoDisponible()}}">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-12 mb-1">
-                        <fieldset class="form-group text-center mb-0" style="font-size: 1.5em;">
-                            <label for="" class="font-weight-bold text-white">Feed:</label>
-                            <div class="text-center">6%</div>
-                        </fieldset>
+
+                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
+                            <div class="col-2">
+                                <label for="" class="col font-weight-bold text-white mr-3">Feed:</label>
+                            </div>
+                            <div class="col-8">
+                                <input style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="6">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-12 mb-1">
-                        <fieldset class="form-group text-center mb-0" style="font-size: 1.5em;">
-                            <label for="" class="font-weight-bold text-white">A recibir:</label>
-                            <div class="text-center">$ {{ number_format(floatval(Auth::user()->saldoDisponible()) - floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}</div>
-                        </fieldset>
+                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
+                            <div class="col-2">
+                                <label for="" class="col font-weight-bold text-white mr-3">A recibir:</label>
+                            </div>
+                            <div class="col-8">
+                                <input style="backoground: #5f5f5f5f;" class="form-control w-50 d-inline" type="text" value="{{ number_format(floatval(Auth::user()->saldoDisponible()) - floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
