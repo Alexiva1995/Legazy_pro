@@ -5704,6 +5704,13 @@ input:focus ~ .bg-warning {
 .border-top-warning.border-top-darken-1 {
   border-top : 1px solid #FF922A !important;
 }
+.custom-file-label::after {
+  padding: 0.375rem 0.75rem;
+  height: auto;
+  background: #1e1e1e;
+  color: white;
+}
+
 
 .border-bottom-warning.border-bottom-darken-1 {
   border-bottom : 1px solid #FF922A !important;
