@@ -16,4 +16,17 @@
 <!-- CUSTOM CSS-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/style.css')}}">
 
+<style>
+    .auth-inner.row.m-0{
+        height: 100vh;
+    }
+    .legazy_bg{
+        background: url("{{ asset('assets/img/legazy_pro/bg.jpg') }}");
+        justify-content: center;
+        text-align:center;
+        background-repeat:no-repeat;
+        background-size: cover;
+    }
+</style>
+
 @stack('custom_css')
