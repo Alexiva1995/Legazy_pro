@@ -67,8 +67,9 @@
                     <div class="card-sub d-flex align-items-center ">
                         <h2 class="gold text-bold-700 mb-0">INVITA A<br>PERSONAS<br></h2>
                     </div>
-                    <div class="d-flex align-items-center white mt-2">
-                        <button class="btn-darks btn-block" style="boder-color=#D6A83E; position: relative; top: 100%;" onclick="getlink()"><b>LINK DE REFERIDO <i class="fa fa-copy"></i></b></button>
+                    <div class="card-header d-flex align-items-center white mt-2">
+                        <button class="btn-darks btn-block" style="boder-color=#D6A83E; position: //" onclick="getlink()"><b>LINK DE
+                                REFERIDO <i class="fa fa-copy"></i></b></button>
                     </div>
                 </div>
             </div>
@@ -88,7 +89,7 @@
                             @endif
                         </h1>
                     </div>
-                    <div class="row no-gutters align-items-end h-100">
+                    <div class="row no-gutters card-header align-items-center h-100">
 
                         @if (Auth::user()->binary_side_register == 'I')
                             <div class="col">     
@@ -101,13 +102,11 @@
                             <div class="col">
                                 <a href="#"
                                     class="btn btn-block btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
-                                    v-on:click="updateBinarySide('D')">
+                                    v-on:click="updateBinarySide('D')" style="height: 44.78px">
                                     DERECHA
                                 </a>
                             </div>
                         @else
-                            
-                                
                                 <div class="col">
                                     <a href="#"
                                         class="btn btn-block btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
@@ -118,7 +117,7 @@
                                 <div class="col">
                                     <a href="#"
                                         class="btn btn-block btn-primary padding-button-short mt-1 waves-effect waves-light text-white"
-                                        v-on:click="updateBinarySide('D')">
+                                        v-on:click="updateBinarySide('D')" style="height: 44.78px">
                                         DERECHA
                                     </a>
                                 </div>
@@ -138,8 +137,8 @@
                     </div>
 
                     <div class="card-header d-flex align-items-center mb-2 justify-content-center">
-                        <img class="text-center" src="{{Auth::user()->inversionMasAlta() != null ?Auth::user()->inversionMasAlta()->getPackageOrden->img() : ''}}" alt=""
-                            style="width: 50%; margin-top: -15px;">
+                        <img class="text-center" src="{{Auth::user()->inversionMasAlta() != null ?Auth::user()->inversionMasAlta()->getPackageOrden->img() : asset('assets/img/legazy_pro/logo.svg')}}" alt=""
+                            style="width: @if(Auth::user()->inversionMasAlta() == null)100% @else 62% @endif; margin-top: -15px;">
                     </div>
 
                 </div>

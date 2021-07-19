@@ -40,7 +40,6 @@ var vm_dashboard = new Vue({
              let url = route('ajax.update.side.binary', side)
              axios.get(url).then((response) => {
                  if (response.data == 'bien') {
-                    getlink(side)
                     location.reload();
                 }
             }).catch(function (error) {

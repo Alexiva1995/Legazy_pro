@@ -1,5 +1,5 @@
 @push('vendor_css')
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/vendors/css/extensions/sweetalert2.min.css')}}">
+{{--<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/vendors/css/extensions/sweetalert2.min.css')}}">--}}
 <style>
     .swal2-icon.swal2-success .swal2-success-ring{
         border: .25em solid rgba(214,168,62,1) !important;
@@ -11,6 +11,10 @@
 
     .swal2-show, .swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=left], .swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=right], .swal2-icon.swal2-success .swal2-success-fix{
         background: #1b1b1b !important;
+    }
+
+    #swal2-title, #swal2-content{
+        color: white;
     }
 </style>
 @endpush
@@ -32,9 +36,10 @@
         let lado = (side == 'I') ? 'Izquierda' : 'Derecha'
 
         Swal.fire({
-            title: "Link Copiado",
+            title: "Link Copiado = "+lado,
             text: "Ya puedes pegarlo en tu navegador",
             type: "success",
+            background: '#1b1b1b',
             confirmButtonClass: 'btn btn-primary',
             buttonsStyling: false,
         }).then(function(result){

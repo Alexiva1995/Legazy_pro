@@ -9,7 +9,7 @@
                     @if(auth()->user()->admin == 1)
                     <div class="">
                         
-                        <button class="btn btn-primary bg-white mt-1 waves-effect waves-light text-white ml-auto" data-toggle="modal" data-target="#modalPorcentajeGanancia">Cambiar porcentaje ganancia</button>
+                        <button class="btn btn-primary bg-white mt-1 waves-effect waves-light text-white ml-auto" data-toggle="modal" data-target="#modalPorcentajeGanancia">Cambiar %</button>
                         
                     </div>
                         
@@ -50,7 +50,7 @@
                                     <td>$ {{number_format($inversion->invertido, 2, ',', '.')}}</td>
                                     <td>$ {{number_format($inversion->ganacia, 2, ',', '.')}}</td>
                                     {{-- <td>$ {{number_format($inversion->capital, 2, ',', '.')}}</td> --}}
-                                    <td>{{number_format($porcentaje,2, ',', '.')}} %</td>
+                                    <td>{{number_format($inversion->progreso() * 2,2, ',', '.')}} %</td>
                                     {{-- <td>$ {{number_format($inversion->ganancia_acumulada,2, ',', '.')}}</td> --}}
                                     {{-- <td>{{number_format($inversion->porcentaje_fondo,2, ',', '.')}} %</td> --}}
                                     <td>{{date('Y-M-d', strtotime($inversion->fecha_vencimiento))}}</td>
@@ -80,7 +80,7 @@
         <div class="modal-content" style="background-color: #1E1E1E">
             <div class="modal-header" style="background-color: #1E1E1E">
             <h5 class="modal-title text-white" id="exampleModalLabel">Porcentaje de ganancia</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%)">
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%)">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
@@ -89,11 +89,11 @@
                 @method('PUT')
                 <div class="modal-body" style="background-color: #1E1E1E">
                     <label for="porcentaje_ganancia" class="text-white">Ingrese el nuevo porcentaje de ganancia</label>
-                    <input type="number" step="any" name="porcentaje_ganancia" class="form-control" required style="background: #5f5f5f5f; color: white;">
+                    <input type="number" step="any" name="porcentaje_ganancia" class="form-control" required style="background: #5f5f5f5f; color: white; border: 2px solid #d6a83e !important">
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary text-white">Guardar</button>
                 </div>
             </form>
         </div>

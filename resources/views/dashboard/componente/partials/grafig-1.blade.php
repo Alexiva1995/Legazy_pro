@@ -31,7 +31,7 @@
           colors: ['#D6A83E'],
 
           stroke: {
-            curve: 'straight'
+            curve: 'smooth'
           },
           title: {
             text: '',
