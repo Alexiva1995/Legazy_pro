@@ -32,7 +32,7 @@ class InversionController extends Controller
                 $inversiones = Inversion::all();
             
             }else{
-                $inversiones = Inversion::where('iduser', '=',Auth::id())->get();
+                $inversiones = Inversion::where('iduser', '=',Auth::id())->orderBy('status')->get();
             }
 
             foreach ($inversiones as $inversion) {

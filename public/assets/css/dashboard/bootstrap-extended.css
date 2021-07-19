@@ -3439,16 +3439,17 @@ _:-ms-lang(x), .toast-bs-container {
 }
 
 .modal .modal-header {
-  background-color : #F8F8F8;
+  background-color : #1b1b1b;
   border-radius : 0.42rem;
   padding : 0.8rem;
   border-bottom : none;
+  color: white;
 }
 .modal .modal-header .close {
   padding : 0.2rem 0.62rem;
   box-shadow : 0 5px 20px 0 rgba(0, 0, 0, 0.1);
   border-radius : 0.357rem;
-  background : #FFFFFF;
+  background : #1b1b1b;
   opacity : 1;
   -webkit-transition : all 0.23s ease 0.1s;
           transition : all 0.23s ease 0.1s;
@@ -3501,6 +3502,7 @@ _:-ms-lang(x), .toast-bs-container {
   border : none;
   overflow : visible;
   box-shadow : 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+  background: #1b1b1b;
 }
 
 .modal .modal-footer {

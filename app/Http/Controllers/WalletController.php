@@ -220,7 +220,7 @@ class WalletController extends Controller
     public function pagarUtilidad()
     {
         $inversiones = Inversion::where('status', 1)->get();
-
+       
         foreach($inversiones as $inversion){
             //establecemos maxima ganancia
             if($inversion->max_ganancia == null){
@@ -245,7 +245,7 @@ class WalletController extends Controller
                 'referred_id' => null,
                 'cierre_comision_id' => null,
                 'monto' => $cantidad,
-                'descripcion' => 'Profit de '.$porcentaje->porcentaje_utilidad. ' %',
+                'descripcion' => 'Profit de '.($porcentaje->porcentaje_utilidad * 100). ' %',
                 'status' => 0,
                 'tipo_transaction' => 0,
                 'orden_purchases_id' => $inversion->orden_id
