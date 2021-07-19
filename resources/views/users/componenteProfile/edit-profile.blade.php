@@ -190,7 +190,7 @@
                 <div class="controls">
                     <label class=" white" for="address">Dirección</label>
                     <textarea type="text"
-                        class="form-control border border-warning rounded-0 @error('address') is-invalid @enderror"
+                        class="form-control border border-warning white rounded-0 @error('address') is-invalid @enderror"
                         id="address"name="address" style="background: #141414;">{{ $user->address}}</textarea>
                     @error('address')
                     <span class="invalid-feedback" role="alert">
