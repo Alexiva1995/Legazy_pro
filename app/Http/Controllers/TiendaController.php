@@ -48,7 +48,7 @@ class TiendaController extends Controller
             if(isset($invertido)){
                 $invertido = $invertido->invertido;
             }
-        
+            
             return view('shop.index', compact('packages', 'invertido'));
         } catch (\Throwable $th) {
             Log::error('Tienda - Index -> Error: '.$th);
@@ -116,6 +116,7 @@ class TiendaController extends Controller
                         'package_id' => $paquete->id,
                         'cantidad' => 1,
                         'total' => $total,
+                        'monto' => $nuevoInvertido
                     ];
                 
                     //$orden = OrdenPurchases::findOrFail($inversion->orden_id)->update($data);
@@ -131,7 +132,8 @@ class TiendaController extends Controller
                         'iduser' => Auth::id(),
                         'package_id' => $paquete->id,
                         'cantidad' => 1,
-                        'total' => $total
+                        'total' => $total,
+                        'monto' => $paquete->price
                     ];
                     
                     $data['idorden'] = $this->saveOrden($data);
@@ -166,9 +168,10 @@ class TiendaController extends Controller
      * @param array $data
      * @return integer
      */
-    public function saveOrden($data): int
+    public function saveOrden($data)
     {
-        return OrdenPurchases::insertGetId($data);
+        $orden = OrdenPurchases::create($data);
+        return $orden->id;
     }
 
     /**
@@ -285,6 +288,7 @@ class TiendaController extends Controller
                 $inversion->max_ganancia = $inversion->invertido * 2;
                 $inversion->restante += $nuevoInvertido * 2;
             }
+            $inversion->package_id = $orden->package_id;
             $inversion->save();
             $inversion = $inversion->id;
 

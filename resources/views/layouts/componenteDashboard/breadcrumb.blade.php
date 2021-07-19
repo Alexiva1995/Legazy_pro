@@ -2,7 +2,7 @@
     <div class="row breadcrumbs-top">
         <div class="col-12 d-flex align-items-center">
             <h4 class="content-header float-left mb-0 white">
-                Arbol binario
+                {{$titleg}}
             </h4>
             <div class="breadcrumb-wrapper col-8">
                 <ol class="breadcrumb d-flex align-items-center">
@@ -11,8 +11,7 @@
                             <h2 class="m-0"><img src="{{ asset('assets/img/home.png') }}" alt="" class="mr-1"></h2>
                         </a>
                     </li>
-                    <li class="active white"><img src="{{ asset('assets/img/flecha.png') }}" alt="" class="mr-1"><a>Inicio</a>
-                        <li class="breadcrumb-item active"><img src="{{ asset('assets/img/flecha.png') }}" alt="" class="mr-1 ml-1"><a style="color: #d6a83e;">Arbol binario</a>
+                    <li class="active white"><img src="{{ asset('assets/img/flecha.png') }}" alt="" class="mr-1"><a>{{$titleg}}</a>
                     </li>
                 </ol>
             </div>

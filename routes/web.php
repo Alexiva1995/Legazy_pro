@@ -174,4 +174,5 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::put('updatePorcentajeGanancia', 'InversionController@updatePorcentajeGanancia')->name('updatePorcentajeGanancia');
     });
 
+    Route::get('dataGrafica', 'HomeController@dataGrafica')->name('dataGrafica');
 });
