@@ -13,18 +13,6 @@
     @include('layouts.componenteDashboard.styles')
     {{-- Fin Styles --}}
 </head>
-
-<style>
-
-    body::-webkit-scrollbar {
-        width: 7px;
-    }
-    
-    body::-webkit-scrollbar-thumb {
-        background: #D6A83E;
-        border-radius: 7px;
-    }
-    </style>
     
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  text-white" style="background:#141414" data-open="click"
     data-menu="vertical-menu-modern" data-col="2-columns">

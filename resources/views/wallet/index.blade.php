@@ -9,7 +9,7 @@
             <div class="card-body card-dashboard">
                 <div class="float-right row no-gutters" style="width: 30%;">
                 <div class="col-md-4 col-12">
-                        <span class="font-weight-bold text-white">Saldo disponible:</span>
+                        <span class="font-weight-bold text-white">Saldo:</span>
                     </div>
                     <div class="col-md-4 col-12">
                         $ {{number_format($saldoDisponible,2)}}
@@ -19,7 +19,7 @@
                             @csrf
                             <input type="hidden" name="listUsers[]" value="{{Auth::user()->id}}">
                             <input type="hidden" name="tipo" value="user">
-                            <button type="submit" class="btn btn-info">Retirar Todo</button>
+                            <button type="submit" class="btn btn-primary">Retirar</button>
                         </form>
                     </div>
                 </div>
