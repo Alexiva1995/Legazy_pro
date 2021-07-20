@@ -22,7 +22,7 @@
 @section('content')
 <div id="settlement">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background-color: #1E1E1E">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
@@ -40,7 +40,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($comisiones as $comision)
-                                    <tr class="text-center">
+                                    <tr class="text-center text-white">
                                         {{-- <td>
                                             <input type="checkbox" value="item.id" name="listComisiones[]">
                                         </td> --}}
@@ -50,7 +50,7 @@
                                         <td>{{$comision->total}}</td>
                                         <td>{{$comision->getWalletUser->status}}</td>
                                         <td>
-                                            <a onclick="vm_liquidation.getDetailComision({{$comision->iduser}})" class="btn btn-info">
+                                            <a onclick="vm_liquidation.getDetailComision({{$comision->iduser}})" class="btn btn-primary">
                                                 <i class="feather icon-eye"></i>
                                             </a>
                                         </td>

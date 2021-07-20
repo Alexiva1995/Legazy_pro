@@ -15,10 +15,10 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="wallet_address">Billetera USDT</label>
+                    <label class=" white" for="wallet_address">Billetera USDT</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('wallet_address') is-invalid @enderror"
-                        id="wallet_address" name="wallet_address" placeholder="Dirección de Billetera"
+                        id="wallet_address" name="wallet_address"
                         value="{{ $user->wallet_address }}">
                     @error('wallet_address')
                     <span class="invalid-feedback" role="alert">
@@ -38,7 +38,7 @@
     <hr>
     <div class="media">
         <div class="custom-file">
-            <label class="custom-file-label  border border-warning rounded-0" for="photoDB">Seleccione su
+            <label class="custom-file-label  border border-warning rounded-0" for="photoDB" style="background: #1e1e1e;color: white;">Seleccione su
                 Foto <b>(Se permiten JPG o PNG.
                 Tamaño máximo de 800kB)</b></label>
             <input type="file" id="photoDB"
@@ -74,10 +74,10 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="">Nombre</label>
+                    <label class=" white" for="">Nombre</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('name') is-invalid @enderror"
-                        id="name" name="name" placeholder="Nombre"
+                        id="name" name="name"
                         value="{{ $user->name }}">
                     @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -91,10 +91,10 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="last_name">Apellido</label>
+                    <label class=" white" for="last_name">Apellido</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('last_name') is-invalid @enderror"
-                        id="last_name" name="last_name" placeholder="Apellido"
+                        id="last_name" name="last_name"
                         value="{{ $user->last_name }}">
                     @error('last_name')
                     <span class="invalid-feedback" role="alert">
@@ -108,10 +108,10 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="email">Email</label>
+                    <label class=" white" for="email">Email</label>
                     <input type="email"
                         class="form-control border border-warning rounded-0 @error('email') is-invalid @enderror"
-                        id="email" name="email" placeholder="Email"
+                        id="email" name="email"
                         value="{{ $user->email }}">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -124,11 +124,10 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="whatsapp">Telefono</label>
+                    <label class=" white" for="whatsapp">Telefono</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('whatsapp') is-invalid @enderror"
-                        name="whatsapp" value="{{ $user->whatsapp }}"
-                        placeholder="whatsapp">
+                        name="whatsapp" value="{{ $user->whatsapp }}">
                     @error('whatsapp')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -141,7 +140,7 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="password">Contraseña Actual</label>
+                    <label class=" white" for="password">Contraseña Actual</label>
             
                     <input id="password" type="password" class="form-control border border-warning rounded-0" name="current_password"
                     autocomplete="current-password">
@@ -189,11 +188,10 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <label class="required white" for="address">Dirección</label>
+                    <label class=" white" for="address">Dirección</label>
                     <textarea type="text"
-                        class="form-control border border-warning rounded-0 @error('address') is-invalid @enderror"
-                        id="address"
-                        name="address">{{ $user->address}}</textarea>
+                        class="form-control border border-warning white rounded-0 @error('address') is-invalid @enderror"
+                        id="address"name="address" style="background: #141414;">{{ $user->address}}</textarea>
                     @error('address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -215,7 +213,7 @@
         </div>
         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
             <button type="submit"
-                class="btn-dark mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light gold"  style="boder-color=#D6A83E">GUARDAR</button>
+                class="btn btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white">GUARDAR</button>
         </div>
     </div>
 </form>

@@ -15,7 +15,7 @@ class OrdenPurchases extends Model
     protected $fillable = [
         'iduser', 'group_id', 'package_id', 
         'cantidad', 'total', 'idtransacion',
-        'status'
+        'status', 'monto'
     ];
 
      /**
@@ -50,6 +50,6 @@ class OrdenPurchases extends Model
 
     public function getInversionOrden()
     {
-        return $this->hasOne('App\Models\Inversion', 'orden_id');
+        return $this->belongsTo('App\Models\Inversion', 'inversion_id');
     }
 }

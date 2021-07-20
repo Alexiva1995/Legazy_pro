@@ -479,12 +479,12 @@ input:focus ~ .bg-black {
 }
 
 .btn-dark {
-  border-color : !important;
+  /*border-color : !important;*/
   background-color : #1E1E1E !important;
   color : #FFFFFF;
 }
 .btn-dark:hover {
-  border-color : !important;
+  border-color : #1E1E1E!important;
   color : #FFFFFF !important;
   box-shadow : 0 8px 25px -8px #1E1E1E;
 }

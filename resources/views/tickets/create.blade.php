@@ -27,7 +27,7 @@
                     <h4 class="card-title text-white">Creacion de Ticket</h4>
                 </div>
                 <div class="card-content">
-                    <div class="card-body">
+                    <div class="card-body" >
                         <form action="{{route('ticket.store')}}" method="POST">
                             @csrf
                             <div class="form-body">

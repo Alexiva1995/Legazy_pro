@@ -1765,7 +1765,7 @@ pre code {
 .table {
   width : 100%;
   margin-bottom : 1rem;
-  color : #000;
+  /* color : #000; */
 }
 .table th, .table td {
   padding : 0.75rem;
@@ -2053,8 +2053,7 @@ pre code {
   border : 0;
 }
 .form-control:focus {
-  color : #4E5154;
-  background-color : #FFFFFF;
+  color : #fff;
   border-color : linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%);
   outline : 0;
   box-shadow : 0 3px 10px 0 rgba(0, 0, 0, 0.15);
@@ -2552,7 +2551,7 @@ textarea.form-control {
   padding : 0.9rem 2rem;
   font-size : 1rem;
   line-height : 1;
-  border-radius : 0.4285rem;
+  /*border-radius : 0.4285rem;*/
   -webkit-transition : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
           transition : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -6469,7 +6468,7 @@ a.close.disabled {
 }
 
 a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-primary:focus {
-  background-color : #D6A83E !important;
+  background-color : #1B1B1B !important;
 }
 
 .bg-secondary {
@@ -6525,7 +6524,7 @@ a.bg-light:hover, a.bg-light:focus, button.bg-light:hover, button.bg-light:focus
 }
 
 a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {
-  background-color : #050505 !important;
+  background-color : #D6A83E !important;
 }
 
 .bg-white {

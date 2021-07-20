@@ -22,7 +22,7 @@
                     <h4 class="card-title text-white">Editando el Ticket #{{ $ticket->id}}</h4>
                 </div>
                 <div class="card-content">
-                    <div class="card-body">
+                    <div class="card-body" >
                         <form action="{{route('ticket.update-user', $ticket->id)}}" method="POST">
                             @csrf
                             @method('PATCH')

@@ -24,7 +24,6 @@
                                         <div class="card-header d-flex align-items-center" style="background: #1b1b1b;">
                                             <img class="m-2" src="{{$items->img()}}" alt="" style="width: 100%; heigh:100%;">
                                         </div>
-                                        <div class="text-white">{{$items->name}}</div>
                                         <form action="{{route('shop.procces')}}" method="POST" target="_blank" class="d-inline">
                                         @csrf
                                         <input type="hidden" name="idproduct" value="{{$items->id}}">

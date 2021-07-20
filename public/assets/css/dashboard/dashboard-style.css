@@ -73,12 +73,18 @@
     -ms-user-select: none;
     user-select: none;
     background-color: transparent;
-    padding: 0.9rem 5rem;
+    padding: 0.9rem 4rem;
     font-size: 1rem;
     line-height: 1;
-    width: 95%;
+    /*width: 95%;*/
     -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .btn-darks:hover {
+    border: #1b1b1b 1px solid!important;
+    background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%) !important;
+    box-shadow : 0 8px 25px -8px #1E1E1E;
   }
 
   .btn-tree{
@@ -93,7 +99,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-color: transparent;
+    background-color: #1b1b1b;
     padding: 1rem 0.9rem;
     font-size: 1rem;
     line-height: 1;
@@ -128,7 +134,7 @@
   width: 5%;
 }
 
-.card-dl{
+.card-dl{ 
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -208,8 +214,8 @@
 }
 
 .padre .base{
-  height: 95px;
-  width: 95px;
+  height: 100px;
+  width: 100px;
   border: #141414;
 }
 
@@ -222,7 +228,7 @@
   text-align: center;
   list-style-type: none;
   position: relative;
-  padding: 8px 60px 0;
+  padding: 20px 40px 0;
 
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
@@ -273,22 +279,12 @@ right connector from last child*/
   border-radius: 0 5px 0 0;
   -webkit-border-radius: 0 5px 0 0;
   -moz-border-radius: 0 5px 0 0;
-  width: 265px
 }
 
 .padre li:first-child::after {
   border-radius: 5px 0 0 0;
   -webkit-border-radius: 5px 0 0 0;
   -moz-border-radius: 5px 0 0 0;
-  width: -webkit-fill-available;
-}
-.esca{
-  margin-left: 112px;
-  margin-right: 80px;
-
-}
-.met{
-  margin-top: 10px;
 }
 /*Time to add downward connectors from parents*/
 .padre ul ul::before {
@@ -374,7 +370,7 @@ right connector from last child*/
 }
 
 .padding-button-short{
-  padding: 0.6rem 2rem !important;
+  padding: 1.1rem 2rem !important;
 }
 
 .divide-dashboard-title{
@@ -384,7 +380,7 @@ right connector from last child*/
 }
 
 .main-menu.bg-purple-alt.menu-light .navigation > li.open > a{
-  background: #188EFF !important;
+  background: #D6A83E !important;
 }
 
 .art{
@@ -392,4 +388,28 @@ right connector from last child*/
   background: radial-gradient(circle, rgba(131,104,44,1) 0%, rgba(96,74,29,1) 100%);
   border-radius: 10px;
   background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
+}
+  input[type=text]:hover:not([disabled]), 
+  input[type=text]:focus, 
+  input[type=search], 
+  input[type=search]:focus, 
+  input[type=search]:active, 
+  input[type=text]:read-only, 
+  input[type=password]:hover:not([disabled]), 
+  input[type=password]:focus, 
+  label:hover ~ input[type=text], 
+  label:hover ~ input[type=password] {
+  background: #141414;
+  color: #ffffff;
+
+  margin-left: 150px;
+  margin-top: -25px;
+}
+
+@media only screen and (max-width: 720px){
+
+  .art{
+    margin-left: 0px;
+    margin-top: 2rem;
+  }
 }

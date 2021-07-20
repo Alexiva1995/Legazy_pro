@@ -1,13 +1,13 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="col-12">
-        <div class="card">
+    <div class="col-12" >
+        <div class="card" style="background-color: #1E1E1E">
             <div class="card-content">
                 <div class="card-body card-dashboard">
-                    <div class="table-responsive">
-                        <h1>Lista de Paquetes</h1>
-                        <p>Para ver mas información dar click -> <img src="{{asset('assets/img/sistema/btn-plus.png')}}" alt=""></p>
+                    <div class="table-responsive text-danger">
+                        <h1 class="text-white">Lista de Paquetes</h1>
+                        
                         <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
 
                             <thead class="">
@@ -20,7 +20,7 @@
 
                             <tbody>
                                  @foreach ($package as $item)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->name}}</td>
                                     <td>{{ $item->price}}</td>

@@ -7,7 +7,7 @@
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
-                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
+                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100 text-white ">
                             <thead class="">
 
                                 <tr class="text-center text-white bg-purple-alt2">                                
@@ -24,7 +24,7 @@
                             <tbody>
 
                                 @foreach ($payments as $item)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{$item->wallet_used}}</td>

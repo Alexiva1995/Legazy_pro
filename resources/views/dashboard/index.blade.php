@@ -33,9 +33,6 @@
 <script src="{{asset('assets/js/librerias/axios.min.js')}}"></script>
 @endpush
 
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-
 {{-- custom js --}}
 @push('custom_js')
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
@@ -67,4 +64,6 @@
 
     {{-- link de referido --}}
     @include('layouts.componenteDashboard.linkReferido')
+    {{--Modal retirar saldo disponible--}}
+    @include('layouts.componenteDashboard.modalRetirar')
 @endsection

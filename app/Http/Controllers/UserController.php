@@ -242,16 +242,7 @@ class UserController extends Controller
 
         $fields = [
 
-         "name" => ['required'],
-         "last_name" => ['required'],
-         "email" => [
-            'required',
-            'string',
-            'email',
-            'max:255',
-        ],
-        "wallet_address" => ['string', 'min:21', 'max:35'],
-
+       
         ];
 
         $msj = [
