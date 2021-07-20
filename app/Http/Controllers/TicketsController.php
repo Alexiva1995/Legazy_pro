@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Ticket;
+use App\Models\MessageTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -22,10 +23,8 @@ class TicketsController extends Controller
 
    
     public function create(){
-  
+      
       return view('tickets.create');
-
-        
 
     }
 
@@ -33,26 +32,23 @@ class TicketsController extends Controller
 
     public function store(Request $request){
 
-        $fields = [
-            "issue" => ['required'],
-            'status' => ['0'],
-            "description" => ['required'],
-        ];
 
-        $msj = [
-             
-            'issue.required' => 'El asunto es Requerido',
-            'description.required' => 'la descripcion es Requerido',
 
-        ];
-
-        $this->validate($request, $fields, $msj);
-        
         Ticket::create([
             'iduser' => Auth::id(),
             'issue' => request('issue'),
-            'description' => request('description'),
+            'priority' => request('priority'),
+        ]);
 
+        $ticket_create = Ticket::where('iduser', Auth::id())->orderby('created_at','DESC')->take(1)->get();
+        $id_ticket = $ticket_create[0]->id;
+
+        MessageTicket::create([
+            'id_user' => Auth::id(),
+            'id_admin' => '1',
+            'id_ticket' => $id_ticket,
+            'type' => '0',
+            'message' => request('message'),
         ]);
 
         return redirect()->route('ticket.list-user')->with('msj-success', 'El Ticket se creo Exitosamente');
@@ -63,9 +59,11 @@ class TicketsController extends Controller
     public function editUser($id){
 
         $ticket = Ticket::find($id);
+        $message = MessageTicket::where('id_ticket', $id)->orderby('created_at','ASC')->get();
 
         return view('tickets.componenteTickets.user.edit-user')
-        ->with('ticket', $ticket);
+        ->with('ticket', $ticket)
+         ->with('message', $message);
     }
 
     // permite actualizar el ticket
@@ -73,32 +71,20 @@ class TicketsController extends Controller
     public function updateUser(Request $request, $id){
 
         $ticket = Ticket::find($id);
-
-        $fields = [
-         
-
-            'status' => ['0'],
-            "description" => ['required'],
-            "issue" => ['required'],
-
-            
-        ];
-
-        $msj = [
-          
-             'issue.required' => 'el asunto es Requerido',
-             'description.required' => 'La mensaje es Requerido',
-
-        ];
-
-        $this->validate($request, $fields, $msj);
-
+        
         $ticket->update($request->all());
-        // $ticket->note_admin = $request->note_admin;
         $ticket->save();
 
-        $route = route('ticket.list-user');
-        return redirect($route)->with('msj-success', 'Ticket '.$id.' Actualizado ');
+        MessageTicket::create([
+            'id_user' => Auth::id(),
+            'id_admin' => '1',
+            'id_ticket' => $ticket->id,
+            'type' => '0',
+            'message' => request('message'),
+        ]);
+
+        return redirect()->back();
+
     }
 
     // permite ver la lista de tickets
@@ -118,11 +104,12 @@ class TicketsController extends Controller
     public function showUser($id){
 
         $ticket = Ticket::find($id);
+        $message =MessageTicket::all()->where('id_ticket', $id);
 
         return view('tickets.componenteTickets.user.show-user')
-        ->with('ticket', $ticket);
+        ->with('ticket', $ticket)
+        ->with('message', $message);
     }
-
 
 
 
@@ -131,9 +118,12 @@ class TicketsController extends Controller
     public function editAdmin($id){
 
         $ticket = Ticket::find($id);
-
+        $message = MessageTicket::where('id_ticket', $id)->orderby('created_at','ASC')->get();
+         
         return view('tickets.componenteTickets.admin.edit-admin')
-        ->with('ticket', $ticket);
+        ->with('ticket', $ticket)
+        ->with('message', $message);
+
     }
 
     // permite actualizar el ticket
@@ -142,26 +132,18 @@ class TicketsController extends Controller
 
         $ticket = Ticket::find($id);
 
-        $fields = [
-            'status' => ['required'],
-            // 'note_admin' => ['required'],
-            // 'description' => ['required'],
-        ];
-
-        $msj = [
-            'status.required' => 'Es requerido el Estatus de la ticket',
-            // 'note_admin.required' => 'Es requerido Nota del admin',
-            // 'description.required' => 'Es requerido mensaje del admin',
-        ];
-
-        $this->validate($request, $fields, $msj);
-
         $ticket->update($request->all());
-        // $ticket->note_admin = $request->note_admin;
         $ticket->save();
 
-        $route = route('ticket.list-admin');
-        return redirect($route)->with('msj-success', 'Ticket '.$id.' Actualizado ');
+        MessageTicket::create([
+            'id_user' => $ticket->iduser,
+            'id_admin' => Auth::id(),
+            'id_ticket' => $ticket->id,
+            'type' => '1',
+            'message' => request('message'),
+        ]);
+
+        return redirect()->back();
     }
 
     // permite ver la lista de tickets
@@ -181,13 +163,12 @@ class TicketsController extends Controller
     public function showAdmin($id){
 
         $ticket = Ticket::find($id);
+        $message =MessageTicket::all()->where('id_ticket', $id);
 
         return view('tickets.componenteTickets.admin.show-admin')
-        ->with('ticket', $ticket);
+        ->with('ticket', $ticket)
+        ->with('message', $message);
     }
-
-
-
 
 
 
