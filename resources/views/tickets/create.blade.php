@@ -18,8 +18,7 @@
                                   <div class="row">
 
                                       <div class="col-12">
-                                          <label class="form-label text-white mb-1" for="issue"><b>Asunto del
-                                                  ticket</b></label>
+                                          <label class="form-label text-white mb-1" for="issue"><b>Asuto del Ticket</b></label>
                                           <input class="form-control border border-warning rounded-0" type="text"
                                               id="issue" name="issue" rows="3"/>
 

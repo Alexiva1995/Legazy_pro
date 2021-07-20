@@ -54,7 +54,7 @@ class TicketsController extends Controller
         Ticket::create([
             'iduser' => Auth::id(),
             'issue' => request('issue'),
-             'message' => request('message'),
+            'message' => request('message'),
             // 'description' => request('description'),
 
 
@@ -100,7 +100,7 @@ class TicketsController extends Controller
 
         ];
 
-        $this->validate($request, $fields, $msj);
+        // $this->validate($request, $fields, $msj);
 
         $ticket->update($request->all());
         // $ticket->note_admin = $request->note_admin;
