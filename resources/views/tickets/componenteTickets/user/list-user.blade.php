@@ -16,36 +16,24 @@
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Estado</th>
-                                    <th>Prioridad</th>
-                                    <th></th>
-                                    <th>Accion</th>
-                                 {{--    <th>ID</th>
-                                    <th>Whatsapp</th>
                                     <th>Email</th>
-                                    <th>Asunto</th>
-                                    <th>Descripción</th>
-                                    <th>Estado</th>
-                                    <th>Fecha de Creacion</th>
-                                    <th>Accion</th> --}}
+                                    <th>Estado</th>                                 
+                                    <th>Prioridad</th>
+                                    <th>fecha de creacion</th>
+                                    <th>Accion</th>
                                 </tr>
 
                             </thead>
 
-                            <tbody>
+                            <tbody >
 
                                  @foreach ($ticket as $item)
                                 <tr class="text-center text-white">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->getUser->fullname}}</td>
-                                    {{-- <td>{{ $item->estado}}</td> --}}
-                                   {{--  <td>{{ $item->prioridad}}</td> --}}
-                                 {{--    <td>{{ $item->issue}}</td> --}}
-                                    {{-- <td>{{ $item->Descripcion}}</td> --}}
-                                    
-                                 
-                                    
-
+                                    <td>{{ $item->getUser->email}}</td>
+                                   
+                                                                                                       
 
                                     @if ($item->status == '0')
                                     <td> <a class=" btn btn-success text-white text-bold-600">Abierto</a></td>
@@ -66,7 +54,7 @@
                                     
 
                                     @if ($item->status == '0')
-                                    <td><a href="{{ route('ticket.edit-user',$item->id) }}" class="btn btn-secondary text-bold-600">Editar</a></td>
+                                    <td><a href="{{ route('ticket.edit-user',$item->id) }}" class="btn btn-primary text-bold-600">Editar</a></td>
                                     @else
                                     <td><a href="{{ route('ticket.show-user',$item->id) }}" class="btn btn-primary text-bold-600">Revisar</a></td>
                                     @endif
