@@ -18,6 +18,7 @@ class CreateMessageTicket extends Migration
             $table->bigInteger('id_user');
             $table->bigInteger('id_admin');
             $table->bigInteger('id_ticket');
+            $table->boolean('type', [0, 1])->nullable()->comment('0 - User, 1 - Admin');
             $table->longtext('message')->nullable();
             $table->timestamps();
         });

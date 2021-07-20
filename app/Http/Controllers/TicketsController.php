@@ -26,8 +26,6 @@ class TicketsController extends Controller
       
       return view('tickets.create');
 
-        
-
     }
 
     // permite la creacion del ticket
