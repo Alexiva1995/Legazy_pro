@@ -3326,7 +3326,7 @@ input:focus ~ .bg-success {
 
 .btn-success {
   border-color : #1F9D57 !important;
-  background-color : #28C76F !important;
+  background-color : #1b5435 !important;
   color : #000;
 }
 .btn-success:hover {
@@ -4421,7 +4421,7 @@ input:focus ~ .bg-info {
 
 .btn-info {
   border-color : #00A1B5 !important;
-  background-color : #00CFE8 !important;
+  background-color : #057e8c !important;
   color : #000;
 }
 .btn-info:hover {
@@ -6617,8 +6617,8 @@ input:focus ~ .bg-danger {
 }
 
 .btn-danger {
-  border-color : #E42728 !important;
-  background-color : #EA5455 !important;
+  border-color : #a23636 !important;
+  background-color : #692222 !important;
   color : #000;
 }
 .btn-danger:hover {

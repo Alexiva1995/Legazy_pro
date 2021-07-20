@@ -50,7 +50,7 @@
                                         <td>{{$comision->total}}</td>
                                         <td>{{$comision->getWalletUser->status}}</td>
                                         <td>
-                                            <a onclick="vm_liquidation.getDetailComision({{$comision->iduser}})" class="btn btn-info">
+                                            <a onclick="vm_liquidation.getDetailComision({{$comision->iduser}})" class="btn btn-primary">
                                                 <i class="feather icon-eye"></i>
                                             </a>
                                         </td>

@@ -26,7 +26,7 @@
                             <span class="user-status headerBalance">Saldo Disponible: {{Auth::user()->balance}} $</span>
                         </div>
                     </li> --}}
-                        <li class="dropdown dropdown-user nav-item">
+                        <li class="dropdown dropdown-user nav-item" >
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <div class="user-nav d-sm-flex d-none">
                                 @if (Auth()->user()->admin == '1')
@@ -47,19 +47,19 @@
                             </span>
                             @else
                             <span>
-                                <img class="round" src="{{asset('assets/img/legazy_pro/user.png')}}"
+                                <img class="round" src="{{asset('assets/img/legazy_pro/logo.svg')}}"
                                     alt="{{ Auth::user()->fullname }}" height="50" width="50">
                             </span>
                             @endif
                     
 
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right text-dark">
-                            <a class="dropdown-item" href="{{ route('profile') }}" >
+                        <div class="dropdown-menu dropdown-menu-right" style="background: #141414;">
+                            <a class="dropdown-item text-white" href="{{ route('profile') }}" >
                                 <i class="feather icon-user"></i> Editar Perfil
                             </a>
                             @if (session('impersonated_by'))
-                            <a class="dropdown-item" href="{{ route('impersonate.stop') }}">
+                            <a class="dropdown-item text-white" href="{{ route('impersonate.stop') }}">
                                 <i class="feather icon-log-in"></i> Volver a mi Usuario
                             </a>    
                             @endif
@@ -73,7 +73,7 @@
                                 <i class="feather icon-message-square"></i> Chats
                             </a> --}}
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item text-white" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 <i class="feather icon-log-out"></i> Logout
                             </a>            
                         </div>

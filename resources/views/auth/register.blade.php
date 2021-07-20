@@ -13,6 +13,12 @@ $referred = DB::table('users')
 @endphp
 @endif
 
+<style>
+    html{
+        overflow: hidden;
+    }
+</style>
+
 @section('content')
 <!-- BEGIN: Content-->
 <div class="auth-wrapper auth-v2">

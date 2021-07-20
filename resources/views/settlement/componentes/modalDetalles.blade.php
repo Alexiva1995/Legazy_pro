@@ -2,9 +2,9 @@
 <div class="modal fade" id="modalModalDetalles" tabindex="-1" role="dialog" aria-labelledby="modalModalDetallesTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalModalDetallesTitle">Detalles de comisiones del usuario (@{{ComisionesDetalles.fullname}})</h5>
+        <div class="modal-content" style="background: #141414;">
+            <div class="modal-header" style="background: #141414;">
+                <h5 class="modal-title text-white" id="modalModalDetallesTitle">Detalles de comisiones del usuario (@{{ComisionesDetalles.fullname}})</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -19,7 +19,7 @@
                             <tr class="text-center">
                                 @if ($all)
                                 <th>
-                                    <button type="button" class="btn" :class="(seleAllComision) ? 'btn-danger' : 'btn-info'" v-on:click="seleAllComision = !seleAllComision">
+                                    <button type="button" class="btn btn-primary" :class="(seleAllComision) ? 'btn-danger' : 'btn-success'" v-on:click="seleAllComision = !seleAllComision">
                                         <i class="fa" :class="(seleAllComision) ? 'fa-square-o' : 'fa-check-square'"></i>
                                     </button>
                                 </th>
@@ -62,7 +62,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
