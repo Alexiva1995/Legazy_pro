@@ -14,7 +14,6 @@
 @push('page_css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/dashboard-analytics.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/card-analytics.css')}}">
-
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/apexcharts/apexcharts.css')}}">
 @endpush
 
@@ -35,7 +34,46 @@
 
 {{-- custom js --}}
 @push('custom_js')
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
+<script>
+      $(document).ready(function () {
+
+        $('.carrusel_rango').slick({
+                infinite: true,
+                centerMode: true,
+                centerPadding: '80px',
+                variableWidth: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                touchMove: false,
+                initialSlide: (vm_dashboard.idrango),
+                accessibility: false,
+                arrows: false,
+                responsive: [
+                  {
+                    breakpoint: 768,
+                    settings: {
+                      arrows: false,
+                      centerMode: true,
+                      centerPadding: '40px',
+                      slidesToShow: 3
+                    }
+                  },
+                  {
+                    breakpoint: 480,
+                    settings: {
+                      arrows: false,
+                      centerMode: true,
+                      centerPadding: '40px',
+                      slidesToShow: 1
+                    }
+                  }
+                ]
+              });
+      })
+</script>
 @endpush
 
 @section('content')
