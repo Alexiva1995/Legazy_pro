@@ -38,7 +38,12 @@ class TicketsController extends Controller
             'iduser' => Auth::id(),
             'issue' => request('issue'),
             'priority' => request('priority'),
-        ]);
+          
+         ]);
+
+            $ticket_create = Ticket::where('iduser', Auth::id())->orderby('created_at','DESC')->take(1)->get();
+            $id_ticket = $ticket_create[0]->id;
+
 
         $ticket_create = Ticket::where('iduser', Auth::id())->orderby('created_at','DESC')->take(1)->get();
         $id_ticket = $ticket_create[0]->id;
@@ -71,11 +76,11 @@ class TicketsController extends Controller
     public function updateUser(Request $request, $id){
 
         $ticket = Ticket::find($id);
-        
+
         $ticket->update($request->all());
         $ticket->save();
 
-        MessageTicket::create([
+         MessageTicket::create([
             'id_user' => Auth::id(),
             'id_admin' => '1',
             'id_ticket' => $ticket->id,
@@ -86,6 +91,8 @@ class TicketsController extends Controller
         return redirect()->back();
 
     }
+
+ 
 
     // permite ver la lista de tickets
 

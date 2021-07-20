@@ -76,7 +76,7 @@
 
                                                             {{-- user --}}
                                                             @if ($item->type == 0)
-                                                            <div class="chat">
+                                                               <div class="chat">
                                                                 <div class="chat-avatar">
                                                                     <span class="avatar box-shadow-1 cursor-pointer">
                                                                         @if (Auth::user()->photoDB != NULL)
@@ -87,10 +87,11 @@
                                                                         alt="avatar" height="36" width="36">
                                                                         @endif
                                                                     </span>
-                                                                </div>
+                                                                       </div>
                                                                 <div class="chat-body">
                                                                     <div class="chat-content">
-                                                                        <p>{{ $item->message }}</p>
+                                                                       <td>{{ $item->getUser->email}}</td>
+                                                                       <p>{{ $item->message }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -125,10 +126,9 @@
                                                 class="form-control border border-warning rounded-0"
                                                 type="text" id="message" name="message" required rows="3"></textarea>
                                         </div>
-
-                                    </div>
-
-                                <div class="col-12">
+ </div>
+                          
+                        <div class="col-12">
                                     <button type="submit"
                                         class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Actualizar
                                         Ticket</button>

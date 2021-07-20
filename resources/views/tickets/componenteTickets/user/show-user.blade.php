@@ -60,6 +60,7 @@
 
                                                         {{-- admin --}}
                                                         <div class="chat chat-left">
+
                                                             <div class="chat-avatar">
                                                                 <span class="avatar box-shadow-1 cursor-pointer">
                                                                     <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
@@ -68,8 +69,9 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
+ <p>How can we help? We're here for you! 😄</p>
+
                                                                     <p>Hola!. ¿Cómo podemos ayudar? 😄</p>
-                                                                </div>
                                                             </div>
                                                         </div>
 
@@ -87,14 +89,17 @@
                                                                     <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
                                                                     alt="avatar" height="36" width="36">
                                                                     @endif
+
                                                                 </span>
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
-                                                                    <p>{{ $item->message }}</p>
+<td>{{ $item->getUser->email}}</td>
+                                                                   <p>{{ $item->message }}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
+
 
                                                         {{-- admin --}}
                                                         @elseif ($item->type == 1)
@@ -107,7 +112,7 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
-                                                                    <p>{{ $item->message }}</p>
+ <p>{{ $item->message }}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -124,6 +129,7 @@
                                         <textarea
                                             class="form-control border border-warning rounded-0"
                                             type="text" id="message" name="message" disabled rows="3"></textarea>
+
                                     </div>
                                 </div>
                             </div>
