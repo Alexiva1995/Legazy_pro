@@ -6,6 +6,7 @@ use App\Models\Groups;
 use App\Models\OrdenPurchases;
 use App\Models\Packages;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -315,5 +316,84 @@ class TiendaController extends Controller
         
         //dd([$paquete->id, $orden->id, $orden->cantidad, $paquete->expired, $orden->iduser]);
         return $this->inversionController->saveInversion($paquete->id, $orden->id, $total, $paquete->expired, $orden->iduser);
+    }
+
+     /**
+     * Permite saber el estado de las ordenes realizadas
+     *
+     * @return void
+     */
+    public function checkStatusOrden()
+    {
+
+        $headers = [
+            'x-api-key: '.$this->apis_key_nowpayments,
+            'Content-Type:application/json'
+        ];
+
+        $resul = ''; 
+        $curl = curl_init();
+
+        $fechaTo = Carbon::now();
+        $fechaFrom = $fechaTo->copy()->subDays(2);
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.nowpayments.io/v1/payment?limit=100&dateFrom=".$fechaFrom->format('Y-m-d')."&dateTo=".$fechaTo->copy()->addDays(1)->format('Y-m-d'),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => $headers
+        ));
+            
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            Log::error('Tienda - checkStatusOrden -> Error curl: '.$err);        
+        } else {
+            $response = json_decode($response);
+            $pagos = $response->data;
+            // dd($pagos);
+            foreach ($pagos as $pago) {
+                if ($pago->payment_status == 'expired') {
+                    $estado = '2';
+                    OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                }
+                if($pago->payment_status == 'finished'){
+                    $estado = '1';
+                    OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                }
+                if($pago->payment_status == 'partially_paid'){
+                    $resta = ($pago->pay_amount - $pago->actually_paid);
+                    if ($resta <= 1) {
+                        $estado = '1';
+                        OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                    }
+                }
+                Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
+            }
+            // $resul = $response->invoice_url;
+        }
+    }
+
+     /**
+     * Activa los usuario cuando apenas compre
+     *
+     * @return void
+     */
+    public function activarUser()
+    {
+        try {
+            $ordenes = OrdenPurchases::where('status', '1')->whereDate('created_at', '>', Carbon::now()->subDays(10))->get();
+            foreach ($ordenes as $orden) {
+                $orden->getOrdenUser->update(['status' => 1]);
+            }
+        } catch (\Throwable $th) {
+            Log::error('ActivacionController - activarUser -> Error: '.$th);
+            abort(403, "Ocurrio un error, contacte con el administrador");
+        }
     }
 }
