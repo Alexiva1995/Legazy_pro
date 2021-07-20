@@ -389,6 +389,7 @@ right connector from last child*/
   border-radius: 10px;
   background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
 }
+
   input[type=text]:hover:not([disabled]), 
   input[type=text]:focus, 
   input[type=search], 
@@ -398,13 +399,15 @@ right connector from last child*/
   input[type=password]:hover:not([disabled]), 
   input[type=password]:focus, 
   label:hover ~ input[type=text], 
-  label:hover ~ input[type=password] {
+  label:hover ~ input[type=password]
+  {
   background: #141414;
   color: #ffffff;
 
   margin-left: 150px;
   margin-top: -25px;
 }
+
 
 @media only screen and (max-width: 720px){
 
@@ -420,7 +423,7 @@ right connector from last child*/
   }
 
   body::-webkit-scrollbar {
-      width: 7px !important;
+      width: 5px !important;
       overflow: visible !important;
 
   }
@@ -429,13 +432,5 @@ right connector from last child*/
       background: #D6A83E !important;
       border-radius: 7px !important;
 
-
   }
 
-
-  .dataTables_scrollBody {
-      overflow: visible !important;
-      background: #D6A83E !important;
-      border-radius: 7px !important;
-      width: 7px !important;
-}

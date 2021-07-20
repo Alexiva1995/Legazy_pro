@@ -24,14 +24,9 @@
 @stack('page_css')
 
 <!-- CUSTOM CSS-->
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard/chat-ticket.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard2.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard/dashboard-style.css')}}">
 
 
 @stack('custom_css')
-
-<style>
-
- 
-
-    </style>

@@ -16,7 +16,7 @@
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Estado</th>
+                                    <th>mensaje</th>
                                     <th>Prioridad</th>
                                     <th></th> 
                                     <th>Accion</th> 
@@ -49,7 +49,7 @@
                                     @endif
                                     
                                     <td>{{ $item->created_at}}</td>
-                                    <td><a href="{{ route('ticket.edit-admin',$item->id) }}" class="btn btn-secondary text-bold-600">Revisar</a></td>
+                                    <td><a href="{{ route('ticket.edit-admin',$item->id) }}" class="btn btn-primary text-bold-600">Revisar</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

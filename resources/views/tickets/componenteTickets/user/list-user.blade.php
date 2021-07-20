@@ -68,7 +68,7 @@
                                     @if ($item->status == '0')
                                     <td><a href="{{ route('ticket.edit-user',$item->id) }}" class="btn btn-secondary text-bold-600">Editar</a></td>
                                     @else
-                                    <td><a href="{{ route('ticket.show-user',$item->id) }}" class="btn btn-secondary text-bold-600">Revisar</a></td>
+                                    <td><a href="{{ route('ticket.show-user',$item->id) }}" class="btn btn-primary text-bold-600">Revisar</a></td>
                                     @endif
                                 </tr>
                                 @endforeach
