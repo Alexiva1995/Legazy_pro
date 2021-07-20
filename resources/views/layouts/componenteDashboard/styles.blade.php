@@ -24,33 +24,9 @@
 @stack('page_css')
 
 <!-- CUSTOM CSS-->
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard/chat-ticket.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard2.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard/dashboard-style.css')}}">
 
 
 @stack('custom_css')
-
-<style>
-
-    body::-webkit-scrollbar {
-        width: 7px !important;
-        overflow: visible !important;
-
-    }
-    
-    body::-webkit-scrollbar-thumb {
-        background: #D6A83E !important;
-        border-radius: 7px !important;
-
-
-    }
-
-
-    .dataTables_scrollBody {
-        overflow: visible !important;
-        background: #D6A83E !important;
-        border-radius: 7px !important;
-        width: 7px !important;
-}
-
-    </style>
