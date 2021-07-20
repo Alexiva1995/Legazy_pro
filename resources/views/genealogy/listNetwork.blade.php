@@ -5,7 +5,7 @@
 {{-- contenido --}}
 @section('content')
 <div class="col-12">
-    <div class="card" style="background-color: #1E1E1E">
+    <div class="card bg-lp">
         <div class="card-content"> 
             <div class="card-body card-dashboard">
                 <div class="table-responsive">
