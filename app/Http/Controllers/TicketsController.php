@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Ticket;
+use App\Models\MessageTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -22,10 +23,8 @@ class TicketsController extends Controller
 
    
     public function create(){
-  
+      
       return view('tickets.create');
-
-        
 
     }
 
@@ -33,16 +32,20 @@ class TicketsController extends Controller
 
     public function store(Request $request){
 
+   
+
         $fields = [
             "issue" => ['required'],
             'status' => ['0'],
-            "description" => ['required'],
+            'message' => ['required'],
+            // "description" => ['required'],
         ];
 
         $msj = [
              
             'issue.required' => 'El asunto es Requerido',
-            'description.required' => 'la descripcion es Requerido',
+            // 'message.required' => 'El mesaje es Requerido',
+            // 'description.required' => 'la descripcion es Requerido',
 
         ];
 
@@ -51,7 +54,9 @@ class TicketsController extends Controller
         Ticket::create([
             'iduser' => Auth::id(),
             'issue' => request('issue'),
-            'description' => request('description'),
+             'message' => request('message'),
+            // 'description' => request('description'),
+
 
         ]);
 
@@ -63,9 +68,11 @@ class TicketsController extends Controller
     public function editUser($id){
 
         $ticket = Ticket::find($id);
-
+        $message =MessageTicket::all()->where('id_ticket', $id);
+  
         return view('tickets.componenteTickets.user.edit-user')
-        ->with('ticket', $ticket);
+        ->with('ticket', $ticket)
+         ->with('message', $message);
     }
 
     // permite actualizar el ticket
@@ -73,6 +80,8 @@ class TicketsController extends Controller
     public function updateUser(Request $request, $id){
 
         $ticket = Ticket::find($id);
+        $message =MessageTicket::all()->where('id_ticket', $id);
+
 
         $fields = [
          
@@ -118,9 +127,11 @@ class TicketsController extends Controller
     public function showUser($id){
 
         $ticket = Ticket::find($id);
+         $message =MessageTicket::all()->where('id_ticket', $id);
 
         return view('tickets.componenteTickets.user.show-user')
-        ->with('ticket', $ticket);
+        ->with('ticket', $ticket)
+        ->with('message', $message);
     }
 
 
@@ -131,9 +142,13 @@ class TicketsController extends Controller
     public function editAdmin($id){
 
         $ticket = Ticket::find($id);
+        $message =MessageTicket::all()->where('id_ticket', $id);
+         
 
         return view('tickets.componenteTickets.admin.edit-admin')
-        ->with('ticket', $ticket);
+        ->with('ticket', $ticket)
+        ->with('message', $message);
+
     }
 
     // permite actualizar el ticket
@@ -141,6 +156,7 @@ class TicketsController extends Controller
     public function updateAdmin(Request $request, $id){
 
         $ticket = Ticket::find($id);
+        $message =MessageTicket::all()->where('id_ticket', $id);
 
         $fields = [
             'status' => ['required'],
