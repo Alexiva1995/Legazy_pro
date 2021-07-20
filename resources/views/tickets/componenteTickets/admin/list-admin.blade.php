@@ -16,12 +16,9 @@
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
-<<<<<<< HEAD
                                     <th>Email</th>
                                     <th>Estado</th>                                 
-=======
                                     <th>mensaje</th>
->>>>>>> 7f48fe7bb0b045f65b22b412292cf26725671308
                                     <th>Prioridad</th>
                                     <th>fecha de creacion</th>
                                     <th>Accion</th>
