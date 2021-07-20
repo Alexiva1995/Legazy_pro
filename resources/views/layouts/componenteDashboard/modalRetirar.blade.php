@@ -21,7 +21,7 @@
                                 <label for="" class="col font-weight-bold text-white mr-3">Monto:</label>
                             </div>
                             <div class="col-8">
-                                <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{Auth::user()->saldoDisponible()}}">
+                                 <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{Auth::user()->saldoDisponible()}}">
                             </div>
                         </div>
                     </div>
@@ -29,10 +29,10 @@
 
                         <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
                             <div class="col-2">
-                                <label for="" class="col font-weight-bold text-white mr-3">Feed:</label>
+                                <label for="" class="col font-weight-bold text-white mr-3">Fee:</label>
                             </div>
                             <div class="col-8">
-                                <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="6">
+                                 <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{ number_format(floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}">
                             </div>
                         </div>
                     </div>
