@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ranks;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -53,27 +54,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //try {/*
+        try {
             View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
             
             return view('dashboard.index', compact('data'));
-        /*} catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error('Home - index -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }*/
+        }
     }
 
     public function indexUser()
     {
-        //try {
+        try {
             View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
             return view('dashboard.indexUser', compact('data'));
-        /*} catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error('Home - indexUser -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }*/
+        }
     }
 
     /**
@@ -92,11 +93,34 @@ class HomeController extends Controller
             'comisiones' => $this->walletController->getTotalComision($iduser),
             'tickets' => 0,
             'ordenes' => 0,
-            'usuario' => Auth::user()->fullname
+            'usuario' => Auth::user()->fullname,
+            'rangos' => $this->getDataRangos() 
         ];
 
         return $data;
     }
+
+    /**
+     * Permite obtener la informacion de los rangos
+     *
+     * @return array
+     */
+    public function getDataRangos(): array
+    {
+        $rol_actual = (Auth::user()->rank_id == null)? 0 : Auth::user()->rank_id;
+        $rol_sig = ($rol_actual + 1 != 10)? ($rol_actual + 1) : 9;
+        $rankSig = Ranks::find($rol_sig);
+        $totalPuntos = (Auth::user()->point_rank != null) ? Auth::user()->point_rank : 0;
+        $porcentajes = (($totalPuntos / $rankSig->points) * 100);
+        $data = [
+            'ranks' => Ranks::all(),
+            'puntos' => number_format($totalPuntos, 2, ',', '.'),
+            'porcentage' => $porcentajes,
+            'puntos_sig' => number_format($rankSig->points, 2, ',', '.')
+        ];
+        return $data;
+    }
+
 
     /**
      * Permite actualizar el lado a registrar de un usuario
