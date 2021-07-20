@@ -12,10 +12,12 @@
 
                         <div class="col">
                             <div class="card-header text-left pb-0 pt-0 white">
-                                <h2 class="mt-1 mb-0 text-white"><b style="text-shadow: black 0.1em 0.1em 0.2em;">Saldo disponible</b></h2>
+                                <h2 class="mt-1 mb-0 text-white"><b style="text-shadow: black 0.1em 0.1em 0.2em;">Saldo
+                                        disponible</b></h2>
                             </div>
                             <div class="card-sub">
-                                <h1 class="text-white mb-0"><b style="text-shadow: black 0.1em 0.1em 0.2em;">$ {{Auth::user()->saldoDisponible()}}</b></h1>
+                                <h1 class="text-white mb-0"><b style="text-shadow: black 0.1em 0.1em 0.2em;">$
+                                        {{Auth::user()->saldoDisponible()}}</b></h1>
                             </div>
                         </div>
 
@@ -30,7 +32,8 @@
                     </div>
 
                     <div class="card-header d-flex align-items-center mt-3">
-                        <button class="btn btn-dark rounded-0" data-toggle="modal" data-target="#modalSaldoDisponible"><b>RETIRAR</b></button>
+                        <button class="btn btn-dark rounded-0" data-toggle="modal"
+                            data-target="#modalSaldoDisponible"><b>RETIRAR</b></button>
                     </div>
 
                 </div>
@@ -55,7 +58,8 @@
                         </div>
 
                         <div class="card-sub d-flex align-items-center ">
-                            <p class="text-bold-700 mb-0 text-white">{{number_format(Auth::user()->progreso() * 2,2)}}% </p>
+                            <p class="text-bold-700 mb-0 text-white">{{number_format(Auth::user()->progreso() * 2,2)}}%
+                            </p>
                         </div>
 
                     </div>
@@ -81,7 +85,8 @@
                                 <h2 class="gold text-bold-700 mb-0">INVITA A<br>PERSONAS<br></h2>
                             </div>
                             <div class="card-header d-flex align-items-center white mt-2">
-                                <button class="btn-darks btn-block" style="boder-color=#D6A83E;" onclick="getlink('{{Auth::user()->binary_side_register}}')"><b>LINK DE
+                                <button class="btn-darks btn-block" style="boder-color=#D6A83E;"
+                                    onclick="getlink('{{Auth::user()->binary_side_register}}')"><b>LINK DE
                                         REFERIDO <i class="fa fa-copy"></i></b></button>
                             </div>
                         </div>
@@ -105,36 +110,36 @@
                             <div class="row no-gutters card-header align-items-center h-100">
 
                                 @if (Auth::user()->binary_side_register == 'I')
-                                    <div class="col">     
-                                        <a href="#"
-                                            class="btn btn-primary btn-block padding-button-short mt-1 waves-effect waves-light text-white"
-                                            v-on:click="updateBinarySide('I')">
-                                            IZQUIERDA
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#"
-                                            class="btn btn-block btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
-                                            v-on:click="updateBinarySide('D')" style="height: 44.78px">
-                                            DERECHA
-                                        </a>
-                                    </div>
+                                <div class="col">
+                                    <a href="#"
+                                        class="btn btn-primary btn-block padding-button-short mt-1 waves-effect waves-light text-white"
+                                        v-on:click="updateBinarySide('I')">
+                                        IZQUIERDA
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="#"
+                                        class="btn btn-block btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
+                                        v-on:click="updateBinarySide('D')" style="height: 44.78px">
+                                        DERECHA
+                                    </a>
+                                </div>
                                 @else
-                                        <div class="col">
-                                            <a href="#"
-                                                class="btn btn-block btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
-                                                v-on:click="updateBinarySide('I')">
-                                                IZQUIERDA
-                                            </a>
-                                        </div>
-                                        <div class="col">
-                                            <a href="#"
-                                                class="btn btn-block btn-primary padding-button-short mt-1 waves-effect waves-light text-white"
-                                                v-on:click="updateBinarySide('D')" style="height: 44.78px">
-                                                DERECHA
-                                            </a>
-                                        </div>
-                                    
+                                <div class="col">
+                                    <a href="#"
+                                        class="btn btn-block btn-outline-warning padding-button-short mt-1 waves-effect waves-light text-white"
+                                        v-on:click="updateBinarySide('I')">
+                                        IZQUIERDA
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="#"
+                                        class="btn btn-block btn-primary padding-button-short mt-1 waves-effect waves-light text-white"
+                                        v-on:click="updateBinarySide('D')" style="height: 44.78px">
+                                        DERECHA
+                                    </a>
+                                </div>
+
                                 @endif
 
 
@@ -150,7 +155,9 @@
                             </div>
 
                             <div class="card-header d-flex align-items-center mb-2 justify-content-center">
-                                <img class="text-center" src="{{Auth::user()->inversionMasAlta() != null ?Auth::user()->inversionMasAlta()->getPackageOrden->img() : asset('assets/img/legazy_pro/logo.svg')}}" alt=""
+                                <img class="text-center"
+                                    src="{{Auth::user()->inversionMasAlta() != null ?Auth::user()->inversionMasAlta()->getPackageOrden->img() : asset('assets/img/legazy_pro/logo.svg')}}"
+                                    alt=""
                                     style="width: @if(Auth::user()->inversionMasAlta() == null)100% @else 62% @endif; margin-top: -15px;">
                             </div>
 
@@ -176,8 +183,17 @@
                         <p class="mt-1 mb-0">Proximo rango</p>
                     </div>
 
-                    <div class="card-header d-flex align-items-center mb-2 ">
-                        <img src="{{asset('assets/img/Group86.png')}}" alt="" style="width: 100%;" height="200">
+                    <input type="hidden" v-model='idrango'
+                    value="{{(Auth::user()->rank_id == null) ? 1 : Auth::user()->rank_id}}">
+                    <div class="card-header d-flex align-items-center mb-2 carrusel_rango">
+                        @foreach ($data['rangos']['ranks'] as $rango)
+                        <div class="text-center" style="background: #11262c;">
+                            <img src="{{asset('assets/img/legazy_pro/logo.svg')}}" alt="" height="200" class="m-auto">
+                            <h3 class="text-white mb-0">
+                                <strong>{{$rango->name}}</strong>
+                            </h3>
+                        </div>
+                        @endforeach
                     </div>
 
                     <div class="card-header d-flex align-items-center mb-2 ">
@@ -189,22 +205,22 @@
                     </div>
 
                     <div class="card-sub d-flex align-items-center ">
-                        <h2 class="gold text-bold-700 mb-0">3,960</h2>
+                        <h2 class="gold text-bold-700 mb-0">{{$data['rangos']['puntos']}}</h2>
                     </div>
 
                     <div class="d-flex align-items-center">
                         <div class="progress ml-2" style="height: 25px;width: 80%;">
                             <div id="bar" class="progress-bar active" role="progressbar" aria-valuenow="0"
-                                aria-valuemin="0" aria-valuemax="100" style="width: 87%">
-                                <span class="sr-only">0% Complete</span>
+                                aria-valuemin="0" aria-valuemax="100" style="width: {{$data['rangos']['porcentage']}}%">
+                                <span class="sr-only">{{$data['rangos']['porcentage']}}% Complete</span>
                             </div>
                         </div>
                         <div class="card-sub d-flex align-items-center ">
-                            <p class="white text-bold-700" style="margin-top: -30px;">87% </p>
+                            <p class="white text-bold-700" style="margin-top: -30px;">{{$data['rangos']['porcentage']}}% </p>
                         </div>
                     </div>
                     <div class="card-sub">
-                        <p class="white text-bold-700" style="margin-top: -50px;">proximo rango = 5,000 </p>
+                        <p class="white text-bold-700" style="margin-top: -50px;">proximo rango = {{$data['rangos']['puntos_sig']}} </p>
                     </div>
                 </div>
             </div>

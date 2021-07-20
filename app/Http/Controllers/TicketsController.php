@@ -36,13 +36,13 @@ class TicketsController extends Controller
         $fields = [
             "issue" => ['required'],
             'status' => ['0'],
-            "note" => ['required'],
+            "description" => ['required'],
         ];
 
         $msj = [
              
             'issue.required' => 'El asunto es Requerido',
-            'note.required' => 'El mensaje es Requerido',
+            'description.required' => 'la descripcion es Requerido',
 
         ];
 
@@ -51,7 +51,7 @@ class TicketsController extends Controller
         Ticket::create([
             'iduser' => Auth::id(),
             'issue' => request('issue'),
-            'note' => request('note'),
+            'description' => request('description'),
 
         ]);
 
@@ -78,7 +78,7 @@ class TicketsController extends Controller
          
 
             'status' => ['0'],
-            "note" => ['required'],
+            "description" => ['required'],
             "issue" => ['required'],
 
             
@@ -87,7 +87,7 @@ class TicketsController extends Controller
         $msj = [
           
              'issue.required' => 'el asunto es Requerido',
-             'note.required' => 'La mensaje es Requerido',
+             'description.required' => 'La mensaje es Requerido',
 
         ];
 
@@ -145,13 +145,13 @@ class TicketsController extends Controller
         $fields = [
             'status' => ['required'],
             // 'note_admin' => ['required'],
-            'note' => ['required'],
+            // 'description' => ['required'],
         ];
 
         $msj = [
             'status.required' => 'Es requerido el Estatus de la ticket',
             // 'note_admin.required' => 'Es requerido Nota del admin',
-            'note.required' => 'Es requerido mensaje del admin',
+            // 'description.required' => 'Es requerido mensaje del admin',
         ];
 
         $this->validate($request, $fields, $msj);

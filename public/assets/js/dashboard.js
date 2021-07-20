@@ -1,7 +1,7 @@
 var vm_dashboard = new Vue({
     el: '#dashboard-analytics',
     created:function (){
-        this.getDataGraphics()
+        // this.getDataGraphics()
     },
     data: function(){
         return {
@@ -14,7 +14,8 @@ var vm_dashboard = new Vue({
                 success_light: '#55DD92',
                 warning_light: '#ffc085',
             },
-            DataInfoGraphic: []
+            DataInfoGraphic: [],
+            idrango: 0
         }
     },
     methods:{
