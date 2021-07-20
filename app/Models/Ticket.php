@@ -19,4 +19,4 @@ class Ticket extends Model
     {
         return $this->belongsTo('App\Models\User', 'iduser', 'id');
     }
-}
+ }

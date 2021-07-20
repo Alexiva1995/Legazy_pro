@@ -76,17 +76,6 @@
                                 <div class="col-12 mt-2 mb-2">
                                     <label class="form-label text-white" for="note"><b>Chat con el administrador</b></label>
 
-                                    {{-- <ul class="chat-thread p-2 border border-warning rounded-0">
-                                        @foreach ($message as $item)
-                                        <li>{{ $item->id }}</li>
-                                        <li>{{ $item->id }}</li>
-                                        <li>{{ $item->id }}</li>
-                                        <li>{{ $item->id }}</li>
-                                        <li>{{ $item->getUser->fullname }}</li>
-                                        <li>{{ $item->message }}</li>
-                                        @endforeach
-                                    </ul> --}}
-
                                         <section class="chat-app-window mb-2 border border-warning rounded-0">
                                             <div class="active-chat">
                                                 <div class="user-chats ps ps--active-y bg-lp">

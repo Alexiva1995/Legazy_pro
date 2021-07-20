@@ -22,13 +22,12 @@
 
 
                                 <div class="col-12">
-                                    <div class="form-group">
-                                        <label class="text-white">Asunto del Ticket</label>
-                                        <textarea type="text" readonly id="asunto"
-                                            class="form-control bg-lp border border-warning rounded-0"
-                                            name="asunto">{{ $ticket->issue}}</textarea>
-                                    </div>
-                                </div>
+                                          <label class="form-label text-white mb-1" for="issue"><b>Asuto del Ticket</b></label>
+                                          <input class="form-control border border-warning rounded-0" type="text"
+                                              id="issue" name="issue" rows="3" readonly />
+
+                                      </div>
+
 
                                 <div class="col-12">
                                     <div class="form-group">
@@ -109,6 +108,7 @@
                                                         </div>
                                                         <div class="chat-body">
                                                             <div class="chat-content">
+                                                                <td>{{ $item->getUser->email}}</td>
                                                                 <p>{{ $item->message }}</p>
                                                             </div>
                                                         </div>

@@ -37,16 +37,13 @@ class TicketsController extends Controller
         Ticket::create([
             'iduser' => Auth::id(),
             'issue' => request('issue'),
-<<<<<<< HEAD
-            'message' => request('message'),
-            // 'description' => request('description'),
-=======
             'priority' => request('priority'),
-        ]);
->>>>>>> 1909c18e93db4ff852e75d9547ce15e6798d7230
+            
+             ]);
 
-        $ticket_create = Ticket::where('iduser', Auth::id())->orderby('created_at','DESC')->take(1)->get();
-        $id_ticket = $ticket_create[0]->id;
+            $ticket_create = Ticket::where('iduser', Auth::id())->orderby('created_at','DESC')->take(1)->get();
+            $id_ticket = $ticket_create[0]->id;
+
 
         MessageTicket::create([
             'id_user' => Auth::id(),
@@ -76,36 +73,11 @@ class TicketsController extends Controller
     public function updateUser(Request $request, $id){
 
         $ticket = Ticket::find($id);
-<<<<<<< HEAD
-        $message =MessageTicket::all()->where('id_ticket', $id);
 
-
-        $fields = [
-         
-
-            'status' => ['0'],
-            "description" => ['required'],
-            "issue" => ['required'],
-
-            
-        ];
-
-        $msj = [
-          
-             'issue.required' => 'el asunto es Requerido',
-             'description.required' => 'La mensaje es Requerido',
-
-        ];
-
-        // $this->validate($request, $fields, $msj);
-
-=======
-        
->>>>>>> 1909c18e93db4ff852e75d9547ce15e6798d7230
         $ticket->update($request->all());
         $ticket->save();
 
-        MessageTicket::create([
+             MessageTicket::create([
             'id_user' => Auth::id(),
             'id_admin' => '1',
             'id_ticket' => $ticket->id,
@@ -116,6 +88,8 @@ class TicketsController extends Controller
         return redirect()->back();
 
     }
+
+ 
 
     // permite ver la lista de tickets
 
