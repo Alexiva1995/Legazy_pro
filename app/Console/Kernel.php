@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('daily:comision')->everyTenMinutes();
         $schedule->command('binary:comision')->daily();
         $schedule->command('check:rank')->daily();
-        $schedule->command('checkstatus:purchase')->daily();
+        $schedule->command('checkstatus:purchase')->everyTenMinutes();
     }
 
     /**
