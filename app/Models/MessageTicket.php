@@ -11,7 +11,7 @@ class MessageTicket extends Model
 
     
     protected $fillable = [
-         'id_user','id_admin', 'id_ticket','message'
+         'id_user','id_admin', 'id_ticket', 'type', 'message'
     ];
      
      public function getUser()
