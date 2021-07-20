@@ -1,21 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- include libraries(jQuery, bootstrap) -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
 </head>
 <body>
 
@@ -28,10 +18,10 @@
 <section id="basic-vertical-layouts">
     <div class="row match-height d-flex justify-content-center">
         <div class="col-md-6 col-12">
-            <div class="card">
+            <div class="card bg-dark">
                 <div class="card-header">
-                    <h4 class="card-title">Atendiendo el Ticket #{{ $ticket->id }}</h4>
-                    <h4 class="card-title mt-2">Usuario: <span class="text-primary">{{ $ticket->getUser->fullname}}</span></h4>
+                    <h4 class="card-title text-white">Atendiendo el Ticket #{{ $ticket->id }}</h4>
+                    <h4 class="card-title mt-2 text-white">Usuario: <span class="text-primary">{{ $ticket->getUser->fullname}}</span></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -42,42 +32,21 @@
                                 <div class="row">   
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Asunto del Ticket</label>
-                                            <textarea type="text" rows="5" readonly id="description"
+                                            <label class="text-white">Asunto del Ticket</label>
+                                            <textarea type="text" rows="2" readonly id="asunto"
                                                 class="form-control"
-                                                name="description">{{ $ticket->issue}}</textarea>
+                                                name="asunto"style="background:#141414; color: #fff; border:#FF9F43;">{{ $ticket->issue}}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                      <div class="form-group">
-                                            <label> mensajes para el usuario</label>
-                                            <textarea id="note" name="note">{{$ticket->note}}</textarea>
-                                         <script>
-                                            $('#note').summernote({
-                                            placeholder: '',
-                                            tabsize: 2,
-                                            height: 120,
-                                            toolbar: [
-                                            ['style', ['style']],
-                                            ['font', ['bold', 'underline', 'clear']],
-                                            ['color', ['color']],
-                                            ['para', ['ul', 'ol', 'paragraph']],
-                                            ['table', ['table']],
-                                            ['insert', ['link', 'picture', 'video']],
-                                            ['view', ['fullscreen', 'codeview', 'help']]
-                                               ]
-                                         });
-                                         </script>
-                                     </div>
-                                    </div>
-                                    <div class="col-12">
+
+                                     <div class="col-12">
                                         <div class="form-group">
                                             <div class="controls">
-                                                <label for="status">Estado del ticket</label>
+                                                <label for="status" class="text-white">Estado del Ticket</label>
                                                 <span class="text-danger text-bold-600">OBLIGATORIO</span>
                                                 <select name="status" id="status"
                                                     class="custom-select status @error('status') is-invalid @enderror"
-                                                    required data-toggle="select">
+                                                    required data-toggle="select" style="background:#141414; color: #fff; border:#FF9F43;">
                                                     <option value="0" @if($ticket->status == '0') selected  @endif>Abierto</option>
                                                     <option value="1" @if($ticket->status == '1') selected  @endif>Cerrado</option>
                                                 </select>
@@ -87,18 +56,27 @@
                                      <div class="col-12">
                                         <div class="form-group">
                                             <div class="controls">
-                                                <label for="priority">prioridad del ticket</label>
+                                                <label for="priority" class="text-white">Prioridad del Ticket</label>
                                                 <span class="text-danger text-bold-600">OBLIGATORIO</span>
                                                 <select name="priority" id="priority"
                                                     class="custom-select priority @error('priority') is-invalid @enderror"
-                                                    required data-toggle="select">
+                                                    required data-toggle="select" style="background:#141414; color: #fff; border:#FF9F43;">
                                                     <option value="0" @if($ticket->priority == '0') selected  @endif>Alto</option>
                                                     <option value="1" @if($ticket->priority == '1') selected  @endif>Medio</option>
                                                     <option value="2" @if($ticket->priority == '2') selected  @endif>Bajo</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                      </div>
+                                      <div class="col-12">
+                                          <div class="form-group">
+                                             <label class="text-white">Descripcion del Ticket</label>
+                                                <textarea type="text" rows="5" readonly id="description"
+                                                class="form-control"
+                                                name="description"style="background:#141414; color: #ffffff; border: #141414;">{{ $ticket->description }}</textarea>
+                                          </div>
+                                        </div>
+                                   
                                     <div class="col-12">
                                         <button type="submit"
                                             class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Actualizar
