@@ -63,6 +63,26 @@
                                                 name="description"style=" background:#141414; color: #ffffff; border: #141414;">{{ $ticket->description }}</textarea>
                                         </div>
                                     </div>
+                                     <ul class="chat-thread">
+
+                                      <ul class="chat-thread">
+                                        <li>mensage del admin</li>
+                                        <li>mensaje del user</li>
+                                          @foreach ($message as $item)
+                                           
+                                            <li>{{ $item->id }}</li>
+                                        {{--     <li>{{ $item->getUser->fullname }}</li> --}}
+                                            <li>{{ $item->message }}</li>
+                                        </ul> 
+                                        @endforeach
+                                      </ul> 
+                                      <br>
+                                      <span class="text-danger text-bold-600">SOLO UN MENSAJE A LA VEZ (Espere que el admin responda antes de enviar otro mensaje)</span>
+                                      <textarea class="form-control border border-warning rounded-0 chat-window-message" type="text" id="note" name="note"
+                                      rows="3"></textarea>
+
+                                  </div>
+
                                 <div class="col-12">
                                     <div class="form-group d-flex justify-content-center">
                                         <div class="controls">

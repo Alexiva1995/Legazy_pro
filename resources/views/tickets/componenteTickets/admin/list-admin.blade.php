@@ -16,15 +16,10 @@
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Usuario</th>
-<<<<<<< HEAD
+
                                     <th>Email</th>
                                     <th>Estado</th>                                 
-                                    <th>mensaje</th>
-=======
-                                    <th>mensaje</th>
-                                    <th>Email</th>
-                                    <th>Estado</th>
->>>>>>> william
+                                    {{-- <th>mensaje</th> --}}
                                     <th>Prioridad</th>
                                     <th>fecha de creacion</th>
                                     <th>Accion</th>
