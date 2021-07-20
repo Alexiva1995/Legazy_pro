@@ -53,7 +53,6 @@
                                         <label class="form-label text-white mb-1" for="message"><b>Chat con el
                                                 administrador</b></label>
 
-
                                         <section class="chat-app-window mb-2 border border-warning rounded-0">
                                             <div class="active-chat">
                                                 <div class="user-chats ps ps--active-y bg-lp">
@@ -70,12 +69,9 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
-
-                                                                    <p>How can we help? We're here for you! 😄</p>
+ <p>How can we help? We're here for you! 😄</p>
 
                                                                     <p>Hola!. ¿Cómo podemos ayudar? 😄</p>
-
-                                                                </div>
                                                             </div>
                                                         </div>
 
@@ -98,14 +94,11 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
-                                                                  <td>{{ $item->getUser->email}}</td>
+<td>{{ $item->getUser->email}}</td>
                                                                    <p>{{ $item->message }}</p>
-
                                                                 </div>
                                                             </div>
                                                         </div>
-
-
 
 
                                                         {{-- admin --}}
@@ -119,14 +112,13 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
-                                                                     <p>{{ $item->message }}</p>
+ <p>{{ $item->message }}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         @endif
                                         
                                                         @endforeach
-
 
                                                     </div>
                                                 </div>

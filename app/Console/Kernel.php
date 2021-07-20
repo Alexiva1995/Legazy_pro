@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\BinaryComision::class,
         Commands\DaiLyComision::class,
         Commands\CheckRank::class,
+        Commands\checkStatusPurchase::class,
         Commands\PagarUtilidad::class
     ];
 
@@ -32,6 +33,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('daily:comision')->everyTenMinutes();
         $schedule->command('binary:comision')->daily();
         $schedule->command('check:rank')->daily();
+        $schedule->command('checkstatus:purchase')->everyTenMinutes();
         $schedule->command('pagar:utilidad')->daily();
     }
 
