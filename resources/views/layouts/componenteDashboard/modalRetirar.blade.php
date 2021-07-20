@@ -5,7 +5,7 @@
     <div class="modal-content">
         <div class="modal-header">
         <h5 class="modal-title text-white" id="exampleModalLabel">Retiro</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%)">
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 94%)">
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
@@ -21,7 +21,7 @@
                                 <label for="" class="col font-weight-bold text-white mr-3">Monto:</label>
                             </div>
                             <div class="col-8">
-                                <input style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{Auth::user()->saldoDisponible()}}">
+                                <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{Auth::user()->saldoDisponible()}}">
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                 <label for="" class="col font-weight-bold text-white mr-3">Feed:</label>
                             </div>
                             <div class="col-8">
-                                <input style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="6">
+                                <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="6">
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                                 <label for="" class="col font-weight-bold text-white mr-3">A recibir:</label>
                             </div>
                             <div class="col-8">
-                                <input style="backoground: #5f5f5f5f;" class="form-control w-50 d-inline" type="text" value="{{ number_format(floatval(Auth::user()->saldoDisponible()) - floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}">
+                                <input disabled style="backoground: #5f5f5f5f;" class="form-control w-50 d-inline" type="text" value="{{ number_format(floatval(Auth::user()->saldoDisponible()) - floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}">
                             </div>
                         </div>
                     </div>
