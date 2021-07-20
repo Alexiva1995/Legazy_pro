@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Ticket;
+use App\Models\MessageTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -63,9 +64,11 @@ class TicketsController extends Controller
     public function editUser($id){
 
         $ticket = Ticket::find($id);
-
+        $message =MessageTicket::all()->where('id_ticket', $id);
+  
         return view('tickets.componenteTickets.user.edit-user')
-        ->with('ticket', $ticket);
+        ->with('ticket', $ticket)
+         ->with('message', $message);
     }
 
     // permite actualizar el ticket
@@ -73,6 +76,7 @@ class TicketsController extends Controller
     public function updateUser(Request $request, $id){
 
         $ticket = Ticket::find($id);
+
 
         $fields = [
          
@@ -131,9 +135,12 @@ class TicketsController extends Controller
     public function editAdmin($id){
 
         $ticket = Ticket::find($id);
+        $message =MessageTicket::all()->where('id_ticket', $id);
+         
 
         return view('tickets.componenteTickets.admin.edit-admin')
         ->with('ticket', $ticket);
+
     }
 
     // permite actualizar el ticket

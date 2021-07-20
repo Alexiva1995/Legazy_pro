@@ -59,6 +59,35 @@
                                                 name="description"style=" background:#141414; color: #ffffff; border: #141414;">{{ $ticket->description }}</textarea>
                                         </div>
                                     </div>
+
+
+                                             <table>
+                                       <thead>
+                                           <tr>
+
+                                              <th>ID</th>
+                                              <th>Usuario</th>
+                                              <th>mensaje</th>
+
+                                           </tr>
+
+
+                                       </thead>
+                                       <tbody>
+                                           
+                                           @foreach ($message as $item)
+
+                                           <tr>
+                                               <td>{{ $item->id }}</td>
+                                                <td>{{ $item->getUser }}</td>
+                                               <td>{{ $item->message }}</td>
+                                           </tr>
+
+                                           @endforeach
+
+                                       </tbody>
+
+                                   </table> 
                                     <div class="col-12">
                                         <button type="submit"
                                             class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Actualizar Ticket</button>
