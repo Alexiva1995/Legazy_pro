@@ -24,7 +24,7 @@
                                 <div class="col-12">
                                           <label class="form-label text-white mb-1" for="issue"><b>Asuto del Ticket</b></label>
                                           <input class="form-control border border-warning rounded-0" type="text"
-                                              id="issue" name="issue" rows="3" readonly />
+                                              id="issue" name="issue" rows="3" value="{{ $ticket->issue }}" readonly />
 
                                       </div>
 
@@ -129,8 +129,9 @@
                                                             </span>
                                                         </div>
                                                         <div class="chat-body">
-                                                            <div class="chat-content">
-                                                                <p>{{ $item->message }}</p>
+                                                            <div class="chat-content"> 
+                                                        <td>{{ $item->getAdmin->email}}</td>                                  
+                                                         <p>{{ $item->message }}</p>
                                                             </div>
                                                         </div>
                                                     </div>
