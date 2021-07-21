@@ -119,7 +119,8 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
-                                                                     <p>{{ $item->message }}</p>
+                                                                  <td>{{ $item->getAdmin->email}}</td>                                  
+                                                                   <p>{{ $item->message }}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
