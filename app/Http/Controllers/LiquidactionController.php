@@ -31,7 +31,6 @@ class LiquidactionController extends Controller
     public function index()
     {
         try {
-            View::share('titleg', 'General Liquidaciones');
             $comisiones = $this->getTotalComisiones([], null);
             return view('settlement.index', compact('comisiones'));
         } catch (\Throwable $th) {
@@ -48,7 +47,6 @@ class LiquidactionController extends Controller
     public function indexPendientes()
     {
         try {
-            View::share('titleg', 'Liquidaciones Pendientes');
             $liquidaciones = Liquidaction::where('status', 0)->get();
             foreach ($liquidaciones as $liqui) {
                 $liqui->fullname = $liqui->getUserLiquidation->fullname;
@@ -69,7 +67,6 @@ class LiquidactionController extends Controller
     public function indexHistory($status)
     {
         try {
-            View::share('titleg', 'Liquidaciones '.$status);
             $estado = ($status == 'Reservadas') ? 2 : 1;
             $liquidaciones = Liquidaction::where('status', $estado)->get();
             foreach ($liquidaciones as $liqui) {

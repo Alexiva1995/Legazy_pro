@@ -55,7 +55,6 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
             
             return view('dashboard.index', compact('data'));
@@ -68,7 +67,6 @@ class HomeController extends Controller
     public function indexUser()
     {
         try {
-            View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
             return view('dashboard.indexUser', compact('data'));
         } catch (\Throwable $th) {
@@ -169,7 +167,6 @@ class HomeController extends Controller
      */
     public function terminosCondiciones()
     {
-        View::share('titleg', 'Terminos y Condiciones');
         return view('terminos_condiciones.index');
     }
 

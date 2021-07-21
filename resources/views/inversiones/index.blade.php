@@ -6,6 +6,8 @@
         <div class="card bg-lp">
             <div class="card-content">
                 <div class="card-body card-dashboard">
+                    <h1 class="text-white">Inversiones</h1>
+
                     @if(auth()->user()->admin == 1)
                     <div class="">
                         

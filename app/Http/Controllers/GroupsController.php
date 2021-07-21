@@ -18,9 +18,6 @@ class GroupsController extends Controller
     public function index()
     {
         try {
-            // title
-            View::share('titleg', 'Grupos');
-
             $categories = Groups::all()->except('created_at', 'updated_at');
 
             return view('manager_services.categories.index', compact('categories'));

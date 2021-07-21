@@ -26,7 +26,6 @@ class WalletController extends Controller
     public function __construct()
     {
         $this->treeController = new TreeController;
-        View::share('titleq', 'Billetera');
     }
 
     /**
