@@ -41,7 +41,6 @@ class TiendaController extends Controller
     {
         try {
             // title
-            View::share('titleg', 'Tienda');
             $packages = Packages::orderBy('id', 'desc')->paginate();
 
             $invertido = Auth::user()->inversionMasAlta();
@@ -67,7 +66,6 @@ class TiendaController extends Controller
         try {
             // title
             //YA NO VA ERA DE HDLR
-            View::share('titleg', 'Tienda - Productos');
             $category = Groups::find($idgroup);
             $services = $category->getPackage->where('status', 1);
 

@@ -14,6 +14,8 @@
 
 @section('content')
 
+<h1 class="text-white">Arbol Binario</h1>
+
 {{-- <body style="background: #141414;"> --}}
 <div class="container">
     <div class="row">

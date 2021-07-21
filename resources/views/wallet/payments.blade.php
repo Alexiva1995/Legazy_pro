@@ -7,6 +7,7 @@
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
+                      <h1 class="text-white">Retiros</h1>
                         <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100 text-white ">
                             <thead class="">
 
