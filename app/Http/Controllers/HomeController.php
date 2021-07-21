@@ -11,6 +11,7 @@ use App\Http\Controllers\TreeController;
 use App\Http\Controllers\WalletController;
 use App\Models\OrdenPurchases;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -110,8 +111,12 @@ class HomeController extends Controller
         $rankSig = Ranks::find($rol_sig);
         $totalPuntos = (Auth::user()->point_rank != null) ? Auth::user()->point_rank : 0;
         $porcentajes = (($totalPuntos / $rankSig->points) * 100);
+        $ranks = Ranks::all();
+        foreach ($ranks as $rank) {
+            $rank->img = asset('assets/img/rangos/'.Str::slug($rank->name, '-').'.png');
+        }
         $data = [
-            'ranks' => Ranks::all(),
+            'ranks' => $ranks,
             'puntos' => number_format($totalPuntos, 2, ',', '.'),
             'porcentage' => $porcentajes,
             'puntos_sig' => number_format($rankSig->points, 2, ',', '.')

@@ -162,8 +162,17 @@
                         <p class="mt-1 mb-0">Proximo rango</p>
                     </div>
 
-                    <div class="card-header d-flex align-items-center mb-2 ">
-                        <img src="{{asset('assets/img/Group86.png')}}" alt="" style="width: 100%;" height="200">
+                    <input type="hidden" v-model='idrango'
+                    value="{{(Auth::user()->rank_id == null) ? 1 : Auth::user()->rank_id}}">
+                    <div class="card-header d-flex align-items-center mb-2 carrusel_rango">
+                        @foreach ($data['rangos']['ranks'] as $rango)
+                        <div class="text-center">
+                            <img src="{{$rango->img}}" alt="" height="200" class="m-auto">
+                            <h3 class="text-white mb-0">
+                                <strong>{{$rango->name}}</strong>
+                            </h3>
+                        </div>
+                        @endforeach
                     </div>
 
                     <div class="card-header d-flex align-items-center mb-2 ">
@@ -175,22 +184,22 @@
                     </div>
 
                     <div class="card-sub d-flex align-items-center ">
-                        <h2 class="gold text-bold-700 mb-0">3,960</h2>
+                        <h2 class="gold text-bold-700 mb-0">{{$data['rangos']['puntos']}}</h2>
                     </div>
 
                     <div class="d-flex align-items-center">
                         <div class="progress ml-2" style="height: 25px;width: 80%;">
                             <div id="bar" class="progress-bar active" role="progressbar" aria-valuenow="0"
-                                aria-valuemin="0" aria-valuemax="100" style="width: 87%">
-                                <span class="sr-only">0% Complete</span>
+                                aria-valuemin="0" aria-valuemax="100" style="width: {{$data['rangos']['porcentage']}}%">
+                                <span class="sr-only">{{$data['rangos']['porcentage']}}% Complete</span>
                             </div>
                         </div>
                         <div class="card-sub d-flex align-items-center ">
-                            <p class="white text-bold-700" style="margin-top: -30px;">87% </p>
+                            <p class="white text-bold-700" style="margin-top: -30px;">{{$data['rangos']['porcentage']}}% </p>
                         </div>
                     </div>
                     <div class="card-sub">
-                        <p class="white text-bold-700" style="margin-top: -50px;">proximo rango = 5,000 </p>
+                        <p class="white text-bold-700" style="margin-top: -50px;">proximo rango = {{$data['rangos']['puntos_sig']}} </p>
                     </div>
                 </div>
             </div>
