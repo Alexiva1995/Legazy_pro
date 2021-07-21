@@ -76,7 +76,7 @@
 
                                                             {{-- user --}}
                                                             @if ($item->type == 0)
-                                                            <div class="chat">  
+                                                               <div class="chat">
                                                                 <div class="chat-avatar">
                                                                     <span class="avatar box-shadow-1 cursor-pointer">
                                                                         @if (Auth::user()->photoDB != NULL)
@@ -87,8 +87,7 @@
                                                                         alt="avatar" height="36" width="36">
                                                                         @endif
                                                                     </span>
-
-                                                                </div>
+                                                                       </div>
                                                                 <div class="chat-body">
                                                                     <div class="chat-content">
                                                                        <td>{{ $item->getUser->email}}</td>
@@ -108,8 +107,12 @@
                                                                 </div>
                                                                 <div class="chat-body">
                                                                     <div class="chat-content">
+<<<<<<< HEAD
                                                                          <td>{{ $item->getAdmin->email}}</td>
                                                                           <p>{{ $item->message }}</p>
+=======
+                                                                        <p>{{ $item->message }}</p>
+>>>>>>> dev
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -128,14 +131,12 @@
                                                 class="form-control border border-warning rounded-0"
                                                 type="text" id="message" name="message" required rows="3"></textarea>
                                         </div>
-                                    </div>
-                                </div>
+ </div>
                           
                         <div class="col-12">
                                     <button type="submit"
                                         class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Actualizar
                                         Ticket</button>
-
                                 </div>
                         </form>
                     </div>
