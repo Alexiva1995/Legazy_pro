@@ -32,8 +32,6 @@ class UserController extends Controller
 
        $user = User::all();
 
-        View::share('titleg', 'Usuarios');
-
         return view('users.componenteUsers.admin.list-users')
         ->with('user',$user);
 
@@ -46,8 +44,6 @@ class UserController extends Controller
      */
     public function kyc()
     {
-
-         View::share('titleg', 'Verificacion');
 
          return view('users.componenteProfile.kyc');
 
@@ -101,8 +97,6 @@ class UserController extends Controller
      * @return void
      */
     public function showUser($id){
-
-        View::share('titleg', 'Verificacion KYC');
 
         $user = User::find($id);
 

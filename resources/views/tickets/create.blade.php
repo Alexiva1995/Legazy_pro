@@ -1,4 +1,4 @@
- @extends('layouts.dashboard')
+@extends('layouts.dashboard')
 
  @section('content')
 
@@ -52,7 +52,9 @@
                                                  <div class="user-chats ps ps--active-y bg-lp">
                                                      <div class="chats chat-thread">
 
-                                                         {{-- admin --}}
+                                    
+                                                            {{-- admin --}}
+
                                                          <div class="chat chat-left">
                                                              <div class="chat-avatar">
                                                                  <span class="avatar box-shadow-1 cursor-pointer">
@@ -67,7 +69,8 @@
                                                              </div>
                                                          </div>
 
-                                                     </div>
+
+                                                   </div>
                                                  </div>
                                              </div>
                                          </section>

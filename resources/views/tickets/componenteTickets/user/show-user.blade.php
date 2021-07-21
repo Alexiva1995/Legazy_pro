@@ -49,81 +49,88 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 mt-2 mb-2">
-                                        <label class="form-label text-white mb-1" for="message"><b>Chat con el
-                                                administrador</b></label>
+                                   <div class="col-12 mt-2 mb-2">
+                                    <label class="form-label text-white" for="note"><b>Chat con el usuario</b></label>
 
-                                        <section class="chat-app-window mb-2 border border-warning rounded-0">
-                                            <div class="active-chat">
-                                                <div class="user-chats ps ps--active-y bg-lp">
-                                                    <div class="chats chat-thread">
+                                    <section class="chat-app-window mb-2 border border-warning rounded-0">
+                                        <div class="active-chat">
+                                            <div class="user-chats ps ps--active-y bg-lp">
+                                                <div class="chats chat-thread">
 
-                                                        {{-- admin --}}
-                                                        <div class="chat chat-left">
-                                                            <div class="chat-avatar">
-                                                                <span class="avatar box-shadow-1 cursor-pointer">
-                                                                    <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
-                                                                        alt="avatar" height="36" width="36">
-                                                                </span>
-                                                            </div>
-                                                            <div class="chat-body">
-                                                                <div class="chat-content">
-                                                                    <p>Hola!. ¿Cómo podemos ayudar? 😄</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        @foreach ( $message as $item )
-
-                                                        {{-- user --}}
-                                                        @if ($item->type == 0)
-                                                        <div class="chat">
-                                                            <div class="chat-avatar">
-                                                                <span class="avatar box-shadow-1 cursor-pointer">
-                                                                    @if (Auth::user()->photoDB != NULL)
-                                                                    <img src="{{asset('storage/photo/'.Auth::user()->photoDB)}}"
-                                                                        alt="avatar" height="36" width="36">
-                                                                    @else
-                                                                    <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
+                                                                                                <div class="chat">
+                                                        <div class="chat-avatar">
+                                                            <span class="avatar box-shadow-1 cursor-pointer">
+                                                                @if (Auth::user()->photoDB != NULL)
+                                                                <img src="{{asset('storage/photo/'.Auth::user()->photoDB)}}"
                                                                     alt="avatar" height="36" width="36">
-                                                                    @endif
-                                                                </span>
-                                                            </div>
-                                                            <div class="chat-body">
-                                                                <div class="chat-content">
-                                                                    <p>{{ $item->message }}</p>
-                                                                </div>
+                                                                @else
+                                                                <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
+                                                                alt="avatar" height="36" width="36">
+                                                                @endif
+                                                            </span>
+                                                        </div>
+                                                        <div class="chat-body">
+                                                            <div class="chat-content">
+                                                                <p>Hola!. ¿Cómo podemos ayudar? 😄</p>
                                                             </div>
                                                         </div>
-
-                                                        {{-- admin --}}
-                                                        @elseif ($item->type == 1)
-                                                        <div class="chat chat-left">
-                                                            <div class="chat-avatar">
-                                                                <span class="avatar box-shadow-1 cursor-pointer">
-                                                                    <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
-                                                                    alt="avatar" height="36" width="36">
-                                                                </span>
-                                                            </div>
-                                                            <div class="chat-body">
-                                                                <div class="chat-content">
-                                                                    <p>{{ $item->message }}</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        @endif
-                                        
-                                                        @endforeach
-
                                                     </div>
+
+                                                    @foreach ( $message as $item )
+
+                                                    {{-- user --}}
+                                                    @if ($item->type == 0)
+
+                                                    <div class="chat chat-left">
+                                                        <div class="chat-avatar">
+                                                            <span class="avatar box-shadow-1 cursor-pointer">
+                                                                <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
+                                                                alt="avatar" height="36" width="36">
+                                                            </span>
+                                                        </div>
+                                                        <div class="chat-body">
+                                                            <div class="chat-content">
+                                                                <td>{{ $item->getUser->email}}</td>
+                                                                <p>{{ $item->message }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- admin --}}
+                                                    @elseif ($item->type == 1)
+                                                    <div class="chat">
+                                                        <div class="chat-avatar">
+                                                            <span class="avatar box-shadow-1 cursor-pointer">
+                                                                @if (Auth::user()->photoDB != NULL)
+                                                                <img src="{{asset('storage/photo/'.Auth::user()->photoDB)}}"
+                                                                    alt="avatar" height="36" width="36">
+                                                                @else
+                                                                <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
+                                                                alt="avatar" height="36" width="36">
+                                                                @endif
+                                                            </span>
+                                                        </div>
+                                                        <div class="chat-body">
+                                                            <div class="chat-content"> 
+                                                        <td>{{ $item->getAdmin->email}}</td>                                  
+                                                         <p>{{ $item->message }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endif
+                                    
+                                                    @endforeach
+
                                                 </div>
                                             </div>
-                                        </section>
+                                        </div>
+                                    </section>
 
                                         <span class="text-danger text-bold-600">Aqui podra escribir el mensaje para el admin</span>
                                         <textarea
                                             class="form-control border border-warning rounded-0"
                                             type="text" id="message" name="message" disabled rows="3"></textarea>
+
                                     </div>
                                 </div>
                             </div>

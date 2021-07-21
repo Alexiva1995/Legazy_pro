@@ -4,9 +4,9 @@
 @section('content')
 <div class="col-12">
     <div class="card bg-lp">
-   
         <div class="card-content">
             <div class="card-body card-dashboard">
+               <h1 class="text-white">Billetera</h1>
                 <div class="float-right row no-gutters" style="width: 30%;">
                 <div class="col-md-4 col-12">
                         <span class="font-weight-bold text-white">Saldo:</span>

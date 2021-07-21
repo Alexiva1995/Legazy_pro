@@ -18,6 +18,10 @@ class MessageTicket extends Model
     {
         return $this->belongsTo('App\Models\User', 'id_user', 'id');
     }
+    public function getAdmin()
+    {
+        return $this->belongsTo('App\Models\User', 'id_admin', 'id');
+    }
    
     public function getTicket()
     {

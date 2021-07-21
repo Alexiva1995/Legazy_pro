@@ -16,6 +16,7 @@
         <div class="card" style="background:#141414">
             <div class="card-content">
                 <div class="card-body card-dashboard">
+                   <h1 class="text-white">Lista de Paquetes</h1>
                     <div class="row">
                         @foreach ($packages as $items)
                             <div class="col col-md-4">

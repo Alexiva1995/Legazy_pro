@@ -38,7 +38,12 @@ class TicketsController extends Controller
             'iduser' => Auth::id(),
             'issue' => request('issue'),
             'priority' => request('priority'),
-        ]);
+          
+         ]);
+
+            $ticket_create = Ticket::where('iduser', Auth::id())->orderby('created_at','DESC')->take(1)->get();
+            $id_ticket = $ticket_create[0]->id;
+
 
         $ticket_create = Ticket::where('iduser', Auth::id())->orderby('created_at','DESC')->take(1)->get();
         $id_ticket = $ticket_create[0]->id;
@@ -71,11 +76,11 @@ class TicketsController extends Controller
     public function updateUser(Request $request, $id){
 
         $ticket = Ticket::find($id);
-        
+
         $ticket->update($request->all());
         $ticket->save();
 
-        MessageTicket::create([
+         MessageTicket::create([
             'id_user' => Auth::id(),
             'id_admin' => '1',
             'id_ticket' => $ticket->id,
@@ -87,13 +92,13 @@ class TicketsController extends Controller
 
     }
 
+ 
+
     // permite ver la lista de tickets
 
     public function listUser(Request $request){
 
         $ticket = Ticket::where('iduser', Auth::id())->get();
-
-        View::share('titleg', 'Historial de Tickets');
 
         return view('tickets.componenteTickets.user.list-user')
         ->with('ticket', $ticket);
@@ -151,8 +156,6 @@ class TicketsController extends Controller
     public function listAdmin(){
 
         $ticket = Ticket::all();
-
-        View::share('titleg', 'Historial de Tickets');
 
         return view('tickets.componenteTickets.admin.list-admin')
         ->with('ticket', $ticket);

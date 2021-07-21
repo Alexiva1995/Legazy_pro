@@ -25,7 +25,6 @@ class TreeController extends Controller
     {
         try {
             //Titulo
-            View::share('titleg', 'Arbol');
             $trees = $this->getDataEstructura(Auth::id(), $type);
             $type = ucfirst($type);
             $base = Auth::user();
@@ -52,7 +51,6 @@ class TreeController extends Controller
             $users = $this->getChidrens2(Auth::id(), [], 1, 'referred_id', $allNetwork);
             $title = ($network == 'direct') ? 'Directo' : ' En Red';
             //Titulo
-            View::share('titleg', 'Referidos '.$title);
             return view('genealogy.listNetwork', compact('users', 'title', 'allNetwork'));
         } catch (\Throwable $th) {
             Log::error('Tree - indexNewtwork -> Error: '.$th);
@@ -117,7 +115,6 @@ class TreeController extends Controller
     {
         try {
             // titulo
-            View::share('titleg', 'Arbol');
             $id = base64_decode($id);
             $trees = $this->getDataEstructura($id, $type);
             $type = ucfirst($type);
