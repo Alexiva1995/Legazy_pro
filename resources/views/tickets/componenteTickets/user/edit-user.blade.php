@@ -107,12 +107,10 @@
                                                                 </div>
                                                                 <div class="chat-body">
                                                                     <div class="chat-content">
-<<<<<<< HEAD
+
                                                                          <td>{{ $item->getAdmin->email}}</td>
                                                                           <p>{{ $item->message }}</p>
-=======
-                                                                        <p>{{ $item->message }}</p>
->>>>>>> dev
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -129,12 +127,12 @@
                                             <span class="text-danger text-bold-600">Aqui podra escribir el mensaje para el admin</span>
                                             <textarea
                                                 class="form-control border border-warning rounded-0"
-                                                type="text" id="message" name="message" required rows="3"></textarea>
+                                                type="text" id="message" name="message" required rows="2"></textarea>
                                         </div>
- </div>
+                                   </div>
                           
-                        <div class="col-12">
-                                    <button type="submit"
+                                      <div class="col-12">
+                                      <button type="submit"
                                         class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Actualizar
                                         Ticket</button>
                                 </div>

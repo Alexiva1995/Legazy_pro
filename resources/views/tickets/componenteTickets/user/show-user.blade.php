@@ -59,7 +59,7 @@
                                                     <div class="chats chat-thread">
 
                                                         {{-- admin --}}
-                                                        <div class="chat chat-left">
+                                                        <div class="chat">
 
                                                             <div class="chat-avatar">
                                                                 <span class="avatar box-shadow-1 cursor-pointer">
@@ -69,9 +69,8 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
- <p>How can we help? We're here for you! 😄</p>
-
-                                                                    <p>Hola!. ¿Cómo podemos ayudar? 😄</p>
+                                                                  <p>How can we help? We're here for you! 😄</p>
+                                                                  <p>Hola!. ¿Cómo podemos ayudar? 😄</p>
                                                             </div>
                                                         </div>
 
@@ -79,7 +78,7 @@
 
                                                         {{-- user --}}
                                                         @if ($item->type == 0)
-                                                        <div class="chat">
+                                                        <div class="chat chat-left">
                                                             <div class="chat-avatar">
                                                                 <span class="avatar box-shadow-1 cursor-pointer">
                                                                     @if (Auth::user()->photoDB != NULL)
@@ -94,7 +93,7 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
-<td>{{ $item->getUser->email}}</td>
+                                                                  <td>{{ $item->getUser->email}}</td>
                                                                    <p>{{ $item->message }}</p>
                                                                 </div>
                                                             </div>
@@ -112,13 +111,10 @@
                                                             </div>
                                                             <div class="chat-body">
                                                                 <div class="chat-content">
-<<<<<<< HEAD
                                                                   <td>{{ $item->getAdmin->email}}</td>                                  
                                                                    <p>{{ $item->message }}</p>
-=======
- <p>{{ $item->message }}</p>
->>>>>>> dev
-                                                                </div>
+
+                                                               </div>
                                                             </div>
                                                         </div>
                                                         @endif
