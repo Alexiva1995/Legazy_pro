@@ -74,29 +74,12 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class=" white" for="">Nombre</label>
+                    <label class=" white" for="">Nombre Completo</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('name') is-invalid @enderror"
-                        id="name" name="name"
-                        value="{{ $user->name }}">
-                    @error('name')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6">
-            <div class="form-group">
-                <div class="controls">
-                    <label class=" white" for="last_name">Apellido</label>
-                    <input type="text"
-                        class="form-control border border-warning rounded-0 @error('last_name') is-invalid @enderror"
-                        id="last_name" name="last_name"
-                        value="{{ $user->last_name }}">
-                    @error('last_name')
+                        id="fullname" name="fullname"
+                        value="{{ $user->fullname }}">
+                    @error('fullname')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

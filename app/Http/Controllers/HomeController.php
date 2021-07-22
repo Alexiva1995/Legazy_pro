@@ -115,11 +115,17 @@ class HomeController extends Controller
         foreach ($ranks as $rank) {
             $rank->img = asset('assets/img/rangos/'.Str::slug($rank->name, '-').'.png');
         }
+        // $ranks->prepend([
+        //     'name' => 'Sin Rango',
+        //     'img' => 'https://icons-for-free.com/iconfiles/png/512/page+quality+rank+icon-1320190816917337266.png'
+        // ]);
+        // dd($ranks);
         $data = [
             'ranks' => $ranks,
             'puntos' => number_format($totalPuntos, 2, ',', '.'),
             'porcentage' => $porcentajes,
-            'puntos_sig' => number_format($rankSig->points, 2, ',', '.')
+            'puntos_sig' => number_format($rankSig->points, 2, ',', '.'),
+            'name_rank_sig' => $rankSig->name
         ];
         return $data;
     }

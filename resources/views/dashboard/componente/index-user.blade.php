@@ -180,12 +180,18 @@
             <div class="col-sm-6 col-12 mt-1">
                 <div class="card h-100" style="background: #1b1b1b;">
                     <div class="card-header d-flex align-items-center text-right pb-0 pt-0 white">
-                        <p class="mt-1 mb-0">Proximo rango</p>
+                        <p class="mt-1 mb-0">Proximo rango -> {{$data['rangos']['name_rank_sig']}}</p>
                     </div>
 
-                    <input type="hidden" v-model='idrango'
-                    value="{{(Auth::user()->rank_id == null) ? 1 : Auth::user()->rank_id}}">
+                    <input type="hidden" id="idrango"
+                    value="{{(Auth::user()->rank_id == null) ? 0 : Auth::user()->rank_id}}">
                     <div class="card-header d-flex align-items-center mb-2 carrusel_rango">
+                        <div class="text-center">
+                            <img src="https://icons-for-free.com/iconfiles/png/512/page+quality+rank+icon-1320190816917337266.png" alt="" height="200" class="m-auto">
+                            <h3 class="text-white mb-0">
+                                <strong>Sin Rango</strong>
+                            </h3>
+                        </div>
                         @foreach ($data['rangos']['ranks'] as $rango)
                         <div class="text-center">
                             <img src="{{$rango->img}}" alt="" height="200" class="m-auto">

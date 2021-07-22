@@ -15,6 +15,20 @@ $new = \App\Models\News::where('status', '1')->get();
 @push('page_css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/dashboard-analytics.css')}}">
 {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/card-analytics.css')}}"> --}}
+<style>
+  .carrusel_rango::after {
+      background: transparent;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+      content: '';
+  }
+  .text-center.slick-slide.slick-current.slick-active.slick-center {
+        background: rgba(214, 168, 62, 0.3);
+        padding: 10px;
+    }
+</style>
 @endpush
 
 {{-- page vendor js --}}
@@ -47,7 +61,8 @@ $new = \App\Models\News::where('status', '1')->get();
 })
 
 $(document).ready(function () {
-
+  let idrango = parseInt($('#idrango').val())
+  console.log(idrango);
   $('.carrusel_rango').slick({
           infinite: true,
           centerMode: true,
@@ -56,7 +71,7 @@ $(document).ready(function () {
           slidesToShow: 3,
           slidesToScroll: 1,
           touchMove: false,
-          initialSlide: (vm_dashboard.idrango),
+          initialSlide: (idrango),
           accessibility: false,
           arrows: false,
           responsive: [

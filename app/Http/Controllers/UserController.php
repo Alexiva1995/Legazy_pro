@@ -152,8 +152,7 @@ class UserController extends Controller
 
         $fields = [
 
-             "name" => ['required'],
-             "last_name" => ['required'],
+             "fullname" => ['required'],
              "email" => [
                 'required',
                 'string',
@@ -166,8 +165,7 @@ class UserController extends Controller
 
         $msj = [
 
-            'name.required' => 'El nombre es requerido',
-            'last_name.required' => 'El telefono es requerido',
+            'fullname.required' => 'El nombre completo es requerido',
             'email.unique' => 'El correo debe ser unico',
            
         ];
