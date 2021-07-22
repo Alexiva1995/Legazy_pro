@@ -388,6 +388,8 @@ right connector from last child*/
   background: radial-gradient(circle, rgba(131,104,44,1) 0%, rgba(96,74,29,1) 100%);
   border-radius: 10px;
   background: linear-gradient(90deg, rgba(172,118,19,1) 0%, rgba(214,168,62,1) 68%) !important;
+  margin-left: 150px;
+  margin-top: -25px;
 }
 
   input[type=text]:hover:not([disabled]), 
@@ -403,9 +405,6 @@ right connector from last child*/
   {
   background: #141414;
   color: #ffffff;
-
-  margin-left: 150px;
-  margin-top: -25px;
 }
 
 

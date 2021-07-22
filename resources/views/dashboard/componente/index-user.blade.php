@@ -158,7 +158,7 @@
                                 <img class="text-center"
                                     src="{{Auth::user()->inversionMasAlta() != null ?Auth::user()->inversionMasAlta()->getPackageOrden->img() : asset('assets/img/legazy_pro/logo.svg')}}"
                                     alt=""
-                                    style="width: @if(Auth::user()->inversionMasAlta() == null)100% @else 62% @endif; margin-top: -15px;">
+                                    style="width: @if(Auth::user()->inversionMasAlta() == null)70% @else 62% @endif; margin-top: -15px;">
                             </div>
 
                         </div>
@@ -187,8 +187,8 @@
                     value="{{(Auth::user()->rank_id == null) ? 1 : Auth::user()->rank_id}}">
                     <div class="card-header d-flex align-items-center mb-2 carrusel_rango">
                         @foreach ($data['rangos']['ranks'] as $rango)
-                        <div class="text-center" style="background: #11262c;">
-                            <img src="{{asset('assets/img/legazy_pro/logo.svg')}}" alt="" height="200" class="m-auto">
+                        <div class="text-center">
+                            <img src="{{$rango->img}}" alt="" height="200" class="m-auto">
                             <h3 class="text-white mb-0">
                                 <strong>{{$rango->name}}</strong>
                             </h3>

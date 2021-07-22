@@ -61,11 +61,11 @@ class RegisterController extends Controller
                 'fullname' => ['required', 'string', 'max:255'],
                 'username' => ['required', 'string', 'max:255', 'unique:users'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
                 // 'term' => ['required']
             ]);
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             //throw $th;
         }
     }
@@ -85,20 +85,20 @@ class RegisterController extends Controller
             $binary_id = 0;
             if (!empty($data['referred_id'])) {
                 $userR = User::find($data['referred_id']);
-                // $binary_id = $this->treeController->getPosition($data['referred_id'], $userR->binary_side_register);
-                // $binary_side = $userR->binary_side_register;
+                $binary_id = $this->treeController->getPosition($data['referred_id'], $userR->binary_side_register);
+                $binary_side = $userR->binary_side_register;
             }
             return User::create([
                 // 'name' => $fullname[0],
-                'last_name' => (!empty($fullname[1])) ? $fullname[1] : '',
+                // 'last_name' => (!empty($fullname[1])) ? $fullname[1] : '',
                 'fullname' => $data['fullname'],
                 'username' => $data['username'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'whatsapp' => $whatsapp,
-                // 'referred_id' => $data['referred_id'],
-                // 'binary_id' => $binary_id,
-                // 'binary_side' => $binary_side
+                'referred_id' => $data['referred_id'],
+                'binary_id' => $binary_id,
+                'binary_side' => $binary_side
             ]);
         } catch (\Throwable $th) {
             dd($th);

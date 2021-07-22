@@ -15,12 +15,8 @@
                         $ {{number_format($saldoDisponible,2)}}
                     </div>
                     <div class="col-12 col-md-4">
-                        <form action="{{route('liquidation.store')}}" method="post">
-                            @csrf
-                            <input type="hidden" name="listUsers[]" value="{{Auth::user()->id}}">
-                            <input type="hidden" name="tipo" value="user">
-                            <button type="submit" class="btn btn-primary">Retirar</button>
-                        </form>
+                            <button class="btn btn-primary" data-toggle="modal"
+                            data-target="#modalSaldoDisponible">Retirar</button>
                     </div>
                 </div>
                 <div class="table-responsive"> 
@@ -31,6 +27,6 @@
     </div>
 </div>
 @endsection
-
+@include('layouts.componenteDashboard.modalRetirar')
 {{-- permite llamar a las opciones de las tablas --}}
 @include('layouts.componenteDashboard.optionDatatable')

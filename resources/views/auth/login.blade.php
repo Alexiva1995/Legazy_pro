@@ -29,7 +29,6 @@
             <div class="row">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2">
                     <h2 class="card-title fw-bold mb-1 text-white">Iniciar Sesión</h2>
-                    <p class="card-text mb-2 text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <form class="auth-login-form mt-2" action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="mb-1">
