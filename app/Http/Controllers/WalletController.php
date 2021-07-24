@@ -274,8 +274,13 @@ class WalletController extends Controller
             foreach ($ordenes as $orden) {
                 $comision = ($orden->total * 0.1);
                 $sponsor = User::find($orden->getOrdenUser->referred_id);
-                $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
-                $this->preSaveWallet($sponsor->id, $orden->iduser, $orden->id, $comision, $concepto);
+                if ($sponsor->status == '1') {
+                    $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
+                    $this->preSaveWallet($sponsor->id, $orden->iduser, $orden->id, $comision, $concepto);
+                }else{
+                    $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
+                    $this->preSaveWallet($sponsor->id, $orden->iduser, $orden->id, 0, $concepto);
+                }
             }
         } catch (\Throwable $th) {
             Log::error('Wallet - bonoDirecto -> Error: '.$th);
@@ -298,31 +303,34 @@ class WalletController extends Controller
                 foreach ($sponsors as $sponsor) {
                     if ($sponsor->id != $orden->iduser) {
                        if ($sponsor->id != 1) {
-                            $check = WalletBinary::where([
-                                ['iduser', '=', $sponsor->id],
-                                ['referred_id', '=', $orden->iduser],
-                                ['orden_purchase_id', '=', $orden->id]
-                            ])->first();
-                            if (empty($check)) {
-                                $concepto = 'Puntos binarios del Usuario '.$orden->getOrdenUser->fullname;
-                                $puntosD = $puntosI = 0;
-                                if ($side == 'I') {
-                                    $puntosI = $orden->total;
-                                }elseif($side == 'D'){
-                                    $puntosD = $orden->total;
-                                }
-                                $dataWalletPoints = [
-                                    'iduser' => $sponsor->id,
-                                    'referred_id' => $orden->iduser,
-                                    'orden_purchase_id' => $orden->id,
-                                    'puntos_d' => $puntosD,
-                                    'puntos_i' => $puntosI,
-                                    'side' => $side,
-                                    'status' => 0,
-                                    'descripcion' => $concepto
-                                ];
 
-                                WalletBinary::create($dataWalletPoints);
+                                $check = WalletBinary::where([
+                                    ['iduser', '=', $sponsor->id],
+                                    ['referred_id', '=', $orden->iduser],
+                                    ['orden_purchase_id', '=', $orden->id]
+                                ])->first();
+                                if (empty($check)) {
+                                    $concepto = 'Puntos binarios del Usuario '.$orden->getOrdenUser->fullname;
+                                    $puntosD = $puntosI = 0;
+                                    if ($sponsor->status == '1') {
+                                        if ($side == 'I') {
+                                            $puntosI = $orden->total;
+                                        }elseif($side == 'D'){
+                                            $puntosD = $orden->total;
+                                        }
+                                    }
+                                    $dataWalletPoints = [
+                                        'iduser' => $sponsor->id,
+                                        'referred_id' => $orden->iduser,
+                                        'orden_purchase_id' => $orden->id,
+                                        'puntos_d' => $puntosD,
+                                        'puntos_i' => $puntosI,
+                                        'side' => $side,
+                                        'status' => 0,
+                                        'descripcion' => $concepto
+                                    ];
+                                    
+                                    WalletBinary::create($dataWalletPoints);
                             }
                        }                    
                     }

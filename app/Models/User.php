@@ -102,6 +102,16 @@ class User extends Authenticatable
         return number_format($this->getWallet->where('status', 0)->where('tipo_transaction', 0)->sum('monto'), 2);
     }
 
+    /**
+     * muestra el saldo disponible en numeros
+     *
+     * @return float
+     */
+    public function saldoDisponibleNumber(): float
+    {
+        return $this->getWallet->where('status', 0)->where('tipo_transaction', 0)->sum('monto');
+    }
+
     public function gananciaActual()
     {   
         if(isset($this->inversionMasAlta()->ganacia) && $this->inversionMasAlta()->ganacia != null){
@@ -135,5 +145,51 @@ class User extends Authenticatable
         }else{
             return "";
         }
+    }
+
+    /**
+     * Permite obtener de forma bonita el status de un usuario
+     *
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        $estado = 'Inactivo';
+        if ($this->status == '1') {
+            $estado = 'Activo';
+        } elseif($this->status == '1') {
+            $estado = 'Eliminado';
+        }
+        return $estado;
+    }
+
+    /**
+     * Permite obtener el fee de los retiros
+     *
+     * @return float
+     */
+    public function getFeeWithdraw(): float
+    {
+        $result = 0;
+        $disponible = $this->saldoDisponibleNumber();        
+        if ($disponible > 0) {
+            $result = ($disponible * 0.06);
+        }
+        return floatval($result);
+    }
+
+    /**
+     * Obtiene el total a retirar de cada usuario
+     *
+     * @return float
+     */
+    public function totalARetirar(): float
+    {
+        $result = 0;
+        $disponible = $this->saldoDisponibleNumber();        
+        if ($disponible > 0) {
+            $result = ($disponible - $this->getFeeWithdraw());
+        }
+        return floatval($result);
     }
 }

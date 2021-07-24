@@ -124,7 +124,7 @@ class TiendaController extends Controller
                     //$data['inversion_id'] = $inversion->id;  
                     
                 }else{
-                    $porcentaje = ($paquete->price * 0.03);
+                    $porcentaje = 0; //($paquete->price * 0.03);
 
                     $total = ($paquete->price + $porcentaje);
                     $data = [

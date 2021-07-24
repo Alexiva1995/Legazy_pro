@@ -173,9 +173,6 @@ class UserController extends Controller
 
         $this->validate($request, $fields, $msj);
   
-
-        $fullname = $request->name .' '. $request->last_name;
-
         $user->update($request->all());
   
         if ($request->hasFile('photoDB')) {
@@ -187,7 +184,7 @@ class UserController extends Controller
     
          }
 
-        $user->fullname = $fullname;
+        $user->fullname = $request->fullname;
         // $user->utc = $request->utc;
         $user->admin = $request->admin;
         $user->status = $request->status;
@@ -233,7 +230,14 @@ class UserController extends Controller
         $user = User::find(Auth::user()->id);
 
         $fields = [
-
+            "fullname" => ['required'],
+            "email" => [
+               'required',
+               'string',
+               'email',
+               'max:255',
+           ],
+           'wallet_address' => ['min:21', 'max:35', 'nullable']
        
         ];
 
@@ -249,9 +253,6 @@ class UserController extends Controller
 
         $this->validate($request, $fields, $msj);
 
-        $fullname = $request->name .' '. $request->last_name;
-
-
         $user->update($request->all());
 
      if ($request->hasFile('photoDB')) {
@@ -263,7 +264,7 @@ class UserController extends Controller
 
      }
 
-        $user->fullname = $fullname;
+        $user->fullname = $request->fullname;
         $user->whatsapp = $request->whatsapp;
 
         $user->save();

@@ -482,7 +482,7 @@ class LiquidactionController extends Controller
             ])->get();
 
             $bruto = $comisiones->sum('monto');
-            if ($bruto < 50) {
+            if ($bruto < 60) {
                 return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 60 Usd');
             }
 

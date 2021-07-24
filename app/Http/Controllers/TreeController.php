@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\WalletBinary;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
-// use Illuminate\Support\Facades\Mail;
-// use App\Mail\shopmail;
-// use App\Mail\PaymentMail;
 
 class TreeController extends Controller
 {
@@ -29,9 +27,8 @@ class TreeController extends Controller
             $type = ucfirst($type);
             $base = Auth::user();
             $base->logoarbol = asset('assets/img/sistema/favicon.png');
-            //$shopmail = ['name' => 'joelgoyo'];
-            // Mail::to(Auth::user('email'))->send(new PaymentMail($shopmail));
-            return view('genealogy.tree', compact('trees', 'type', 'base'));
+            $binario = $this->getBinaryPoints(Auth::user()->id);
+            return view('genealogy.tree', compact('trees', 'type', 'base', 'binario'));
         } catch (\Throwable $th) {
             Log::error('Tree - indexNewtwork -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -56,6 +53,34 @@ class TreeController extends Controller
             Log::error('Tree - indexNewtwork -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
+    }
+
+    /**
+     * Permite obtener los puntos binarios de un usuario
+     *
+     * @param integer $iduser
+     * @return void
+     */
+    public function getBinaryPoints($iduser)
+    {
+        $binario = WalletBinary::where([
+            ['status', '=', 0],
+            ['puntos_d', '>', 0],
+            ['iduser', '=', $iduser]
+        ])->orWhere([
+            ['status', '=', 0],
+            ['puntos_i', '>', 0],
+            ['iduser', '=', $iduser]
+        ])->selectRaw('iduser, SUM(puntos_d) as totald, SUM(puntos_i) as totali')->groupBy('iduser')->first();
+
+        $data = collect(['totald' => 0, 'totali' => 0]);
+        if ($binario) {
+            $data = collect([
+                'totald' => $binario->totald,
+                'totali' => $binario->totali
+            ]);
+        }
+        return $data;
     }
 
     /**
@@ -120,7 +145,8 @@ class TreeController extends Controller
             $type = ucfirst($type);
             $base = User::find($id);
             $base->logoarbol = asset('assets/img/sistema/favicon.png');
-            return view('genealogy.tree', compact('trees', 'type', 'base'));
+            $binario = $this->getBinaryPoints(Auth::user()->id);
+            return view('genealogy.tree', compact('trees', 'type', 'base', 'binario'));
         } catch (\Throwable $th) {
             Log::error('Tree - moretree -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
