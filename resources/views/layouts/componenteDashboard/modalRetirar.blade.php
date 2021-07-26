@@ -32,7 +32,7 @@
                                 <label for="" class="col font-weight-bold text-white mr-3">Fee:</label>
                             </div>
                             <div class="col-8">
-                                 <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{ number_format(floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}">
+                                 <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{ number_format(Auth::user()->getFeeWithdraw(), 2) }}">
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                                 <label for="" class="col font-weight-bold text-white mr-3">A recibir:</label>
                             </div>
                             <div class="col-8">
-                                <input disabled style="backoground: #5f5f5f5f;" class="form-control w-50 d-inline" type="text" value="{{ number_format(floatval(Auth::user()->saldoDisponible()) - floatval(Auth::user()->saldoDisponible()) * 0.06,2) }}">
+                                <input disabled style="backoground: #5f5f5f5f;" class="form-control w-50 d-inline" type="text" value="{{ number_format(Auth::user()->totalARetirar(),2) }}">
                             </div>
                         </div>
                     </div>

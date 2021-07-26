@@ -330,7 +330,7 @@ class LiquidactionController extends Controller
                 'monto_bruto' => $bruto,
                 'feed' => $feed,
                 'hash',
-                'wallet_used' => $user->wallet_address,
+                'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
                 'status' => 0,
             ];
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
@@ -482,7 +482,7 @@ class LiquidactionController extends Controller
             ])->get();
 
             $bruto = $comisiones->sum('monto');
-            if ($bruto < 50) {
+            if ($bruto < 60) {
                 return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 60 Usd');
             }
 
@@ -495,7 +495,7 @@ class LiquidactionController extends Controller
                 'monto_bruto' => $bruto,
                 'feed' => $feed,
                 'hash',
-                'wallet_used' => $user->wallet_address,
+                'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
                 'status' => 0,
             ];
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
