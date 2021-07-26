@@ -387,7 +387,7 @@ class TiendaController extends Controller
         try {
             $ordenes = OrdenPurchases::where('status', '1')->whereDate('created_at', '>', Carbon::now()->subDays(10))->get();
             foreach ($ordenes as $orden) {
-                $orden->getOrdenUser->update(['status' => 1]);
+                $orden->getOrdenUser->update(['status' => '1']);
             }
         } catch (\Throwable $th) {
             Log::error('ActivacionController - activarUser -> Error: '.$th);
