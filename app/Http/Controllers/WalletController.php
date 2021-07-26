@@ -81,7 +81,10 @@ class WalletController extends Controller
             'tipo_transaction' => 0,
         ];
 
-        $this->saveWallet($data);
+        $aceleracion = $this->saveWallet($data);
+        if ($aceleracion) {
+            $this->aceleracion($iduser, $idreferido, $monto, $concepto);
+        }
     }
 
     /**
@@ -119,7 +122,7 @@ class WalletController extends Controller
      */    
     public function saveWallet($data)
     {
-        //try {
+        try {
             if ($data['iduser'] != 1) {
                 if ($data['tipo_transaction'] == 1) {
                     $wallet = Wallet::create($data);
@@ -145,11 +148,12 @@ class WalletController extends Controller
                     
                     // $wallet->update(['balance' => $saldoAcumulado]);
                 }
+                return true;
             }
-        /*} catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error('Wallet - saveWallet -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }*/
+        }
     }
 
     /**
@@ -259,6 +263,61 @@ class WalletController extends Controller
             $inversion->save();
         }
 
+    }
+
+    /**
+     * Permite accelarar el proceso de la barra de rentabilidad
+     *
+     * @param integer $iduser
+     * @param integer $idreferido
+     * @param float $totalComision
+     * @param string $concepto
+     * @return void
+     */
+    public function aceleracion($iduser, $idreferido, $totalComision, $concepto)
+    {
+        $inversion = Inversion::where([
+            ['iduser' => $idreferido],
+            ['status' => 1]
+        ])->first();
+        if ($inversion != null) {
+            //establecemos maxima ganancia
+            if($inversion->max_ganancia == null){
+                $inversion->max_ganancia = $inversion->invertido * 2;
+                $inversion->restante = $inversion->max_ganancia;
+            }
+            $porcentaje = PorcentajeUtilidad::orderBy('id', 'desc')->first();
+            $cantidad = $totalComision;
+            $resta = $inversion->restante - $cantidad;
+            
+            if($resta < 0){//comparamos si se pasa de lo que puede ganar
+                $cantidad = $inversion->restante;
+                $inversion->restante = 0;
+                $inversion->ganacia = $inversion->max_ganancia;
+                $inversion->status = 2;
+            }else{
+                $inversion->restante = $resta;
+                $inversion->ganacia += $cantidad;
+            }
+            $data = [
+                'iduser' => $inversion->iduser,
+                'referred_id' => $idreferido,
+                'cierre_comision_id' => null,
+                'monto' => $cantidad,
+                'descripcion' => $concepto,
+                'status' => 0,
+                'tipo_transaction' => 0,
+                'orden_purchases_id' => $inversion->orden_id
+            ];
+
+            if($data['monto'] > 0){
+                $wallet = Wallet::create($data);
+                // $saldoAcumulado = ($wallet->getWalletUser->wallet - $data['monto']);
+                // $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+            }
+                
+            $inversion->save();
+        }
     }
 
     /**

@@ -15,12 +15,27 @@
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
-                    <label class=" white" for="wallet_address">Billetera USDT</label>
+                    <label class=" white" for="wallet_address">Billetera</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('wallet_address') is-invalid @enderror"
                         id="wallet_address" name="wallet_address"
                         value="{{ $user->wallet_address }}">
                     @error('wallet_address')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="controls">
+                    <label class=" white" for="type_wallet">Tipo de Billetera @if ($user->type_wallet != '') -> Billetera Selecionada: {{ $user->type_wallet }} @endif</label>
+                    <select name="type_wallet" class="form-control border border-warning rounded-0 @error('wallet_address') is-invalid @enderror">
+                        <option value="" selected disabled>Seleccione una billetera</option>
+                        <option value="BTC">BTC</option>
+                        <option value="USDT">USDT</option>
+                    </select>
+                    @error('type_address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

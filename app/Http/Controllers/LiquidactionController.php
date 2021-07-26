@@ -330,7 +330,7 @@ class LiquidactionController extends Controller
                 'monto_bruto' => $bruto,
                 'feed' => $feed,
                 'hash',
-                'wallet_used' => $user->wallet_address,
+                'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
                 'status' => 0,
             ];
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
@@ -495,7 +495,7 @@ class LiquidactionController extends Controller
                 'monto_bruto' => $bruto,
                 'feed' => $feed,
                 'hash',
-                'wallet_used' => $user->wallet_address,
+                'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
                 'status' => 0,
             ];
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
