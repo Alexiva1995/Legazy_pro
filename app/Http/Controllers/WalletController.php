@@ -277,8 +277,8 @@ class WalletController extends Controller
     public function aceleracion($iduser, $idreferido, $totalComision, $concepto)
     {
         $inversion = Inversion::where([
-            ['iduser' => $idreferido],
-            ['status' => 1]
+            ['iduser', '=', $iduser],
+            ['status', '=', 1]
         ])->first();
         if ($inversion != null) {
             //establecemos maxima ganancia

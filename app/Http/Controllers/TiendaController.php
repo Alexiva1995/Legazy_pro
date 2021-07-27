@@ -45,6 +45,7 @@ class TiendaController extends Controller
             $packages = Packages::orderBy('id', 'desc')->paginate();
 
             $invertido = Auth::user()->inversionMasAlta();
+            // dd($invertido);
             if(isset($invertido)){
                 $invertido = $invertido->invertido;
             }
@@ -309,11 +310,13 @@ class TiendaController extends Controller
     private function registeInversion($idorden)
     {
         $orden = OrdenPurchases::find($idorden);
-        $paquete = $orden->getPackageOrden;
-        $total = $orden->cantidad * $paquete->price;
-        
-        //dd([$paquete->id, $orden->id, $orden->cantidad, $paquete->expired, $orden->iduser]);
-        return $this->inversionController->saveInversion($paquete->id, $orden->id, $total, $paquete->expired, $orden->iduser);
+        if ($orden != null) {
+            $paquete = $orden->getPackageOrden;
+            $total = $orden->cantidad * $paquete->price;
+            
+            //dd([$paquete->id, $orden->id, $orden->cantidad, $paquete->expired, $orden->iduser]);
+            return $this->inversionController->saveInversion($paquete->id, $total, $paquete->expired, $orden->iduser);
+        }
     }
 
      /**
@@ -363,12 +366,14 @@ class TiendaController extends Controller
                 if($pago->payment_status == 'finished'){
                     $estado = '1';
                     OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                    $this->registeInversion($pago->order_id);
                 }
                 if($pago->payment_status == 'partially_paid'){
                     $resta = ($pago->pay_amount - $pago->actually_paid);
                     if ($resta <= 1) {
                         $estado = '1';
                         OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                        $this->registeInversion($pago->order_id);
                     }
                 }
                 Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);

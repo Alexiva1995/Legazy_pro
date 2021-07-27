@@ -46,7 +46,7 @@ class DaiLyComision extends Command
             $walletControler->payAll();
             Log::info('Fin de los puntos y comisiones diarias - '.Carbon::now());
         } catch (\Throwable $th) {
-            Log::error('Error Cron Binario -> '.$th);
+            Log::error('Error Cron pago diario -> '.$th);
         }
     }
 }
