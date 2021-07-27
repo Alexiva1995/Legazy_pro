@@ -81,10 +81,7 @@ class WalletController extends Controller
             'tipo_transaction' => 0,
         ];
 
-        $aceleracion = $this->saveWallet($data);
-        if ($aceleracion) {
-            $this->aceleracion($iduser, $idreferido, $monto, $concepto);
-        }
+        $this->saveWallet($data);
     }
 
     /**
@@ -139,16 +136,16 @@ class WalletController extends Controller
                             $wallet = Wallet::create($data);
                             $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
                             $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+                            $this->aceleracion($data['iduser'], $data['referred_id'], $data['monto'], $data['descripcion']);
                         }
                     }else{
                         $wallet = Wallet::create($data);
                         $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
                         $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+                        $this->aceleracion($data['iduser'], $data['referred_id'], $data['monto'], $data['descripcion']);
                     }
-                    
                     // $wallet->update(['balance' => $saldoAcumulado]);
                 }
-                return true;
             }
         } catch (\Throwable $th) {
             Log::error('Wallet - saveWallet -> Error: '.$th);
@@ -299,22 +296,22 @@ class WalletController extends Controller
                 $inversion->restante = $resta;
                 $inversion->ganacia += $cantidad;
             }
-            $data = [
-                'iduser' => $inversion->iduser,
-                'referred_id' => $idreferido,
-                'cierre_comision_id' => null,
-                'monto' => $cantidad,
-                'descripcion' => $concepto,
-                'status' => 0,
-                'tipo_transaction' => 0,
-                'orden_purchases_id' => $inversion->orden_id
-            ];
+            // $data = [
+            //     'iduser' => $inversion->iduser,
+            //     'referred_id' => $idreferido,
+            //     'cierre_comision_id' => null,
+            //     'monto' => $cantidad,
+            //     'descripcion' => 'Profit -> '.$concepto,
+            //     'status' => 0,
+            //     'tipo_transaction' => 0,
+            //     'orden_purchases_id' => $inversion->orden_id
+            // ];
 
-            if($data['monto'] > 0){
-                $wallet = Wallet::create($data);
-                // $saldoAcumulado = ($wallet->getWalletUser->wallet - $data['monto']);
-                // $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
-            }
+            // if($data['monto'] > 0){
+            //     $wallet = Wallet::create($data);
+            //     // $saldoAcumulado = ($wallet->getWalletUser->wallet - $data['monto']);
+            //     // $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+            // }
                 
             $inversion->save();
         }

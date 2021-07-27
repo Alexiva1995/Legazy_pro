@@ -13,7 +13,7 @@
         @foreach ($data as $item)
         <tr class="text-center text-white">
             <td>{{$item->id}}</td>
-            <td>{{$item->name}}</td>
+            <td>{{$item->fullname}}</td>
 
             @if ($item->getUserOrden == '')
             <td>Sin paquete</td>

@@ -359,6 +359,7 @@ class TiendaController extends Controller
             $pagos = $response->data;
             // dd($pagos);
             foreach ($pagos as $pago) {
+                $estado = '0';
                 if ($pago->payment_status == 'expired') {
                     $estado = '2';
                     OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
@@ -366,15 +367,16 @@ class TiendaController extends Controller
                 if($pago->payment_status == 'finished'){
                     $estado = '1';
                     OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
-                    $this->registeInversion($pago->order_id);
                 }
                 if($pago->payment_status == 'partially_paid'){
                     $resta = ($pago->pay_amount - $pago->actually_paid);
                     if ($resta <= 1) {
                         $estado = '1';
                         OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
-                        $this->registeInversion($pago->order_id);
                     }
+                }
+                if ($estado == '1') {
+                    $this->registeInversion($pago->order_id);
                 }
                 Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
             }
@@ -394,6 +396,9 @@ class TiendaController extends Controller
             foreach ($ordenes as $orden) {
                 $orden->getOrdenUser->update(['status' => '1']);
             }
+            Log::info('Inicio de los puntos y comisiones diarias - '.Carbon::now());
+            $this->walletController->payAll();
+            Log::info('Fin de los puntos y comisiones diarias - '.Carbon::now());
         } catch (\Throwable $th) {
             Log::error('ActivacionController - activarUser -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
