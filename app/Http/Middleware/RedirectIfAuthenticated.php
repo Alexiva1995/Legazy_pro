@@ -24,6 +24,10 @@ class RedirectIfAuthenticated
             }
         }
 
+        if (!$request->secure() && $_SERVER['HTTP_HOST'] != 'localhost' && env('APP_ENV') != 'local') {
+        	return redirect()->secure($request->getPathInfo());
+        }
+
         return $next($request);
     }
 }
