@@ -58,8 +58,8 @@
                         <button class="btn btn-primary w-100 rounded-0 mt-2" type="submit" tabindex="4">INGRESAR</button>
     
                     </form>
-                    <p class="text-center mt-2"><span>¿Nuevo en la plataforma?</span><a
-                            href="{{ route('register') }}"><span>&nbsp;<b>Crea una cuenta</b></span></a></p>
+                    {{-- <p class="text-center mt-2"><span>¿Nuevo en la plataforma?</span><a
+                            href="{{ route('register') }}"><span>&nbsp;<b>Crea una cuenta</b></span></a></p> --}}
                 </div>
             </div>
 
