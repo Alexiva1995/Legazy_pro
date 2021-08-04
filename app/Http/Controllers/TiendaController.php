@@ -219,7 +219,7 @@ class TiendaController extends Controller
                 'price_amount' => floatval($data['total'])  ,
                 "price_currency" => "usd",
                 "order_id" => $data['idorden'],
-                'pay_currency' => 'USDTTRC20',
+                'pay_currency' => '',
                 "order_description" => $data['descripcion'],
                 "ipn_callback_url" => route('shop.ipn'),
                 "success_url" => route('shop.proceso.status', 'Completada'),
@@ -248,6 +248,7 @@ class TiendaController extends Controller
                     Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
                 } else {
                     $response = json_decode($response);
+                    // dd($response);
                    
                     $orden = OrdenPurchases::where('id', $data['idorden'])->first();
             
