@@ -429,14 +429,41 @@ class WalletController extends Controller
             if ($puntos > 0) {
                 $comision = ($puntos * 0.1);
                 $sponsor = User::find($binario->iduser);
-                $sponsor->point_rank += $puntos;
-                $concepto = 'Bono Binario - '.$puntos;
-                $idcomision = $binario->iduser.Carbon::now()->format('Ymd');
-                $this->setPointBinaryPaid($puntos, $side_menor, $binario->iduser, $side_mayor);
-                $this->preSaveWallet($sponsor->id, $sponsor->id, null, $comision, $concepto);
-                $sponsor->save();
+                if ($this->verificarBinario($sponsor->id)) {
+                    $sponsor->point_rank += $puntos;
+                    $concepto = 'Bono Binario - '.$puntos;
+                    $idcomision = $binario->iduser.Carbon::now()->format('Ymd');
+                    $this->setPointBinaryPaid($puntos, $side_menor, $binario->iduser, $side_mayor);
+                    $this->preSaveWallet($sponsor->id, $sponsor->id, null, $comision, $concepto);
+                    $sponsor->save();
+                }
             }
         }
+    }
+
+    /**
+     * Permite verificar si un usuario tiene el binario activo
+     *
+     * @param integer $iduser
+     * @return boolean
+     */
+    public function verificarBinario($iduser): bool
+    {
+        $result = false;
+        $checBinaryIzquierdo = User::where([
+            ['binary_side', '=', 'I'],
+            ['status', '=', '1'],
+            ['referred_id', '=', $iduser]
+        ])->first();
+        $checBinaryDerecho = User::where([
+            ['binary_side', '=', 'D'],
+            ['status', '=', '1'],
+            ['referred_id', '=', $iduser]
+        ])->first();
+        if (!empty($checBinaryIzquierdo) && !empty($checBinaryDerecho)) {
+            $result = true;
+        }
+        return $result;
     }
 
     /**
