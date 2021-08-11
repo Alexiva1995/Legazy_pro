@@ -62,13 +62,13 @@ $referred = DB::table('users')
                         name="email" placeholder="john@example.com" />
                 </div>
                 <div class="mb-2">
-                    <label class="form-label text-white mb-1" for="referred_id"><b>Auspiciador</b></label>
+                    {{-- <label class="form-label text-white mb-1" for="referred_id"><b>Auspiciador</b></label> --}}
                     @if (!empty($referred))
-                    <input class="form-control border border-warning rounded-0" id="referred_id" type="text"
+                    <input class="form-control border border-warning rounded-0" id="referred_id" type="hidden"
                         name="referred_id" placeholder="" aria-describedby="referred_id" autofocus="" readonly
                         value="{{request()->referred_id}}" />
                     @else
-                    <input class="form-control border border-warning rounded-0" id="referred_id" type="text"
+                    <input class="form-control border border-warning rounded-0" id="referred_id" type="hidden"
                         name="referred_id" placeholder="Sin Auspiciador" aria-describedby="referred_id" autofocus=""
                         readonly value="1" />
                     @endif

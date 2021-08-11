@@ -39,7 +39,7 @@
                         <div class="mb-1">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label text-white" for="password">Contraseña</label><a
-                                    href="page-auth-forgot-password-v2.html"><small>Olvide mi contraseña</small></a>
+                                    href="{{ route('password.request') }}"><small>Olvide mi contraseña</small></a>
                             </div>
                             <div class="input-group input-group-merge form-password-toggle">
                                 <input class="form-control form-control-merge border border-warning rounded-0" required id="password" type="password"
@@ -58,8 +58,8 @@
                         <button class="btn btn-primary w-100 rounded-0 mt-2" type="submit" tabindex="4">INGRESAR</button>
     
                     </form>
-                    <p class="text-center mt-2"><span>¿Nuevo en la plataforma?</span><a
-                            href="{{ route('register') }}"><span>&nbsp;<b>Crea una cuenta</b></span></a></p>
+                    {{-- <p class="text-center mt-2"><span>¿Nuevo en la plataforma?</span><a
+                            href="{{ route('register') }}"><span>&nbsp;<b>Crea una cuenta</b></span></a></p> --}}
                 </div>
             </div>
 

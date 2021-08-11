@@ -45,6 +45,7 @@ class TiendaController extends Controller
             $packages = Packages::orderBy('id', 'desc')->paginate();
 
             $invertido = Auth::user()->inversionMasAlta();
+            // dd($invertido);
             if(isset($invertido)){
                 $invertido = $invertido->invertido;
             }
@@ -218,7 +219,7 @@ class TiendaController extends Controller
                 'price_amount' => floatval($data['total'])  ,
                 "price_currency" => "usd",
                 "order_id" => $data['idorden'],
-                'pay_currency' => 'USDTTRC20',
+                'pay_currency' => '',
                 "order_description" => $data['descripcion'],
                 "ipn_callback_url" => route('shop.ipn'),
                 "success_url" => route('shop.proceso.status', 'Completada'),
@@ -247,6 +248,7 @@ class TiendaController extends Controller
                     Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
                 } else {
                     $response = json_decode($response);
+                    // dd($response);
                    
                     $orden = OrdenPurchases::where('id', $data['idorden'])->first();
             
@@ -309,11 +311,13 @@ class TiendaController extends Controller
     private function registeInversion($idorden)
     {
         $orden = OrdenPurchases::find($idorden);
-        $paquete = $orden->getPackageOrden;
-        $total = $orden->cantidad * $paquete->price;
-        
-        //dd([$paquete->id, $orden->id, $orden->cantidad, $paquete->expired, $orden->iduser]);
-        return $this->inversionController->saveInversion($paquete->id, $orden->id, $total, $paquete->expired, $orden->iduser);
+        if ($orden != null) {
+            $paquete = $orden->getPackageOrden;
+            $total = $orden->cantidad * $paquete->price;
+            
+            //dd([$paquete->id, $orden->id, $orden->cantidad, $paquete->expired, $orden->iduser]);
+            return $this->inversionController->saveInversion($paquete->id, $total, $paquete->expired, $orden->iduser);
+        }
     }
 
      /**
@@ -356,6 +360,7 @@ class TiendaController extends Controller
             $pagos = $response->data;
             // dd($pagos);
             foreach ($pagos as $pago) {
+                $estado = '0';
                 if ($pago->payment_status == 'expired') {
                     $estado = '2';
                     OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
@@ -370,6 +375,9 @@ class TiendaController extends Controller
                         $estado = '1';
                         OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
                     }
+                }
+                if ($estado == '1') {
+                    $this->registeInversion($pago->order_id);
                 }
                 Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
             }
@@ -387,8 +395,11 @@ class TiendaController extends Controller
         try {
             $ordenes = OrdenPurchases::where('status', '1')->whereDate('created_at', '>', Carbon::now()->subDays(10))->get();
             foreach ($ordenes as $orden) {
-                $orden->getOrdenUser->update(['status' => 1]);
+                $orden->getOrdenUser->update(['status' => '1']);
             }
+            Log::info('Inicio de los puntos y comisiones diarias - '.Carbon::now());
+            $this->walletController->payAll();
+            Log::info('Fin de los puntos y comisiones diarias - '.Carbon::now());
         } catch (\Throwable $th) {
             Log::error('ActivacionController - activarUser -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");

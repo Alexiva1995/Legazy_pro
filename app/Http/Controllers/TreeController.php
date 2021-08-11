@@ -190,7 +190,7 @@ class TreeController extends Controller
     private function getData($id, $nivel, $typeTree)
     {
         try {
-            $resul = User::where($typeTree, '=', $id)->get();
+            $resul = User::where($typeTree, '=', $id)->orderBy('binary_side', 'asc')->get();
             foreach ($resul as $user) {
                 $user->nivel = $nivel;
                 $user->logoarbol = asset('assets/img/sistema/favicon.png');

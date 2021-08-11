@@ -81,10 +81,7 @@ class WalletController extends Controller
             'tipo_transaction' => 0,
         ];
 
-        $aceleracion = $this->saveWallet($data);
-        if ($aceleracion) {
-            $this->aceleracion($iduser, $idreferido, $monto, $concepto);
-        }
+        $this->saveWallet($data);
     }
 
     /**
@@ -139,16 +136,16 @@ class WalletController extends Controller
                             $wallet = Wallet::create($data);
                             $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
                             $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+                            $this->aceleracion($data['iduser'], $data['referred_id'], $data['monto'], $data['descripcion']);
                         }
                     }else{
                         $wallet = Wallet::create($data);
                         $saldoAcumulado = ($wallet->getWalletUser->wallet + $data['monto']);
                         $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+                        $this->aceleracion($data['iduser'], $data['referred_id'], $data['monto'], $data['descripcion']);
                     }
-                    
                     // $wallet->update(['balance' => $saldoAcumulado]);
                 }
-                return true;
             }
         } catch (\Throwable $th) {
             Log::error('Wallet - saveWallet -> Error: '.$th);
@@ -277,8 +274,8 @@ class WalletController extends Controller
     public function aceleracion($iduser, $idreferido, $totalComision, $concepto)
     {
         $inversion = Inversion::where([
-            ['iduser' => $idreferido],
-            ['status' => 1]
+            ['iduser', '=', $iduser],
+            ['status', '=', 1]
         ])->first();
         if ($inversion != null) {
             //establecemos maxima ganancia
@@ -299,22 +296,22 @@ class WalletController extends Controller
                 $inversion->restante = $resta;
                 $inversion->ganacia += $cantidad;
             }
-            $data = [
-                'iduser' => $inversion->iduser,
-                'referred_id' => $idreferido,
-                'cierre_comision_id' => null,
-                'monto' => $cantidad,
-                'descripcion' => $concepto,
-                'status' => 0,
-                'tipo_transaction' => 0,
-                'orden_purchases_id' => $inversion->orden_id
-            ];
+            // $data = [
+            //     'iduser' => $inversion->iduser,
+            //     'referred_id' => $idreferido,
+            //     'cierre_comision_id' => null,
+            //     'monto' => $cantidad,
+            //     'descripcion' => 'Profit -> '.$concepto,
+            //     'status' => 0,
+            //     'tipo_transaction' => 0,
+            //     'orden_purchases_id' => $inversion->orden_id
+            // ];
 
-            if($data['monto'] > 0){
-                $wallet = Wallet::create($data);
-                // $saldoAcumulado = ($wallet->getWalletUser->wallet - $data['monto']);
-                // $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
-            }
+            // if($data['monto'] > 0){
+            //     $wallet = Wallet::create($data);
+            //     // $saldoAcumulado = ($wallet->getWalletUser->wallet - $data['monto']);
+            //     // $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+            // }
                 
             $inversion->save();
         }
@@ -432,14 +429,41 @@ class WalletController extends Controller
             if ($puntos > 0) {
                 $comision = ($puntos * 0.1);
                 $sponsor = User::find($binario->iduser);
-                $sponsor->point_rank += $puntos;
-                $concepto = 'Bono Binario - '.$puntos;
-                $idcomision = $binario->iduser.Carbon::now()->format('Ymd');
-                $this->setPointBinaryPaid($puntos, $side_menor, $binario->iduser, $side_mayor);
-                $this->preSaveWallet($sponsor->id, $sponsor->id, null, $comision, $concepto);
-                $sponsor->save();
+                if ($this->verificarBinario($sponsor->id)) {
+                    $sponsor->point_rank += $puntos;
+                    $concepto = 'Bono Binario - '.$puntos;
+                    $idcomision = $binario->iduser.Carbon::now()->format('Ymd');
+                    $this->setPointBinaryPaid($puntos, $side_menor, $binario->iduser, $side_mayor);
+                    $this->preSaveWallet($sponsor->id, $sponsor->id, null, $comision, $concepto);
+                    $sponsor->save();
+                }
             }
         }
+    }
+
+    /**
+     * Permite verificar si un usuario tiene el binario activo
+     *
+     * @param integer $iduser
+     * @return boolean
+     */
+    public function verificarBinario($iduser): bool
+    {
+        $result = false;
+        $checBinaryIzquierdo = User::where([
+            ['binary_side', '=', 'I'],
+            ['status', '=', '1'],
+            ['referred_id', '=', $iduser]
+        ])->first();
+        $checBinaryDerecho = User::where([
+            ['binary_side', '=', 'D'],
+            ['status', '=', '1'],
+            ['referred_id', '=', $iduser]
+        ])->first();
+        if (!empty($checBinaryIzquierdo) && !empty($checBinaryDerecho)) {
+            $result = true;
+        }
+        return $result;
     }
 
     /**

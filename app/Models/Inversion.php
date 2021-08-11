@@ -10,7 +10,7 @@ class Inversion extends Model
     protected $table = 'inversions';
 
     protected $fillable = [
-        'package_id', 'orden_id', 'invertido',
+        'package_id', 'invertido',
         'ganacia', 'retiro', 'capital', 'progreso',
         'fecha_vencimiento', 'iduser', 'ganancia_acumulada',
         'restante', 'max_ganancia'

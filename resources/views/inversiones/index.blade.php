@@ -55,7 +55,7 @@
                                     <td>{{number_format($inversion->progreso() * 2,2, ',', '.')}} %</td>
                                     {{-- <td>$ {{number_format($inversion->ganancia_acumulada,2, ',', '.')}}</td> --}}
                                     {{-- <td>{{number_format($inversion->porcentaje_fondo,2, ',', '.')}} %</td> --}}
-                                    <td>{{date('Y-M-d', strtotime($inversion->fecha_vencimiento))}}</td>
+                                    <td>{{date('Y-m-d', strtotime($inversion->created_at))}}</td>
                                     <td>
                                         @if($inversion->status == 1)
                                             Activo

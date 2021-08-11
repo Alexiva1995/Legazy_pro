@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\BinaryComision::class,
-        Commands\DaiLyComision::class,
+        // Commands\DaiLyComision::class,
         Commands\CheckRank::class,
         Commands\checkStatusPurchase::class,
         Commands\PagarUtilidad::class
@@ -30,11 +30,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('daily:comision')->everyTenMinutes();
+        // $schedule->command('daily:comision')->everyTenMinutes();
         $schedule->command('binary:comision')->daily();
         $schedule->command('check:rank')->daily();
         $schedule->command('checkstatus:purchase')->everyTenMinutes();
-        $schedule->command('pagar:utilidad')->daily();
+        $schedule->command('pagar:utilidad')->cron('0 0 * * 1-5');;
     }
 
     /**

@@ -75,13 +75,12 @@ class InversionController extends Controller
      * Permite guardar las nuevas inversiones generadas
      *
      * @param integer $paquete - ID del Paquete Comprado
-     * @param integer $orden - ID de la compra Comprada
      * @param float $invertido - Monto Total Invertido
      * @param string $vencimiento - Fecha de Vencimiento del paquete
      * @param integer $iduser - ID del usuario 
      * @return void
      */
-    public function saveInversion(int $paquete, int $orden, float $invertido, $vencimiento, int $iduser)
+    public function saveInversion(int $paquete, float $invertido, $vencimiento, int $iduser)
     {
         try {
             $check = Inversion::where([
