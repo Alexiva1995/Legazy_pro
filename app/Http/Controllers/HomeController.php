@@ -11,6 +11,7 @@ use App\Http\Controllers\TreeController;
 use App\Http\Controllers\WalletController;
 use App\Models\OrdenPurchases;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -56,6 +57,8 @@ class HomeController extends Controller
     public function index()
     {
         try {
+            // dd(Crypt::encryptString('DFR7W73-93J4GW1-M1XE745-M8RPDVD'));
+            dd(Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0='));
             $data = $this->dataDashboard(Auth::id());
             
             return view('dashboard.index', compact('data'));

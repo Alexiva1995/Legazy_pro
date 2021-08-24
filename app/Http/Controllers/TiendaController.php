@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\InversionController;
 use App\Http\Controllers\WalletController;
-
+use Illuminate\Support\Facades\Crypt;
 
 class TiendaController extends Controller
 {
@@ -27,10 +27,7 @@ class TiendaController extends Controller
     {
         $this->walletController = new WalletController;
         $this->inversionController = new InversionController();
-        //$this->apis_key_nowpayments = '56ZHMKJ-3E1MC2ZK5NK025-XSTRFHY';
         $this->apis_key_nowpayments = 'DFR7W73-93J4GW1-M1XE745-M8RPDVD';
-         //la tienda funciona pero la api key de nowpaymenst no esta activa
-        // con mi api key si funciona YH0WTN1-5T64QQC-MRVZZPE-0DSX41R
     }
 
     /**
@@ -207,7 +204,8 @@ class TiendaController extends Controller
      */
     private function generalUrlOrden($data): string
     {
-        //try {
+        try {
+            $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
             $headers = [
                 'x-api-key: '.$this->apis_key_nowpayments,
                 'Content-Type:application/json'
@@ -258,10 +256,10 @@ class TiendaController extends Controller
                 }
 
             return $resul;
-        /*} catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error('Tienda - generalUrlOrden -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }*/
+        }
     }
 
     public function cambiar_status(Request $request)
@@ -328,6 +326,7 @@ class TiendaController extends Controller
     public function checkStatusOrden()
     {
 
+        $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
         $headers = [
             'x-api-key: '.$this->apis_key_nowpayments,
             'Content-Type:application/json'
