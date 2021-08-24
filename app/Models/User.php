@@ -27,7 +27,8 @@ class User extends Authenticatable
         'name', 'last_name', 'username', 'email', 'password', 'whatsapp',
         'fullname', 'referred_id', 'binary_id', 'admin', 'balance', 'status',
         'wallet', 'address', 'binary_side', 'binary_side_register', 'dni',
-        'photoDB', 'wallet_address', 'point_rank', 'rank_id', 'type_wallet'
+        'photoDB', 'wallet_address', 'point_rank', 'rank_id', 'type_wallet',
+        'code_licence'
     ];
 
     /**
@@ -36,7 +37,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'code_licence'
     ];
 
     /**
