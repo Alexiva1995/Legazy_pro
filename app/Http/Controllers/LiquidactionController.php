@@ -7,20 +7,25 @@ use App\Models\User;
 use App\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\DoubleAutenticationController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class LiquidactionController extends Controller
 {
 
     public $walletController;
+    public $doubleAuthController;
 
     function __construct()
     {
         $this->walletController = new WalletController();
+        $this->doubleAuthController = new DoubleAutenticationController();
     }
 
     /**
@@ -31,8 +36,17 @@ class LiquidactionController extends Controller
     public function index()
     {
         try {
-            $comisiones = $this->getTotalComisiones([], null);
-            return view('settlement.index', compact('comisiones'));
+            $liquidation = Liquidaction::where([
+                ['iduser', '=', Auth::id()],
+                ['status', '=', 0]
+            ])->first();
+            if ($liquidation != null) {
+                if (!session()->has('intentos_fallidos')) {
+                    session(['intentos_fallidos' => 0]);
+                }
+            }
+            $comisiones = $this->getTotalComisiones([], Auth::id());
+            return view('settlement.index', compact('comisiones', 'liquidation'));
         } catch (\Throwable $th) {
             Log::error('Liquidaction - index -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
@@ -332,8 +346,21 @@ class LiquidactionController extends Controller
                 'hash',
                 'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
                 'status' => 0,
+                'code_correo' => Str::random(10),
+                'fecha_code' => Carbon::now()
             ];
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
+
+            $dataEmail = [
+                'user' => $user->fullname,
+                'code' => $arrayLiquidation['code_correo']
+            ];
+
+            Mail::send('mail.SendCodeRetiro', $dataEmail, function ($msj) use ($user)
+            {
+                $msj->subject('Codigo Retiro');
+                $msj->to($user->email);
+            });
 
             // $concepto = 'Liquidacion del usuario '.$user->fullname.' por un monto de '.$bruto;
             // $arrayWallet =[
@@ -384,7 +411,9 @@ class LiquidactionController extends Controller
     {
         if ($request->action == 'aproved') {
             $validate = $request->validate([
-                'hash' => ['required'],
+                'google_code' => ['required', 'numeric'],
+                'correo_code' => ['required'], 
+                'wallet' => ['required']
             ]);
         }else{
             $validate = $request->validate([
@@ -394,15 +423,35 @@ class LiquidactionController extends Controller
         try {
             if ($validate) {
                 $idliquidation = $request->idliquidation;
+                $liquidation = Liquidaction::find($idliquidation);
                 $accion = 'No Procesada';
-                if ($request->action == 'reverse') {
-                    $accion = 'Reversada';
-                    $this->reversarLiquidacion($idliquidation, $request->comentario);
-                }elseif ($request->action == 'aproved') {
-                    $accion = 'Aprobada';
-                    $this->aprovarLiquidacion($idliquidation, $request->hash);
+                //Verifica si ha fallado mucho metiendo los codigo
+                if (session()->has('intentos_fallidos')) {
+                    if (session('intentos_fallidos') >= 2) {
+                        session()->forget('intentos_fallidos');
+                        $request->comentario = 'Demasiados Intento Fallido con los codigo';
+                        $accion = 'Reversada';
+                        $this->reversarLiquidacion($idliquidation, $request->comentario);
+                    }
+                
+                    //Verifica si los codigo esta bien
+                    if (!$this->doubleAuthController->checkCode($liquidation->iduser, $request->google_code) && $liquidation->code_correo != $request->correo_code && session()->has('intentos_fallidos')) {
+                        session(['intentos_fallidos' => (session('intentos_fallidos') + 1)]);
+                        return redirect()->back()->with('msj-danger', 'La Liquidacion fue '.$accion.' con exito, Codigos incorrectos');
+                    }
+
+                    if ($request->action == 'aproved' && session('intentos_fallidos') < 2) {
+                        $aproved = $this->aprovarLiquidacion($idliquidation, $request->wallet);
+                        if ($aproved == '') {
+                            $accion = 'Aprobada';
+                        }else{
+                            return redirect()->back()->with('msj-danger', 'Hubo un error al realizar el pago. '.$aproved);
+                        }
+                        
+                        
+                    }
                 }
-    
+
                 if ($accion != 'No Procesada') {
                     $arrayLog = [
                         'idliquidation' => $idliquidation,
@@ -424,18 +473,94 @@ class LiquidactionController extends Controller
      * Permite aprobar las liquidaciones
      *
      * @param integer $idliquidation
-     * @param string $hash
-     * @return void
+     * @param string $billetera
+     * @return string
      */
-    public function aprovarLiquidacion($idliquidation, $hash)
+    public function aprovarLiquidacion($idliquidation, $billetera): string
     {
-        Liquidaction::where('id', $idliquidation)->update([
-            'status' => 1,
-            'hash' => $hash
-        ]);
+        $liquidation = Liquidaction::find($idliquidation);
+        // creo el arreglo de la transacion en coipayment
+        $cmd = 'create_withdrawal';
+        $result = '';
+        $dataPago = [
+            'amount' => $liquidation->total,
+            'currency' => 'USDT.TRC20',
+            'address' => $billetera,
+        ];
+        // llamo la a la funcion que va a ser la transacion
+        $result = $this->coinpayments_api_call($cmd, $dataPago);
+        if (!empty($result['result'])) {
+            Liquidaction::where('id', $idliquidation)->update([
+                'status' => 1,
+                'hash' => $result['result']['id'],
+                'wallet_used' => $billetera
+            ]);
 
-        Wallet::where('liquidation_id', $idliquidation)->update(['liquidado' => 1]);
+            Wallet::where('liquidation_id', $idliquidation)->update(['liquidado' => 1]);   
+        }else{
+            $result = 'Error -> '.$result['error'];
+        }
+
+        return $result;
     }
+
+    /**
+	 * Funcion que hace el llamado a la api de coinpayment
+	 * 	ojo: esto dejarlo tal cual, en coinpayment debe permitir este procedimiento "create_withdrawal"
+	 *
+	 * @param string $cmd - transacion a ejecutar
+	 * @param array $req - arreglo con el request a procesar
+	 * @return void
+	 */
+	public function coinpayments_api_call($cmd, $req = array()) {
+		// Fill these in from your API Keys page
+		$public_key = env('COIN_PAYMENT_PUBLIC_KEY', '');
+		$private_key = env('COIN_PAYMENT_PRIVATE_KEY', '');
+		
+		// Set the API command and required fields
+		$req['version'] = 1;
+		$req['cmd'] = $cmd;
+		$req['key'] = $public_key;
+		$req['format'] = 'json'; //supported values are json and xml
+		
+		// Generate the query string
+		$post_data = http_build_query($req, '', '&');
+		
+		// Calculate the HMAC signature on the POST data
+		$hmac = hash_hmac('sha512', $post_data, $private_key);
+		
+		// Create cURL handle and initialize (if needed)
+		static $ch = NULL;
+		if ($ch === NULL) {
+			$ch = curl_init('https://www.coinpayments.net/api.php');
+			curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		}
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('HMAC: '.$hmac));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+		
+		// Execute the call and close cURL handle     
+		$data = curl_exec($ch);                
+		// Parse and return data if successful.
+		if ($data !== FALSE) {
+			if (PHP_INT_SIZE < 8 && version_compare(PHP_VERSION, '5.4.0') >= 0) {
+				// We are on 32-bit PHP, so use the bigint as string option. If you are using any API calls with Satoshis it is highly NOT recommended to use 32-bit PHP
+				$dec = json_decode($data, TRUE, 512, JSON_BIGINT_AS_STRING);
+			} else {
+				$dec = json_decode($data, TRUE);
+			}
+			if ($dec !== NULL && count($dec)) {
+				return $dec;
+			} else {
+				// If you are using PHP 5.5.0 or higher you can use json_last_error_msg() for a better error message
+				return array('error' => 'Unable to parse JSON result ('.json_last_error().')');
+			}
+		} else {
+			return array('error' => 'cURL error: '.curl_error($ch));
+		}
+		// dd($this->coinpayments_api_call('rates'));
+	} 
 
     /**
      * Permite procesar reversiones del sistema

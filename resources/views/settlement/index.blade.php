@@ -65,8 +65,21 @@
         </div>
     </div>
     @include('settlement.componentes.modalDetalles', ['all' => true])
+    @if (!empty($liquidation))
+    @include('settlement.componentes.modalAprobar')
+    @endif
 </div>
 @endsection
+
+@if (!empty($liquidation))
+@push('custom_js')
+    <script>
+        $(document).ready(function () {
+            $('#modalModalAprobar').modal('show')
+        })
+    </script>        
+@endpush
+@endif
 
 {{-- permite llamar a las opciones de las tablas --}}
 @include('layouts.componenteDashboard.optionDatatable')
