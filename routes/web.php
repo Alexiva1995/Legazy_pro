@@ -24,8 +24,9 @@ Route::get('/', 'HomeController@home')->middleware('auth');
 
 Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 {
-
-
+    // 2fact
+    Route::get('/2fact', 'DoubleAutenticationController@index')->name('2fact');
+    Route::post('/2fact', 'DoubleAutenticationController@checkCodeLogin')->name('2fact.post');
     // Inicio
     Route::get('/home', 'HomeController@index')->name('home');
      // Inicio de usuarios
@@ -125,6 +126,17 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::get('ticket-show-admin/{id}','TicketsController@showAdmin')->name('ticket.show-admin');
     });
 
+    //Ruta de liquidacion
+    Route::prefix('settlement')->group(function()
+    {
+        //Ruta liquidaciones realizadas
+        Route::get('/', 'LiquidactionController@index')->name('settlement');
+        Route::get('/pending', 'LiquidactionController@indexPendientes')->name('settlement.pending');
+        Route::post('/process', 'LiquidactionController@procesarLiquidacion')->name('settlement.process');
+        Route::get('/{status}/history', 'LiquidactionController@indexHistory')->name('settlement.history.status');
+        Route::resource('liquidation', 'LiquidactionController');
+    });
+
 
     /**
      * Seccion del sistema para el admin
@@ -147,17 +159,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
             Route::get('package-grupos', 'GroupsController@index')->name('products.package-grupos');
             Route::get('package-index', 'PackagesController@index')->name('products.package-index');
             Route::get('package-create', 'PackagesController@create')->name('products.package-create');
-        });
-
-         //Ruta de liquidacion
-        Route::prefix('settlement')->group(function()
-        {
-            //Ruta liquidaciones realizadas
-            Route::get('/', 'LiquidactionController@index')->name('settlement');
-            Route::get('/pending', 'LiquidactionController@indexPendientes')->name('settlement.pending');
-            Route::post('/process', 'LiquidactionController@procesarLiquidacion')->name('settlement.process');
-            Route::get('/{status}/history', 'LiquidactionController@indexHistory')->name('settlement.history.status');
-            Route::resource('liquidation', 'LiquidactionController');
         });
 
         //Rutas para el cierre de productos

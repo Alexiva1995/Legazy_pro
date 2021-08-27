@@ -124,6 +124,12 @@ class Menu
                         'complementoruta' => '' 
                     ],
                     [
+                        'name' => 'Generar Retiros',
+                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                        'ruta' => route('settlement'),
+                        'complementoruta' => ''
+                    ],
+                    [
                         'name' => 'Retiros',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
                         'ruta' => route('payments.index'),
@@ -245,18 +251,18 @@ class Menu
                 'icon' => 'feather icon-pocket',
                 'complementoruta' => '',
                 'submenus' => [
-                    [
-                        'name' => 'Por generar',
-                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('settlement'),
-                        'complementoruta' => ''
-                    ],
-                    [
-                        'name' => 'Pendientes',
-                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('settlement.pending'),
-                        'complementoruta' => ''
-                    ],
+                    // [
+                    //     'name' => 'Por generar',
+                    //     'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                    //     'ruta' => route('settlement'),
+                    //     'complementoruta' => ''
+                    // ],
+                    // [
+                    //     'name' => 'Pendientes',
+                    //     'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                    //     'ruta' => route('settlement.pending'),
+                    //     'complementoruta' => ''
+                    // ],
                     [
                         'name' => 'Realizadas',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank

@@ -35,8 +35,9 @@ class WalletController extends Controller
      */
     public function index()
     {
+        $this->payAll();
         if (Auth::user()->admin == 1) {
-            $wallets = Wallet::all()->where('iduser', Auth::user()->id)->where('tipo_transaction', 0);
+            $wallets = Wallet::where('iduser', Auth::user()->id)->where('tipo_transaction', 0);
         }else{
             $wallets = Auth::user()->getWallet->where('tipo_transaction', 0);
         }
