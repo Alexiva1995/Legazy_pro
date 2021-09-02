@@ -425,6 +425,9 @@ class LiquidactionController extends Controller
                 $idliquidation = $request->idliquidation;
                 $liquidation = Liquidaction::find($idliquidation);
                 $accion = 'No Procesada';
+                if ($this->reversarRetiro30Min()) {
+                    return redirect()->back()->with('msj-danger', 'El tiempo limite fue excedido');
+                }
                 //Verifica si ha fallado mucho metiendo los codigo
                 if (session()->has('intentos_fallidos')) {
                     if (session('intentos_fallidos') >= 3) {
