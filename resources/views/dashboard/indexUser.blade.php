@@ -128,6 +128,6 @@ $(document).ready(function () {
 {{-- link de referido --}}
 @include('layouts.componenteDashboard.linkReferido')
 {{--Modal retirar saldo disponible--}}
-@include('layouts.componenteDashboard.modalRetirar')
+{{-- @include('layouts.componenteDashboard.modalRetirar') --}}
 
 @endsection
