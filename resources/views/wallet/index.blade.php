@@ -15,8 +15,7 @@
                         $ {{number_format($saldoDisponible,2)}}
                     </div>
                     <div class="col-12 col-md-4">
-                            <button class="btn btn-primary" data-toggle="modal"
-                            data-target="#modalSaldoDisponible">Retirar</button>
+                            <a class="btn btn-primary" href="{{route('settlement.withdraw')}}">Retirar</a>
                     </div>
                 </div>
                 <div class="table-responsive"> 
