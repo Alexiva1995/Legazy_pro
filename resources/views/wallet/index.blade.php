@@ -26,6 +26,6 @@
     </div>
 </div>
 @endsection
-@include('layouts.componenteDashboard.modalRetirar')
+{{-- @include('layouts.componenteDashboard.modalRetirar') --}}
 {{-- permite llamar a las opciones de las tablas --}}
 @include('layouts.componenteDashboard.optionDatatable')
