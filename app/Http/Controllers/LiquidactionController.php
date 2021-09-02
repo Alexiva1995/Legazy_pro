@@ -481,7 +481,7 @@ class LiquidactionController extends Controller
         $liquidation = Liquidaction::find($idliquidation);
         // creo el arreglo de la transacion en coipayment
         $cmd = 'create_withdrawal';
-        $result = '';
+        $result2 = '';
         $dataPago = [
             'amount' => $liquidation->total,
             'currency' => 'USDT.TRC20',
@@ -498,10 +498,10 @@ class LiquidactionController extends Controller
 
             Wallet::where('liquidation_id', $idliquidation)->update(['liquidado' => 1]);   
         }else{
-            $result = 'Error -> '.$result['error'];
+            $result2 = 'Error -> '.$result['error'];
         }
 
-        return $result;
+        return $result2;
     }
 
     /**
@@ -595,9 +595,31 @@ class LiquidactionController extends Controller
         $liquidacion->save();
     }
 
+    /**
+     * Lleva a la vista de retiros
+     *
+     * @return void
+     */
+    public function withdraw()
+    {
+        return view('settlement.withdraw');
+    }
+
+    /**
+     * Permite retirar todo el saldo completamente
+     *
+     * @param Request $request
+     * @return void
+     */
     public function retirarSaldo(Request $request)
     {
+        $validate = $request->validate([
+            'google_code' => ['required', 'numeric'],
+            'correo_code' => ['required'], 
+            'wallet' => ['required']
+        ]);
         try {  
+            
             $user = Auth::user();
     
             $comisiones = Wallet::where([
@@ -624,7 +646,7 @@ class LiquidactionController extends Controller
                 'status' => 0,
             ];
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
-            
+
             if (!empty($idLiquidation)) {
                 $listComi = $comisiones->pluck('id');
                 Wallet::whereIn('id', $listComi)->update([
@@ -638,5 +660,40 @@ class LiquidactionController extends Controller
             Log::error('Liquidaction - generarLiquidation -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
+    }
+
+    /**
+     * Permite generar el codigo del correo
+     *
+     * @return void
+     */
+    public function sendCodeEmail()
+    {
+        $user = Auth::user();
+    
+        $comisiones = Wallet::where([
+            ['iduser', '=', $user->id],
+            ['status', '=', 0],
+            ['tipo_transaction', '=', 0],
+        ])->get();
+
+        $bruto = $comisiones->sum('monto');
+        if ($bruto < 50) {
+            return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 50 Usd');
+        }
+
+        $feed = ($bruto * 0.06);
+        $total = ($bruto - $feed);
+      
+        $arrayLiquidation = [
+            'iduser' => $user->id,
+            'total' => $total,
+            'monto_bruto' => $bruto,
+            'feed' => $feed,
+            'hash',
+            'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
+            'status' => 0,
+        ];
+        $idLiquidation = $this->saveLiquidation($arrayLiquidation);
     }
 }

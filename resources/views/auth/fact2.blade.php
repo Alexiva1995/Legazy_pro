@@ -42,6 +42,13 @@
                                 placeholder="000000" aria-describedby="username" autofocus="" tabindex="1" />
                         </div>    
                         <button class="btn btn-primary w-100 rounded-0 mt-2" type="submit" tabindex="4">Verificar</button>
+                        <a class="btn btn-primary w-100 rounded-0 mt-2" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            <i class="feather icon-log-out"></i> Salir
+                        </a>
+                    </form>
+                     {{-- formulario de salir --}}
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
                     </form>
                     {{-- <p class="text-center mt-2"><span>¿Nuevo en la plataforma?</span><a
                             href="{{ route('register') }}"><span>&nbsp;<b>Crea una cuenta</b></span></a></p> --}}

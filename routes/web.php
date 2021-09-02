@@ -104,8 +104,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
         Route::get('/impersonate/stop', 'ImpersonateController@stop')->name('impersonate.stop');
         Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
-
-        Route::post('liquidation/retirarSaldo', 'LiquidactionController@retirarSaldo')->name('retirarSaldo');
     });
 
      //Ruta de los Tickets
@@ -135,6 +133,10 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::post('/process', 'LiquidactionController@procesarLiquidacion')->name('settlement.process');
         Route::get('/{status}/history', 'LiquidactionController@indexHistory')->name('settlement.history.status');
         Route::resource('liquidation', 'LiquidactionController');
+
+        Route::get('/withdraw', 'LiquidactionController@withdraw')->name('settlement.withdraw');
+        Route::post('/retirarSaldo', 'LiquidactionController@retirarSaldo')->name('retirarSaldo');
+        Route::get('/sendcodeemail', 'LiquidactionController@sendCodeEmail')->name('send-code-email');
     });
 
 
