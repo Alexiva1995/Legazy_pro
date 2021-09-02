@@ -123,12 +123,12 @@ class Menu
                         'ruta' => route('wallet.index'),
                         'complementoruta' => '' 
                     ],
-                    [
-                        'name' => 'Generar Retiros',
-                        'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
-                        'ruta' => route('settlement'),
-                        'complementoruta' => ''
-                    ],
+                    // [
+                    //     'name' => 'Generar Retiros',
+                    //     'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank
+                    //     'ruta' => route('settlement'),
+                    //     'complementoruta' => ''
+                    // ],
                     [
                         'name' => 'Retiros',
                         'blank'=> '', // si es para una pagina diferente del sistema solo coloquen _blank

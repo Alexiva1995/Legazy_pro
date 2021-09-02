@@ -12,39 +12,33 @@
         <form method="POST" action="{{route('retirarSaldo')}}">
             @csrf 
      
-            <div class="modal-body text-center">
+            <div class="modal-body">
                
                 <div class="row">
-                    <div class="col-12 mb-1">
-                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
-                            <div class="col-2">
-                                <label for="" class="col font-weight-bold text-white mr-3">Monto:</label>
-                            </div>
-                            <div class="col-8">
-                                 <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{Auth::user()->saldoDisponible()}}">
-                            </div>
-                        </div>
+                    <div class="col-12 mb-1" >
+                        <label for="" class="col font-weight-bold text-white mr-3">Billetera</label>
+                        <input required style="backoground: #5f5f5f5f;" class="form-control d-inline" name="wallet" type="text" value="">
                     </div>
                     <div class="col-12 mb-1">
-
-                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
-                            <div class="col-2">
-                                <label for="" class="col font-weight-bold text-white mr-3">Fee:</label>
-                            </div>
-                            <div class="col-8">
-                                 <input disabled style="backoground: #5f5f5f5f;" class="col form-control w-50 d-inline" type="text" value="{{ number_format(Auth::user()->getFeeWithdraw(), 2) }}">
-                            </div>
-                        </div>
+                        <label for="" class="col font-weight-bold text-white mr-3">Disponible</label>
+                        <input disabled style="backoground: #5f5f5f5f;" class="col form-control d-inline" type="text" value="{{Auth::user()->saldoDisponible()}}">
                     </div>
                     <div class="col-12 mb-1">
-                        <div class="row mb-0 justify-content-center" style="font-size: 1.5em;">
-                            <div class="col-2">
-                                <label for="" class="col font-weight-bold text-white mr-3">A recibir:</label>
-                            </div>
-                            <div class="col-8">
-                                <input disabled style="backoground: #5f5f5f5f;" class="form-control w-50 d-inline" type="text" value="{{ number_format(Auth::user()->totalARetirar(),2) }}">
-                            </div>
-                        </div>
+                        <label for="" class="col font-weight-bold text-white mr-3">Fee</label>
+                        <input disabled style="backoground: #5f5f5f5f;" class="col form-control d-inline" type="text" value="{{ number_format(Auth::user()->getFeeWithdraw(), 2) }}">
+                    </div>
+                    <div class="col-12 mb-1">
+                        <label for="" class="col font-weight-bold text-white mr-3">A recibir:</label>
+                        <input disabled style="backoground: #5f5f5f5f;" class="form-control d-inline" type="text" value="{{ number_format(Auth::user()->totalARetirar(),2) }}">
+                    </div>
+                    <div class="col-12 mb-1" >
+                        <label for="" class="col font-weight-bold text-white mr-3">Codigo Authenticador</label>
+                        <input required style="backoground: #5f5f5f5f;" class="form-control d-inline" name="google_code" type="text" value="">
+                    </div>
+                    <div class="col-12 mb-1" >
+                        <label for="" class="col font-weight-bold text-white mr-3">Codigo Correo</label>
+                        <input required style="backoground: #5f5f5f5f;" class="form-control d-inline" name="correo_code" type="text" value="">
+                        <a href="{{route('send-code-email')}}" class="btn btn-info mt-1 btn-block">Solicitar Codigo Correo</a>
                     </div>
                 </div>
             </div>
