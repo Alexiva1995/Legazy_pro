@@ -100,10 +100,7 @@ class User extends Authenticatable
 
     public function saldoDisponible()
     {
-        return number_format($this->getWallet->where([
-            ['status', '=', 0],
-            ['liquidado', '=', 0]
-        ])->where('tipo_transaction', 0)->sum('monto'), 2);
+        return number_format($this->getWallet->where('status', 0)->where('liquidado', 0)->where('tipo_transaction', 0)->sum('monto'), 2);
     }
 
     /**
@@ -113,10 +110,7 @@ class User extends Authenticatable
      */
     public function saldoDisponibleNumber(): float
     {
-        return $this->getWallet->where([
-            ['status', '=', 0],
-            ['liquidado', '=', 0]
-        ])->where('tipo_transaction', 0)->sum('monto');
+        return $this->getWallet->where('status', 0)->where('liquidado', 0)->where('tipo_transaction', 0)->sum('monto');
     }
 
     public function gananciaActual()
