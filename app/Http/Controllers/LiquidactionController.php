@@ -622,7 +622,6 @@ class LiquidactionController extends Controller
             $liquidation = Liquidaction::where([
                 ['iduser', '=', Auth::id()],
                 ['status', '=', 0],
-                ['liquidado', '=', 0]
             ])->first();
             if ($liquidation != null) {
                 return $liquidation->id;
@@ -633,6 +632,7 @@ class LiquidactionController extends Controller
             $comisiones = Wallet::where([
                 ['iduser', '=', $user->id],
                 ['status', '=', 0],
+                ['liquidado','=', 0],
                 ['tipo_transaction', '=', 0],
             ])->get();
 
@@ -667,6 +667,14 @@ class LiquidactionController extends Controller
                 $msj->subject('Codigo Retiro');
                 $msj->to($user->email);
             });
+            
+            if (!empty($idLiquidation)) {
+                $listComi = $comisiones->pluck('id');
+                Wallet::whereIn('id', $listComi)->update([
+                    'status' => 1,
+                    'liquidation_id' => $idLiquidation
+                ]);
+            }
             return $idLiquidation;
         } catch (\Throwable $th) {
             Log::error('Liquidaction - sendCodeEmail -> Error: '.$th);
