@@ -10,27 +10,27 @@
                 </button>
             </div>
             <div class="modal-body text-justify">
-                <div class="alert alert-primary" role="alert">
+                {{-- <div class="alert alert-primary" role="alert">
                     Intentos Fallidos {{session('intentos_fallidos')}}/3
-                  </div>
+                  </div> --}}
                 <form action="{{route('settlement.process')}}" method="post">
                     @csrf
-                    <input type="hidden" name="idliquidation" value="{{$liquidation->id}}">
-                    <input type="hidden" name="action" value="aproved">
-                    <h5 class="text-white">Usuario: <strong>{{$liquidation->getUserLiquidation->fullname}}</strong></h5>
-                    <h5 class="text-white">Total: <strong>{{$liquidation->total}}</strong></h5> 
+                    <input type="hidden" name="idliquidation" :value="idliquidacion">
+                    <input type="hidden" name="action" value="aproved"> 
+                    <input type="hidden" name="wallet"  :value="wallet">
+
+                    <div class="form-group" >
+                        <label for="">Codigo Correo</label>
+                        <input type="text" name="correo_code" class="form-control" required>
+                        <div class="col-12 text-center mt-1">
+                            <button type="button" class="btn btn-info text'white" v-on:click='sendCodeEmail' v-if='idliquidacion == 0'>Enviar Codigo</button>
+                            <span class='text-white' v-else>Codigo Enviado, tienes 30 min sino se cancelara el retiro automaticamente</span>
+                        </div>
+                    </div>
 
                     <div class="form-group" >
                         <label for="">Codigo Google</label>
                         <input type="text" name="google_code" class="form-control" required>
-                    </div>
-                    <div class="form-group" >
-                        <label for="">Codigo Correo</label>
-                        <input type="text" name="correo_code" class="form-control" required>
-                    </div>
-                    <div class="form-group" >
-                        <label for="">Billetera</label>
-                        <input type="text" name="wallet" class="form-control" required>
                     </div>
                     
                     <div class="form-group text-center">

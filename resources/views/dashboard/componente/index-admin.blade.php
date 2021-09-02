@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="card-header d-flex align-items-center mt-3">
-                        <button class="btn btn-dark rounded-0" data-toggle="modal" data-target="#modalSaldoDisponible"><b>RETIRAR</b></button>
+                        <a class="btn btn-dark rounded-0" href='{{route('settlement.withdraw')}}'><b>RETIRAR</b></a>
                     </div>
                 </div>
             </div>

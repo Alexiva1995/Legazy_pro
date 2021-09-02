@@ -427,7 +427,7 @@ class LiquidactionController extends Controller
                 $accion = 'No Procesada';
                 //Verifica si ha fallado mucho metiendo los codigo
                 if (session()->has('intentos_fallidos')) {
-                    if (session('intentos_fallidos') >= 2) {
+                    if (session('intentos_fallidos') >= 3) {
                         session()->forget('intentos_fallidos');
                         $request->comentario = 'Demasiados Intento Fallido con los codigo';
                         $accion = 'Reversada';
@@ -446,9 +446,7 @@ class LiquidactionController extends Controller
                             $accion = 'Aprobada';
                         }else{
                             return redirect()->back()->with('msj-danger', 'Hubo un error al realizar el pago. '.$aproved);
-                        }
-                        
-                        
+                        }  
                     }
                 }
 
@@ -602,26 +600,32 @@ class LiquidactionController extends Controller
      */
     public function withdraw()
     {
+        $this->reversarRetiro30Min();
         return view('settlement.withdraw');
     }
 
     /**
-     * Permite retirar todo el saldo completamente
+     * Permite generar el codigo del correo
      *
-     * @param Request $request
-     * @return void
+     * @return 
      */
-    public function retirarSaldo(Request $request)
+    public function sendCodeEmail(): int
     {
-        $validate = $request->validate([
-            'google_code' => ['required', 'numeric'],
-            'correo_code' => ['required'], 
-            'wallet' => ['required']
-        ]);
-        try {  
-            
+        try {
+            $this->reversarRetiro30Min();
+            if (!session()->has('intentos_fallidos')) {
+                session(['intentos_fallidos' => 1]);
+            }
+            $liquidation = Liquidaction::where([
+                ['iduser', '=', Auth::id()],
+                ['status', '=', 0]
+            ])->first();
+            if ($liquidation != null) {
+                return $liquidation->id;
+            }
+
             $user = Auth::user();
-    
+        
             $comisiones = Wallet::where([
                 ['iduser', '=', $user->id],
                 ['status', '=', 0],
@@ -630,70 +634,62 @@ class LiquidactionController extends Controller
 
             $bruto = $comisiones->sum('monto');
             if ($bruto < 50) {
-                return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 50 Usd');
+                return 0;
             }
 
             $feed = ($bruto * 0.06);
             $total = ($bruto - $feed);
-          
+        
             $arrayLiquidation = [
                 'iduser' => $user->id,
                 'total' => $total,
                 'monto_bruto' => $bruto,
                 'feed' => $feed,
                 'hash',
-                'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
+                'wallet_used' => '',
                 'status' => 0,
+                'code_correo' => Str::random(10),
+                'fecha_code' => Carbon::now()
             ];
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
 
-            if (!empty($idLiquidation)) {
-                $listComi = $comisiones->pluck('id');
-                Wallet::whereIn('id', $listComi)->update([
-                    'status' => 1,
-                    'liquidation_id' => $idLiquidation
-                ]);
-            }
+            $dataEmail = [
+                'user' => $user->fullname,
+                'code' => $arrayLiquidation['code_correo']
+            ];
 
-            return redirect()->back()->with('msj-success', 'Saldo retirado con exito');
+            Mail::send('mail.SendCodeRetiro', $dataEmail, function ($msj) use ($user)
+            {
+                $msj->subject('Codigo Retiro');
+                $msj->to($user->email);
+            });
+            return $idLiquidation;
         } catch (\Throwable $th) {
-            Log::error('Liquidaction - generarLiquidation -> Error: '.$th);
+            Log::error('Liquidaction - sendCodeEmail -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
-        }
+        }  
     }
 
     /**
-     * Permite generar el codigo del correo
+     * Permite reversar los retiros que tienen mas de 30 min activos
      *
-     * @return void
+     * @return bool
      */
-    public function sendCodeEmail()
+    public function reversarRetiro30Min():bool
     {
-        $user = Auth::user();
-    
-        $comisiones = Wallet::where([
-            ['iduser', '=', $user->id],
-            ['status', '=', 0],
-            ['tipo_transaction', '=', 0],
-        ])->get();
-
-        $bruto = $comisiones->sum('monto');
-        if ($bruto < 50) {
-            return redirect()->back()->with('msj-danger', 'El monto minimo de retirar es 50 Usd');
+        $liquidation = Liquidaction::where([
+            ['iduser', '=', Auth::id()],
+            ['status', '=', 0]
+        ])->first();
+        $result = false;
+        if ($liquidation != null) {
+            $fechaActual = Carbon::now();
+            $fechaCodeCorreo = new Carbon($liquidation->fecha_code);
+            if ($fechaCodeCorreo->diffInMinutes($fechaActual) >= 30) {
+                $this->reversarLiquidacion($liquidation->id, 'Tiempo limite de codigo sobrepasado');
+                $result = true;
+            }
         }
-
-        $feed = ($bruto * 0.06);
-        $total = ($bruto - $feed);
-      
-        $arrayLiquidation = [
-            'iduser' => $user->id,
-            'total' => $total,
-            'monto_bruto' => $bruto,
-            'feed' => $feed,
-            'hash',
-            'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
-            'status' => 0,
-        ];
-        $idLiquidation = $this->saveLiquidation($arrayLiquidation);
+        return $result;
     }
 }
