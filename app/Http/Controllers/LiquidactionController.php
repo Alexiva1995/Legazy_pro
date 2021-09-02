@@ -497,7 +497,7 @@ class LiquidactionController extends Controller
                 'wallet_used' => $billetera
             ]);
 
-            Wallet::where('liquidation_id', $idliquidation)->update(['liquidado' => 1]);   
+            Wallet::where('liquidation_id', $idliquidation)->update(['liquidado' => 1, 'status' => 1]);   
         }else{
             $result2 = 'Error -> '.$result['error'];
         }
@@ -621,7 +621,8 @@ class LiquidactionController extends Controller
             }
             $liquidation = Liquidaction::where([
                 ['iduser', '=', Auth::id()],
-                ['status', '=', 0]
+                ['status', '=', 0],
+                ['liquidado', '=', 0]
             ])->first();
             if ($liquidation != null) {
                 return $liquidation->id;
