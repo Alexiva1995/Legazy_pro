@@ -135,7 +135,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::resource('liquidation', 'LiquidactionController');
 
         Route::get('/withdraw', 'LiquidactionController@withdraw')->name('settlement.withdraw');
-        Route::post('/retirarSaldo', 'LiquidactionController@retirarSaldo')->name('retirarSaldo');
         Route::get('/sendcodeemail', 'LiquidactionController@sendCodeEmail')->name('send-code-email');
     });
 
