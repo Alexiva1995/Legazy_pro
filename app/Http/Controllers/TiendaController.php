@@ -396,6 +396,10 @@ class TiendaController extends Controller
             foreach ($ordenes as $orden) {
                 $orden->getOrdenUser->update(['status' => '1']);
             }
+            $ordenes = OrdenPurchases::where('status', '!=', '1')->whereDate('created_at', '>', Carbon::now()->subDays(10))->get();
+            foreach ($ordenes as $orden) {
+                $orden->getOrdenUser->update(['status' => '0']);
+            }
             Log::info('Inicio de los puntos y comisiones diarias - '.Carbon::now());
             $this->walletController->payAll();
             Log::info('Fin de los puntos y comisiones diarias - '.Carbon::now());

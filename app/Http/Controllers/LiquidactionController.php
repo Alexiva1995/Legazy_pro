@@ -448,6 +448,8 @@ class LiquidactionController extends Controller
                         if ($aproved == '') {
                             $accion = 'Aprobada';
                         }else{
+                            $comentario = 'Error en la plataforma de coinpayment';
+                            $this->reversarLiquidacion($idliquidation,$comentario);
                             return redirect()->back()->with('msj-danger', 'Hubo un error al realizar el pago. '.$aproved);
                         }  
                     }
