@@ -27,7 +27,7 @@ var vm_withdraw = new Vue({
          * Permite enviar el codigo de correo para aprobar liquidacion
          */
         sendCodeEmail: function (){
-            let url = route('send-code-email');
+            let url = route('send-code-email', this.wallet);
             axios.get(url, []).then((response) => {
                 if (response.data > 0) {
                     this.idliquidacion = response.data

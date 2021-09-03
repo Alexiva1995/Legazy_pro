@@ -610,9 +610,10 @@ class LiquidactionController extends Controller
     /**
      * Permite generar el codigo del correo
      *
+     * @param string $wallet
      * @return 
      */
-    public function sendCodeEmail(): int
+    public function sendCodeEmail($wallet): int
     {
         try {
             $this->reversarRetiro30Min();
@@ -650,7 +651,7 @@ class LiquidactionController extends Controller
                 'monto_bruto' => $bruto,
                 'feed' => $feed,
                 'hash',
-                'wallet_used' => '',
+                'wallet_used' => $wallet,
                 'status' => 0,
                 'code_correo' => Str::random(10),
                 'fecha_code' => Carbon::now()
@@ -658,6 +659,8 @@ class LiquidactionController extends Controller
             $idLiquidation = $this->saveLiquidation($arrayLiquidation);
 
             $dataEmail = [
+                'billetera' => $wallet,
+                'total' => $total,
                 'user' => $user->fullname,
                 'code' => $arrayLiquidation['code_correo']
             ];
