@@ -3,19 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Country;
-use App\Models\Timezone;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 use App\Rules\MatchOldPassword;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+
+use App\Http\Controllers\DoubleAutenticationController;
+
 
 class UserController extends Controller
 {
 
+    public $doubleAuthController;
+    public function __construct()
+    {
+        $this->doubleAuthController = new DoubleAutenticationController;
+    }
     // public function index()
     // {
     //     View::share('titleg', 'Usuarios');
@@ -227,7 +233,7 @@ class UserController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        $user = User::find(Auth::user()->id);
+        $user = User::find(Auth::id());
 
         $fields = [
             "fullname" => ['required'],
@@ -252,6 +258,24 @@ class UserController extends Controller
         ];
 
         $this->validate($request, $fields, $msj);
+
+        if ($user->email != $request->email) {
+            $fields = [
+                'code_google' => ['required'],
+                'code_correo' => ['required']
+           
+            ];
+    
+            $msj = [
+                'code_google.required' => 'El codigo del authenticador no es requerido.',
+                'code_correo.required' => 'El codigo del correo es requerido.',
+            ];
+            $this->validate($request, $fields, $msj);
+             //Verifica si los codigo esta bien
+             if (!$this->doubleAuthController->checkCode(Auth::id(), $request->code_google) && $user->code_email != $request->code_correo) {
+                return redirect()->back()->with('msj-danger', 'Codigo Incorrectos');
+            }
+        }
 
         $user->update($request->all());
 
@@ -302,6 +326,35 @@ class UserController extends Controller
       $user->delete();
       
       return redirect()->route('users.list-user')->with('msj-success', 'Usuario '.$id.' Eliminado');
+    }
+
+    /**
+     * Permite enviar un correo con un codigo para poder cambiar el correo
+     *
+     * @return void
+     */
+    public function sendCodeEmail()
+    {
+       
+        $user = User::find(Auth::id());
+
+        $user->code_email = Str::random(10);
+        $user->code_email_date = Carbon::now();
+
+        $dataEmail = [
+            'user' => $user->fullname,
+            'code' => $user->code_email 
+        ];
+
+        $user->save();
+
+        Mail::send('mail.SendCodeEmail', $dataEmail, function ($msj) use ($user)
+        {
+            $msj->subject('Codigo Email');
+            $msj->to($user->email);
+        });
+
+        return redirect()->back()->with('msj-success', 'Codigo Enviado, por favor revise su correo');
     }
 
 }

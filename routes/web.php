@@ -104,6 +104,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
         Route::get('/impersonate/stop', 'ImpersonateController@stop')->name('impersonate.stop');
         Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
+
+        Route::get('sendcode', 'UserController@sendCodeEmail')->name('user.send.code');
     });
 
      //Ruta de los Tickets

@@ -1,7 +1,6 @@
-<form action="{{ route('profile.update',$user->id) }}" method="POST"
-    enctype="multipart/form-data">
+<form action="{{ route('profile.update',$user->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @method('PATCH') 
+    @method('PATCH')
 
     <div class="row">
         <div class="col-12">
@@ -11,15 +10,14 @@
                 </div>
             </div>
         </div>
-  
+
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
                     <label class=" white" for="wallet_address">Billetera</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('wallet_address') is-invalid @enderror"
-                        id="wallet_address" name="wallet_address"
-                        value="{{ $user->wallet_address }}">
+                        id="wallet_address" name="wallet_address" value="{{ $user->wallet_address }}">
                     @error('wallet_address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -29,8 +27,10 @@
             </div>
             <div class="form-group">
                 <div class="controls">
-                    <label class=" white" for="type_wallet">Tipo de Billetera @if ($user->type_wallet != '') -> Billetera Selecionada: {{ $user->type_wallet }} @endif</label>
-                    <select name="type_wallet" class="form-control border border-warning rounded-0 @error('wallet_address') is-invalid @enderror">
+                    <label class=" white" for="type_wallet">Tipo de Billetera @if ($user->type_wallet != '') ->
+                        Billetera Selecionada: {{ $user->type_wallet }} @endif</label>
+                    <select name="type_wallet"
+                        class="form-control border border-warning rounded-0 @error('wallet_address') is-invalid @enderror">
                         <option value="" selected disabled>Seleccione una billetera</option>
                         <option value="BTC">BTC</option>
                         <option value="USDT">USDT</option>
@@ -45,21 +45,20 @@
         </div>
 
         <div class="col-12 mb-2">
-            <a href="https://accounts.binance.com/es/register" target="_blank"
-            class="gold waves-effect waves-light"> <b>¿No tiene billetera? Abre una cuenta en binance</b></a>
+            <a href="https://accounts.binance.com/es/register" target="_blank" class="gold waves-effect waves-light">
+                <b>¿No tiene billetera? Abre una cuenta en binance</b></a>
         </div>
 
     </div>
     <hr>
     <div class="media">
         <div class="custom-file">
-            <label class="custom-file-label  border border-warning rounded-0" for="photoDB" style="background: #1e1e1e;color: white;">Seleccione su
+            <label class="custom-file-label  border border-warning rounded-0" for="photoDB"
+                style="background: #1e1e1e;color: white;">Seleccione su
                 Foto <b>(Se permiten JPG o PNG.
-                Tamaño máximo de 800kB)</b></label>
-            <input type="file" id="photoDB"
-                class="custom-file-input @error('photoDB') is-invalid @enderror"
-                name="photoDB" onchange="previewFile(this, 'photo_preview')"
-                accept="image/*">
+                    Tamaño máximo de 800kB)</b></label>
+            <input type="file" id="photoDB" class="custom-file-input @error('photoDB') is-invalid @enderror"
+                name="photoDB" onchange="previewFile(this, 'photo_preview')" accept="image/*">
             @error('photoDB')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -71,13 +70,13 @@
     <div class="row mb-4 mt-4 d-none" id="photo_preview_wrapper">
         <div class="col"></div>
         <div class="col-auto">
-          <img id="photo_preview" class="img-fluid rounded" />
+            <img id="photo_preview" class="img-fluid rounded" />
         </div>
         <div class="col"></div>
     </div>
-    
+
     <hr>
- 
+
     <div class="row">
         <div class="col-12">
             <div class="form-group">
@@ -92,8 +91,7 @@
                     <label class=" white" for="">Nombre Completo</label>
                     <input type="text"
                         class="form-control border border-warning rounded-0 @error('name') is-invalid @enderror"
-                        id="fullname" name="fullname"
-                        value="{{ $user->fullname }}">
+                        id="fullname" name="fullname" value="{{ $user->fullname }}">
                     @error('fullname')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -109,13 +107,31 @@
                     <label class=" white" for="email">Email</label>
                     <input type="email"
                         class="form-control border border-warning rounded-0 @error('email') is-invalid @enderror"
-                        id="email" name="email"
-                        value="{{ $user->email }}">
+                        id="email" name="email" value="{{ $user->email }}">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <div class="controls">
+                    <label class=" white" for="code_google">Codigo Authenticador</label>
+                    <input type="text" class="form-control border border-warning rounded-0" id="code_google"
+                        name="code_google">
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <div class="controls">
+                    <label class=" white" for="code_correo">Codigo Correo</label>
+                    <input type="text" class="form-control border  border-warning rounded-0" id="code_correo"
+                        name="code_correo">
+                        <a href="{{route('user.send.code')}}" class="btn btn-outline-warning btn-block padding-button-short mt-1 waves-effect waves-light text-white">Enviar Codigo</a>
                 </div>
             </div>
         </div>
@@ -139,37 +155,38 @@
             <div class="form-group">
                 <div class="controls">
                     <label class=" white" for="password">Contraseña Actual</label>
-            
-                    <input id="password" type="password" class="form-control border border-warning rounded-0" name="current_password"
-                    autocomplete="current-password">
-            
+
+                    <input id="password" type="password" class="form-control border border-warning rounded-0"
+                        name="current_password" autocomplete="current-password">
+
                 </div>
             </div>
         </div>
 
         <div class="col-6">
-        <div class="form-group">
-            <div class="controls">
-            <label for="password" class="white">Nueva Contraseña</label>
-            
-                <input id="new_password" type="password" class="form-control border border-warning rounded-0" name="new_password"
-                    autocomplete="current-password">
+            <div class="form-group">
+                <div class="controls">
+                    <label for="password" class="white">Nueva Contraseña</label>
+
+                    <input id="new_password" type="password" class="form-control border border-warning rounded-0"
+                        name="new_password" autocomplete="current-password">
+                </div>
             </div>
-        </div>
         </div>
 
         <div class="col-6">
-        <div class="form-group">
-            <div class="controls">
-            <label for="password" class="white">Confirme la Contraseña</label>
-            
-                <input id="new_confirm_password" type="password" class="form-control border border-warning rounded-0"
-                    name="new_confirm_password" autocomplete="current-password">
+            <div class="form-group">
+                <div class="controls">
+                    <label for="password" class="white">Confirme la Contraseña</label>
+
+                    <input id="new_confirm_password" type="password"
+                        class="form-control border border-warning rounded-0" name="new_confirm_password"
+                        autocomplete="current-password">
+                </div>
             </div>
         </div>
-        </div>
 
-        
+
 
     </div>
     <hr>
@@ -182,14 +199,14 @@
                 </div>
             </div>
         </div>
-  
+
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
                     <label class=" white" for="address">Dirección</label>
                     <textarea type="text"
                         class="form-control border border-warning white rounded-0 @error('address') is-invalid @enderror"
-                        id="address"name="address" style="background: #141414;">{{ $user->address}}</textarea>
+                        id="address" name="address" style="background: #141414;">{{ $user->address}}</textarea>
                     @error('address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -202,8 +219,7 @@
             <div class="form-group">
                 <div class="controls">
                     <h6 class="font-weight-bold white"><span class="text-danger">Nota:
-                        </span> Si no quieres añadir <span
-                            class="text-danger">Más Información</span> deja
+                        </span> Si no quieres añadir <span class="text-danger">Más Información</span> deja
                         estos
                         espacios en blanco.</h6>
                 </div>

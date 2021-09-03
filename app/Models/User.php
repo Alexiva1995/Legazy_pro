@@ -28,7 +28,7 @@ class User extends Authenticatable
         'fullname', 'referred_id', 'binary_id', 'admin', 'balance', 'status',
         'wallet', 'address', 'binary_side', 'binary_side_register', 'dni',
         'photoDB', 'wallet_address', 'point_rank', 'rank_id', 'type_wallet',
-        'code_licence', 'token_google', 'activar_2fact'
+        'code_licence', 'token_google', 'activar_2fact', 'code_email', 'code_email_date'
     ];
 
     /**
