@@ -94,7 +94,7 @@ class InversionController extends Controller
                 ['iduser', '=', $iduser],
                 ['status', '=', 1]
             ])->get()->count('id');
-            
+            // Inversion nueva
             if ($checkActivos == 0 && $check == null) {
                 $data = [
                     'iduser' => $iduser,
@@ -111,6 +111,16 @@ class InversionController extends Controller
                 
                 $inversion = Inversion::create($data);
                 return $inversion->id;
+            }
+            // Actualizar la inversion
+            if ($checkActivos == 1 && $check != null) {
+                if ($paquete > $check->package_id) {
+                    Inversion::where(['id', $check->id])->update([
+                        'package_id' => $paquete,
+                        'invertido' => $invertido,
+                        'capital' => $invertido,
+                    ]);
+                }
             }
         } catch (\Throwable $th) {
             Log::error('InversionController - saveInversion -> Error: '.$th);
