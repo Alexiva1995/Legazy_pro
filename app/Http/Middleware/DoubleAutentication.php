@@ -21,7 +21,7 @@ class DoubleAutentication
         if (Auth::check()) {
             if ($request->getPathInfo() != '/logout') {
                 View::share('show2fact', true);
-                if (Auth::user()->activar_2fact == '0' && !empty(Auth::user()->token_google)) {
+                if (Auth::user()->activar_2fact == '2' && !empty(Auth::user()->token_google)) {
                     View::share('show2fact', false);
                     if (!session()->has('2fact')) {
                         session(['2fact' => 1]);

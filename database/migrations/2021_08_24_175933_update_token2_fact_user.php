@@ -15,7 +15,7 @@ class UpdateToken2FactUser extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('token_google')->commet('guarda el token de la doble autenticacion')->nullable();
-            $table->enum('activar_2fact', [0, 1])->default(0)->comment('activa o desactiva la doble autenticacion de un usuario');
+            $table->enum('activar_2fact', [0, 1, 2])->default(0)->comment('activa o desactiva la doble autenticacion de un usuario, 2 - esta acitvo pero no pide');
         });
     }
 
