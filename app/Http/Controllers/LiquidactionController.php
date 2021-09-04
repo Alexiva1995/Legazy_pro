@@ -709,4 +709,30 @@ class LiquidactionController extends Controller
         }
         return $result;
     }
+
+    /**
+     * Permite revisar el estado de las ordenes en coinpayment y las reversas si fueron canceladas
+     *
+     * @return void
+     */
+    public function checkWithDrawCoinpayment()
+    {
+        $fecha = Carbon::now();
+        $liquidaciones = Liquidaction::whereDate('created_at', '>=', $fecha->subDays(1))->where('status', 1)->orderBy('id', 'desc')->get();
+        $cmd = 'get_withdrawal_info';
+        foreach ($liquidaciones as $liquidacion) {
+            if (!empty($liquidacion->hash) && strlen($liquidacion->hash) <= 32) {
+                $data = ['id' => $liquidacion->hash];
+                // Log::info('Liquidacion: '.$liquidacion->id);
+                $resultado = $this->coinpayments_api_call($cmd, $data);
+                // dump($resultado);
+                if (!empty($resultado['result'])) {
+                    if ($resultado['result']['status'] == -1) {
+                        $this->reversarLiquidacion($liquidacion->id, 'Cancelado por coinpayment');
+                        Log::info('Liquidacion: '.$liquidacion->id.' Fue Cancelada por coinpayment');
+                    }
+                }
+            }
+        }
+    }
 }

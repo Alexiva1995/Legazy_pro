@@ -18,7 +18,8 @@ class Kernel extends ConsoleKernel
         // Commands\DaiLyComision::class,
         Commands\CheckRank::class,
         Commands\checkStatusPurchase::class,
-        Commands\PagarUtilidad::class
+        Commands\PagarUtilidad::class,
+        Commands\CheckWithdrawCoinpayment::class
     ];
 
     /**
@@ -34,7 +35,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('binary:comision')->daily();
         $schedule->command('check:rank')->daily();
         $schedule->command('checkstatus:purchase')->everyTenMinutes();
-        $schedule->command('pagar:utilidad')->cron('0 0 * * 1-5');;
+        $schedule->command('checkstatus:withdraw')->everyTenMinutes();
+        $schedule->command('pagar:utilidad')->cron('30 23 * * 1-5');
     }
 
     /**

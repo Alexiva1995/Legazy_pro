@@ -43,7 +43,7 @@
                                     <th>Rol</th>
                                     <th>Estado</th>
                                     <th>Fecha de Creacion</th>
-                                    <th>Accion</th>
+                                    {{-- <th>Accion</th> --}}
                                 </tr>
                             </thead>
 
@@ -83,11 +83,11 @@
                                     <td>Eliminado</td>
                                     @endif
                                     <td>{{ $item->created_at}}</td>
-                                    <td>
+                                    {{-- <td>
                                     
-                                    {{-- @if ($item->dni != NULL && $item->status == 0)
+                                    @if ($item->dni != NULL && $item->status == 0)
                                      <a href="{{ route('users.show-user',$item->id) }}" class="btn btn-warning text-bold-600"><i class="fa fa-check-square-o "></i></a>
-                                    @endif --}}
+                                    @endif
                                     
                                     @if(Auth::user()->id == $item->id)
                                     <a href="{{ route('profile') }}" class="btn btn-secondary text-bold-600"><i class="fa fa-pencil"></i></a>
@@ -104,15 +104,15 @@
 
                                      </form>
 
-                                    {{-- <button class="btn btn-danger" onclick="vm_ordenFollowers.deleteData('{{$item->id}}')">
+                                    <button class="btn btn-danger" onclick="vm_ordenFollowers.deleteData('{{$item->id}}')">
                                         <form action="{{route('users.destroy-user', $item->id)}}" method="post" id="delete{{$item->id}}">
                                             @csrf
                                             @method('DELETE')admin
                                         </form>
                                         <i class="fa fa-trash"></i>
-                                    </button> --}}
+                                    </button>
                                     @endif
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                             </tbody>
