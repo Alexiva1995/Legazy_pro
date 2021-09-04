@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Groups;
+use App\Models\Inversion;
 use App\Models\OrdenPurchases;
 use App\Models\Packages;
 use App\Models\User;
@@ -392,14 +393,16 @@ class TiendaController extends Controller
     public function activarUser()
     {
         try {
-            $ordenes = OrdenPurchases::where('status', '1')->whereDate('created_at', '>', Carbon::now()->subDays(10))->get();
+            $ordenes = Inversion::where('status', '!=', '1')->whereDate('created_at', '>', Carbon::now()->subMonths(6))->get();
             foreach ($ordenes as $orden) {
-                $orden->getOrdenUser->update(['status' => '1']);
+                $orden->getInversionesUser->update(['status' => '0']);
             }
-            $ordenes = OrdenPurchases::where('status', '!=', '1')->whereDate('created_at', '>', Carbon::now()->subDays(10))->get();
+
+            $ordenes = Inversion::where('status', '1')->whereDate('created_at', '>', Carbon::now()->subMonths(6))->get();
             foreach ($ordenes as $orden) {
-                $orden->getOrdenUser->update(['status' => '0']);
+                $orden->getInversionesUser->update(['status' => '1']);
             }
+            
             Log::info('Inicio de los puntos y comisiones diarias - '.Carbon::now());
             $this->walletController->payAll();
             Log::info('Fin de los puntos y comisiones diarias - '.Carbon::now());

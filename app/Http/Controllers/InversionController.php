@@ -86,10 +86,16 @@ class InversionController extends Controller
             $check = Inversion::where([
                 ['iduser', '=', $iduser],
                 ['package_id', '=', $paquete],
+                ['status', '=', 1]
                 //['orden_id', '=', $orden],
             ])->first();
+
+            $checkActivos = Inversion::where([
+                ['iduser', '=', $iduser],
+                ['status', '=', 1]
+            ])->get()->count('id');
             
-            if ($check == null) {
+            if ($checkActivos == 0 && $check == null) {
                 $data = [
                     'iduser' => $iduser,
                     'package_id' => $paquete,
