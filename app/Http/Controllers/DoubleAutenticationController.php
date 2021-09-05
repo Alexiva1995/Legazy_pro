@@ -34,14 +34,14 @@ class DoubleAutenticationController extends Controller
     {
         $check2Fact = User::where([
             ['id', '=', $iduser],
-            ['token_google', '!=', null],
-            ['activar_2fact', '=', '0']
+            ['token_google', '!=', ''],
+            ['activar_2fact', '=', 1]
         ])->first();
         $result = '';
         if ($check2Fact == null) {
             User::where('id', '=', $iduser)->update([
                 'token_google' => (new Google2FA)->generateSecretKey(),
-                'activar_2fact' => '1'
+                'activar_2fact' => 1
             ]);
             $user = User::find($iduser);
             $result = $this->createUserUrlQR($user);
