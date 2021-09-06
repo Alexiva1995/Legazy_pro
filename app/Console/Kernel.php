@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('binary:comision')->daily();
         $schedule->command('check:rank')->daily();
         $schedule->command('checkstatus:purchase')->everyTenMinutes();
-        $schedule->command('checkstatus:withdraw')->everyTenMinutes();
+        $schedule->command('checkstatus:withdraw')->daily();
         $schedule->command('pagar:utilidad')->cron('30 23 * * 1-5');
     }
 

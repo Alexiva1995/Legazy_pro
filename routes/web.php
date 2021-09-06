@@ -95,6 +95,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::patch('user-verify/{id}', 'UserController@verifyUser')->name('users.verify-user');
         Route::patch('user-update/{id}', 'UserController@updateUser')->name('users.update-user');
         Route::delete('user/delete/{id}','UserController@destroyUser')->name('users.destroy-user');
+        // permite hacer operaciones con el authenticador de google
+        Route::get('{tipo}/{id}/action', 'UserController@processAuthentication')->name('user.authentication');
 
         Route::patch('profile-update', 'UserController@updateProfile')->name('profile.update');
         Route::patch('profile-update-kyc', 'UserController@updateProfileKYC')->name('profile.update.kyc');

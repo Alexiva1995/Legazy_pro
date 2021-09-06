@@ -43,7 +43,7 @@
                                     <th>Rol</th>
                                     <th>Estado</th>
                                     <th>Fecha de Creacion</th>
-                                    {{-- <th>Accion</th> --}}
+                                    <th>Accion</th>
                                 </tr>
                             </thead>
 
@@ -53,15 +53,6 @@
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->fullname}}</td>
                                     <td>{{ $item->email}}</td>
-
-                                    {{-- @if ($item->dni != NULL && $item->status == '0')
-                                    <td><span class="text-primary">Verificar</span></td>
-                                    @elseif ($item->dni == NULL)
-                                    <td>No Disponible</td>
-                                    @elseif ($item->dni != NULL && $item->status == '1')
-                                    <td>Verificado</td>
-                                    @endif --}}
-
                                     @if ($item->admin == '1')
                                     <td>Administrador</td>
                                     @else
@@ -83,36 +74,17 @@
                                     <td>Eliminado</td>
                                     @endif
                                     <td>{{ $item->created_at}}</td>
-                                    {{-- <td>
-                                    
-                                    @if ($item->dni != NULL && $item->status == 0)
-                                     <a href="{{ route('users.show-user',$item->id) }}" class="btn btn-warning text-bold-600"><i class="fa fa-check-square-o "></i></a>
-                                    @endif
-                                    
-                                    @if(Auth::user()->id == $item->id)
-                                    <a href="{{ route('profile') }}" class="btn btn-secondary text-bold-600"><i class="fa fa-pencil"></i></a>
-                                    @else
-                                    <a href="{{ route('users.edit-user',$item->id) }}" class="btn btn-secondary text-bold-600"><i class="fa fa-pencil"></i></a>
-                                    
-                                    
-                                    <form action="{{route('impersonate.start', $item)}}" method="POST" class="btn">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary text-bold-600">
-                                            <i class="fa fa-eye"></i>
-
-                                        </button>
-
-                                     </form>
-
-                                    <button class="btn btn-danger" onclick="vm_ordenFollowers.deleteData('{{$item->id}}')">
-                                        <form action="{{route('users.destroy-user', $item->id)}}" method="post" id="delete{{$item->id}}">
-                                            @csrf
-                                            @method('DELETE')admin
-                                        </form>
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    @endif
-                                    </td> --}}
+                                    <td>
+                                        <a class="text-white btn btn-warning" href="{{route('user.authentication', ['Reiniciado', $item->id])}}">Reiniciar QR</a>
+                                        @if ($item->activar_2fact > 0)
+                                            @if ($item->activar_2fact == 1)
+                                            <a class="text-white btn btn-danger" href="{{route('user.authentication', ['Desactivado', $item->id])}}">Desactivar 2fact</a>    
+                                            @else
+                                            <a class="text-white btn btn-success" href="{{route('user.authentication', ['Activado', $item->id])}}">Activar 2fact</a>
+                                            @endif
+                                        @endif
+                                        
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
