@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Rules\MatchOldPassword;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 
@@ -355,6 +356,26 @@ class UserController extends Controller
         });
 
         return redirect()->back()->with('msj-success', 'Codigo Enviado, por favor revise su correo');
+    }
+
+    public function processAuthentication(string $tipo, int $id)
+    {
+        try {
+            $user = User::find($id);
+            if ($tipo == 'Reiniciado') {
+                $user->token_google = null;
+                $user->activar_2fact = 0;
+            } elseif ($tipo == 'Activado') {
+                $user->activar_2fact = 1;
+            } elseif ($tipo == 'Desactivado') {
+                $user->activar_2fact = 2;
+            } 
+            $user->save();
+            return redirect()->back()->with('msj-success', 'Codigo QR '.$tipo.' con exito');
+        } catch (\Throwable $th) {
+            Log::error('UserController - processAuthentication -> Error: '.$th);
+            abort(403, "Ocurrio un error, contacte con el administrador");
+        }
     }
 
 }
