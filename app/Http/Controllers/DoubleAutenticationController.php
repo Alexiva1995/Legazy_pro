@@ -41,7 +41,6 @@ class DoubleAutenticationController extends Controller
         if ($check2Fact == null) {
             User::where('id', '=', $iduser)->update([
                 'token_google' => (new Google2FA)->generateSecretKey(),
-                'activar_2fact' => 1
             ]);
             $user = User::find($iduser);
             $result = $this->createUserUrlQR($user);
@@ -85,6 +84,11 @@ class DoubleAutenticationController extends Controller
         ]);
         if ($validate) {
             if ($this->checkCode(Auth::id(), $request->code)) {
+                $user = User::find(Auth::id());
+                if ($user->activar_2fact == 0) {
+                    $user->activar_2fact = 1;
+                    $user->save();
+                }
                 session(['2fact' => 1]);
                 return redirect()->route('home');
             }
