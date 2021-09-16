@@ -518,8 +518,8 @@ class LiquidactionController extends Controller
 	 */
 	public function coinpayments_api_call($cmd, $req = array()) {
 		// Fill these in from your API Keys page
-		$public_key = Crypt::decryptString(env('COIN_PAYMENT_PUBLIC_KEY', ''));
-		$private_key = Crypt::decryptString(env('COIN_PAYMENT_PRIVATE_KEY', ''));
+		$public_key = Crypt::decryptString('eyJpdiI6IjJudWtyQmpMOEpSVUtJWi9hUlpVbmc9PSIsInZhbHVlIjoibncwOEhnNGtZRDE3ZmpTRWozM2JsbWJIb1JkTVlUaVEyRFJrYSsvRG9oUUwzekgyQ01Rd2grd1RRMnhob2U1N0p2dDJCK25HYnNZZjZrekQ4NEFVYWQrMUpWc09JWVN5Vm9TOGFXOElsTXM9IiwibWFjIjoiMWE1ZWEzZDk5ODVmOTU5YTQ3YzczYjRiNGUzNmM1YmRmMmM3MzYyNGJmNjY1ZjgxM2UyYjkzNWQxNjBmNWRiMiJ9');
+		$private_key = Crypt::decryptString('eyJpdiI6IlNNWklRWDU4dGVkdHJmOVl3OGwwR0E9PSIsInZhbHVlIjoia29ReVU4dlR2N2wzNUJSN1hHamFhQTVyOGE2cHpvbWJZVVhYcmdhbDJYektOa3ZpM3NkbFpQekc0TWt3SHFjWDJtbnVHSTZlK1A1cVZNWUtsQVM0dDB2QWxja0dtcUUwQWJXbC9yUWRsOXM9IiwibWFjIjoiNDg2MDE0YTFmZTA3NmFiNGFkMTE5MzFkNDBkNzEwYjI5M2ZkZDIxOTBkZmExMTQ5MTFlNzEwZWE1OTE3NTMxYiJ9');
 		
 		// Set the API command and required fields
 		$req['version'] = 1;
