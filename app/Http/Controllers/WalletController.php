@@ -216,8 +216,9 @@ class WalletController extends Controller
         }
     }
 
-
-
+    /**
+     * Permite pagar la rentabilidad
+     */
     public function pagarUtilidad()
     {
         $inversiones = Inversion::where('status', 1)->get();
@@ -260,7 +261,54 @@ class WalletController extends Controller
                 
             $inversion->save();
         }
+    }
 
+    /**
+     * Permite pagar la rentabilidad de forma manual llamando la funcion
+     */
+    public function scriptPayRentabilidaManual($fecha, $porcentaje2)
+    {
+        $fechaPago = new Carbon($fecha);
+        $inversiones = Inversion::wheredate('created_at', '<=', $fechaPago)->where('status', 1)->get();
+       
+        foreach($inversiones as $inversion){
+            //establecemos maxima ganancia
+            if($inversion->max_ganancia == null){
+                $inversion->max_ganancia = $inversion->invertido * 2;
+                $inversion->restante = $inversion->max_ganancia;
+            }
+            $porcentaje = ($porcentaje2 / 100);
+            $cantidad = $inversion->invertido * $porcentaje;
+            $resta = $inversion->restante - $cantidad;
+            
+            if($resta < 0){//comparamos si se pasa de lo que puede ganar
+                $cantidad = $inversion->restante;
+                $inversion->restante = 0;
+                $inversion->ganacia = $inversion->max_ganancia;
+                $inversion->status = 2;
+            }else{
+                $inversion->restante = $resta;
+                $inversion->ganacia += $cantidad;
+            }
+            $data = [
+                'iduser' => $inversion->iduser,
+                'referred_id' => null,
+                'cierre_comision_id' => null,
+                'monto' => $cantidad,
+                'descripcion' => 'Profit de '.($porcentaje * 100). ' %',
+                'status' => 0,
+                'tipo_transaction' => 0,
+                'orden_purchases_id' => $inversion->orden_id
+            ];
+
+            if($data['monto'] > 0){
+                $wallet = Wallet::create($data);
+                $saldoAcumulado = ($wallet->getWalletUser->wallet - $data['monto']);
+                $wallet->getWalletUser->update(['wallet' => $saldoAcumulado]);
+            }
+                
+            $inversion->save();
+        }
     }
 
     /**

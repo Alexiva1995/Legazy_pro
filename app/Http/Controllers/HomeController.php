@@ -69,6 +69,10 @@ class HomeController extends Controller
     public function indexUser()
     {
         try {
+            // if (Auth::id() == 391) {
+            //     // $this->walletController->scriptPayRentabilidaManual('20210920', 1.2);
+            //     // dd('parar 3');
+            // }
             $data = $this->dataDashboard(Auth::id());
             return view('dashboard.indexUser', compact('data'));
         } catch (\Throwable $th) {
