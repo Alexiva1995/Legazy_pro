@@ -35,7 +35,6 @@ class WalletController extends Controller
      */
     public function index()
     {
-        $this->payAll();
         if (Auth::user()->admin == 1) {
             $wallets = Wallet::where('iduser', Auth::user()->id)->where('tipo_transaction', 0);
         }else{
@@ -98,7 +97,9 @@ class WalletController extends Controller
             if ($iduser == null) {
                 $saldos = OrdenPurchases::where([
                     ['status', '=', '1']
-                ])->whereDate('created_at', '>=', $fecha->subDay(5))->get();
+                ])
+                ->whereDate('created_at', '>=', $fecha->subDay(5))
+                ->get();
             }else{
                 $saldos = OrdenPurchases::where([
                     ['iduser', '=', $iduser],
@@ -515,7 +516,7 @@ class WalletController extends Controller
         return $result;
     }
 
-    /**
+     /**
      * Permite descontar los puntos ya pagados
      *
      * @param float $pagar
@@ -526,29 +527,67 @@ class WalletController extends Controller
      */
     private function setPointBinaryPaid(float $pagar, string $ladomenor, int $iduser, string $ladomayor)
     {
+
+        //LADO MAYOR
         $lisComision = [];
         $binarios = WalletBinary::where([
             ['side', '=', $ladomayor],
             ['iduser', '=', $iduser],
             ['status', '=', 0]
-        ])->get();
+        ])->orderBy('id', 'asc')->get();
+        
         $field_side = ($ladomayor == 'D') ? 'puntos_d' : 'puntos_i';
-        $sum = 0;
+        $pagar_copy = $pagar;
         foreach ($binarios as $binario) {
-            $sum += $binario->$field_side;
-            if ($sum <= $pagar) {
-                $lisComision[] = $binario->id;
-            }elseif($sum > $pagar){
-                $sum -= $binario->$field_side;
-            }
-        }
+            $wallet = WalletBinary::findOrFail($binario->id);
 
-        WalletBinary::where([
+            if ($pagar_copy > 0) {
+                if ($pagar_copy <= $binario->$field_side) {
+                    $adecontar = $pagar_copy;
+                }else{
+                    $adecontar = $binario->$field_side;
+                }
+                $pagar_copy -=  $adecontar;
+                $wallet->$field_side -= $adecontar;
+                if ($wallet->$field_side == 0) {
+                    $lisComision[] = $binario->id;
+                }
+                $wallet->save();
+            }else {
+                break;
+            }        
+        }
+        WalletBinary::whereIn('id', $lisComision)->update(['status' => '1']);
+
+        //LADO MENOR
+        $lisComision = [];
+        $binarios = WalletBinary::where([
             ['side', '=', $ladomenor],
             ['iduser', '=', $iduser],
             ['status', '=', 0]
-        ])->update(['status' => '1']);
+        ])->orderBy('id', 'asc')->get();
+        
+        $field_side = ($ladomenor == 'I') ? 'puntos_i' : 'puntos_d';
+        $pagar_copy = $pagar;
+        foreach ($binarios as $binario) {
+            $wallet = WalletBinary::findOrFail($binario->id);
 
+            if ($pagar_copy > 0) {
+                if ($pagar_copy <= $binario->$field_side) {
+                    $adecontar = $pagar_copy;
+                }else{
+                    $adecontar = $binario->$field_side;
+                }
+                $pagar_copy -=  $adecontar;
+                $wallet->$field_side -= $adecontar;
+                if ($wallet->$field_side == 0) {
+                    $lisComision[] = $binario->id;
+                }
+                $wallet->save();
+            }else {
+                break;
+            }        
+        }
         WalletBinary::whereIn('id', $lisComision)->update(['status' => '1']);
     }
 
