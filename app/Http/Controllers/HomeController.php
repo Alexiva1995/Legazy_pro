@@ -70,8 +70,8 @@ class HomeController extends Controller
     {
         try {
             // if (Auth::id() == 391) {
-            //     $this->walletController->payPointsBinary();
-            //     dd('parar 3');
+            //     $this->walletController->bonoBinario();
+            //     dd('parar binario');
             // }
             $data = $this->dataDashboard(Auth::id());
             return view('dashboard.indexUser', compact('data'));

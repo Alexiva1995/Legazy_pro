@@ -417,8 +417,9 @@ class WalletController extends Controller
                                 ])->first();
                                 if (empty($check)) {
                                     $concepto = 'Puntos binarios del Usuario '.$orden->getOrdenUser->fullname;
-                                    $puntosD = $puntosI = 0;
+                                    $puntosD = $puntosI = $puntos_real = 0 ;
                                     if ($sponsor->status == '1') {
+                                        $puntos_real = $orden->total;
                                         if ($side == 'I') {
                                             $puntosI = $orden->total;
                                         }elseif($side == 'D'){
@@ -433,7 +434,8 @@ class WalletController extends Controller
                                         'puntos_i' => $puntosI,
                                         'side' => $side,
                                         'status' => 0,
-                                        'descripcion' => $concepto
+                                        'descripcion' => $concepto, 
+                                        'puntos_reales' => $puntos_real
                                     ];
                                     
                                     WalletBinary::create($dataWalletPoints);

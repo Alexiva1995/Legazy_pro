@@ -25,6 +25,7 @@ class CreateWalletBinariesTable extends Migration
             // $table->foreign('liquidation_id')->references('id')->on('liquidactions');
             $table->decimal('puntos_d')->default(0)->comment('puntos del lado derecho');
             $table->decimal('puntos_i')->default(0)->comment('puntos del lado izquierdo');
+            $table->decimal('puntos_reales')->default(0)->comment('puntos ganados sin modificar');
             //$table->decimal('debito')->default(0)->comment('entrada de cash');
             //$table->decimal('credito')->default(0)->comment('salida de cash');
             //$table->decimal('balance')->nullable()->comment('balance del cash');
