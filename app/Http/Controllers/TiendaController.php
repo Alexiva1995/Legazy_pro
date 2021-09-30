@@ -360,26 +360,28 @@ class TiendaController extends Controller
             $pagos = $response->data;
             // dd($pagos);
             foreach ($pagos as $pago) {
-                $estado = '0';
-                if ($pago->payment_status == 'expired') {
-                    $estado = '2';
-                    OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
-                }
-                if($pago->payment_status == 'finished'){
-                    $estado = '1';
-                    OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
-                }
-                if($pago->payment_status == 'partially_paid'){
-                    $resta = ($pago->pay_amount - $pago->actually_paid);
-                    if ($resta <= 1) {
+                // if ($pago->order_id < 964 && $pago->order_id > 968) {
+                    $estado = '0';
+                    if ($pago->payment_status == 'expired') {
+                        $estado = '2';
+                        OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                    }
+                    if($pago->payment_status == 'finished'){
                         $estado = '1';
                         OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
                     }
-                }
-                if ($estado == '1') {
-                    $this->registeInversion($pago->order_id);
-                }
-                Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
+                    if($pago->payment_status == 'partially_paid'){
+                        $resta = ($pago->pay_amount - $pago->actually_paid);
+                        if ($resta <= 1) {
+                            $estado = '1';
+                            OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                        }
+                    }
+                    if ($estado == '1') {
+                        $this->registeInversion($pago->order_id);
+                    }
+                    Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
+                // }
             }
             // $resul = $response->invoice_url;
         }
@@ -409,6 +411,80 @@ class TiendaController extends Controller
         } catch (\Throwable $th) {
             Log::error('ActivacionController - activarUser -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
+        }
+    }
+
+    /**
+     * Permite verificar las compras por el id de la misma
+     *
+     * @param [type] $idcompra
+     * @return void
+     */
+    public function checkUserPurchaseForID($idcompra)
+    {
+        // $this->registeInversion(964);
+        // $this->registeInversion(965);
+        // $this->registeInversion(967);
+        // $this->registeInversion(968);
+        // $this->activarUser();
+        $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
+        $headers = [
+            'x-api-key: '.$this->apis_key_nowpayments,
+            'Content-Type:application/json'
+        ];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.nowpayments.io/v1/payment/?limit=500&page=1",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => $headers
+        ));
+            
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            Log::error('Tienda - checkStatusOrden -> Error curl: '.$err);        
+        } else {
+            $response = json_decode($response);
+            if (!empty($response->data)) {
+                $pagos = $response->data;
+                foreach ($pagos as $pago) {
+                    $orden = OrdenPurchases::find($pago->order_id);
+                    if (!empty($orden)) {
+                        if ($orden->iduser == 28 || $orden->iduser == 333 || $orden->iduser == 570 || $orden->iduser == 673 || $orden->iduser == 689 || $orden->iduser == 690 || $orden->iduser == 703 || $orden->iduser == 288 || $orden->iduser == 473 || $orden->iduser == 695 || $orden->iduser == 765 || $orden->iduser == 241) {
+                            $estado = '0';
+                            if ($pago->payment_status == 'expired') {
+                                $estado = '2';
+                                OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                            }
+                            if($pago->payment_status == 'finished'){
+                                $estado = '1';
+                                OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                            }
+                            if($pago->payment_status == 'partially_paid'){
+                                $resta = ($pago->pay_amount - $pago->actually_paid);
+                                if ($resta <= 1) {
+                                    $estado = '1';
+                                    OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                                }
+                            }
+                            if ($estado == '1') {
+                                $this->registeInversion($pago->order_id);
+                            }
+                            dump('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
+                            Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
+                        }
+                    }
+                }
+            }
+            // $resul = $response->invoice_url;
         }
     }
 }
