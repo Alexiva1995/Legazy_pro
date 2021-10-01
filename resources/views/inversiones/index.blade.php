@@ -23,8 +23,8 @@
 
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>#</th>
+                                    <th>ID Usuario</th>
                                     <th>Correo</th>
-                                    {{-- <th>Paquete</th> --}}
                                     <th>Inversion</th>
                                     <th>Ganancia</th>
                                     {{-- <th>Capital</th> --}}
@@ -46,6 +46,7 @@
                                 @endphp
                                 <tr class="text-center text-white">
                                     <td>{{$inversion->id}}</td>
+                                    <td>{{$inversion->iduser}}</td>
                                     <td>{{$inversion->correo}}</td>
                                     {{-- <td>{{$inversion->getPackageOrden->getGroup->name }} -
                                     {{$inversion->getPackageOrden->name}}</td> --}}

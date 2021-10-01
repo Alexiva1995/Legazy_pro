@@ -39,7 +39,7 @@
                                     <th>ID</th>
                                     <th>Perfil</th>
                                     <th>Email</th>
-                                    {{-- <th>Kyc</th> --}}
+                                    <th>Username</th>
                                     <th>Rol</th>
                                     <th>Estado</th>
                                     <th>Fecha de Creacion</th>
@@ -53,6 +53,7 @@
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->fullname}}</td>
                                     <td>{{ $item->email}}</td>
+                                    <td>{{ $item->username}}</td>
                                     @if ($item->admin == '1')
                                     <td>Administrador</td>
                                     @else

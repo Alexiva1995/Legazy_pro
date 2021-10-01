@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\TreeController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\TiendaController;
 use App\Models\OrdenPurchases;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
@@ -70,8 +71,8 @@ class HomeController extends Controller
     {
         try {
             // if (Auth::id() == 391) {
-            //     $this->walletController->bonoBinario();
-            //     dd('parar binario');
+            //     $this->walletController->bonoDirecto();
+            //     $this->walletController->payPointsBinary();
             // }
             $data = $this->dataDashboard(Auth::id());
             return view('dashboard.indexUser', compact('data'));
