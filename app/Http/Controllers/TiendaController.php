@@ -169,6 +169,19 @@ class TiendaController extends Controller
     public function saveOrden($data)
     {
         $orden = OrdenPurchases::create($data);
+        $patrocinador = $orden->getOrdenUser->referred_id;
+        $side = $orden->getOrdenUser->binary_side;
+        if($side == 'I'){
+            User::where([
+                ['id', '=', $patrocinador],
+                ['not_payment_binary_point_izq', '=', 0]
+            ])->update(['not_payment_binary_point_izq' => $orden->id]);
+        }else{
+            User::where([
+                ['id', '=', $patrocinador],
+                ['not_payment_binary_point_der', '=', 0]
+            ])->update(['not_payment_binary_point_der' => $orden->id]);
+        }
         return $orden->id;
     }
 
@@ -378,6 +391,20 @@ class TiendaController extends Controller
                         }
                     }
                     if ($estado == '1') {
+                        $orden = OrdenPurchases::find($pago->order_id);
+                        $patrocinador = $orden->getOrdenUser->referred_id;
+                        $side = $orden->getOrdenUser->binary_side;
+                        if($side == 'I'){
+                            User::where([
+                                ['id', '=', $patrocinador],
+                                ['not_payment_binary_point_izq', '=', 0]
+                            ])->update(['not_payment_binary_point_izq' => $orden->id]);
+                        }else{
+                            User::where([
+                                ['id', '=', $patrocinador],
+                                ['not_payment_binary_point_der', '=', 0]
+                            ])->update(['not_payment_binary_point_der' => $orden->id]);
+                        }
                         $this->registeInversion($pago->order_id);
                     }
                     Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
