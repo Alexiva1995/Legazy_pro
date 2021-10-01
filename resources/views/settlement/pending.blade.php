@@ -22,10 +22,11 @@
 @section('content')
 <div id="settlement">
     <div class="col-12">
-        <div class="card">
+        <div class="card bg-lp">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
+                        <h1 class="text-white">Liquidaciones Pendientes</h1>
                         <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
                             <thead class="">
                                 <tr class="text-center text-white bg-purple-alt2">
@@ -43,7 +44,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($liquidaciones as $liqui)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{$liqui->id}}</td>
                                     <td>{{$liqui->fullname}}</td>
                                     <td>{{$liqui->total}}</td>
@@ -54,7 +55,7 @@
                                     <td>{{$liqui->status}}</td>
                                     <td>{{date('Y-m-d', strtotime($liqui->created_at))}}</td>
                                     <td>
-                                        <button class="btn btn-info" onclick="vm_liquidation.getDetailComisionLiquidation({{$liqui->id}})">
+                                        <button class="btn btn-primary" onclick="vm_liquidation.getDetailComisionLiquidation({{$liqui->id}})">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                         <button class="btn btn-success" onclick="vm_liquidation.getDetailComisionLiquidationStatus({{$liqui->id}}, 'aproved')">

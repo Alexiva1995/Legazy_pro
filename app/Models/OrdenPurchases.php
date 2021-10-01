@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrdenPurchases extends Model
 {
+
+    use HasFactory;
+    
     protected $table = 'orden_purchases';
 
     protected $fillable = [
         'iduser', 'group_id', 'package_id', 
         'cantidad', 'total', 'idtransacion',
-        'status'
+        'status', 'monto'
     ];
 
      /**
@@ -43,5 +46,10 @@ class OrdenPurchases extends Model
     public function getPackageOrden()
     {
         return $this->belongsTo('App\Models\Packages', 'package_id');
+    }
+
+    public function getInversionOrden()
+    {
+        return $this->belongsTo('App\Models\Inversion', 'inversion_id');
     }
 }

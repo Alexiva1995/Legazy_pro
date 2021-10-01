@@ -15,13 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('welcome');})->name('mantenimiento');
+// Route::get('/', function () {return view('welcome');})->middleware('auth');
+
 
 Auth::routes();
 
+Route::get('/', 'HomeController@home')->middleware('auth');
+
 Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 {
-
+    // 2fact
+    Route::get('/2fact', 'DoubleAutenticationController@index')->name('2fact');
+    Route::post('/2fact', 'DoubleAutenticationController@checkCodeLogin')->name('2fact.post');
     // Inicio
     Route::get('/home', 'HomeController@index')->name('home');
      // Inicio de usuarios
@@ -54,7 +59,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
     Route::prefix('inversiones')->group(function ()
     {
-        Route::get('/{tipo?}/lists', 'InversionController@index')->name('inversiones.index');
+        Route::get('/lists', 'InversionController@index')->name('inversiones.index');
+        // Route::get('/{tipo?}/lists', 'InversionController@index')->name('inversiones.index');
         Route::get('/cambiarStatus', 'InversionController@checkStatus')->name('inversiones.checkStatus');
     });
 
@@ -66,6 +72,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::post('/procces', 'TiendaController@procesarOrden')->name('shop.procces');
         Route::post('/ipn', 'TiendaController@ipn')->name('shop.ipn');
         Route::get('/{status}/estado', 'TiendaController@statusProcess')->name('shop.proceso.status');
+        Route::post('cambiarStatus', 'TiendaController@cambiar_status')->name('cambiarStatus');
     });
 
     // Ruta para las funciones por alla que no correspondan a otra seccion
@@ -88,6 +95,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::patch('user-verify/{id}', 'UserController@verifyUser')->name('users.verify-user');
         Route::patch('user-update/{id}', 'UserController@updateUser')->name('users.update-user');
         Route::delete('user/delete/{id}','UserController@destroyUser')->name('users.destroy-user');
+        // permite hacer operaciones con el authenticador de google
+        Route::get('{tipo}/{id}/action', 'UserController@processAuthentication')->name('user.authentication');
 
         Route::patch('profile-update', 'UserController@updateProfile')->name('profile.update');
         Route::patch('profile-update-kyc', 'UserController@updateProfileKYC')->name('profile.update.kyc');
@@ -97,6 +106,8 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
 
         Route::get('/impersonate/stop', 'ImpersonateController@stop')->name('impersonate.stop');
         Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
+
+        Route::get('sendcode', 'UserController@sendCodeEmail')->name('user.send.code');
     });
 
      //Ruta de los Tickets
@@ -115,6 +126,20 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
         Route::patch('ticket-update-admin/{id}','TicketsController@updateAdmin')->name('ticket.update-admin');
         Route::get('ticket-list-admin','TicketsController@listAdmin')->name('ticket.list-admin');
         Route::get('ticket-show-admin/{id}','TicketsController@showAdmin')->name('ticket.show-admin');
+    });
+
+    //Ruta de liquidacion
+    Route::prefix('settlement')->group(function()
+    {
+        //Ruta liquidaciones realizadas
+        Route::get('/', 'LiquidactionController@index')->name('settlement');
+        Route::get('/pending', 'LiquidactionController@indexPendientes')->name('settlement.pending');
+        Route::post('/process', 'LiquidactionController@procesarLiquidacion')->name('settlement.process');
+        Route::get('/{status}/history', 'LiquidactionController@indexHistory')->name('settlement.history.status');
+        Route::resource('liquidation', 'LiquidactionController');
+
+        Route::get('/withdraw', 'LiquidactionController@withdraw')->name('settlement.withdraw');
+        Route::get('{wallet}/sendcodeemail', 'LiquidactionController@sendCodeEmail')->name('send-code-email');
     });
 
 
@@ -141,17 +166,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
             Route::get('package-create', 'PackagesController@create')->name('products.package-create');
         });
 
-         //Ruta de liquidacion
-        Route::prefix('settlement')->group(function()
-        {
-            //Ruta liquidaciones realizadas
-            Route::get('/', 'LiquidactionController@index')->name('settlement');
-            Route::get('/pending', 'LiquidactionController@indexPendientes')->name('settlement.pending');
-            Route::post('/process', 'LiquidactionController@procesarLiquidacion')->name('settlement.process');
-            Route::get('/{status}/history', 'LiquidactionController@indexHistory')->name('settlement.history.status');
-            Route::resource('liquidation', 'LiquidactionController');
-        });
-
         //Rutas para el cierre de productos
         Route::prefix('accounting')->group(function(){
             Route::resource('commission_closing', 'CierreComisionController');
@@ -163,7 +177,10 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
             Route::get('commission', 'ReporteController@indexComision')->name('reports.comision');
         });
 
+        Route::get('pagarUtilidad', 'WalletController@pagarUtilidad')->name('pagarUtilidad');
 
+        Route::put('updatePorcentajeGanancia', 'InversionController@updatePorcentajeGanancia')->name('updatePorcentajeGanancia');
     });
 
+    Route::get('dataGrafica', 'HomeController@dataGrafica')->name('dataGrafica');
 });

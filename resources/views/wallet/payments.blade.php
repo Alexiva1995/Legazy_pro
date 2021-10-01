@@ -3,18 +3,19 @@
 @section('content')
 <div id="logs-list">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background: #1b1b1b;">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
-                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped">
+                      <h1 class="text-white">Retiros</h1>
+                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100 text-white ">
                             <thead class="">
 
                                 <tr class="text-center text-white bg-purple-alt2">                                
-                                    <th>#</th>
+                                    <th>ID</th>
                                     <th>Fecha</th>                          
                                     <th>Billetera</th>
-                                    {{-- <th>Hash</th> --}}
+                                    <th>Hash</th>
                                     <th>Monto</th>
                                     <th>Estado</th>
                                 </tr>
@@ -24,12 +25,12 @@
                             <tbody>
 
                                 @foreach ($payments as $item)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->created_at}}</td>
-                                    <td>{{$item->getWalletUser->wallet_address}}</td>
-                                    {{-- <td>@isset($item->getLiquidation->hash){{$item->getLiquidation->hash}} @endisset</td> --}}
-                                    <td>{{$item->monto}}</td>
+                                    <td>{{$item->wallet_used}}</td>
+                                    <td>{{$item->hash}}</td>
+                                    <td>{{$item->monto_bruto}}</td>
                                     @if ($item->status == '0')
                                     <td>En espera</td>
                                     @elseif($item->status == '1')

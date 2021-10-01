@@ -1,12 +1,12 @@
 var vm_dashboard = new Vue({
     el: '#dashboard-analytics',
     created:function (){
-        this.getDataGraphics()
+        // this.getDataGraphics()
     },
     data: function(){
         return {
             Colores: {
-                primary: '#188EFF',
+                primary: '#D6A83E',
                 success: '#28C76F',
                 danger: '#EA5455',
                 warning: '#FF9F43',
@@ -14,7 +14,8 @@ var vm_dashboard = new Vue({
                 success_light: '#55DD92',
                 warning_light: '#ffc085',
             },
-            DataInfoGraphic: []
+            DataInfoGraphic: [],
+            idrango: 0
         }
     },
     methods:{
@@ -40,7 +41,7 @@ var vm_dashboard = new Vue({
              let url = route('ajax.update.side.binary', side)
              axios.get(url).then((response) => {
                  if (response.data == 'bien') {
-                    getlink(side)
+                    location.reload();
                 }
             }).catch(function (error) {
                 toastr.warning("Ocurrio un error al Actualizar el lado binario", '¡Advertencia!', { "progressBar": true });

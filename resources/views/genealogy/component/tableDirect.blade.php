@@ -1,3 +1,4 @@
+<h1 class="text-white">Referidos Directos</h1>
 <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
     <thead class="">
         <tr class="text-center text-white bg-purple-alt2">
@@ -10,9 +11,9 @@
     </thead>
     <tbody>
         @foreach ($data as $item)
-        <tr class="text-center">
+        <tr class="text-center text-white">
             <td>{{$item->id}}</td>
-            <td>{{$item->name}}</td>
+            <td>{{$item->fullname}}</td>
 
             @if ($item->getUserOrden == '')
             <td>Sin paquete</td>

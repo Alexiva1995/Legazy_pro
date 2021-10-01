@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ranks;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\TreeController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\TiendaController;
+use App\Models\OrdenPurchases;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -30,6 +36,20 @@ class HomeController extends Controller
         $this->walletController = new WalletController;
     }
 
+        /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function home()
+    {
+        if (Auth::user()->admin == 1) {
+        return redirect()->route('home');
+        } else {
+        return redirect()->route('home.user');
+        }
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -38,8 +58,8 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            View::share('titleg', '');
             $data = $this->dataDashboard(Auth::id());
+            
             return view('dashboard.index', compact('data'));
         } catch (\Throwable $th) {
             Log::error('Home - index -> Error: '.$th);
@@ -50,7 +70,10 @@ class HomeController extends Controller
     public function indexUser()
     {
         try {
-            View::share('titleg', '');
+            // if (Auth::id() == 391) {
+            //     $this->walletController->bonoDirecto();
+            //     $this->walletController->payPointsBinary();
+            // }
             $data = $this->dataDashboard(Auth::id());
             return view('dashboard.indexUser', compact('data'));
         } catch (\Throwable $th) {
@@ -75,11 +98,44 @@ class HomeController extends Controller
             'comisiones' => $this->walletController->getTotalComision($iduser),
             'tickets' => 0,
             'ordenes' => 0,
-            'usuario' => Auth::user()->fullname
+            'usuario' => Auth::user()->fullname,
+            'rangos' => $this->getDataRangos() 
         ];
 
         return $data;
     }
+
+    /**
+     * Permite obtener la informacion de los rangos
+     *
+     * @return array
+     */
+    public function getDataRangos(): array
+    {
+        $rol_actual = (Auth::user()->rank_id == null)? 0 : Auth::user()->rank_id;
+        $rol_sig = ($rol_actual + 1 != 10)? ($rol_actual + 1) : 9;
+        $rankSig = Ranks::find($rol_sig);
+        $totalPuntos = (Auth::user()->point_rank != null) ? Auth::user()->point_rank : 0;
+        $porcentajes = (($totalPuntos / $rankSig->points) * 100);
+        $ranks = Ranks::all();
+        foreach ($ranks as $rank) {
+            $rank->img = asset('assets/img/rangos/'.Str::slug($rank->name, '-').'.png');
+        }
+        // $ranks->prepend([
+        //     'name' => 'Sin Rango',
+        //     'img' => 'https://icons-for-free.com/iconfiles/png/512/page+quality+rank+icon-1320190816917337266.png'
+        // ]);
+        // dd($ranks);
+        $data = [
+            'ranks' => $ranks,
+            'puntos' => number_format($totalPuntos, 2, ',', '.'),
+            'porcentage' => $porcentajes,
+            'puntos_sig' => number_format($rankSig->points, 2, ',', '.'),
+            'name_rank_sig' => $rankSig->name
+        ];
+        return $data;
+    }
+
 
     /**
      * Permite actualizar el lado a registrar de un usuario
@@ -128,7 +184,42 @@ class HomeController extends Controller
      */
     public function terminosCondiciones()
     {
-        View::share('titleg', 'Terminos y Condiciones');
         return view('terminos_condiciones.index');
+    }
+
+    public function dataGrafica()
+    {
+        $anno = Carbon::now()->format('Y');
+        $fecha_ini = Carbon::createFromDate($anno,1,1)->startOfDay();
+        $fecha_fin = Carbon::createFromDate($anno, 12,1)->endOfMonth()->endOfDay();
+
+        $ordenes = OrdenPurchases::where('iduser', Auth::id())->where('status', '1')
+                    ->select(
+                        
+                        DB::raw('date_format(created_at,"%m/%Y") as created'),
+                        DB::raw('SUM(monto) as montos'),
+                    )
+                    ->whereBetween('created_at', [$fecha_ini, $fecha_fin])
+                    ->groupBy('created')
+                    ->get()
+                    ->toArray();
+        $valores = [];
+      
+        for ( $date = $fecha_ini->copy(); $date->lt( $fecha_fin) ; $date->addMonth(1) ) {
+
+            $valores[$date->format('m/Y')] = 0;
+     
+        }
+        
+        foreach($ordenes as $key => $orden){
+            $valores[$orden['created']] = $orden['montos'];
+        }
+        //arreglado
+        $data = [];
+        foreach($valores as $valor){
+            $data[] = floatVal($valor);
+        }
+     
+        return response()->json(['valores' => $data]);
     }
 }

@@ -18,8 +18,6 @@ class PackagesController extends Controller
     public function index()
     {
          try {
-             // title
-             View::share('titleg', 'Paquetes - Grupos');
 
              $categories = Groups::all()->where('status', 1);
 
@@ -38,8 +36,6 @@ class PackagesController extends Controller
     public function create()
     {
         try {
-            // title
-            View::share('titleg', 'Paquetes - Agregar');
 
             $categories = Groups::all()->where('status', 1);
             if (!empty(request()->category)) {
@@ -183,7 +179,7 @@ class PackagesController extends Controller
 
         $package = Packages::all();
 
-        return view('shop.package', compact('package'));
+        return view('shop.package-list', compact('package'));
     }
 
 }

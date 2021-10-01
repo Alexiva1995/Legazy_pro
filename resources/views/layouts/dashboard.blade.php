@@ -6,27 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="{{ asset('assets/img/sistema/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/img/legazy_pro/logo.svg') }}" type="image/x-icon">
     
-    <title>HDLRS</title>
+    <title>Legazy Pro</title>
     {{-- Styles --}}
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     @include('layouts.componenteDashboard.styles')
     {{-- Fin Styles --}}
 </head>
-
-<style>
-
-    body::-webkit-scrollbar {
-        width: 7px;
-    }
     
-    body::-webkit-scrollbar-thumb {
-        background: #46B0FE;
-        border-radius: 7px;
-    }
-    </style>
-    
-<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click"
+<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  text-white" style="background:#141414" data-open="click"
     data-menu="vertical-menu-modern" data-col="2-columns">
     {{-- Notificaciones del sistema --}}
     @include('layouts.componenteDashboard.messageSystem')
@@ -39,10 +28,10 @@
     {{-- Fin Sidebar --}}
     {{-- Cuerpo --}}
     <!-- BEGIN: Content-->
-    <div class="app-content content">
+    <div class="app-content content" style="background: #141414;">
         <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
-        <div class="content-wrapper">
+        <div class="header-navbar-shadow" style="background: #141414;"></div>
+        <div class="content-wrapper" style="background: #141414;">
             <div class="content-header row">
                 {{-- Migaja de pan --}}
                 @if (!empty($titleg))

@@ -1,41 +1,32 @@
-<!-- BEGIN: Vendor CSS-->
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/vendors/css/vendors.min.css')}}">
-@stack('vendor_css')
-<!-- END: Vendor CSS-->
+<!-- Vendor CSS-->
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/vendors.min.css')}}">
 
-<!-- BEGIN: Theme CSS-->
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/bootstrap.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/bootstrap-extended.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/colors.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/components.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/themes/dark-layout.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/themes/semi-dark-layout.css')}}">
-@stack('theme_css')
+<!-- CSS-->
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/bootstrap.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/bootstrap-extended.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/colors.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/components.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/dark-layout.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/bordered-layout.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/semi-dark-layout.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/vertical-menu.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/form-validation.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/page-auth.min.css')}}">
 
-<!-- BEGIN: Page CSS-->
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/core/colors/palette-gradient.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/pages/authentication.css')}}">
-@stack('page_css')
-<!-- END: Page CSS-->
+<!-- CUSTOM CSS-->
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/style.css')}}">
 
-<!-- BEGIN: Custom CSS-->
-<link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
-@stack('custom_css')
 <style>
-    .bg-full-screen-image-alt{
-        background: url("{{asset('assets/img/sistema/fondo-iniciar-sesion.png')}}");
-        background-size: 100% 60%;
-        background-repeat: no-repeat;
+    .auth-inner.row.m-0{
+        height: 100vh;
     }
-    @media screen and (max-width: 600px){
-        .card-margin{
-            margin: 0px 30px;
-        }
-    }
-
-    .app-content.content{
-        overflow-y: scroll !important;
+    .legazy_bg{
+        background: url("{{ asset('assets/img/legazy_pro/bg.jpg') }}");
+        justify-content: center;
+        text-align:center;
+        background-repeat:no-repeat;
+        background-size: cover;
     }
 </style>
-<!-- END: Custom CSS-->
+
+@stack('custom_css')

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Packages;
+use App\Models\OrdenPurchases;
 use Illuminate\Database\Seeder;
 
 class PackagesTableSeeder extends Seeder

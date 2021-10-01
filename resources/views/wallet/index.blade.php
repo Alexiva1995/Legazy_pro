@@ -3,20 +3,22 @@
 {{-- contenido --}}
 @section('content')
 <div class="col-12">
-    <div class="card">
-   
+    <div class="card bg-lp">
         <div class="card-content">
             <div class="card-body card-dashboard">
+               <h1 class="text-white">Billetera</h1>
                 <div class="float-right row no-gutters" style="width: 30%;">
-                    <div class="col-6">
-                        <span class="font-weight-bold">Saldo disponible:</span> 
+                <div class="col-md-4 col-12">
+                        <span class="font-weight-bold text-white">Saldo:</span>
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-4 col-12">
                         $ {{number_format($saldoDisponible,2)}}
                     </div>
-                    
+                    <div class="col-12 col-md-4">
+                            <a class="btn btn-primary" href="{{route('settlement.withdraw')}}">Retirar</a>
+                    </div>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive"> 
                     @include('wallet.component.tableWallet')
                 </div>
             </div>
@@ -24,6 +26,6 @@
     </div>
 </div>
 @endsection
-
+{{-- @include('layouts.componenteDashboard.modalRetirar') --}}
 {{-- permite llamar a las opciones de las tablas --}}
 @include('layouts.componenteDashboard.optionDatatable')

@@ -1,3 +1,4 @@
+<h1 class="text-white">Referidos en Red</h1>
 <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
     <thead class="">
         <tr class="text-center text-white bg-purple-alt2">
@@ -11,7 +12,7 @@
     <tbody>
         @foreach ($data as $item)
         <tr class="text-center">
-            <td>{{$item->name}}</td>
+            <td>{{$item->fullname}}</td>
             <td>{{$item->email}}</td>
             <td>{{$item->nivel}}</td>
             @if ($item->status == '0')

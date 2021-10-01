@@ -1,93 +1,146 @@
 @extends('layouts.dashboard')
 
+<script>
+
+</script>
 @section('content')
 
-<section id="basic-vertical-layouts">
+<section>
     <div class="row match-height d-flex justify-content-center">
         <div class="col-md-6 col-12">
-            <div class="card">
+            <div class="card bg-lp">
                 <div class="card-header">
-                    <h4 class="card-title">Revisando el Ticket #{{ $ticket->id}}</h4>
+                    <h4 class="card-title text-white">Editando el Ticket #{{ $ticket->id}}</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <div class="form-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Email de contacto</label>
-                                        <input type="email" readonly id="email" class="form-control"
-                                            value="{{ $ticket->email }}" name="email">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Whatsapp de contacto</label>
-                                        <input type="text" readonly id="whatsapp" class="form-control"
-                                            value="{{ $ticket->whatsapp }}" name="whatsapp">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Asunto del Ticket</label>
-                                        <input type="text" id="issue" readonly class="form-control"
-                                            value="{{ $ticket->issue }}" name="issue">
-                                    </div>
-                                </div>
+                        <form action="{{route('ticket.update-user', $ticket->id)}}" method="POST">
+                            @csrf
+                            @method('PATCH')
 
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Especificación del Ticket</label>
-                                        <textarea type="text" rows="5" readonly id="description" class="form-control"
-                                            name="description">{{ $ticket->description }}</textarea>
+                            <div class="form-body">
+                                <div class="row">
+
+                                    <div class="col-12">
+                                        <label class="form-label text-white mb-1" for="issue"><b>Asunto del
+                                                ticket</b></label>
+                                        <input class="form-control border border-warning rounded-0" type="text" readonly
+                                            id="issue" name="issue" value="{{ $ticket->issue }}" rows="3" />
+
                                     </div>
-                                </div>
-                                 <div class="col-12">
+
+                                    <div class="col-12 mt-2">
                                         <div class="form-group">
                                             <div class="controls">
-                                                <label for="priority">prioridad del ticket</label>
+                                                <label for="priority" class="text-white">Prioridad del
+                                                    Ticket</label>
                                                 <span class="text-danger text-bold-600">OBLIGATORIO</span>
                                                 <select name="priority" id="priority"
-                                                    class="custom-select priority @error('priority') is-invalid @enderror"
-                                                    required data-toggle="select">
-                                                    <option value="0" @if($ticket->priority == '0') selected  @endif>Alto</option>
-                                                    <option value="1" @if($ticket->priority == '1') selected  @endif>Medio</option>
-                                                    <option value="2" @if($ticket->priority == '2') selected  @endif>Bajo</option>
+                                                    class="custom-select priority form-control bg-lp border border-warning rounded-0 @error('priority') is-invalid @enderror"
+                                                    required data-toggle="select" disabled>
+                                                    <option value="0" @if($ticket->priority == '0') selected
+                                                        @endif>Alto</option>
+                                                    <option value="1" @if($ticket->priority == '1') selected
+                                                        @endif>Medio</option>
+                                                    <option value="2" @if($ticket->priority == '2') selected
+                                                        @endif>Bajo</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                 
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Nota del Administrador</label>
-                                        <textarea type="text" rows="5" readonly id="note_admin"
-                                            placeholder="En este campo estara la nota que deja el administrador que atendio su orden"
-                                            class="form-control" name="note_admin">{{$ticket->note_admin}}</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group d-flex justify-content-center">
-                                        <div class="controls">
-                                            @if ( $ticket->status == 0 )
-                                            <a class=" btn btn-info text-white text-bold-600">En Espera</a>
-                                            @elseif($ticket->status == 1)
-                                            <a class=" btn btn-success text-white text-bold-600">Solucionado</a>
-                                            @elseif($ticket->status == 2)
-                                            <a class=" btn btn-warning text-white text-bold-600">Procesando</a>
-                                            @elseif($ticket->status == 3)
-                                            <a class=" btn btn-danger text-white text-bold-600">Cancelada</a>
-                                            @endif
+
+                                   <div class="col-12 mt-2 mb-2">
+                                    <label class="form-label text-white" for="note"><b>Chat con el usuario</b></label>
+
+                                    <section class="chat-app-window mb-2 border border-warning rounded-0">
+                                        <div class="active-chat">
+                                            <div class="user-chats ps ps--active-y bg-lp">
+                                                <div class="chats chat-thread">
+
+                                                                                                <div class="chat">
+                                                        <div class="chat-avatar">
+                                                            <span class="avatar box-shadow-1 cursor-pointer">
+                                                                @if (Auth::user()->photoDB != NULL)
+                                                                <img src="{{asset('storage/photo/'.Auth::user()->photoDB)}}"
+                                                                    alt="avatar" height="36" width="36">
+                                                                @else
+                                                                <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
+                                                                alt="avatar" height="36" width="36">
+                                                                @endif
+                                                            </span>
+                                                        </div>
+                                                        <div class="chat-body">
+                                                            <div class="chat-content">
+                                                                <p>Hola!. ¿Cómo podemos ayudar? 😄</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    @foreach ( $message as $item )
+
+                                                    {{-- user --}}
+                                                    @if ($item->type == 0)
+
+                                                    <div class="chat chat-left">
+                                                        <div class="chat-avatar">
+                                                            <span class="avatar box-shadow-1 cursor-pointer">
+                                                                <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
+                                                                alt="avatar" height="36" width="36">
+                                                            </span>
+                                                        </div>
+                                                        <div class="chat-body">
+                                                            <div class="chat-content">
+                                                                <td>{{ $item->getUser->email}}</td>
+                                                                <p>{{ $item->message }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- admin --}}
+                                                    @elseif ($item->type == 1)
+                                                    <div class="chat">
+                                                        <div class="chat-avatar">
+                                                            <span class="avatar box-shadow-1 cursor-pointer">
+                                                                @if (Auth::user()->photoDB != NULL)
+                                                                <img src="{{asset('storage/photo/'.Auth::user()->photoDB)}}"
+                                                                    alt="avatar" height="36" width="36">
+                                                                @else
+                                                                <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}"
+                                                                alt="avatar" height="36" width="36">
+                                                                @endif
+                                                            </span>
+                                                        </div>
+                                                        <div class="chat-body">
+                                                            <div class="chat-content"> 
+                                                        <td>{{ $item->getAdmin->email}}</td>                                  
+                                                         <p>{{ $item->message }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endif
+                                    
+                                                    @endforeach
+
+                                                </div>
+                                            </div>
                                         </div>
+                                    </section>
+
+                                        <span class="text-danger text-bold-600">Aqui podra escribir el mensaje para el admin</span>
+                                        <textarea
+                                            class="form-control border border-warning rounded-0"
+                                            type="text" id="message" name="message" disabled rows="3"></textarea>
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 @endsection

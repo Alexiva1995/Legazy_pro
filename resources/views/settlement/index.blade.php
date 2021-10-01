@@ -22,10 +22,11 @@
 @section('content')
 <div id="settlement">
     <div class="col-12">
-        <div class="card">
+        <div class="card bg-lp">
             <div class="card-content">
                 <div class="card-body card-dashboard">
                     <div class="table-responsive">
+                      <h1 class="text-white">Liquidaciones por Generar</h1>
                         <table class="table nowrap scroll-horizontal-vertical myTable table-striped">
                             <thead class="">
                                 <tr class="text-center text-white bg-purple-alt2">
@@ -40,7 +41,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($comisiones as $comision)
-                                    <tr class="text-center">
+                                    <tr class="text-center text-white">
                                         {{-- <td>
                                             <input type="checkbox" value="item.id" name="listComisiones[]">
                                         </td> --}}
@@ -50,7 +51,7 @@
                                         <td>{{$comision->total}}</td>
                                         <td>{{$comision->getWalletUser->status}}</td>
                                         <td>
-                                            <a onclick="vm_liquidation.getDetailComision({{$comision->iduser}})" class="btn btn-info">
+                                            <a onclick="vm_liquidation.getDetailComision({{$comision->iduser}})" class="btn btn-primary">
                                                 <i class="feather icon-eye"></i>
                                             </a>
                                         </td>
@@ -64,8 +65,21 @@
         </div>
     </div>
     @include('settlement.componentes.modalDetalles', ['all' => true])
+    @if (!empty($liquidation))
+    @include('settlement.componentes.modalAprobar')
+    @endif
 </div>
 @endsection
+
+@if (!empty($liquidation))
+@push('custom_js')
+    <script>
+        $(document).ready(function () {
+            $('#modalModalAprobar').modal('show')
+        })
+    </script>        
+@endpush
+@endif
 
 {{-- permite llamar a las opciones de las tablas --}}
 @include('layouts.componenteDashboard.optionDatatable')

@@ -26,20 +26,20 @@
 
 <div id="record">
     <div class="col-12">
-        <div class="card">
+        <div class="card bg-lp">
             <div class="card-content">
                 <div class="card-body card-dashboard">
-                    <div class="table-responsive">
-                        <h1>Lista de Usuarios</h1>
-                        <p>Para ver mas información dar click -> <img src="{{asset('assets/img/sistema/btn-plus.png')}}" alt=""></p>
-                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100">
+                    <div class="table-responsive ">
+                        <h1 class="text-white">Lista de Usuarios</h1>
+                        
+                        <table class="table w-100 nowrap scroll-horizontal-vertical myTable table-striped w-100 text-white ">
                             
                             <thead class="">
                                 <tr class="text-center text-white bg-purple-alt2">
                                     <th>ID</th>
                                     <th>Perfil</th>
                                     <th>Email</th>
-                                    {{-- <th>Kyc</th> --}}
+                                    <th>Username</th>
                                     <th>Rol</th>
                                     <th>Estado</th>
                                     <th>Fecha de Creacion</th>
@@ -49,19 +49,11 @@
 
                             <tbody>
                                  @foreach ($user as $item)
-                                <tr class="text-center">
+                                <tr class="text-center text-white">
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->fullname}}</td>
                                     <td>{{ $item->email}}</td>
-
-                                    {{-- @if ($item->dni != NULL && $item->status == '0')
-                                    <td><span class="text-primary">Verificar</span></td>
-                                    @elseif ($item->dni == NULL)
-                                    <td>No Disponible</td>
-                                    @elseif ($item->dni != NULL && $item->status == '1')
-                                    <td>Verificado</td>
-                                    @endif --}}
-
+                                    <td>{{ $item->username}}</td>
                                     @if ($item->admin == '1')
                                     <td>Administrador</td>
                                     @else
@@ -84,34 +76,15 @@
                                     @endif
                                     <td>{{ $item->created_at}}</td>
                                     <td>
-                                    
-                                    {{-- @if ($item->dni != NULL && $item->status == 0)
-                                     <a href="{{ route('users.show-user',$item->id) }}" class="btn btn-warning text-bold-600"><i class="fa fa-check-square-o "></i></a>
-                                    @endif --}}
-                                    
-                                    @if(Auth::user()->id == $item->id)
-                                    <a href="{{ route('profile') }}" class="btn btn-secondary text-bold-600"><i class="fa fa-pencil"></i></a>
-                                    @else
-                                    <a href="{{ route('users.edit-user',$item->id) }}" class="btn btn-secondary text-bold-600"><i class="fa fa-pencil"></i></a>
-                                    
-                                    
-                                    <form action="{{route('impersonate.start', $item)}}" method="POST" class="btn">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary text-bold-600">
-                                            <i class="fa fa-eye"></i>
-
-                                        </button>
-
-                                     </form>
-
-                                    {{-- <button class="btn btn-danger" onclick="vm_ordenFollowers.deleteData('{{$item->id}}')">
-                                        <form action="{{route('users.destroy-user', $item->id)}}" method="post" id="delete{{$item->id}}">
-                                            @csrf
-                                            @method('DELETE')admin
-                                        </form>
-                                        <i class="fa fa-trash"></i>
-                                    </button> --}}
-                                    @endif
+                                        <a class="text-white btn btn-warning" href="{{route('user.authentication', ['Reiniciado', $item->id])}}">Reiniciar QR</a>
+                                        @if ($item->activar_2fact > 0)
+                                            @if ($item->activar_2fact == 1)
+                                            <a class="text-white btn btn-danger" href="{{route('user.authentication', ['Desactivado', $item->id])}}">Desactivar 2fact</a>    
+                                            @else
+                                            <a class="text-white btn btn-success" href="{{route('user.authentication', ['Activado', $item->id])}}">Activar 2fact</a>
+                                            @endif
+                                        @endif
+                                        
                                     </td>
                                 </tr>
                                 @endforeach

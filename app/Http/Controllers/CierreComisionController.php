@@ -34,8 +34,6 @@ class CierreComisionController extends Controller
     {
         try {
             // title
-            View::share('titleg', 'Cierre de Comisiones');
-
             $ordenes = OrdenPurchases::where('status', '=', '0')
                                     ->selectRaw('SUM(total) as ingreso, group_id, package_id')
                                     // ->whereDate('created_at', Carbon::now()->format('Ymd'))

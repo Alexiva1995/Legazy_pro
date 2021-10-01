@@ -3,8 +3,9 @@
 @push('vendor_css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/core/colors/palette-gradient.css')}}">
-<link rel="stylesheet" type="text/css"
-    href="{{asset('assets/app-assets/css/plugins/forms/validation/form-validation.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/app-assets/css/plugins/forms/validation/form-validation.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/auth/style.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/dashboard/colors.css')}}">
 @endpush
 
 @push('page_vendor_js')
@@ -58,13 +59,13 @@ $(document).ready(function() {
 
 <div class="app-content">
     <div class="content-overlay"></div>
-    <div class="header-navbar-shadow"></div>
+    <div class="header-navbar-shadow" style="background: #141414;"></div>
 
     <div class="content-body">
         <!-- account setting page start -->
         <section id="page-account-settings">
             <div class="row">
-                <!-- left menu section -->
+                <!-- left menu section
                 <div class="col-md-3 mb-2 mb-md-0">
                     <ul class="nav nav-pills flex-column mt-md-0 mt-1">
                         <li class="nav-item">
@@ -80,7 +81,7 @@ $(document).ready(function() {
                                 <i class="feather icon-lock mr-50 font-medium-3"></i>
                                 Cambiar la contraseña
                             </a>
-                        </li>
+                        </li>-->
   {{--                         <li class="nav-item">
                             <a class="nav-link d-flex py-75"
                                 href="{{ route('kyc') }}">
@@ -107,10 +108,10 @@ $(document).ready(function() {
                 </div>
  
                 <!-- right content section -->
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
-                            <div class="card-body">
+                            <div class="card-body" style="background: #141414;">
                                 <div class="tab-content">
                                     
                                     <div role="tabpanel" class="tab-pane active" id="account-vertical-general"

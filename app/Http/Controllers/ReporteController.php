@@ -18,8 +18,8 @@ class ReporteController extends Controller
      */
     public function indexPedidos()
     {
-        $ordenes = OrdenPurchases::all();
-
+        $ordenes = OrdenPurchases::orderBy('id', 'desc')->get();
+    
         foreach ($ordenes as $orden) {
             $orden->name = $orden->getOrdenUser->fullname;
             // $orden->grupo = $orden->getGroupOrden->name;

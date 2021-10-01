@@ -1,43 +1,9 @@
 @extends('layouts.auth')
 
-@section('content')
-@push('custom_css')
-<style>
-    .bg-fucsia {
-        background: transparent linear-gradient(0deg, #007DFF 0%, #188EFF 100%) 0% 0% no-repeat padding-box;
-
-    }
-
-    .text-rosado {
-        color: #007DFF;
-    }
-
-    .bg-full-screen-image-alt {
-        background: url("{{asset('assets/img/sistema/fondo-registro.png')}}") !important;
-        background-size: 100% 60% !important;
-        background-repeat: no-repeat !important;
-    }
-
-    .btn-login {
-        padding: 0.6rem 2rem;
-        border-radius: 1.429rem;
-    }
-
-    .text-input-holder {
-        font-weight: 800;
-        color: #000000;
-    }
-
-    .card {
-        border-radius: 1.5rem;
-    }
-
-</style>
-@endpush
-
 @php
 $referred = null;
 @endphp
+
 @if ( request()->referred_id != null )
 @php
 $referred = DB::table('users')
@@ -47,153 +13,114 @@ $referred = DB::table('users')
 @endphp
 @endif
 
+<style>
+    html {
+        overflow: hidden;
+    }
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-4 col-sm-8 col-12">
-            {{-- header --}}
-            <div class="col-12 text-center mt-3">
-                <img src="{{asset('assets/img/HDLRS-side.png')}}" alt="logo" height="140" width="190">
-                <h5 class="text-white">Bienvenido a HDLRS</h5>
+</style>
+
+@section('content')
+<!-- BEGIN: Content-->
+<div class="auth-wrapper auth-v2">
+    <div class="auth-inner row m-0">
+
+        <!-- Left bg-->
+        <div class="d-none d-lg-flex col-lg-8 align-items-center legazy_bg">
+            <div class="align-items-center justify-content-center">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <img src="{{ asset('assets/img/legazy_pro/logo.svg') }}" alt="">
+                    </div>
+                </div>
+
             </div>
-            {{-- cuerpo register --}}
-            <div class="card mb-0 card-margin">
-                <div class="card-header">
-                    <h5 class="card-title text-center col-12 text-input-holder">{{ __('Registrar') }}</h5>
+        </div>
+        <!-- Login-->
+        <div class="d-flex col-lg-4 align-items-center auth-bg p-lg-4">
+
+            <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2">
+                <h2 class="card-title fw-bold mb-2 text-white">Crear Cuenta</h2>
+                @if (!empty($referred))
+                <h5>Referido por: {{$referred->fullname}}</h5>
+                @endif
+            <form class="auth-login-form mt-2" action="{{ route('register') }}" method="POST">
+                @csrf
+                <div class="mb-2">
+                    <label class="form-label text-white mb-1" for="fullname"><b>Nombre y Apellido</b></label>
+                    <input class="form-control border border-warning rounded-0" id="fullname" type="text" required
+                        name="fullname" placeholder="john example" />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-white mb-1" for="username"><b>Nombre de usuario</b></label>
+                    <input class="form-control border border-warning rounded-0" id="username" type="text" required
+                        name="username" placeholder="john example" />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-white mb-1" for="email"><b>Correo Electronico</b></label>
+                    <input class="form-control border border-warning rounded-0" id="email" type="email" required
+                        name="email" placeholder="john@example.com" />
+                </div>
+                <div class="mb-2">
+                    {{-- <label class="form-label text-white mb-1" for="referred_id"><b>Auspiciador</b></label> --}}
                     @if (!empty($referred))
-                    <h6 class="text-center col-12">Registro Referido por <b>{{$referred->fullname}}</b></h6>
+                    <input class="form-control border border-warning rounded-0" id="referred_id" type="hidden"
+                        name="referred_id" placeholder="" aria-describedby="referred_id" autofocus="" readonly
+                        value="{{request()->referred_id}}" />
+                    @else
+                    <input class="form-control border border-warning rounded-0" id="referred_id" type="hidden"
+                        name="referred_id" placeholder="Sin Auspiciador" aria-describedby="referred_id" autofocus=""
+                        readonly value="1" />
                     @endif
                 </div>
 
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between">
+                        <label class="form-label text-white mb-1" for="password"><b>Contraseña</b></label>
+                    </div>
+                    <div class="input-group input-group-merge form-password-toggle">
+                        <input class="form-control form-control-merge border border-warning rounded-0" id="password"
+                            type="password" required name="password" placeholder="························"
+                            aria-describedby="password" tabindex="2" />
+                        <span class="input-group-text cursor-pointer rounded-0"><i data-feather="eye"></i></span>
+                    </div>
                 </div>
-                @endif
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-
-
-                        <div class="form-group row">
-
-                            <div class="col-md-12">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
-                                    placeholder="Nombre y Apellido">
-
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email"
-                                    placeholder="Correo Electronico">
-
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-
-                            <div class="col-md-12">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="new-password" placeholder="Ingrese una contraseña">
-
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-
-                            <div class="col-md-12">
-                                <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" required autocomplete="new-password"
-                                    placeholder="confirme su contraseña">
-                            </div>
-                        </div>
-
-                        {{-- campo referido --}}
-                        @if ( request()->referred_id != null )
-                        <label for="referred_id">Auspiciante</label>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                {{-- El campo disabled es read-only, no emite el value --}}
-                                <input type="text" name="referred_id" id="referred_id" value="{{request()->referred_id}}" 
-                                class="form-control" disabled>
-
-                                {{-- Por ello esta el campo tipo "hidden" para agregar el valor al registro --}}
-                                <input type="hidden" name="referred_id" id="referred_id" value="{{request()->referred_id}}" 
-                                class="form-control">
-                            </div>
-                        </div>
-                        @else
-                        <input type="hidden" name="referred_id" value="1">
-                        @endif
-
-                        <div class="form-group row mb-0">
-                            <div class="col-12">
-                                <button type="submit" class="btn bg-fucsia text-white btn-block btn-login">
-                                    {{ __('Registrarme') }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <fieldset class="checkbox mt-1 ml-2">
-                            <div class="vs-checkbox-con vs-checkbox-primary float-left justify-content-center">
-                                <input type="checkbox" name="term" id="term" {{ old('term') ? 'checked' : '' }}>
-                                <span class="vs-checkbox">
-                                    <span class="vs-checkbox--check">
-                                        <i class="vs-icon feather icon-check"></i>
-                                    </span>
-                                </span>
-                                @error('term')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-
-                            </div>
-                            <span class="">Acepto los <a href="{{-- {{ route('term') }} --}}">Terminos y
-                                    Condiciones</a></span>
-                        </fieldset>
-
-                    </form>
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between">
+                        <label class="form-label text-white mb-1" for="password"><b>Confirmar Contraseña</b></label>
+                    </div>
+                    <div class="input-group input-group-merge form-password-toggle">
+                        <input class="form-control form-control-merge border border-warning rounded-0" type="password"
+                            required name="password_confirmation" placeholder="························"
+                            aria-describedby="password" tabindex="2" />
+                        {{-- <span class="input-group-text cursor-pointer rounded-0"><i data-feather="eye"></i></span> --}}
+                    </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <p class="text-center">
-                    <small>
-                        <span>¿Ya tienes una cuenta?</span>
-                        <br>
-                        <a class="text-rosado" href="{{ route('login') }}">
-                            {{ __('Inicia sesión') }}
-                        </a>
-                    </small>
-                </p>
-            </div>
+
+                <button class="btn btn-primary w-100 rounded-0 mt-2" type="submit" tabindex="4">Crear cuenta</button>
+            </form>
+            <p class="text-center mt-2"><span>¿Ya tienes una cuenta?</span><a
+                    href="{{ route('login') }}"><span>&nbsp;<b>Iniciar sesión</b></span></a></p>
         </div>
     </div>
+    <!-- /Login-->
 </div>
+</div>
+<!-- END: Content-->
 @endsection
+
+@push('page_js')
+
+<script>
+    $(window).on('load', function () {
+        if (feather) {
+            feather.replace({
+                width: 14,
+                height: 14
+            });
+        }
+    })
+
+</script>
+
+@endpush
