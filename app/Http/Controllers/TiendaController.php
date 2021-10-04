@@ -219,7 +219,7 @@ class TiendaController extends Controller
     private function generalUrlOrden($data): string
     {
         try {
-            $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
+            $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6InQxZHZ2ZHVVayt1dVRKY0IraFl2aGc9PSIsInZhbHVlIjoiTFgyR2ZGajFQNXdsWlJsQ0k2dGhRTFRIYzFqOVQxdjNhZGxlbDBXMTZBRlYvc3dtdUQvNzVQdkJtamtnaVhTMyIsIm1hYyI6IjNjNDc3OTkzOWNiMmRjNzEzMWU2ZDRhNGIzMjcxODI3NjYzMTkxODY4Y2Y4YmE3MGM2NjBhNjUwODIwYTUyNjgifQ==');
             $headers = [
                 'x-api-key: '.$this->apis_key_nowpayments,
                 'Content-Type:application/json'
