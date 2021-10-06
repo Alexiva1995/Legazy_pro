@@ -118,10 +118,12 @@
                         <div class="col-6 col-md-6 mb-1">
                             <button class="btn btn-block btn-primary d" 
                             @if(number_format(Auth::user()->saldoDisponible(),2) < 50)
-                                disabled
+                                disabled 
+                            @else
+                            v-show='wallet != ""'
+                            v-on:click='openModalDetails'
                             @endif
-                             v-show='wallet != ""'
-                                v-on:click='openModalDetails'>
+                            >
                                 @if(number_format(Auth::user()->saldoDisponible(),2) < 50)
                                 No ha alcanzado el retiro mínimo
                                 @else
