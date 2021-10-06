@@ -219,7 +219,7 @@ class TiendaController extends Controller
     private function generalUrlOrden($data): string
     {
         try {
-            $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6InQxZHZ2ZHVVayt1dVRKY0IraFl2aGc9PSIsInZhbHVlIjoiTFgyR2ZGajFQNXdsWlJsQ0k2dGhRTFRIYzFqOVQxdjNhZGxlbDBXMTZBRlYvc3dtdUQvNzVQdkJtamtnaVhTMyIsIm1hYyI6IjNjNDc3OTkzOWNiMmRjNzEzMWU2ZDRhNGIzMjcxODI3NjYzMTkxODY4Y2Y4YmE3MGM2NjBhNjUwODIwYTUyNjgifQ==');
+            $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6InUvU2hRbjh4SzM2cXBrMG54TEtMaFE9PSIsInZhbHVlIjoiVk1ZQllacVNhQ3NiZURMNllZVUJkbnB2cFI3ZWoxM1Y0Nkl4MVRkLzZDcUw0Q1dkOUEydWtwdkVtd0Y4Y2ljQiIsIm1hYyI6ImMzM2E2NDllZDFmOWRhNWRlODZiYTk1OGVhZjM0ZTZlYmQ3OTU4ZjQ0YTMwYzdmYjdkMTEwMjg3MWMzZDI2NTAifQ==');
             $headers = [
                 'x-api-key: '.$this->apis_key_nowpayments,
                 'Content-Type:application/json'
@@ -340,7 +340,7 @@ class TiendaController extends Controller
     public function checkStatusOrden()
     {
 
-        $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6InQxZHZ2ZHVVayt1dVRKY0IraFl2aGc9PSIsInZhbHVlIjoiTFgyR2ZGajFQNXdsWlJsQ0k2dGhRTFRIYzFqOVQxdjNhZGxlbDBXMTZBRlYvc3dtdUQvNzVQdkJtamtnaVhTMyIsIm1hYyI6IjNjNDc3OTkzOWNiMmRjNzEzMWU2ZDRhNGIzMjcxODI3NjYzMTkxODY4Y2Y4YmE3MGM2NjBhNjUwODIwYTUyNjgifQ==');
+        $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6InUvU2hRbjh4SzM2cXBrMG54TEtMaFE9PSIsInZhbHVlIjoiVk1ZQllacVNhQ3NiZURMNllZVUJkbnB2cFI3ZWoxM1Y0Nkl4MVRkLzZDcUw0Q1dkOUEydWtwdkVtd0Y4Y2ljQiIsIm1hYyI6ImMzM2E2NDllZDFmOWRhNWRlODZiYTk1OGVhZjM0ZTZlYmQ3OTU4ZjQ0YTMwYzdmYjdkMTEwMjg3MWMzZDI2NTAifQ==');
         $headers = [
             'x-api-key: '.$this->apis_key_nowpayments,
             'Content-Type:application/json'
