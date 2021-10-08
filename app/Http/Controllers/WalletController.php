@@ -381,7 +381,11 @@ class WalletController extends Controller
                 $comision = ($orden->total * 0.1);
                 $sponsor = User::find($orden->getOrdenUser->referred_id);
                 if ($sponsor->status == '1') {
-                    $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
+                    $concepto = 'Bono directo del Usuario '.$orden->iduser;
+                    if (!empty($orden->getOrdenUser)) {
+                        $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
+                    }
+                    
                     $this->preSaveWallet($sponsor->id, $orden->iduser, $orden->id, $comision, $concepto);
                 }else{
                     $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
