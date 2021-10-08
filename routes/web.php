@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('checkEmail/{id}', 'UserController@checkEmail')->name('checkemail');
+
 Route::get('/', 'HomeController@home')->middleware('auth');
 
-Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
+Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(function ()
 {
     // 2fact
     Route::get('/2fact', 'DoubleAutenticationController@index')->name('2fact');

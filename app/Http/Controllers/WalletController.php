@@ -380,19 +380,12 @@ class WalletController extends Controller
             foreach ($ordenes as $orden) {
                 $comision = ($orden->total * 0.1);
                 $sponsor = User::find($orden->getOrdenUser->referred_id);
-                if(isset($sponsor->inversionMasAlta()->invertido)){
-                    if(($sponsor->gananciaActual() + $comision) > ($sponsor->inversionMasAlta()->invertido * 2)){
-                       $comision = ($sponsor->inversionMasAlta()->invertido * 2) - $sponsor->gananciaActual();
-                    }
-                } 
-                if($comision > 0){
-                    if ($sponsor->status == '1') {
-                        $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
-                        $this->preSaveWallet($sponsor->id, $orden->iduser, $orden->id, $comision, $concepto);
-                    }else{
-                        $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
-                        $this->preSaveWallet($sponsor->id, $orden->iduser, $orden->id, 0, $concepto);
-                    } 
+                if ($sponsor->status == '1') {
+                    $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
+                    $this->preSaveWallet($sponsor->id, $orden->iduser, $orden->id, $comision, $concepto);
+                }else{
+                    $concepto = 'Bono directo del Usuario '.$orden->getOrdenUser->fullname;
+                    $this->preSaveWallet($sponsor->id, $orden->iduser, $orden->id, 0, $concepto);
                 }
             }
         } catch (\Throwable $th) {
