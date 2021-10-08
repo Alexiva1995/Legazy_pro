@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('checkEmail/{id}', 'UserController@checkEmail')->name('checkemail');
+
 Route::get('/', 'HomeController@home')->middleware('auth');
 
-Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
+Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(function ()
 {
     // 2fact
     Route::get('/2fact', 'DoubleAutenticationController@index')->name('2fact');
@@ -133,9 +135,9 @@ Route::prefix('dashboard')->middleware('menu', 'auth')->group(function ()
     {
         //Ruta liquidaciones realizadas
         Route::get('/', 'LiquidactionController@index')->name('settlement');
-        Route::get('/pending', 'LiquidactionController@indexPendientes')->name('settlement.pending');
+        Route::get('/pending', 'LiquidactionController@indexPendientes')->middleware('checkrole')->name('settlement.pending');
         Route::post('/process', 'LiquidactionController@procesarLiquidacion')->name('settlement.process');
-        Route::get('/{status}/history', 'LiquidactionController@indexHistory')->name('settlement.history.status');
+        Route::get('/{status}/history', 'LiquidactionController@indexHistory')->middleware('checkrole')->name('settlement.history.status');
         Route::resource('liquidation', 'LiquidactionController');
 
         Route::get('/withdraw', 'LiquidactionController@withdraw')->name('settlement.withdraw');

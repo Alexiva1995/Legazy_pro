@@ -117,7 +117,9 @@
                         </div>
                         <div class="col-6 col-md-6 mb-1">
                             <button class="btn btn-block btn-primary d" v-show='wallet != ""'
-                                v-on:click='openModalDetails'>Retirar</button>
+                            v-on:click='openModalDetails'>
+                                Retirar
+                            </button>
                         </div>
                     </div>
                 </div>

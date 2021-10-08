@@ -219,7 +219,7 @@ class TiendaController extends Controller
     private function generalUrlOrden($data): string
     {
         try {
-            $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
+            $this->apis_key_nowpayments = Crypt::decryptString("eyJpdiI6IkRLT2tDbFJ1ZTJnWUVCSEs2VkZMaVE9PSIsInZhbHVlIjoiTkVuaXpGQ1EvSWlkcnU1djI2N0tnK08yc0w2TVpQdkZrOFlKNTF5YzNTcz0iLCJtYWMiOiI0Y2M2NzI5NDQzMjM3ODI2ZTg3YjMyYTRhZWU4ODM5NTYxYmE2ZTIyMzIxNmI3MmNhYTQ1NDQ5ZGVlZGFhYjdlIn0=");
             $headers = [
                 'x-api-key: '.$this->apis_key_nowpayments,
                 'Content-Type:application/json'
@@ -340,7 +340,7 @@ class TiendaController extends Controller
     public function checkStatusOrden()
     {
 
-        $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
+        $this->apis_key_nowpayments = Crypt::decryptString("eyJpdiI6IkRLT2tDbFJ1ZTJnWUVCSEs2VkZMaVE9PSIsInZhbHVlIjoiTkVuaXpGQ1EvSWlkcnU1djI2N0tnK08yc0w2TVpQdkZrOFlKNTF5YzNTcz0iLCJtYWMiOiI0Y2M2NzI5NDQzMjM3ODI2ZTg3YjMyYTRhZWU4ODM5NTYxYmE2ZTIyMzIxNmI3MmNhYTQ1NDQ5ZGVlZGFhYjdlIn0=");
         $headers = [
             'x-api-key: '.$this->apis_key_nowpayments,
             'Content-Type:application/json'
@@ -454,7 +454,7 @@ class TiendaController extends Controller
         // $this->registeInversion(967);
         // $this->registeInversion(968);
         // $this->activarUser();
-        // $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
+        // $this->apis_key_nowpayments = Crypt::decryptString("eyJpdiI6IkRLT2tDbFJ1ZTJnWUVCSEs2VkZMaVE9PSIsInZhbHVlIjoiTkVuaXpGQ1EvSWlkcnU1djI2N0tnK08yc0w2TVpQdkZrOFlKNTF5YzNTcz0iLCJtYWMiOiI0Y2M2NzI5NDQzMjM3ODI2ZTg3YjMyYTRhZWU4ODM5NTYxYmE2ZTIyMzIxNmI3MmNhYTQ1NDQ5ZGVlZGFhYjdlIn0=");
         // $headers = [
         //     'x-api-key: '.$this->apis_key_nowpayments,
         //     'Content-Type:application/json'

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use App\Rules\MatchOldPassword;
 use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\DoubleAutenticationController;
 
 
@@ -64,16 +65,18 @@ class UserController extends Controller
      */
     public function updateProfileKYC(Request $request)
     {
-
         $user = User::find(Auth::user()->id);
 
         $fields = [   
             "wallet_address" => ['string', 'min:21', 'max:35'],
+            "dni" => ['mimes:jpeg,png', 'max:801']
         ];
 
         $msj = [  
             "wallet_address.min" => 'La dirección de la billetera debe tener un minimo de 21 caracteres',
             "wallet_address.max" => 'La dirección de la billetera no puede tener mas de 35 caracteres',
+            'dni.mimes' => 'Archivos no permitido, solo jpeg, jpg y png',
+            'dni.max' => 'La imagen no debe ser mayor de 800 Kilobytes'
         ];
 
         $this->validate($request, $fields, $msj);
@@ -377,6 +380,13 @@ class UserController extends Controller
             Log::error('UserController - processAuthentication -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
+    }
+
+    public function checkEmail($id)
+    {
+        $id = Crypt::decryptString($id);
+        User::where('id', $id)->update(['email_verified_at' => Carbon::now()]);
+        return redirect()->route('login')->with('msj-success', 'Correo Electronico confirmado');
     }
 
 }

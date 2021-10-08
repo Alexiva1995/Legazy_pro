@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\TreeController;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
+use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -88,7 +90,7 @@ class RegisterController extends Controller
                 $binary_id = $this->treeController->getPosition($data['referred_id'], $userR->binary_side_register);
                 $binary_side = $userR->binary_side_register;
             }
-            return User::create([
+            $user = User::create([
                 // 'name' => $fullname[0],
                 // 'last_name' => (!empty($fullname[1])) ? $fullname[1] : '',
                 'fullname' => $data['fullname'],
@@ -100,6 +102,16 @@ class RegisterController extends Controller
                 'binary_id' => $binary_id,
                 'binary_side' => $binary_side
             ]);
+
+            $encritado = Crypt::encryptString($user->id);
+            $ruta = route('checkemail', $encritado);
+
+            Mail::send('mail.checkEmail', ['ruta' => $ruta, 'username' => $data['username']], function($message) use ($user) {
+                $message->subject('Bienvenido a Legazy Pro');
+                $message->to($user->email);
+            });
+
+            return $user;
         } catch (\Throwable $th) {
             dd($th);
             // throw $th;
