@@ -55,26 +55,26 @@ class TiendaController extends Controller
         }
     }
 
-    /**
-     * Lleva a la vista de productos de un paquete en especificio
-     *
-     * @param integer $idgroup
-     * @return void
-     */
-    public function products($idgroup)
-    {
-        try {
-            // title
-            //YA NO VA ERA DE HDLR
-            $category = Groups::find($idgroup);
-            $services = $category->getPackage->where('status', 1);
+    // /**
+    //  * Lleva a la vista de productos de un paquete en especificio
+    //  *
+    //  * @param integer $idgroup
+    //  * @return void
+    //  */
+    // public function products($idgroup)
+    // {
+    //     try {
+    //         // title
+    //         //YA NO VA ERA DE HDLR
+    //         $category = Groups::find($idgroup);
+    //         $services = $category->getPackage->where('status', 1);
 
-            return view('shop.products', compact('services'));
-        } catch (\Throwable $th) {
-            Log::error('Tienda - products -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
-        }
-    }
+    //         return view('shop.products', compact('services'));
+    //     } catch (\Throwable $th) {
+    //         Log::error('Tienda - products -> Error: '.$th);
+    //         abort(403, "Ocurrio un error, contacte con el administrador");
+    //     }
+    // }
     
     /**
      * Permiete procesar la orden de compra
