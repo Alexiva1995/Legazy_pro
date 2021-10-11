@@ -55,26 +55,26 @@ class TiendaController extends Controller
         }
     }
 
-    /**
-     * Lleva a la vista de productos de un paquete en especificio
-     *
-     * @param integer $idgroup
-     * @return void
-     */
-    public function products($idgroup)
-    {
-        try {
-            // title
-            //YA NO VA ERA DE HDLR
-            $category = Groups::find($idgroup);
-            $services = $category->getPackage->where('status', 1);
+    // /**
+    //  * Lleva a la vista de productos de un paquete en especificio
+    //  *
+    //  * @param integer $idgroup
+    //  * @return void
+    //  */
+    // public function products($idgroup)
+    // {
+    //     try {
+    //         // title
+    //         //YA NO VA ERA DE HDLR
+    //         $category = Groups::find($idgroup);
+    //         $services = $category->getPackage->where('status', 1);
 
-            return view('shop.products', compact('services'));
-        } catch (\Throwable $th) {
-            Log::error('Tienda - products -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
-        }
-    }
+    //         return view('shop.products', compact('services'));
+    //     } catch (\Throwable $th) {
+    //         Log::error('Tienda - products -> Error: '.$th);
+    //         abort(403, "Ocurrio un error, contacte con el administrador");
+    //     }
+    // }
     
     /**
      * Permiete procesar la orden de compra
@@ -139,13 +139,21 @@ class TiendaController extends Controller
                 }
                 
                 
-               
-
-                $url = $this->generalUrlOrden($data);
-               // dd($url);
+                $cmd = 'create_transaction';
+                $email = User::find(Auth::id())->email;
+                $dataPago = [
+                    'amount' => $data['total'],
+                    'currency1' => 'USDT.TRC20',
+                    'currency2' => 'USDT.TRC20',
+                    'buyer_email' => $email
+                    
+                ];
+                $url = $this->coinpayments_api_call($cmd, $dataPago);
+                // dd($url);
                 if (!empty($url)) {
-                    return redirect($url);
-
+                    $orden = OrdenPurchases::where('id', $data['idorden'])->first();
+                    $orden->update(['idtransacion' => $url['result']['txn_id']]);
+                    return redirect($url['result']['checkout_url']);
                 }else{
 
                    OrdenPurchases::where('id', $data['idorden'])->delete();
@@ -216,66 +224,120 @@ class TiendaController extends Controller
      * @param array $data
      * @return string
      */
-    private function generalUrlOrden($data): string
-    {
-        try {
-            $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
-            $headers = [
-                'x-api-key: '.$this->apis_key_nowpayments,
-                'Content-Type:application/json'
-            ];
-            $resul = '';
-            $curl = curl_init();
+    // private function generalUrlOrden($data): string
+    // {
+    //     try {
+    //         $this->apis_key_nowpayments = Crypt::decryptString("eyJpdiI6IkRLT2tDbFJ1ZTJnWUVCSEs2VkZMaVE9PSIsInZhbHVlIjoiTkVuaXpGQ1EvSWlkcnU1djI2N0tnK08yc0w2TVpQdkZrOFlKNTF5YzNTcz0iLCJtYWMiOiI0Y2M2NzI5NDQzMjM3ODI2ZTg3YjMyYTRhZWU4ODM5NTYxYmE2ZTIyMzIxNmI3MmNhYTQ1NDQ5ZGVlZGFhYjdlIn0=");
+    //         $headers = [
+    //             'x-api-key: '.$this->apis_key_nowpayments,
+    //             'Content-Type:application/json'
+    //         ];
+    //         $resul = '';
+    //         $curl = curl_init();
 
-            $dataRaw = collect([
-                'price_amount' => floatval($data['total'])  ,
-                "price_currency" => "usd",
-                "order_id" => $data['idorden'],
-                'pay_currency' => '',
-                "order_description" => $data['descripcion'],
-                "ipn_callback_url" => route('shop.ipn'),
-                "success_url" => route('shop.proceso.status', 'Completada'),
-                "cancel_url" => route('shop.proceso.status', 'Cancelada')
-            ]);
+    //         $dataRaw = collect([
+    //             'price_amount' => floatval($data['total'])  ,
+    //             "price_currency" => "usd",
+    //             "order_id" => $data['idorden'],
+    //             'pay_currency' => '',
+    //             "order_description" => $data['descripcion'],
+    //             "ipn_callback_url" => route('shop.ipn'),
+    //             "success_url" => route('shop.proceso.status', 'Completada'),
+    //             "cancel_url" => route('shop.proceso.status', 'Cancelada')
+    //         ]);
 
             
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.nowpayments.io/v1/invoice",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => $dataRaw->toJson(),
-                CURLOPT_HTTPHEADER => $headers
-            ));
+    //         curl_setopt_array($curl, array(
+    //             CURLOPT_URL => "https://api.nowpayments.io/v1/invoice",
+    //             CURLOPT_RETURNTRANSFER => true,
+    //             CURLOPT_ENCODING => "",
+    //             CURLOPT_MAXREDIRS => 10,
+    //             CURLOPT_TIMEOUT => 30,
+    //             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //             CURLOPT_CUSTOMREQUEST => "POST",
+    //             CURLOPT_POSTFIELDS => $dataRaw->toJson(),
+    //             CURLOPT_HTTPHEADER => $headers
+    //         ));
 
-                $response = curl_exec($curl);
-                $err = curl_error($curl);
-              //  dd($dataRaw);
+    //             $response = curl_exec($curl);
+    //             $err = curl_error($curl);
+    //           //  dd($dataRaw);
 
-                curl_close($curl);
-                if ($err) {
-                    Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
-                } else {
-                    $response = json_decode($response);
-                    // dd($response);
+    //             curl_close($curl);
+    //             if ($err) {
+    //                 Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
+    //             } else {
+    //                 $response = json_decode($response);
+    //                 // dd($response);
                    
-                    $orden = OrdenPurchases::where('id', $data['idorden'])->first();
+    //                 $orden = OrdenPurchases::where('id', $data['idorden'])->first();
             
-                    $orden->update(['idtransacion' => $response->id]);
+    //                 $orden->update(['idtransacion' => $response->id]);
                   
-                    $resul = $response->invoice_url;
-                }
+    //                 $resul = $response->invoice_url;
+    //             }
 
-            return $resul;
-        } catch (\Throwable $th) {
-            Log::error('Tienda - generalUrlOrden -> Error: '.$th);
-            abort(403, "Ocurrio un error, contacte con el administrador");
+    //         return $resul;
+    //     } catch (\Throwable $th) {
+    //         Log::error('Tienda - generalUrlOrden -> Error: '.$th);
+    //         abort(403, "Ocurrio un error, contacte con el administrador");
+    //     }
+    // }
+    /**
+	 * Funcion que hace el llamado a la api de coinpayment
+	 * 	ojo: esto dejarlo tal cual, en coinpayment debe permitir este procedimiento "create_withdrawal"
+	 *
+	 * @param string $cmd - transacion a ejecutar
+	 * @param array $req - arreglo con el request a procesar
+	 * @return void
+	 */
+    public function coinpayments_api_call($cmd, $req = array()) {
+        // Fill these in from your API Keys page
+        $public_key = Crypt::decryptString('eyJpdiI6IlljeE1EVkJYY0twWVZiWHRTRXhSU2c9PSIsInZhbHVlIjoiTGtoZ2tKekgzZHdEdTlqN01VdWxyd3J4a0JkanNScjJyT1FFYnlIZ3M1TUN0ZDRYM2ppWkFGbis3QXRwUUlrSmNNd0o2V3RBOUhaZEJPKytXU0hvb01JWXZYNFNsK2NWbmhmSHNLU25tNzQ9IiwibWFjIjoiZDY3MjcwODBlYWRjZWJhMmQzYzIzNWViNGJiNjNjNDQ5YWNhNzRjNDljZWMwNjk5NTM2MzZiY2RjY2ZkMThkZiJ9');
+		$private_key = Crypt::decryptString('eyJpdiI6ImcrcWRTcUd6dFdORHJibElabDJDTXc9PSIsInZhbHVlIjoiOXBwRDRWNGp3aEthK005T1pRbEVCVlYwTlBDWnUrcU1jdmFpQWYvVytnNWtWWStiQkdUY2lnSjRNTEluSm9ic1JFZXdUVisyTWpqSEpqWnR0Q0tUREhManRWRXVVTWt2L2IrL0ZrUTVOb0E9IiwibWFjIjoiNjUyMmIzY2Q0YjQyZDQxZTdhZDUyOGVhNGY4YmU5ZWNlNDhlZDg5YTFmOGU4YzU4ZDczOWI2MWY3YjM5YWRmNiJ9');
+        // Set the API command and required fields
+        $req['version'] = 1;
+        $req['cmd'] = $cmd;
+        $req['key'] = $public_key;
+        $req['format'] = 'json'; //supported values are json and xml
+        
+        // Generate the query string
+        $post_data = http_build_query($req, '', '&');
+        
+        // Calculate the HMAC signature on the POST data
+        $hmac = hash_hmac('sha512', $post_data, $private_key);
+        
+        // Create cURL handle and initialize (if needed)
+        static $ch = NULL;
+        if ($ch === NULL) {
+            $ch = curl_init('https://www.coinpayments.net/api.php');
+            curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('HMAC: '.$hmac));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+    
+        // Execute the call and close cURL handle
+        $data = curl_exec($ch);
+        
+        // Parse and return data if successful.
+        if ($data !== FALSE) {
+            if (PHP_INT_SIZE < 8 && version_compare(PHP_VERSION, '5.4.0') >= 0) {
+                // We are on 32-bit PHP, so use the bigint as string option. If you are using any API calls with Satoshis it is highly NOT recommended to use 32-bit PHP
+                $dec = json_decode($data, TRUE, 512, JSON_BIGINT_AS_STRING);
+            } else {
+                $dec = json_decode($data, TRUE);
+            }
+            if ($dec !== NULL && count($dec)) {
+                return $dec;
+            } else {
+                // If you are using PHP 5.5.0 or higher you can use json_last_error_msg() for a better error message
+                return array('error' => 'Unable to parse JSON result ('.json_last_error().')');
+            }
+        } else {
+            return array('error' => 'cURL error: '.curl_error($ch));
         }
     }
-
     public function cambiar_status(Request $request)
     {
         $orden = OrdenPurchases::findOrFail($request->id);
@@ -340,7 +402,7 @@ class TiendaController extends Controller
     public function checkStatusOrden()
     {
 
-        $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
+        $this->apis_key_nowpayments = Crypt::decryptString("eyJpdiI6IkRLT2tDbFJ1ZTJnWUVCSEs2VkZMaVE9PSIsInZhbHVlIjoiTkVuaXpGQ1EvSWlkcnU1djI2N0tnK08yc0w2TVpQdkZrOFlKNTF5YzNTcz0iLCJtYWMiOiI0Y2M2NzI5NDQzMjM3ODI2ZTg3YjMyYTRhZWU4ODM5NTYxYmE2ZTIyMzIxNmI3MmNhYTQ1NDQ5ZGVlZGFhYjdlIn0=");
         $headers = [
             'x-api-key: '.$this->apis_key_nowpayments,
             'Content-Type:application/json'
@@ -454,7 +516,7 @@ class TiendaController extends Controller
         // $this->registeInversion(967);
         // $this->registeInversion(968);
         // $this->activarUser();
-        // $this->apis_key_nowpayments = Crypt::decryptString('eyJpdiI6ImFoMEtOeDVXakxvSzJaUEg2aExFc0E9PSIsInZhbHVlIjoidTVVM0tsY29jTWRjc1g3QWVPMnFzeVU5U2t0eS9hYnRIanVSdHNBNlExWT0iLCJtYWMiOiIyYzE0NjBkNTQxYmRhMmI2Y2YyNjkzMTBkYmM5NjBmNjZmNGJmODg1NDM0ZjZkY2IwNzdkMTIwMzc3MzI2YjBiIn0=');
+        // $this->apis_key_nowpayments = Crypt::decryptString("eyJpdiI6IkRLT2tDbFJ1ZTJnWUVCSEs2VkZMaVE9PSIsInZhbHVlIjoiTkVuaXpGQ1EvSWlkcnU1djI2N0tnK08yc0w2TVpQdkZrOFlKNTF5YzNTcz0iLCJtYWMiOiI0Y2M2NzI5NDQzMjM3ODI2ZTg3YjMyYTRhZWU4ODM5NTYxYmE2ZTIyMzIxNmI3MmNhYTQ1NDQ5ZGVlZGFhYjdlIn0=");
         // $headers = [
         //     'x-api-key: '.$this->apis_key_nowpayments,
         //     'Content-Type:application/json'

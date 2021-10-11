@@ -29,6 +29,8 @@ class CreateUsersTable extends Migration
             $table->enum('status', [0, 1, 2])->default(0)->comment('0 - inactivo, 1 - activo, 2 - eliminado');
             // $table->enum('verify', [0, 1])->default(0)->comment('permite saber si un usuario esta verificado o no');
             $table->bigInteger('referred_id')->default(1)->comment('ID del usuario patrocinador');
+            $table->bigInteger('not_payment_binary_point_izq')->default(0)->comment('el id regisrado es la orden que que no cobrare');
+            $table->bigInteger('not_payment_binary_point_der')->default(0)->comment('el id regisrado es la orden que que no cobrare');
             $table->bigInteger('binary_id')->default(1)->comment('ID del usuario binario');
             $table->enum('binary_side', ['I', 'D'])->nullable()->comment('Permite saber si esta en la derecha o izquierda en el binario');
             $table->enum('binary_side_register', ['I', 'D'])->default('I')->comment('Permite saber porque lado va a registrar a un nuevo usuario');

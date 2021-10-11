@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use App\Rules\MatchOldPassword;
 use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\DoubleAutenticationController;
 
 
@@ -44,167 +45,169 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Vista para el KYC
-     *
-     * @return void
-     */
-    public function kyc()
-    {
+    // /**
+    //  * Vista para el KYC
+    //  *
+    //  * @return void
+    //  */
+    // public function kyc()
+    // {
 
-         return view('users.componenteProfile.kyc');
+    //      return view('users.componenteProfile.kyc');
 
-    }
+    // }
 
-    /**
-     * Funcion para actualizar el KYC
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function updateProfileKYC(Request $request)
-    {
+    // /**
+    //  * Funcion para actualizar el KYC
+    //  *
+    //  * @param Request $request
+    //  * @return void
+    //  */
+    // public function updateProfileKYC(Request $request)
+    // {
+    //     $user = User::find(Auth::user()->id);
 
-        $user = User::find(Auth::user()->id);
+    //     $fields = [   
+    //         "wallet_address" => ['string', 'min:21', 'max:35'],
+    //         "dni" => ['mimes:jpeg,png', 'max:801']
+    //     ];
 
-        $fields = [   
-            "wallet_address" => ['string', 'min:21', 'max:35'],
-        ];
+    //     $msj = [  
+    //         "wallet_address.min" => 'La dirección de la billetera debe tener un minimo de 21 caracteres',
+    //         "wallet_address.max" => 'La dirección de la billetera no puede tener mas de 35 caracteres',
+    //         'dni.mimes' => 'Archivos no permitido, solo jpeg, jpg y png',
+    //         'dni.max' => 'La imagen no debe ser mayor de 800 Kilobytes'
+    //     ];
 
-        $msj = [  
-            "wallet_address.min" => 'La dirección de la billetera debe tener un minimo de 21 caracteres',
-            "wallet_address.max" => 'La dirección de la billetera no puede tener mas de 35 caracteres',
-        ];
+    //     $this->validate($request, $fields, $msj);
 
-        $this->validate($request, $fields, $msj);
+    //     $user->update($request->all());
 
-        $user->update($request->all());
+    //  if($request->hasFile('dni')){
 
-     if($request->hasFile('dni')){
+    //     $file = $request->file('dni');
+    //     $name = $user->id.'_'.$file->getClientOriginalName();
+    //     $file->move(public_path('storage') . '/dni', $name);
+    //     $user->dni = $name;
 
-        $file = $request->file('dni');
-        $name = $user->id.'_'.$file->getClientOriginalName();
-        $file->move(public_path('storage') . '/dni', $name);
-        $user->dni = $name;
+    //  }
 
-     }
+    //  $user->wallet_address = $request->wallet_address;
 
-     $user->wallet_address = $request->wallet_address;
+    //  $user->save();
 
-     $user->save();
+    //  return redirect()->route('kyc')->with('msj-success','Se actualizo tu perfil');
 
-     return redirect()->route('kyc')->with('msj-success','Se actualizo tu perfil');
+    // }
 
-    }
+    // /**
+    //  * Vista para revisar la informacion del usuario
+    //  *
+    //  * @param [type] $id
+    //  * @return void
+    //  */
+    // public function showUser($id){
 
-    /**
-     * Vista para revisar la informacion del usuario
-     *
-     * @param [type] $id
-     * @return void
-     */
-    public function showUser($id){
+    //     $user = User::find($id);
 
-        $user = User::find($id);
+    //     return view('users.componenteUsers.admin.show-user')
+    //     ->with('user', $user);
 
-        return view('users.componenteUsers.admin.show-user')
-        ->with('user', $user);
+    // }
 
-    }
+    // /**
+    //  * Vista para editar la informacion del usuario
+    //  *
+    //  * @param [type] $id
+    //  * @return void
+    //  */
+    // public function editUser($id)
+    // {
 
-    /**
-     * Vista para editar la informacion del usuario
-     *
-     * @param [type] $id
-     * @return void
-     */
-    public function editUser($id)
-    {
+    //     $user = User::find($id);
 
-        $user = User::find($id);
-
-        // $timezone = Timezone::orderBy('list_utc','ASC')->get();
-        // $countries = Country::orderBy('name','ASC')->get();
+    //     // $timezone = Timezone::orderBy('list_utc','ASC')->get();
+    //     // $countries = Country::orderBy('name','ASC')->get();
  
  
-        return view('users.componenteUsers.admin.edit-user')
-              ->with('user',$user);
-            //   ->with('countries',$countries)
-            //   ->with('timezone',$timezone)
+    //     return view('users.componenteUsers.admin.edit-user')
+    //           ->with('user',$user);
+    //         //   ->with('countries',$countries)
+    //         //   ->with('timezone',$timezone)
 
-    }
+    // }
     
-    /**
-     * Funcion para actualizar un usuario
-     *
-     * @param Request $request
-     * @param [type] $id
-     * @return void
-     */
+    // /**
+    //  * Funcion para actualizar un usuario
+    //  *
+    //  * @param Request $request
+    //  * @param [type] $id
+    //  * @return void
+    //  */
 
-    // ¿Este metodo se usa? Parece que no, la que funciona es "updateProfile"
-    public function updateUser(Request $request, $id)
-    {
-        $user = User::find($id);
+    // // ¿Este metodo se usa? Parece que no, la que funciona es "updateProfile"
+    // public function updateUser(Request $request, $id)
+    // {
+    //     $user = User::find($id);
 
-        $request->validate([
+    //     $request->validate([
 
-            'current_password' => ['required', new MatchOldPassword],
-            'new_password' => ['required'],
-            'new_confirm_password' => ['same:new_password']
+    //         'current_password' => ['required', new MatchOldPassword],
+    //         'new_password' => ['required'],
+    //         'new_confirm_password' => ['same:new_password']
 
-        ]);
+    //     ]);
    
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+    //     User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        $fields = [
+    //     $fields = [
 
-             "fullname" => ['required'],
-             "email" => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-            ],
+    //          "fullname" => ['required'],
+    //          "email" => [
+    //             'required',
+    //             'string',
+    //             'email',
+    //             'max:255',
+    //         ],
             
 
-        ];
+    //     ];
 
-        $msj = [
+    //     $msj = [
 
-            'fullname.required' => 'El nombre completo es requerido',
-            'email.unique' => 'El correo debe ser unico',
+    //         'fullname.required' => 'El nombre completo es requerido',
+    //         'email.unique' => 'El correo debe ser unico',
            
-        ];
+    //     ];
 
 
-        $this->validate($request, $fields, $msj);
+    //     $this->validate($request, $fields, $msj);
   
-        $user->update($request->all());
+    //     $user->update($request->all());
   
-        if ($request->hasFile('photoDB')) {
+    //     if ($request->hasFile('photoDB')) {
 
-            $file = $request->file('photoDB');
-            $name = $user->id.'_'.$file->getClientOriginalName();
-            $file->move(public_path('storage') . '/photo', $name);
-            $user->photoDB = $name;
+    //         $file = $request->file('photoDB');
+    //         $name = $user->id.'_'.$file->getClientOriginalName();
+    //         $file->move(public_path('storage') . '/photo', $name);
+    //         $user->photoDB = $name;
     
-         }
+    //      }
 
-        $user->fullname = $request->fullname;
-        // $user->utc = $request->utc;
-        $user->admin = $request->admin;
-        $user->status = $request->status;
-        // $user->balance = $request->balance;
-        // $user->website = $request->website;
-        $user->whatsapp = $request->whatsapp;
-        $user->address = $request->address;
-        //$user->wallet_address = $request->wallet_address;
+    //     $user->fullname = $request->fullname;
+    //     // $user->utc = $request->utc;
+    //     $user->admin = $request->admin;
+    //     $user->status = $request->status;
+    //     // $user->balance = $request->balance;
+    //     // $user->website = $request->website;
+    //     $user->whatsapp = $request->whatsapp;
+    //     $user->address = $request->address;
+    //     //$user->wallet_address = $request->wallet_address;
 
-        $user->save();
+    //     $user->save();
 
-        return redirect()->route('users.list-user')->with('msj-success','Se actualizo el perfil de '.$user->fullname.'');
-    }
+    //     return redirect()->route('users.list-user')->with('msj-success','Se actualizo el perfil de '.$user->fullname.'');
+    // }
 
    /**
     * Vista para editar perfil
@@ -213,7 +216,7 @@ class UserController extends Controller
     */
    public function editProfile()
    {
-
+    // dd("editProfile");
     //    $timezone = Timezone::orderBy('list_utc','ASC')->get();
     //    $countries = Country::orderBy('name','ASC')->get();
 
@@ -244,8 +247,7 @@ class UserController extends Controller
                'email',
                'max:255',
            ],
-           'wallet_address' => ['min:21', 'max:35', 'nullable'],
-           'photoDB'=> ['nullable', 'mimes:jpeg,png', 'max:801']
+           'wallet_address' => ['min:21', 'max:35', 'nullable']
         ];
 
         $msj = [
@@ -254,9 +256,7 @@ class UserController extends Controller
             'last_name.required' => 'El apellido es requerido.',
             'email.unique' => 'El correo debe ser unico.',
             'wallet_address.min' => 'La dirección de la billetera debe tener un minimo de 21 caracteres.',
-            'wallet_address.max' => 'La dirección de la billetera no puede tener mas de 35 caracteres.',
-            'photoDB.mimes' => 'Archivos no permitido, solo jpeg, jpg y png',
-            'photoDB.max' => 'La imagen no debe ser mayor de 800 Kilobytes'
+            'wallet_address.max' => 'La dirección de la billetera no puede tener mas de 35 caracteres.'
         ];
 
         $this->validate($request, $fields, $msj);
@@ -280,15 +280,6 @@ class UserController extends Controller
         }
 
         $user->update($request->all());
-
-     if ($request->hasFile('photoDB')) {
-
-        $file = $request->file('photoDB');
-        $name = $user->id.'_'.$file->getClientOriginalName();
-        $file->move(public_path('storage') . '/photo', $name);
-        $user->photoDB = $name;
-
-     }
 
         $user->fullname = $request->fullname;
         $user->whatsapp = $request->whatsapp;
@@ -377,6 +368,13 @@ class UserController extends Controller
             Log::error('UserController - processAuthentication -> Error: '.$th);
             abort(403, "Ocurrio un error, contacte con el administrador");
         }
+    }
+
+    public function checkEmail($id)
+    {
+        $id = Crypt::decryptString($id);
+        User::where('id', $id)->update(['email_verified_at' => Carbon::now()]);
+        return redirect()->route('login')->with('msj-success', 'Correo Electronico confirmado');
     }
 
 }
