@@ -70,7 +70,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
     Route::prefix('shop')->group(function ()
     {
         Route::get('/', 'TiendaController@index')->name('shop');
-        Route::get('/groups/{idgroup}/products', 'TiendaController@products')->name('shop.products');
+        // Route::get('/groups/{idgroup}/products', 'TiendaController@products')->name('shop.products');
         Route::post('/procces', 'TiendaController@procesarOrden')->name('shop.procces');
         Route::post('/ipn', 'TiendaController@ipn')->name('shop.ipn');
         Route::get('/{status}/estado', 'TiendaController@statusProcess')->name('shop.proceso.status');
@@ -87,21 +87,21 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
     //Ruta para los usuarios
     Route::prefix('user')->group(function(){
 
-        Route::get('kyc', 'UserController@kyc')->name('kyc');
+        // Route::get('kyc', 'UserController@kyc')->name('kyc');
 
         Route::get('profile', 'UserController@editProfile')->name('profile');
 
         Route::get('user-list', 'UserController@listUser')->name('users.list-user')->middleware('auth', 'checkrole:1');
-        Route::get('user-edit/{id}', 'UserController@editUser')->name('users.edit-user');
-        Route::get('user-show/{id}', 'UserController@showUser')->name('users.show-user');
-        Route::patch('user-verify/{id}', 'UserController@verifyUser')->name('users.verify-user');
-        Route::patch('user-update/{id}', 'UserController@updateUser')->name('users.update-user');
-        Route::delete('user/delete/{id}','UserController@destroyUser')->name('users.destroy-user');
+        // Route::get('user-edit/{id}', 'UserController@editUser')->name('users.edit-user');
+        // Route::get('user-show/{id}', 'UserController@showUser')->name('users.show-user');
+        // Route::patch('user-verify/{id}', 'UserController@verifyUser')->name('users.verify-user');
+        // Route::patch('user-update/{id}', 'UserController@updateUser')->name('users.update-user');
+        // Route::delete('user/delete/{id}','UserController@destroyUser')->name('users.destroy-user');
         // permite hacer operaciones con el authenticador de google
         Route::get('{tipo}/{id}/action', 'UserController@processAuthentication')->name('user.authentication');
 
         Route::patch('profile-update', 'UserController@updateProfile')->name('profile.update');
-        Route::patch('profile-update-kyc', 'UserController@updateProfileKYC')->name('profile.update.kyc');
+        // Route::patch('profile-update-kyc', 'UserController@updateProfileKYC')->name('profile.update.kyc');
 
         Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
         Route::get('change-password', 'ChangePasswordController@change-password')->name('profile.change-password');
@@ -134,11 +134,11 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
     Route::prefix('settlement')->group(function()
     {
         //Ruta liquidaciones realizadas
-        Route::get('/', 'LiquidactionController@index')->name('settlement');
+        Route::get('/', 'LiquidactionController@index')->middleware('checkrole')->name('settlement');
         Route::get('/pending', 'LiquidactionController@indexPendientes')->middleware('checkrole')->name('settlement.pending');
         Route::post('/process', 'LiquidactionController@procesarLiquidacion')->name('settlement.process');
         Route::get('/{status}/history', 'LiquidactionController@indexHistory')->middleware('checkrole')->name('settlement.history.status');
-        Route::resource('liquidation', 'LiquidactionController');
+        Route::resource('liquidation', 'LiquidactionController')->middleware('checkrole');
 
         Route::get('/withdraw', 'LiquidactionController@withdraw')->name('settlement.withdraw');
         Route::get('{wallet}/sendcodeemail', 'LiquidactionController@sendCodeEmail')->name('send-code-email');
