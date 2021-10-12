@@ -72,7 +72,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
         Route::get('/', 'TiendaController@index')->name('shop');
         // Route::get('/groups/{idgroup}/products', 'TiendaController@products')->name('shop.products');
         Route::post('/procces', 'TiendaController@procesarOrden')->name('shop.procces');
-        Route::post('/ipn', 'TiendaController@ipn')->name('shop.ipn');
+        Route::get('/ipn/{id}', 'CoinPaymentController@GetTransactionInformation')->name('shop.ipn');
         Route::get('/{status}/estado', 'TiendaController@statusProcess')->name('shop.proceso.status');
         Route::post('cambiarStatus', 'TiendaController@cambiar_status')->name('cambiarStatus');
     });

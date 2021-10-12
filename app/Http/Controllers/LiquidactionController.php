@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Liquidaction;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Wallet;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Liquidaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
-use App\Http\Controllers\WalletController;
-use App\Http\Controllers\DoubleAutenticationController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Crypt;
+use App\Http\Controllers\WalletController;
+use App\Http\Controllers\CoinPaymentController;
+use App\Http\Controllers\DoubleAutenticationController;
 
 class LiquidactionController extends Controller
 {
@@ -27,6 +28,7 @@ class LiquidactionController extends Controller
     {
         $this->walletController = new WalletController();
         $this->doubleAuthController = new DoubleAutenticationController();
+        $this->coinpaymentController = new CoinPaymentController();
     }
 
     /**
@@ -484,15 +486,16 @@ class LiquidactionController extends Controller
     {
         $liquidation = Liquidaction::find($idliquidation);
         // creo el arreglo de la transacion en coipayment
-        $cmd = 'create_withdrawal';
+        // $cmd = 'create_withdrawal';
         $result2 = '';
-        $dataPago = [
-            'amount' => $liquidation->total,
-            'currency' => 'USDT.TRC20',
-            'address' => $billetera,
-        ];
+        // $dataPago = [
+        //     'amount' => $liquidation->total,
+        //     'currency' => 'USDT.TRC20',
+        //     'address' => $billetera,
+        // ];
         // llamo la a la funcion que va a ser la transacion
-        $result = $this->coinpayments_api_call($cmd, $dataPago);
+        // $result = $this->coinpayments_api_call($cmd, $dataPago);
+        $result = $this->coinPaymentController->CreateWithdrawal($liquidation->total, 'USDT.TRC20', $billetera);
         if (!empty($result['result'])) {
             Liquidaction::where('id', $idliquidation)->update([
                 'status' => 1,
@@ -508,63 +511,63 @@ class LiquidactionController extends Controller
         return $result2;
     }
 
-    /**
-	 * Funcion que hace el llamado a la api de coinpayment
-	 * 	ojo: esto dejarlo tal cual, en coinpayment debe permitir este procedimiento "create_withdrawal"
-	 *
-	 * @param string $cmd - transacion a ejecutar
-	 * @param array $req - arreglo con el request a procesar
-	 * @return void
-	 */
-	public function coinpayments_api_call($cmd, $req = array()) {
-		// Fill these in from your API Keys page
-		$public_key = Crypt::decryptString('eyJpdiI6IkpVTmpHaVlXd2FJVU85ckZ0V25TRGc9PSIsInZhbHVlIjoiTXl2WWEweGc4T1pTenJKcmdRbGZwMHdaUXNlKzczUHYwaFJLZXlNaXdrR1kvMmRtNERvaTFEa2RGZDBhNnZBa3hvNkhxYldkN3NwOUtyRG1VZG9GMEhYaVNaV0UycDR6dzZVeXR3L2pmZmM9IiwibWFjIjoiNjczNTgzYjVlMjE0YmM3OTA3YjdjYmEwOWM0NjE5OGNlMmM4MDcyNjMyNDY2MzFiODg2MzQxOThmM2I4M2U5MSJ9');
-		$private_key = Crypt::decryptString('eyJpdiI6ImlKa3pIZ2UyeEdkVmJTMHg3Mm1rcXc9PSIsInZhbHVlIjoic1FNdXRldmg5UWptblFVSWRxNUdPOEFDc2xwY1NKYWU3ckpXbTlLMUphOVBtRUhnQ2h3Mnk3dUF2ellkNUJMc2tic0ZjbEhuSlF5K1ZkbEFjalR6NnF4OHVUTWxFNjlxaWIvU2YyUk9jN0E9IiwibWFjIjoiYjRjZWU3ODVjMmJhNjliZDAxYzc1MjJmMzBlMmU3MGNmNTVmYjkxMzAyMzU3YzU4Zjg4MTJlYWZhZjMyODQ4MCJ9');
+    // /**
+	//  * Funcion que hace el llamado a la api de coinpayment
+	//  * 	ojo: esto dejarlo tal cual, en coinpayment debe permitir este procedimiento "create_withdrawal"
+	//  *
+	//  * @param string $cmd - transacion a ejecutar
+	//  * @param array $req - arreglo con el request a procesar
+	//  * @return void
+	//  */
+	// public function coinpayments_api_call($cmd, $req = array()) {
+	// 	// Fill these in from your API Keys page
+	// 	$public_key = Crypt::decryptString('eyJpdiI6IkpVTmpHaVlXd2FJVU85ckZ0V25TRGc9PSIsInZhbHVlIjoiTXl2WWEweGc4T1pTenJKcmdRbGZwMHdaUXNlKzczUHYwaFJLZXlNaXdrR1kvMmRtNERvaTFEa2RGZDBhNnZBa3hvNkhxYldkN3NwOUtyRG1VZG9GMEhYaVNaV0UycDR6dzZVeXR3L2pmZmM9IiwibWFjIjoiNjczNTgzYjVlMjE0YmM3OTA3YjdjYmEwOWM0NjE5OGNlMmM4MDcyNjMyNDY2MzFiODg2MzQxOThmM2I4M2U5MSJ9');
+	// 	$private_key = Crypt::decryptString('eyJpdiI6ImlKa3pIZ2UyeEdkVmJTMHg3Mm1rcXc9PSIsInZhbHVlIjoic1FNdXRldmg5UWptblFVSWRxNUdPOEFDc2xwY1NKYWU3ckpXbTlLMUphOVBtRUhnQ2h3Mnk3dUF2ellkNUJMc2tic0ZjbEhuSlF5K1ZkbEFjalR6NnF4OHVUTWxFNjlxaWIvU2YyUk9jN0E9IiwibWFjIjoiYjRjZWU3ODVjMmJhNjliZDAxYzc1MjJmMzBlMmU3MGNmNTVmYjkxMzAyMzU3YzU4Zjg4MTJlYWZhZjMyODQ4MCJ9');
 		
-		// Set the API command and required fields
-		$req['version'] = 1;
-		$req['cmd'] = $cmd;
-		$req['key'] = $public_key;
-		$req['format'] = 'json'; //supported values are json and xml
+	// 	// Set the API command and required fields
+	// 	$req['version'] = 1;
+	// 	$req['cmd'] = $cmd;
+	// 	$req['key'] = $public_key;
+	// 	$req['format'] = 'json'; //supported values are json and xml
 		
-		// Generate the query string
-		$post_data = http_build_query($req, '', '&');
+	// 	// Generate the query string
+	// 	$post_data = http_build_query($req, '', '&');
 		
-		// Calculate the HMAC signature on the POST data
-		$hmac = hash_hmac('sha512', $post_data, $private_key);
+	// 	// Calculate the HMAC signature on the POST data
+	// 	$hmac = hash_hmac('sha512', $post_data, $private_key);
 		
-		// Create cURL handle and initialize (if needed)
-		static $ch = NULL;
-		if ($ch === NULL) {
-			$ch = curl_init('https://www.coinpayments.net/api.php');
-			curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		}
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('HMAC: '.$hmac));
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+	// 	// Create cURL handle and initialize (if needed)
+	// 	static $ch = NULL;
+	// 	if ($ch === NULL) {
+	// 		$ch = curl_init('https://www.coinpayments.net/api.php');
+	// 		curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
+	// 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	// 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	// 	}
+	// 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('HMAC: '.$hmac));
+	// 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 		
-		// Execute the call and close cURL handle     
-		$data = curl_exec($ch);                
-		// Parse and return data if successful.
-		if ($data !== FALSE) {
-			if (PHP_INT_SIZE < 8 && version_compare(PHP_VERSION, '5.4.0') >= 0) {
-				// We are on 32-bit PHP, so use the bigint as string option. If you are using any API calls with Satoshis it is highly NOT recommended to use 32-bit PHP
-				$dec = json_decode($data, TRUE, 512, JSON_BIGINT_AS_STRING);
-			} else {
-				$dec = json_decode($data, TRUE);
-			}
-			if ($dec !== NULL && count($dec)) {
-				return $dec;
-			} else {
-				// If you are using PHP 5.5.0 or higher you can use json_last_error_msg() for a better error message
-				return array('error' => 'Unable to parse JSON result ('.json_last_error().')');
-			}
-		} else {
-			return array('error' => 'cURL error: '.curl_error($ch));
-		}
-		// dd($this->coinpayments_api_call('rates'));
-	} 
+	// 	// Execute the call and close cURL handle     
+	// 	$data = curl_exec($ch);                
+	// 	// Parse and return data if successful.
+	// 	if ($data !== FALSE) {
+	// 		if (PHP_INT_SIZE < 8 && version_compare(PHP_VERSION, '5.4.0') >= 0) {
+	// 			// We are on 32-bit PHP, so use the bigint as string option. If you are using any API calls with Satoshis it is highly NOT recommended to use 32-bit PHP
+	// 			$dec = json_decode($data, TRUE, 512, JSON_BIGINT_AS_STRING);
+	// 		} else {
+	// 			$dec = json_decode($data, TRUE);
+	// 		}
+	// 		if ($dec !== NULL && count($dec)) {
+	// 			return $dec;
+	// 		} else {
+	// 			// If you are using PHP 5.5.0 or higher you can use json_last_error_msg() for a better error message
+	// 			return array('error' => 'Unable to parse JSON result ('.json_last_error().')');
+	// 		}
+	// 	} else {
+	// 		return array('error' => 'cURL error: '.curl_error($ch));
+	// 	}
+	// 	// dd($this->coinpayments_api_call('rates'));
+	// } 
 
     /**
      * Permite procesar reversiones del sistema
@@ -725,7 +728,7 @@ class LiquidactionController extends Controller
             if (!empty($liquidacion->hash) && strlen($liquidacion->hash) <= 32) {
                 $data = ['id' => $liquidacion->hash];
                 // Log::info('Liquidacion: '.$liquidacion->id);
-                $resultado = $this->coinpayments_api_call($cmd, $data);
+                $resultado = $this->coinpaymentController->api_call($cmd, $data);
                 // dump($resultado);
                 if (!empty($resultado['result'])) {
                     if ($resultado['result']['status'] == -1) {

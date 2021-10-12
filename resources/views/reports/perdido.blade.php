@@ -17,7 +17,7 @@
                                     <th>Paquete</th>
                                     <th>Fecha de Creación</th>
                                     <th>Monto</th>
-                                    <th>Estado</th>      
+                                    <th>Estado</th>
                                 </tr>
 
                             </thead>
@@ -41,7 +41,9 @@
                                     <td> <a class=" btn btn-danger text-white text-bold-600">Cancelado</a></td>
                                     @endif
 
-                                    
+                                    <td>
+                                        <a class=" btn btn-info text-white text-bold-600" href="{{route('shop.ipn', $orden->idtransacion)}}">Status IPN</a>
+                                    </td>
                                 </tr>
 
                                 <!-- Modal -->
