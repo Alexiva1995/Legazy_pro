@@ -246,17 +246,14 @@ class UserController extends Controller
                'string',
                'email',
                'max:255',
-           ],
-           'wallet_address' => ['min:21', 'max:35', 'nullable']
+           ]
         ];
 
         $msj = [
 
             'name.required' => 'El nombre es requerido.',
             'last_name.required' => 'El apellido es requerido.',
-            'email.unique' => 'El correo debe ser unico.',
-            'wallet_address.min' => 'La dirección de la billetera debe tener un minimo de 21 caracteres.',
-            'wallet_address.max' => 'La dirección de la billetera no puede tener mas de 35 caracteres.'
+            'email.unique' => 'El correo debe ser unico.'
         ];
 
         $this->validate($request, $fields, $msj);

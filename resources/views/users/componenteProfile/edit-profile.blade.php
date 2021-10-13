@@ -114,7 +114,7 @@
             <div class="form-group">
                 <div class="controls">
                     <label class=" white" for="whatsapp">Telefono</label>
-                    <input type="text"
+                    <input type="tel"
                         class="form-control border border-warning rounded-0 @error('whatsapp') is-invalid @enderror"
                         name="whatsapp" value="{{ $user->whatsapp }}">
                     @error('whatsapp')

@@ -100,7 +100,8 @@ class TiendaController extends Controller
                     $pagado = $inversion->invertido;
 
                     $nuevoInvertido = ($paquete->price - $pagado); 
-                    $porcentaje = ($nuevoInvertido * 0.03);
+                    // $porcentaje = ($nuevoInvertido * 0.03);
+                    $porcentaje = 0;
 
                     $total = ($nuevoInvertido + $porcentaje);
                     //ACTUALIZAMOS LA INVERSION
@@ -116,7 +117,8 @@ class TiendaController extends Controller
                         'package_id' => $paquete->id,
                         'cantidad' => 1,
                         'total' => $total,
-                        'monto' => $nuevoInvertido
+                        'monto' => $nuevoInvertido,
+                        'type_orden' => '1'
                     ];
                 
                     //$orden = OrdenPurchases::findOrFail($inversion->orden_id)->update($data);
@@ -133,7 +135,8 @@ class TiendaController extends Controller
                         'package_id' => $paquete->id,
                         'cantidad' => 1,
                         'total' => $total,
-                        'monto' => $paquete->price
+                        'monto' => $paquete->price,
+                        'type_orden' => '0'
                     ];
                     
                     $data['idorden'] = $this->saveOrden($data);

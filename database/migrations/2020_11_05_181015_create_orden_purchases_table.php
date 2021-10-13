@@ -15,12 +15,11 @@ class CreateOrdenPurchasesTable extends Migration
     {
         Schema::create('orden_purchases', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('iduser')->unsigned();;
+            $table->bigInteger('iduser')->unsigned();
             $table->foreign('iduser')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            // $table->bigInteger('group_id')->unsigned();
-            // $table->foreign('group_id')->references('id')->on('groups');
             $table->bigInteger('package_id')->unsigned();
             $table->foreign('package_id')->references('id')->on('packages')->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('type_orden', [0, 1])->default(0)->comment('0 - Normal, 1 - Upgrade');
             $table->integer('cantidad');
             $table->decimal('total');
             $table->decimal('monto')->nullable();
