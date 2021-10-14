@@ -14,7 +14,7 @@ class AddColumsTypeWalletTableUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('type_wallet')->nullable();
+            // $table->string('type_wallet')->nullable();
         });
     }
 

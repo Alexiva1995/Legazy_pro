@@ -80,7 +80,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+        
          try {
             $whatsapp = '-----';
             $binary_side = '';
@@ -91,8 +91,6 @@ class RegisterController extends Controller
                 $binary_side = $userR->binary_side_register;
             }
             $user = User::create([
-                // 'name' => $fullname[0],
-                // 'last_name' => (!empty($fullname[1])) ? $fullname[1] : '',
                 'fullname' => $data['fullname'],
                 'username' => $data['username'],
                 'email' => $data['email'],

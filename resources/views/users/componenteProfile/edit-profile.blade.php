@@ -2,7 +2,7 @@
     @csrf
     @method('PATCH')
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
@@ -50,7 +50,7 @@
         </div>
 
     </div>
-    <hr>
+    <hr> --}}
 
     <div class="row">
         <div class="col-12">
@@ -113,8 +113,8 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class=" white" for="whatsapp">Telefono</label>
-                    <input type="text"
+                    <label class=" white" for="whatsapp">WhatsApp</label>
+                    <input type="tel"
                         class="form-control border border-warning rounded-0 @error('whatsapp') is-invalid @enderror"
                         name="whatsapp" value="{{ $user->whatsapp }}">
                     @error('whatsapp')
