@@ -347,7 +347,6 @@ class LiquidactionController extends Controller
                 'monto_bruto' => $bruto,
                 'feed' => $feed,
                 'hash',
-                'wallet_used' => $user->type_wallet.' - '.$user->wallet_address,
                 'status' => 0,
                 'code_correo' => Str::random(10),
                 'fecha_code' => Carbon::now()

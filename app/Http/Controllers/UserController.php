@@ -246,14 +246,17 @@ class UserController extends Controller
                'string',
                'email',
                'max:255',
-           ]
+            ],
+            "whatsapp" => ['nullable', 'digits_between:10,15', 'numeric']
         ];
 
         $msj = [
 
             'name.required' => 'El nombre es requerido.',
             'last_name.required' => 'El apellido es requerido.',
-            'email.unique' => 'El correo debe ser unico.'
+            'email.unique' => 'El correo debe ser unico.',
+            'whatsapp.digits_between' => 'El WhatsApp debe contener entre 10 y 15 dígitoss',
+            'whatsapp.numeric' => 'El WhatsApp debe contener solo números'
         ];
 
         $this->validate($request, $fields, $msj);

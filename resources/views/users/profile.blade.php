@@ -20,11 +20,11 @@
 <script>
 
 
-$(document).ready(function() {
-          @if($user->photoDB != NULL)
-                previewPersistedFile("{{asset('storage/photo/'.$user->photoDB)}}", 'photo_preview');
-          @endif
-        });
+// $(document).ready(function() {
+//           @if($user->photoDB != NULL)
+//                 previewPersistedFile("{{asset('storage/photo/'.$user->photoDB)}}", 'photo_preview');
+//           @endif
+//         });
    
 
 

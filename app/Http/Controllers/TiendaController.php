@@ -156,10 +156,16 @@ class TiendaController extends Controller
                 // $url = $this->coinpayments_api_call($cmd, $dataPago);
                 $url = $this->coinPaymentController->CreateTransaction($dataPago);
                 // dd($url);
-                if (!empty($url)) {
-                    $orden = OrdenPurchases::where('id', $data['idorden'])->first();
-                    $orden->update(['idtransacion' => $url['result']['txn_id']]);
-                    return redirect($url['result']['checkout_url']);
+                if (!empty($url)) {   
+                    if(!empty($url['error'] != 'ok')){
+                        OrdenPurchases::where('id', $data['idorden'])->delete();
+                        return redirect()->back()->with('msj-info', 'Problemas al generar la orden, intente mas tarde');
+                    }else{
+                        $orden = OrdenPurchases::where('id', $data['idorden'])->first();
+                        $orden->update(['idtransacion' => $url['result']['txn_id']]);
+                        return redirect($url['result']['checkout_url']);
+                    }
+                    
                 }else{
 
                    OrdenPurchases::where('id', $data['idorden'])->delete();
