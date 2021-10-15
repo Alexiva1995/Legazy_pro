@@ -108,7 +108,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
         Route::get('change-password', 'ChangePasswordController@change-password')->name('profile.change-password');
 
         Route::get('/impersonate/stop', 'ImpersonateController@stop')->name('impersonate.stop');
-        Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
 
         Route::get('sendcode', 'UserController@sendCodeEmail')->name('user.send.code');
     });
@@ -151,6 +150,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
      */
     Route::prefix('admin')->middleware('checkrole')->group(function ()
     {
+        Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
 
         //Agregar servicios
         Route::prefix('products')->group(function ()
