@@ -348,85 +348,136 @@ class TiendaController extends Controller
         }
     }
 
-     /**
+    //  /**
+    //  * Permite saber el estado de las ordenes realizadas
+    //  *
+    //  * @return void
+    //  */
+    // public function checkStatusOrden()
+    // {
+
+    //     $this->apis_key_nowpayments = Crypt::decryptString("eyJpdiI6IkRLT2tDbFJ1ZTJnWUVCSEs2VkZMaVE9PSIsInZhbHVlIjoiTkVuaXpGQ1EvSWlkcnU1djI2N0tnK08yc0w2TVpQdkZrOFlKNTF5YzNTcz0iLCJtYWMiOiI0Y2M2NzI5NDQzMjM3ODI2ZTg3YjMyYTRhZWU4ODM5NTYxYmE2ZTIyMzIxNmI3MmNhYTQ1NDQ5ZGVlZGFhYjdlIn0=");
+    //     $headers = [
+    //         'x-api-key: '.$this->apis_key_nowpayments,
+    //         'Content-Type:application/json'
+    //     ];
+
+    //     $resul = ''; 
+    //     $curl = curl_init();
+
+    //     $fechaTo = Carbon::now();
+    //     $fechaFrom = $fechaTo->copy()->subDays(2);
+
+    //     curl_setopt_array($curl, array(
+    //         CURLOPT_URL => "https://api.nowpayments.io/v1/payment?limit=100&dateFrom=".$fechaFrom->format('Y-m-d')."&dateTo=".$fechaTo->copy()->addDays(1)->format('Y-m-d'),
+    //         CURLOPT_RETURNTRANSFER => true,
+    //         CURLOPT_ENCODING => "",
+    //         CURLOPT_MAXREDIRS => 10,
+    //         CURLOPT_TIMEOUT => 30,
+    //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //         CURLOPT_CUSTOMREQUEST => "GET",
+    //         CURLOPT_HTTPHEADER => $headers
+    //     ));
+            
+    //     $response = curl_exec($curl);
+    //     $err = curl_error($curl);
+    //     curl_close($curl);
+    //     if ($err) {
+    //         Log::error('Tienda - checkStatusOrden -> Error curl: '.$err);        
+    //     } else {
+    //         $response = json_decode($response);
+    //         $pagos = $response->data;
+    //         // dd($pagos);
+    //         foreach ($pagos as $pago) {
+    //             // if ($pago->order_id < 964 && $pago->order_id > 968) {
+    //                 $estado = '0';
+    //                 if ($pago->payment_status == 'expired') {
+    //                     $estado = '2';
+    //                     OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+    //                 }
+    //                 if($pago->payment_status == 'finished'){
+    //                     $estado = '1';
+    //                     OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+    //                 }
+    //                 if($pago->payment_status == 'partially_paid'){
+    //                     $resta = ($pago->pay_amount - $pago->actually_paid);
+    //                     if ($resta <= 1) {
+    //                         $estado = '1';
+    //                         OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+    //                     }
+    //                 }
+    //                 if ($estado == '1') {
+    //                     $orden = OrdenPurchases::find($pago->order_id);
+    //                     $patrocinador = $orden->getOrdenUser->referred_id;
+    //                     $side = $orden->getOrdenUser->binary_side;
+    //                     if($side == 'I'){
+    //                         User::where([
+    //                             ['id', '=', $patrocinador],
+    //                             ['not_payment_binary_point_izq', '=', 0]
+    //                         ])->update(['not_payment_binary_point_izq' => $orden->id]);
+    //                     }else{
+    //                         User::where([
+    //                             ['id', '=', $patrocinador],
+    //                             ['not_payment_binary_point_der', '=', 0]
+    //                         ])->update(['not_payment_binary_point_der' => $orden->id]);
+    //                     }
+    //                     $this->registeInversion($pago->order_id);
+    //                 }
+    //                 Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
+    //             // }
+    //         }
+    //         // $resul = $response->invoice_url;
+    //     }
+    // }
+
+
+             /**
      * Permite saber el estado de las ordenes realizadas
      *
      * @return void
      */
     public function checkStatusOrden()
     {
-
-        $this->apis_key_nowpayments = Crypt::decryptString("eyJpdiI6IkRLT2tDbFJ1ZTJnWUVCSEs2VkZMaVE9PSIsInZhbHVlIjoiTkVuaXpGQ1EvSWlkcnU1djI2N0tnK08yc0w2TVpQdkZrOFlKNTF5YzNTcz0iLCJtYWMiOiI0Y2M2NzI5NDQzMjM3ODI2ZTg3YjMyYTRhZWU4ODM5NTYxYmE2ZTIyMzIxNmI3MmNhYTQ1NDQ5ZGVlZGFhYjdlIn0=");
-        $headers = [
-            'x-api-key: '.$this->apis_key_nowpayments,
-            'Content-Type:application/json'
-        ];
-
-        $resul = ''; 
-        $curl = curl_init();
-
         $fechaTo = Carbon::now();
         $fechaFrom = $fechaTo->copy()->subDays(2);
+        $ordenes = OrdenPurchases::whereBetween('created_at', [$fechaFrom, $fechaTo])->get();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.nowpayments.io/v1/payment?limit=100&dateFrom=".$fechaFrom->format('Y-m-d')."&dateTo=".$fechaTo->copy()->addDays(1)->format('Y-m-d'),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => $headers
-        ));
-            
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
-        if ($err) {
-            Log::error('Tienda - checkStatusOrden -> Error curl: '.$err);        
-        } else {
-            $response = json_decode($response);
-            $pagos = $response->data;
-            // dd($pagos);
-            foreach ($pagos as $pago) {
-                // if ($pago->order_id < 964 && $pago->order_id > 968) {
+        foreach($ordenes as $orden){
+            $ordenCoinpayment = $this->coinPaymentController->GetTransactionInformation($orden->idtransacion);
+            if($ordenCoinpayment['error'] != 'ok'){
+                Log::error('Tienda - checkStatusOrden -> Error: '.$ordenCoinpayment['error']);     
+            }else{
+                //  * STATUS COINPAYMENT
+                //  * -1 = Cancelled, 
+                //  * 0 = Waiting for email confirmation, 
+                //  * 1 = Pending, 
+                //  * 2 = Complete
+                $status = $ordenCoinpayment['result']['status'];
+                if($status == -1){
+                    $estado = '2';
+                    $orden->update(['status' => $estado]);
+                    Log::info('ID Orden: '.$orden->id.' - Transacion: '.$orden->idtransacion.' Estado: '.$orden->status . ' | Cancelado/Tiempo Agotado');
+                }elseif($status == 0){
                     $estado = '0';
-                    if ($pago->payment_status == 'expired') {
-                        $estado = '2';
-                        OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
+                }elseif($status == 2){
+                    $patrocinador = $orden->getOrdenUser->referred_id;
+                    $side = $orden->getOrdenUser->binary_side;
+                    if($side == 'I'){
+                        User::where([
+                            ['id', '=', $patrocinador],
+                            ['not_payment_binary_point_izq', '=', 0]
+                        ])->update(['not_payment_binary_point_izq' => $orden->id]);
+                    }else{
+                        User::where([
+                            ['id', '=', $patrocinador],
+                            ['not_payment_binary_point_der', '=', 0]
+                        ])->update(['not_payment_binary_point_der' => $orden->id]);
                     }
-                    if($pago->payment_status == 'finished'){
-                        $estado = '1';
-                        OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
-                    }
-                    if($pago->payment_status == 'partially_paid'){
-                        $resta = ($pago->pay_amount - $pago->actually_paid);
-                        if ($resta <= 1) {
-                            $estado = '1';
-                            OrdenPurchases::where('id', '=', $pago->order_id)->update(['status' => $estado]);
-                        }
-                    }
-                    if ($estado == '1') {
-                        $orden = OrdenPurchases::find($pago->order_id);
-                        $patrocinador = $orden->getOrdenUser->referred_id;
-                        $side = $orden->getOrdenUser->binary_side;
-                        if($side == 'I'){
-                            User::where([
-                                ['id', '=', $patrocinador],
-                                ['not_payment_binary_point_izq', '=', 0]
-                            ])->update(['not_payment_binary_point_izq' => $orden->id]);
-                        }else{
-                            User::where([
-                                ['id', '=', $patrocinador],
-                                ['not_payment_binary_point_der', '=', 0]
-                            ])->update(['not_payment_binary_point_der' => $orden->id]);
-                        }
-                        $this->registeInversion($pago->order_id);
-                    }
-                    Log::info('ID Orden: '.$pago->order_id.' - Transacion: '.$pago->invoice_id.' Estado: '.$pago->payment_status);
-                // }
+                    $this->registeInversion($orden->id);
+                    Log::info('ID Orden: '.$orden->id.' - Transacion: '.$orden->idtransacion.' Estado: '.$orden->status . ' | Pagado');
+                }
             }
-            // $resul = $response->invoice_url;
+            
         }
     }
 

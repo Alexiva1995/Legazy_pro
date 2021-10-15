@@ -73,6 +73,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
         // Route::get('/groups/{idgroup}/products', 'TiendaController@products')->name('shop.products');
         Route::post('/procces', 'TiendaController@procesarOrden')->name('shop.procces');
         Route::get('/ipn/{id}', 'CoinPaymentController@GetTransactionInformation')->name('shop.ipn');
+        // Route::get('/checkStatusOrden', 'TiendaController@checkStatusOrden')->name('checkStatusOrden');
         Route::get('/{status}/estado', 'TiendaController@statusProcess')->name('shop.proceso.status');
         Route::post('cambiarStatus', 'TiendaController@cambiar_status')->name('cambiarStatus');
     });
@@ -107,7 +108,6 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
         Route::get('change-password', 'ChangePasswordController@change-password')->name('profile.change-password');
 
         Route::get('/impersonate/stop', 'ImpersonateController@stop')->name('impersonate.stop');
-        Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
 
         Route::get('sendcode', 'UserController@sendCodeEmail')->name('user.send.code');
     });
@@ -150,6 +150,7 @@ Route::prefix('dashboard')->middleware('menu', 'auth', 'check.email')->group(fun
      */
     Route::prefix('admin')->middleware('checkrole')->group(function ()
     {
+        Route::post('/impersonate/{user}/start', 'ImpersonateController@start')->name('impersonate.start');
 
         //Agregar servicios
         Route::prefix('products')->group(function ()
