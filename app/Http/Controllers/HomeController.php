@@ -70,10 +70,6 @@ class HomeController extends Controller
     public function indexUser()
     {
         try {
-            // if (Auth::id() == 391) {
-            //     $this->walletController->bonoDirecto();
-            //     $this->walletController->payPointsBinary();
-            // }
             $data = $this->dataDashboard(Auth::id());
             return view('dashboard.indexUser', compact('data'));
         } catch (\Throwable $th) {
@@ -90,6 +86,9 @@ class HomeController extends Controller
      */
     public function dataDashboard(int $iduser):array
     {
+        // if (Auth::id() == 391) {
+        //     $this->walletController->getFirtsOrdensNoPayPoint();
+        // }
         $cantUsers = $this->treeController->getTotalUser($iduser);
         $data = [
             'directos' => $cantUsers['directos'],

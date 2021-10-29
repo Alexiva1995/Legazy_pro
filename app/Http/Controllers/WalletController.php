@@ -627,4 +627,26 @@ class WalletController extends Controller
             $this->bonoBinario();
         }
     }
+
+    /**
+     * permite obtener la primer orden que no va a pagar puntos
+     */
+    public function getFirtsOrdensNoPayPoint()
+    {
+        $ordenes = OrdenPurchases::where('status', '=', '1')->get();
+
+        foreach ($ordenes as $orden) {
+            $idpadre = $orden->getOrdenUser->referred_id;
+            $side = $orden->getOrdenUser->binary_side;
+            $padre = User::find($idpadre);
+            if (!empty($padre)) {
+                $campo = ($side == 'I') ? 'not_payment_binary_point_izq' : 'not_payment_binary_point_der';
+                if ($padre->$campo > $orden->id) {
+                    $padre->$campo = $orden->id;
+                    $padre->save();
+                }
+            }
+        }
+        dd('parar');
+    }
 }

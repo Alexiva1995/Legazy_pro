@@ -230,9 +230,8 @@ class TiendaController extends Controller
             $dataRaw = collect([
                 'price_amount' => floatval($data['total'])  ,
                 "price_currency" => "usd",
-                "order_id" => $data['idorden'],
-                'pay_currency' => '',
-                "order_description" => $data['descripcion'],
+                "order_id" => (string)$data['idorden'],
+                "order_description" => (string)$data['descripcion'],
                 "ipn_callback_url" => route('shop.ipn'),
                 "success_url" => route('shop.proceso.status', 'Completada'),
                 "cancel_url" => route('shop.proceso.status', 'Cancelada')
@@ -260,7 +259,7 @@ class TiendaController extends Controller
                     Log::error('Tienda - generalUrlOrden -> Error curl: '.$err);
                 } else {
                     $response = json_decode($response);
-                    // dd($response);
+                    // dd($response);-
                    
                     $orden = OrdenPurchases::where('id', $data['idorden'])->first();
             
