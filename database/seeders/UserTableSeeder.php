@@ -20,8 +20,6 @@ class UserTableSeeder extends Seeder
         $arrayUsers = [
             
             [
-                'name' => 'Admin',
-                'last_name' => 'BFX',
                 'fullname' => 'Admin BFX',
                 'username' => 'AdminBFX',
                 'email' => 'admin@bfx.com',
@@ -33,8 +31,6 @@ class UserTableSeeder extends Seeder
             ],
             
             [
-                'name' => 'Test',
-                'last_name' => 'BFX',
                 'fullname' => 'Test BFX',
                 'username' => 'TestBFX',
                 'email' => 'test@bfx.com',
@@ -46,8 +42,6 @@ class UserTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Test',
-                'last_name' => 'BFX 2',
                 'fullname' => 'Test BFX 2',
                 'username' => 'TestBFX2',
                 'email' => 'test@bfx2.com',

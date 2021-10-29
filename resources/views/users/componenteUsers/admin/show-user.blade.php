@@ -17,11 +17,11 @@
 
 @push('custom_js')
 <script>
-    $(document).ready(function () {
-        @if($user-> dni != NULL)
-        previewPersistedFile("{{asset('storage/dni/'.$user->dni)}}", 'photo_preview');
-        @endif
-    });
+    // $(document).ready(function () {
+    //     @if($user-> dni != NULL)
+    //     previewPersistedFile("{{asset('storage/dni/'.$user->dni)}}", 'photo_preview');
+    //     @endif
+    // });
 
     function previewFile(input, preview_id) {
         if (input.files && input.files[0]) {
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
+                                    {{-- <div class="col-12">
 
                                         <div class="form-group">
                                             <div class="controls">
@@ -112,7 +112,7 @@
                                             <div class="col"></div>
                                         </div>
 
-                                    </div>
+                                    </div> --}}
 
 
                                     <div class="col-12 mt-1 d-flex flex-row-reverse">

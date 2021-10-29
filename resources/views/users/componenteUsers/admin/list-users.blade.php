@@ -75,7 +75,7 @@
                                     <td>Eliminado</td>
                                     @endif
                                     <td>{{ $item->created_at}}</td>
-                                    <td>
+                                    <td class="d-flex">
                                         <a class="text-white btn btn-warning" href="{{route('user.authentication', ['Reiniciado', $item->id])}}">Reiniciar QR</a>
                                         @if ($item->activar_2fact > 0)
                                             @if ($item->activar_2fact == 1)
@@ -83,6 +83,14 @@
                                             @else
                                             <a class="text-white btn btn-success" href="{{route('user.authentication', ['Activado', $item->id])}}">Activar 2fact</a>
                                             @endif
+                                        @endif
+                                        
+                                        @if(Auth::id() != $item->id)
+                                        <form method="POST" action="{{route('impersonate.start', $item)}}">
+                                            @csrf
+
+                                            <button type="submit" class="text-white btn btn-info"><i class="fa fa-eye text-white"></i></button>
+                                        </form>
                                         @endif
                                         
                                     </td>

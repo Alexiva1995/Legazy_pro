@@ -93,7 +93,6 @@ class HomeController extends Controller
         $data = [
             'directos' => $cantUsers['directos'],
             'indirectos' => $cantUsers['indirectos'],
-            'wallet' => Auth::user()->wallet,
             'comisiones' => $this->walletController->getTotalComision($iduser),
             'tickets' => 0,
             'ordenes' => 0,

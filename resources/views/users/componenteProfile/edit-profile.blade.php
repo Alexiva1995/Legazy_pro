@@ -1,8 +1,8 @@
-<form action="{{ route('profile.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('profile.update',$user->id) }}" method="POST">
     @csrf
     @method('PATCH')
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-12">
             <div class="form-group">
                 <div class="controls">
@@ -50,32 +50,7 @@
         </div>
 
     </div>
-    <hr>
-    <div class="media">
-        <div class="custom-file">
-            <label class="custom-file-label  border border-warning rounded-0" for="photoDB"
-                style="background: #1e1e1e;color: white;">Seleccione su
-                Foto <b>(Se permiten JPG o PNG.
-                    Tamaño máximo de 800kB)</b></label>
-            <input type="file" id="photoDB" class="custom-file-input @error('photoDB') is-invalid @enderror"
-                name="photoDB" onchange="previewFile(this, 'photo_preview')" accept="image/png,image/jpeg">
-            @error('photoDB')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-        </div>
-    </div>
-
-    <div class="row mb-4 mt-4 d-none" id="photo_preview_wrapper">
-        <div class="col"></div>
-        <div class="col-auto">
-            <img id="photo_preview" class="img-fluid rounded" />
-        </div>
-        <div class="col"></div>
-    </div>
-
-    <hr>
+    <hr> --}}
 
     <div class="row">
         <div class="col-12">
@@ -138,8 +113,8 @@
         <div class="col-6">
             <div class="form-group">
                 <div class="controls">
-                    <label class=" white" for="whatsapp">Telefono</label>
-                    <input type="text"
+                    <label class=" white" for="whatsapp">WhatsApp</label>
+                    <input type="tel"
                         class="form-control border border-warning rounded-0 @error('whatsapp') is-invalid @enderror"
                         name="whatsapp" value="{{ $user->whatsapp }}">
                     @error('whatsapp')
